@@ -1,0 +1,10 @@
+{
+	"category": "api",
+	"label": "API",
+	"packages": [
+		{
+			"name": "api-models",
+			"description": "Contains models and classes for use with APIs."
+		}
+	]
+}

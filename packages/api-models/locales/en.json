@@ -1,0 +1,9 @@
+{
+	"error": {
+		"baseRestClient": {
+			"missingRouteProp": "Missing route parameter in data \"{routeProp}\" for route \"{route}\"",
+			"decodingFailed": "Decoding JSON failed for route \"{route}\"",
+			"failureStatusText": "The request to the API failed: \"{statusText}\""
+		}
+	}
+}

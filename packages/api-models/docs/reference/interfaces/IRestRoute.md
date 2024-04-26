@@ -12,25 +12,25 @@ Interface which defines a REST route.
 
 ### handler
 
-• **handler**: (`requestContext`: `IRequestContext`, `request`: `any`, `body?`: `unknown`) => `Promise`\<`any`\>
+• **handler**: (`requestContext`: `IRequestContext`, `request`: `unknown`, `body?`: `unknown`) => `Promise`\<`unknown`\>
 
 The handler module.
 
 #### Type declaration
 
-▸ (`requestContext`, `request`, `body?`): `Promise`\<`any`\>
+▸ (`requestContext`, `request`, `body?`): `Promise`\<`unknown`\>
 
 ##### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestContext` | `IRequestContext` | The request context. |
-| `request` | `any` | The request object, combined query param, path params and body. |
+| `request` | `unknown` | The request object, combined query param, path params and body. |
 | `body?` | `unknown` | Body as standalone if it's a data request. |
 
 ##### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`unknown`\>
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 ### responseType
 
-• `Optional` **responseType**: `string` \| \{ `statusCode`: `number` ; `type`: `string`  }[]
+• `Optional` **responseType**: `string` \| \{ `statusCode`: `HttpStatusCodes` ; `type`: `string`  }[]
 
 The type of the response object.
 

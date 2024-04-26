@@ -35,13 +35,15 @@ export interface IRestRoute extends IBaseRoute {
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		request: unknown,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		request: any,
 
 		/**
 		 * Body as standalone if it's a data request.
 		 */
 		body?: unknown
-	) => Promise<unknown>;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	) => Promise<any>;
 
 	/**
 	 * The type of the request object.

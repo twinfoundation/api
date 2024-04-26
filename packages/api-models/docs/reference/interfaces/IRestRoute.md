@@ -12,25 +12,25 @@ Interface which defines a REST route.
 
 ### handler
 
-• **handler**: (`requestContext`: `IRequestContext`, `request`: `unknown`, `body?`: `unknown`) => `Promise`\<`unknown`\>
+• **handler**: (`requestContext`: `IRequestContext`, `request`: `any`, `body?`: `unknown`) => `Promise`\<`any`\>
 
 The handler module.
 
 #### Type declaration
 
-▸ (`requestContext`, `request`, `body?`): `Promise`\<`unknown`\>
+▸ (`requestContext`, `request`, `body?`): `Promise`\<`any`\>
 
 ##### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `requestContext` | `IRequestContext` | The request context. |
-| `request` | `unknown` | The request object, combined query param, path params and body. |
+| `request` | `any` | The request object, combined query param, path params and body. |
 | `body?` | `unknown` | Body as standalone if it's a data request. |
 
 ##### Returns
 
-`Promise`\<`unknown`\>
+`Promise`\<`any`\>
 
 ___
 

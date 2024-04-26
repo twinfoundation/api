@@ -12,7 +12,7 @@ Interface which defines a socket route.
 
 ### handler
 
-• **handler**: (`requestContext`: `IRequestContext`, `socketId`: `string`, `request`: `any`, `emitter`: (`topic`: `string`, `response?`: `unknown`) => `Promise`\<`void`\>) => `Promise`\<`void`\>
+• **handler**: (`requestContext`: `IRequestContext`, `socketId`: `string`, `request`: `unknown`, `emitter`: (`topic`: `string`, `response?`: `unknown`) => `Promise`\<`void`\>) => `Promise`\<`void`\>
 
 The handler module.
 
@@ -26,7 +26,7 @@ The handler module.
 | :------ | :------ | :------ |
 | `requestContext` | `IRequestContext` | The request context. |
 | `socketId` | `string` | The id of the socket the request is arriving on. |
-| `request` | `any` | The request object. |
+| `request` | `unknown` | The request object. |
 | `emitter` | (`topic`: `string`, `response?`: `unknown`) => `Promise`\<`void`\> | Method to emit data on the socket. |
 
 ##### Returns

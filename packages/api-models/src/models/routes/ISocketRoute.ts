@@ -24,8 +24,7 @@ export interface ISocketRoute extends IBaseRoute {
 		/**
 		 * The request object.
 		 */
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		request: any,
+		request: unknown,
 
 		/**
 		 * Method to emit data on the socket.

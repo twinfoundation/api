@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IRequestContext } from "@gtsc/services";
-import type { HttpMethods } from "@gtsc/web";
+import type { HttpMethods, HttpStatusCodes } from "@gtsc/web";
 import type { IBaseRoute } from "./IBaseRoute";
 
 /**
@@ -35,15 +35,13 @@ export interface IRestRoute extends IBaseRoute {
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		request: any,
+		request: unknown,
 
 		/**
 		 * Body as standalone if it's a data request.
 		 */
 		body?: unknown
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	) => Promise<any>;
+	) => Promise<unknown>;
 
 	/**
 	 * The type of the request object.
@@ -56,7 +54,7 @@ export interface IRestRoute extends IBaseRoute {
 	responseType?:
 		| string
 		| {
-				statusCode: number;
+				statusCode: HttpStatusCodes;
 				type: string;
 		  }[];
 

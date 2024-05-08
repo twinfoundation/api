@@ -20,6 +20,6 @@ ___
 
 ### statusCode
 
-• **statusCode**: `number`
+• **statusCode**: `HttpStatusCodes`
 
 Alternative response status code.

@@ -189,14 +189,8 @@ export abstract class BaseRestClient {
 		const errResponse = await response.json();
 		let err: BaseError | undefined;
 		if (
-			[
-				HttpStatusCodes.UNPROCESSABLE_ENTITY,
-				HttpStatusCodes.NOT_FOUND,
-				HttpStatusCodes.CONFLICT,
-				HttpStatusCodes.BAD_REQUEST,
-				HttpStatusCodes.FORBIDDEN,
-				HttpStatusCodes.UNAUTHORIZED
-			].includes(response.status) &&
+			response.status >= HttpStatusCodes.BAD_REQUEST &&
+			response.status < HttpStatusCodes.INTERNAL_SERVER_ERROR &&
 			Is.object(errResponse) &&
 			Is.stringValue(errResponse.message)
 		) {

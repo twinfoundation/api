@@ -18,6 +18,7 @@
 - [IErrorResponse](interfaces/IErrorResponse.md)
 - [IForbiddenResponse](interfaces/IForbiddenResponse.md)
 - [IHttpRequest](interfaces/IHttpRequest.md)
+- [IHttpRequestContext](interfaces/IHttpRequestContext.md)
 - [IHttpRequestQuery](interfaces/IHttpRequestQuery.md)
 - [IHttpResponse](interfaces/IHttpResponse.md)
 - [IInternalServerErrorResponse](interfaces/IInternalServerErrorResponse.md)

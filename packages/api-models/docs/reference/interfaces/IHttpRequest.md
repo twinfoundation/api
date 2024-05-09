@@ -20,7 +20,7 @@ ___
 
 ### path
 
-• **path**: `Object`
+• `Optional` **path**: `Object`
 
 The path parameters.
 

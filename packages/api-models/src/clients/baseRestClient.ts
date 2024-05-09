@@ -126,7 +126,7 @@ export abstract class BaseRestClient {
 				const pathValue = requestData?.path?.[routeProp];
 				if (Is.notEmpty(pathValue)) {
 					routeParts[i] = Coerce.string(pathValue) ?? "";
-					delete requestData?.path[routeProp];
+					delete requestData?.path?.[routeProp];
 				} else {
 					throw new FetchError(
 						this._implementationName,

@@ -9,7 +9,7 @@ export interface IHttpRequest<T = unknown> {
 	/**
 	 * The path parameters.
 	 */
-	path: { [id: string]: string | number | boolean };
+	path?: { [id: string]: string | number | boolean };
 
 	/**
 	 * Request query parameters.

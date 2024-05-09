@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { nameof } from "@gtsc/nameof";
-import { HttpStatusCodes } from "@gtsc/web";
 import type { IHttpRequestContext } from "../../../src/models/protocol/IHttpRequestContext";
 import type { IRestRoute } from "../../../src/models/routes/IRestRoute";
 
@@ -58,7 +57,6 @@ describe("IRestRoute", () => {
 			responseType: [
 				{
 					type: nameof<ICreateResponse>(),
-					statusCode: HttpStatusCodes.CREATED,
 					examples: [
 						{
 							data: {

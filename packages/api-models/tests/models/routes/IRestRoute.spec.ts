@@ -48,8 +48,12 @@ describe("IRestRoute", () => {
 				type: nameof<ICreateRequest>(),
 				examples: [
 					{
-						data: {
-							value: "user"
+						id: "example-request",
+						description: "Example request",
+						body: {
+							data: {
+								value: "user"
+							}
 						}
 					}
 				]
@@ -59,8 +63,12 @@ describe("IRestRoute", () => {
 					type: nameof<ICreateResponse>(),
 					examples: [
 						{
-							data: {
-								value: "user"
+							id: "example-response",
+							description: "Example response",
+							body: {
+								data: {
+									value: "user"
+								}
 							}
 						}
 					]

@@ -3,21 +3,21 @@
 import type { HttpStatusCodes, IHttpRequestHeaders } from "@gtsc/web";
 
 /**
- * Model used when a REST route wants to return custom response.
+ * Model for the standard parameters for an http response.
  */
 export interface IHttpResponse<T = unknown> {
 	/**
-	 * Alternative response status code.
+	 * Response status code.
 	 */
 	statusCode?: HttpStatusCodes;
 
 	/**
-	 * Additional response headers.
+	 * Response headers.
 	 */
 	headers?: IHttpRequestHeaders;
 
 	/**
 	 * Data to return as the main payload.
 	 */
-	data?: T;
+	body?: T;
 }

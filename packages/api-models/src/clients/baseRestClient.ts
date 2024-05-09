@@ -91,14 +91,14 @@ export abstract class BaseRestClient {
 	 * @param requestContext The context for the request.
 	 * @param route The route of the request.
 	 * @param method The http method.
-	 * @param requestData Request to send to the endpoint.
+	 * @param request Request to send to the endpoint.
 	 * @returns The response.
 	 */
 	public async fetch<T extends IHttpRequest, U extends IHttpResponse>(
 		requestContext: IRequestContext,
 		route: string,
 		method: HttpMethods,
-		requestData?: T
+		request?: T
 	): Promise<U> {
 		Guards.object<IRequestContext>(
 			this._implementationName,
@@ -123,10 +123,10 @@ export abstract class BaseRestClient {
 		for (let i = 0; i < routeParts.length; i++) {
 			if (routeParts[i].startsWith(":")) {
 				const routeProp = routeParts[i].slice(1);
-				const pathValue = requestData?.path?.[routeProp];
+				const pathValue = request?.path?.[routeProp];
 				if (Is.notEmpty(pathValue)) {
 					routeParts[i] = Coerce.string(pathValue) ?? "";
-					delete requestData?.path?.[routeProp];
+					delete request?.path?.[routeProp];
 				} else {
 					throw new FetchError(
 						this._implementationName,
@@ -140,10 +140,10 @@ export abstract class BaseRestClient {
 
 		const queryKeyPairs: IKeyValue<string>[] = [];
 
-		const isHttpRequest = Is.notEmpty(requestData);
+		const isHttpRequest = Is.notEmpty(request);
 
 		if (isHttpRequest) {
-			const query = requestData?.query;
+			const query = request?.query;
 			if (Is.object(query)) {
 				for (const qp in query) {
 					const propValue = query[qp];
@@ -154,7 +154,7 @@ export abstract class BaseRestClient {
 						});
 					}
 				}
-				delete requestData?.query;
+				delete request?.query;
 			}
 		}
 
@@ -168,12 +168,11 @@ export abstract class BaseRestClient {
 				.join("&")}`;
 		}
 
-		const payload =
-			isHttpRequest && requestData?.data ? JSON.stringify(requestData?.data) : undefined;
+		const body = isHttpRequest && request?.body ? JSON.stringify(request?.body) : undefined;
 
 		let headers: IHttpRequestHeaders = {};
 
-		if (payload) {
+		if (body) {
 			headers["Content-Type"] = "application/json";
 		}
 
@@ -189,7 +188,7 @@ export abstract class BaseRestClient {
 			this._endpointWithPrefix,
 			finalRoute,
 			method,
-			payload,
+			body,
 			{ headers, timeoutMs: this._timeout, includeCredentials: this._includeCredentials }
 		);
 

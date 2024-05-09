@@ -9,25 +9,51 @@
 
 - [IAcceptedResponse](interfaces/IAcceptedResponse.md)
 - [IAuthConnector](interfaces/IAuthConnector.md)
-- [IBadRequestResponse](interfaces/IBadRequestResponse.md)
 - [IBaseRestClientConfig](interfaces/IBaseRestClientConfig.md)
 - [IBaseRoute](interfaces/IBaseRoute.md)
 - [IBaseSocketClientConfig](interfaces/IBaseSocketClientConfig.md)
 - [IConflictResponse](interfaces/IConflictResponse.md)
 - [ICreatedResponse](interfaces/ICreatedResponse.md)
-- [IErrorResponse](interfaces/IErrorResponse.md)
-- [IForbiddenResponse](interfaces/IForbiddenResponse.md)
 - [IHttpRequest](interfaces/IHttpRequest.md)
 - [IHttpRequestContext](interfaces/IHttpRequestContext.md)
 - [IHttpRequestQuery](interfaces/IHttpRequestQuery.md)
 - [IHttpResponse](interfaces/IHttpResponse.md)
-- [IInternalServerErrorResponse](interfaces/IInternalServerErrorResponse.md)
 - [INoContentResponse](interfaces/INoContentResponse.md)
 - [INotFoundResponse](interfaces/INotFoundResponse.md)
+- [IOkResponse](interfaces/IOkResponse.md)
 - [IRestRoute](interfaces/IRestRoute.md)
-- [IServiceUnavailableResponse](interfaces/IServiceUnavailableResponse.md)
 - [ISocketRoute](interfaces/ISocketRoute.md)
-- [ISuccessResponse](interfaces/ISuccessResponse.md)
 - [ITag](interfaces/ITag.md)
-- [IUnauthorizedResponse](interfaces/IUnauthorizedResponse.md)
 - [IUnprocessableEntityResponse](interfaces/IUnprocessableEntityResponse.md)
+
+## Type Aliases
+
+### IBadRequestResponse
+
+Ƭ **IBadRequestResponse**: [`IErrorResponse`](modules.md#ierrorresponse)
+
+Something went wrong with the request see the error field for more details.
+
+___
+
+### IErrorResponse
+
+Ƭ **IErrorResponse**: `IError`
+
+Response to be used when returning an error.
+
+___
+
+### IForbiddenResponse
+
+Ƭ **IForbiddenResponse**: [`IErrorResponse`](modules.md#ierrorresponse)
+
+The operation that you tried to perform is not possible, see the error field for more details.
+
+___
+
+### IUnauthorizedResponse
+
+Ƭ **IUnauthorizedResponse**: [`IErrorResponse`](modules.md#ierrorresponse)
+
+You are not authorized to use the API or no credentials were supplied.

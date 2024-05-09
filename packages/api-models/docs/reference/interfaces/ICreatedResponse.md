@@ -22,4 +22,4 @@ ___
 
 • **statusCode**: `HttpStatusCodes`
 
-Alternative response status code.
+Response status code.

@@ -11,7 +11,7 @@ interface ICreateRequest {
 	/**
 	 * The data for the request.
 	 */
-	data: {
+	body: {
 		/**
 		 * The value for the request.
 		 */
@@ -26,7 +26,7 @@ interface ICreateResponse {
 	/**
 	 * The data for the response.
 	 */
-	data: {
+	body: {
 		/**
 		 * The value for the response.
 		 */
@@ -50,8 +50,8 @@ describe("IRestRoute", () => {
 					{
 						id: "example-request",
 						description: "Example request",
-						body: {
-							data: {
+						request: {
+							body: {
 								value: "user"
 							}
 						}
@@ -65,8 +65,8 @@ describe("IRestRoute", () => {
 						{
 							id: "example-response",
 							description: "Example response",
-							body: {
-								data: {
+							response: {
+								body: {
 									value: "user"
 								}
 							}
@@ -97,7 +97,7 @@ export async function identityCreate(
 	body?: unknown
 ): Promise<ICreateResponse> {
 	return {
-		data: {
+		body: {
 			value: "foo"
 		}
 	};

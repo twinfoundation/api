@@ -1,6 +1,6 @@
 # Interface: IHttpResponse\<T\>
 
-Model used when a REST route wants to return custom response.
+Model for the standard parameters for an http response.
 
 ## Type parameters
 
@@ -10,9 +10,9 @@ Model used when a REST route wants to return custom response.
 
 ## Properties
 
-### data
+### body
 
-• `Optional` **data**: `T`
+• `Optional` **body**: `T`
 
 Data to return as the main payload.
 
@@ -22,7 +22,7 @@ ___
 
 • `Optional` **headers**: `IHttpRequestHeaders`
 
-Additional response headers.
+Response headers.
 
 ___
 
@@ -30,4 +30,4 @@ ___
 
 • `Optional` **statusCode**: `HttpStatusCodes`
 
-Alternative response status code.
+Response status code.

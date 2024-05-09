@@ -3,11 +3,11 @@
 import type { HttpStatusCodes } from "@gtsc/web";
 
 /**
- * The rest request ended in created response.
+ * The rest request ended in accepted response.
  */
-export interface ICreatedResponse {
+export interface IAcceptedResponse {
 	/**
-	 * Alternative response status code.
+	 * Response status code.
 	 */
 	statusCode: HttpStatusCodes;
 
@@ -16,7 +16,7 @@ export interface ICreatedResponse {
 	 */
 	headers: {
 		/**
-		 * The location where the resource was created.
+		 * The location where the resource was accepted.
 		 */
 		location: string;
 	};

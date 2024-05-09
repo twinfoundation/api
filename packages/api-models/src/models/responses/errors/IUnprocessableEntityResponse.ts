@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IErrorResponse } from "../IErrorResponse";
+import type { IErrorResponse } from "./IErrorResponse";
 
 /**
  * The operation could not be processed, see the error field for more details.

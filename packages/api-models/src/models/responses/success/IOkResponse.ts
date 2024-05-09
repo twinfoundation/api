@@ -5,4 +5,4 @@
  * The rest request ended in success with no data.
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ISuccessResponse {}
+export interface IOkResponse {}

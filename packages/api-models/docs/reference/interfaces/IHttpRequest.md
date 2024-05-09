@@ -10,11 +10,11 @@ Model for the standard parameters for an http request.
 
 ## Properties
 
-### data
+### body
 
-• `Optional` **data**: `T`
+• `Optional` **body**: `T`
 
-Data to return as the main payload.
+Data to return send as the body.
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 • `Optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
 
-Request query parameters.
+The query parameters.

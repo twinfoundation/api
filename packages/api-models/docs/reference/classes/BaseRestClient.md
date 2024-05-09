@@ -34,7 +34,7 @@ Include credentials in the request, defaults to true.
 
 ### fetch
 
-▸ **fetch**\<`T`, `U`\>(`requestContext`, `route`, `method`, `requestData?`): `Promise`\<`U`\>
+▸ **fetch**\<`T`, `U`\>(`requestContext`, `route`, `method`, `request?`): `Promise`\<`U`\>
 
 Perform a request in json format.
 
@@ -52,7 +52,7 @@ Perform a request in json format.
 | `requestContext` | `IRequestContext` | The context for the request. |
 | `route` | `string` | The route of the request. |
 | `method` | `HttpMethods` | The http method. |
-| `requestData?` | `T` | Request to send to the endpoint. |
+| `request?` | `T` | Request to send to the endpoint. |
 
 #### Returns
 

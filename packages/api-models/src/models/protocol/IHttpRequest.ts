@@ -12,12 +12,12 @@ export interface IHttpRequest<T = unknown> {
 	path?: { [id: string]: string | number | boolean };
 
 	/**
-	 * Request query parameters.
+	 * The query parameters.
 	 */
 	query?: IHttpRequestQuery;
 
 	/**
-	 * Data to return as the main payload.
+	 * Data to return send as the body.
 	 */
-	data?: T;
+	body?: T;
 }

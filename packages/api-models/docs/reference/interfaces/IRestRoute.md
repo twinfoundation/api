@@ -106,7 +106,7 @@ ___
 
 ### responseType
 
-• `Optional` **responseType**: \{ `examples?`: `U`[] ; `statusCode`: `HttpStatusCodes` ; `type`: `string`  }[]
+• `Optional` **responseType**: \{ `examples?`: `U`[] ; `type`: `string`  }[]
 
 The type of the response object.
 

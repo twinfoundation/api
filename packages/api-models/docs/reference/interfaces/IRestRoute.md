@@ -91,7 +91,7 @@ The type of the request object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `examples?` | \{ `body`: `T` ; `description?`: `string` ; `id`: `string`  }[] | Example objects for the request. |
+| `examples?` | \{ `description?`: `string` ; `id`: `string` ; `request`: `T`  }[] | Example objects for the request. |
 | `type` | `string` | The object type for the request. |
 
 ___
@@ -106,7 +106,7 @@ ___
 
 ### responseType
 
-• `Optional` **responseType**: \{ `examples?`: \{ `body`: `U` ; `description?`: `string` ; `id`: `string`  }[] ; `type`: `string`  }[]
+• `Optional` **responseType**: \{ `examples?`: \{ `description?`: `string` ; `id`: `string` ; `response`: `U`  }[] ; `type`: `string`  }[]
 
 The type of the response object.
 

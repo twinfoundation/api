@@ -22,6 +22,14 @@ Create a new instance of BaseRestClient.
 
 [`BaseRestClient`](BaseRestClient.md)
 
+## Properties
+
+### \_includeCredentials
+
+• `Private` `Readonly` **\_includeCredentials**: `boolean`
+
+Include credentials in the request, defaults to true.
+
 ## Methods
 
 ### fetch
@@ -32,10 +40,10 @@ Perform a request in json format.
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `T` |
-| `U` |
+| Name | Type |
+| :------ | :------ |
+| `T` | extends [`IHttpRequest`](../interfaces/IHttpRequest.md)\<`unknown`\> |
+| `U` | extends [`IHttpResponse`](../interfaces/IHttpResponse.md)\<`unknown`\> |
 
 #### Parameters
 

@@ -76,9 +76,16 @@ ___
 
 ### requestType
 
-• `Optional` **requestType**: `string`
+• `Optional` **requestType**: `Object`
 
 The type of the request object.
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `examples?` | `unknown`[] | Example objects for the request. |
+| `type` | `string` | The object type for the request. |
 
 ___
 
@@ -92,7 +99,7 @@ ___
 
 ### responseType
 
-• `Optional` **responseType**: `string` \| \{ `statusCode`: `HttpStatusCodes` ; `type`: `string`  }[]
+• `Optional` **responseType**: \{ `examples?`: `unknown`[] ; `statusCode`: `HttpStatusCodes` ; `type`: `string`  }[]
 
 The type of the response object.
 

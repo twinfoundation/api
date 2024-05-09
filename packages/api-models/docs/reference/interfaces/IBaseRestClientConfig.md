@@ -20,6 +20,14 @@ The headers to include in requests.
 
 ___
 
+### includeCredentials
+
+• `Optional` **includeCredentials**: `boolean`
+
+Include credentials in the request, defaults to true.
+
+___
+
 ### pathPrefix
 
 • `Optional` **pathPrefix**: `string`

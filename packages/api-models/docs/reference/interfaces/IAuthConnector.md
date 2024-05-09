@@ -70,7 +70,7 @@ Process the response to see if there are any additional headers to add.
 | `requestContext` | `IRequestContext` | The context for the request. |
 | `route` | [`IBaseRoute`](IBaseRoute.md) | The route being responded to. |
 | `requestHeaders` | `IHttpRequestHeaders` | The request headers. |
-| `response` | \{ `[id: string]`: `unknown`;  } & [`IHttpResponse`](IHttpResponse.md) | The response. |
+| `response` | \{ `[id: string]`: `unknown`;  } & [`IHttpResponse`](IHttpResponse.md)\<`unknown`\> | The response. |
 
 #### Returns
 

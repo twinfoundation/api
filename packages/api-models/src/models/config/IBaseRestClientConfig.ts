@@ -25,4 +25,9 @@ export interface IBaseRestClientConfig {
 	 * Timeout for requests in ms.
 	 */
 	timeout?: number;
+
+	/**
+	 * Include credentials in the request, defaults to true.
+	 */
+	includeCredentials?: boolean;
 }

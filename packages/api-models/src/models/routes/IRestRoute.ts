@@ -56,7 +56,7 @@ export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 		/**
 		 * Example objects for the request.
 		 */
-		examples?: T[];
+		examples?: { id: string; description?: string; body: T }[];
 	};
 
 	/**
@@ -70,7 +70,7 @@ export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 		/**
 		 * Example objects of the response.
 		 */
-		examples?: U[];
+		examples?: { id: string; description?: string; body: U }[];
 	}[];
 
 	/**

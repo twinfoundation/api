@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpMethods, HttpStatusCodes } from "@gtsc/web";
+import type { HttpMethods } from "@gtsc/web";
 import type { IBaseRoute } from "./IBaseRoute";
 import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
 
@@ -63,10 +63,6 @@ export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 	 * The type of the response object.
 	 */
 	responseType?: {
-		/**
-		 * The status code of the response.
-		 */
-		statusCode: HttpStatusCodes;
 		/**
 		 * The object type of the response.
 		 */

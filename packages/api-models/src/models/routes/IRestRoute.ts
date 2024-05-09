@@ -1,13 +1,14 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IRequestContext } from "@gtsc/services";
 import type { HttpMethods, HttpStatusCodes } from "@gtsc/web";
 import type { IBaseRoute } from "./IBaseRoute";
+import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
 
 /**
  * Interface which defines a REST route.
  */
-export interface IRestRoute extends IBaseRoute {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 	/**
 	 * Summary of what task the operation performs.
 	 */
@@ -30,20 +31,18 @@ export interface IRestRoute extends IBaseRoute {
 		/**
 		 * The request context.
 		 */
-		requestContext: IRequestContext,
+		requestContext: IHttpRequestContext,
 
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		request: any,
+		request: T,
 
 		/**
 		 * Body as standalone if it's a data request.
 		 */
 		body?: unknown
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	) => Promise<any>;
+	) => Promise<U>;
 
 	/**
 	 * The type of the request object.
@@ -57,7 +56,7 @@ export interface IRestRoute extends IBaseRoute {
 		/**
 		 * Example objects for the request.
 		 */
-		examples?: unknown[];
+		examples?: T[];
 	};
 
 	/**
@@ -75,7 +74,7 @@ export interface IRestRoute extends IBaseRoute {
 		/**
 		 * Example objects of the response.
 		 */
-		examples?: unknown[];
+		examples?: U[];
 	}[];
 
 	/**

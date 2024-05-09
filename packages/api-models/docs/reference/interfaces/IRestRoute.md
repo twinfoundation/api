@@ -1,6 +1,13 @@
-# Interface: IRestRoute
+# Interface: IRestRoute\<T, U\>
 
 Interface which defines a REST route.
+
+## Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | `any` |
+| `U` | `any` |
 
 ## Hierarchy
 
@@ -12,25 +19,25 @@ Interface which defines a REST route.
 
 ### handler
 
-• **handler**: (`requestContext`: `IRequestContext`, `request`: `any`, `body?`: `unknown`) => `Promise`\<`any`\>
+• **handler**: (`requestContext`: [`IHttpRequestContext`](IHttpRequestContext.md), `request`: `T`, `body?`: `unknown`) => `Promise`\<`U`\>
 
 The handler module.
 
 #### Type declaration
 
-▸ (`requestContext`, `request`, `body?`): `Promise`\<`any`\>
+▸ (`requestContext`, `request`, `body?`): `Promise`\<`U`\>
 
 ##### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The request context. |
-| `request` | `any` | The request object, combined query param, path params and body. |
+| `requestContext` | [`IHttpRequestContext`](IHttpRequestContext.md) | The request context. |
+| `request` | `T` | The request object, combined query param, path params and body. |
 | `body?` | `unknown` | Body as standalone if it's a data request. |
 
 ##### Returns
 
-`Promise`\<`any`\>
+`Promise`\<`U`\>
 
 ___
 
@@ -84,7 +91,7 @@ The type of the request object.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `examples?` | `unknown`[] | Example objects for the request. |
+| `examples?` | `T`[] | Example objects for the request. |
 | `type` | `string` | The object type for the request. |
 
 ___
@@ -99,7 +106,7 @@ ___
 
 ### responseType
 
-• `Optional` **responseType**: \{ `examples?`: `unknown`[] ; `statusCode`: `HttpStatusCodes` ; `type`: `string`  }[]
+• `Optional` **responseType**: \{ `examples?`: `U`[] ; `statusCode`: `HttpStatusCodes` ; `type`: `string`  }[]
 
 The type of the response object.
 

@@ -34,4 +34,4 @@ ___
 
 • `Optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
 
-Request headers.
+Request query parameters.

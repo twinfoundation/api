@@ -100,6 +100,24 @@ export abstract class BaseRestClient {
 		method: HttpMethods,
 		requestData?: T
 	): Promise<U> {
+		Guards.object<IRequestContext>(
+			this._implementationName,
+			nameof(requestContext),
+			requestContext
+		);
+		Guards.stringValue(this._implementationName, nameof(route), route);
+		Guards.arrayOneOf(this._implementationName, nameof(method), method, [
+			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
+			"PATCH",
+			"OPTIONS",
+			"HEAD",
+			"TRACE",
+			"CONNECT"
+		]);
+
 		const routeParts = route.split("/");
 
 		for (let i = 0; i < routeParts.length; i++) {

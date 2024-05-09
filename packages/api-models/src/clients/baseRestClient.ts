@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 
-import { BaseError, Guards, Is, StringHelper, type IKeyValue } from "@gtsc/core";
+import { BaseError, Coerce, Guards, Is, StringHelper, type IKeyValue } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IRequestContext } from "@gtsc/services";
 import {
@@ -13,11 +13,18 @@ import {
 } from "@gtsc/web";
 import type { IBaseRestClientConfig } from "../models/config/IBaseRestClientConfig";
 import type { IHttpRequest } from "../models/protocol/IHttpRequest";
+import type { IHttpResponse } from "../models/protocol/IHttpResponse";
 
 /**
  * Abstract client class for common REST processing.
  */
 export abstract class BaseRestClient {
+	/**
+	 * Runtime name for the class.
+	 * @internal
+	 */
+	private static readonly _CLASS_NAME: string = nameof<BaseRestClient>();
+
 	/**
 	 * The name of the class implementation REST calls.
 	 * @internal
@@ -43,6 +50,11 @@ export abstract class BaseRestClient {
 	private readonly _timeout?: number;
 
 	/**
+	 * Include credentials in the request, defaults to true.
+	 */
+	private readonly _includeCredentials: boolean;
+
+	/**
 	 * Create a new instance of BaseRestClient.
 	 * @param implementationName The name of the class implementation REST calls.
 	 * @param config The configuration for the client.
@@ -55,6 +67,7 @@ export abstract class BaseRestClient {
 
 		this._headers = config.headers;
 		this._timeout = config.timeout;
+		this._includeCredentials = config.includeCredentials ?? true;
 
 		this._implementationName = implementationName;
 		this._endpointWithPrefix = StringHelper.trimTrailingSlashes(config.endpoint);
@@ -81,7 +94,7 @@ export abstract class BaseRestClient {
 	 * @param requestData Request to send to the endpoint.
 	 * @returns The response.
 	 */
-	public async fetch<T, U>(
+	public async fetch<T extends IHttpRequest, U extends IHttpResponse>(
 		requestContext: IRequestContext,
 		route: string,
 		method: HttpMethods,
@@ -91,17 +104,15 @@ export abstract class BaseRestClient {
 
 		for (let i = 0; i < routeParts.length; i++) {
 			if (routeParts[i].startsWith(":")) {
-				const routeProp = routeParts[i].slice(1) as keyof T;
-				if (requestData?.[routeProp]) {
-					const propValue = requestData[routeProp];
-					if (Is.stringValue(propValue) || Is.number(propValue) || Is.boolean(propValue)) {
-						routeParts[i] = propValue.toString();
-						delete requestData[routeProp];
-					}
+				const routeProp = routeParts[i].slice(1);
+				const pathValue = requestData?.path?.[routeProp];
+				if (Is.notEmpty(pathValue)) {
+					routeParts[i] = Coerce.string(pathValue) ?? "";
+					delete requestData?.path[routeProp];
 				} else {
 					throw new FetchError(
 						this._implementationName,
-						"missingRouteProp",
+						`${BaseRestClient._CLASS_NAME}.missingRouteProp`,
 						HttpStatusCodes.BAD_REQUEST,
 						{ route, routeProp }
 					);
@@ -111,7 +122,7 @@ export abstract class BaseRestClient {
 
 		const queryKeyPairs: IKeyValue<string>[] = [];
 
-		const isHttpRequest = Is.object<IHttpRequest>(requestData);
+		const isHttpRequest = Is.notEmpty(requestData);
 
 		if (isHttpRequest) {
 			const query = requestData?.query;
@@ -153,9 +164,7 @@ export abstract class BaseRestClient {
 		}
 
 		const locale = requestContext.locale;
-		if (Is.stringValue(locale)) {
-			headers["Accept-Language"] = locale;
-		}
+		headers["Accept-Language"] = Is.stringValue(locale) ? locale : "en";
 
 		const response = await FetchHelper.fetch(
 			this._implementationName,
@@ -163,7 +172,7 @@ export abstract class BaseRestClient {
 			finalRoute,
 			method,
 			payload,
-			{ headers, timeoutMs: this._timeout, includeCredentials: true }
+			{ headers, timeoutMs: this._timeout, includeCredentials: this._includeCredentials }
 		);
 
 		if (response.ok) {
@@ -176,7 +185,7 @@ export abstract class BaseRestClient {
 			} catch (err) {
 				throw new FetchError(
 					this._implementationName,
-					"decodingFailed",
+					`${BaseRestClient._CLASS_NAME}.decodingFailed`,
 					response.status,
 					{
 						route
@@ -198,11 +207,16 @@ export abstract class BaseRestClient {
 		}
 
 		if (!err) {
-			err = new FetchError(this._implementationName, "failureStatusText", response.status, {
-				statusText: response.statusText ?? response.status,
-				route: finalRoute,
-				response: errResponse
-			});
+			err = new FetchError(
+				this._implementationName,
+				`${BaseRestClient._CLASS_NAME}.failureStatusText`,
+				response.status,
+				{
+					statusText: response.statusText ?? response.status,
+					route: finalRoute,
+					response: errResponse
+				}
+			);
 		}
 
 		throw err;

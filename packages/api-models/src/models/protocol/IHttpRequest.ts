@@ -3,18 +3,13 @@
 import type { IHttpRequestQuery } from "./IHttpRequestQuery";
 
 /**
- * Model used when a REST route wants to return custom response.
+ * Model for the standard parameters for an http request.
  */
-export interface IHttpRequest {
+export interface IHttpRequest<T = unknown> {
 	/**
 	 * The path parameters.
 	 */
-	[id: string]: unknown;
-
-	/**
-	 * The raw url.
-	 */
-	rawUrl: URL;
+	path: { [id: string]: string | number | boolean };
 
 	/**
 	 * Request headers.
@@ -24,5 +19,5 @@ export interface IHttpRequest {
 	/**
 	 * Data to return as the main payload.
 	 */
-	data?: unknown;
+	data?: T;
 }

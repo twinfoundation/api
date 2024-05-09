@@ -48,17 +48,35 @@ export interface IRestRoute extends IBaseRoute {
 	/**
 	 * The type of the request object.
 	 */
-	requestType?: string;
+	requestType?: {
+		/**
+		 * The object type for the request.
+		 */
+		type: string;
+
+		/**
+		 * Example objects for the request.
+		 */
+		examples?: unknown[];
+	};
 
 	/**
 	 * The type of the response object.
 	 */
-	responseType?:
-		| string
-		| {
-				statusCode: HttpStatusCodes;
-				type: string;
-		  }[];
+	responseType?: {
+		/**
+		 * The status code of the response.
+		 */
+		statusCode: HttpStatusCodes;
+		/**
+		 * The object type of the response.
+		 */
+		type: string;
+		/**
+		 * Example objects of the response.
+		 */
+		examples?: unknown[];
+	}[];
 
 	/**
 	 * The request can have alternative content mime types.

@@ -2,92 +2,90 @@
 
 The resource you tried to access does not exist, see the error field for more details.
 
-## Hierarchy
+## Extends
 
-- [`IErrorResponse`](../modules.md#ierrorresponse)
-
-  ↳ **`INotFoundResponse`**
+- [`IErrorResponse`](../type-aliases/IErrorResponse.md)
 
 ## Properties
 
-### inner
+### inner?
 
-• `Optional` **inner**: `IError`
+> `optional` **inner**: `IError`
 
 The inner error if there was one.
 
 #### Inherited from
 
-IErrorResponse.inner
+`IErrorResponse.inner`
 
-___
+***
 
 ### message
 
-• **message**: `string`
+> **message**: `string`
 
 The message for the error.
 
 #### Inherited from
 
-IErrorResponse.message
+`IErrorResponse.message`
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 The name for the error.
 
 #### Inherited from
 
-IErrorResponse.name
+`IErrorResponse.name`
 
-___
+***
 
-### notFoundId
+### notFoundId?
 
-• `Optional` **notFoundId**: `string`
+> `optional` **notFoundId**: `string`
 
 The id if the item that was not found.
 
-___
+***
 
-### properties
+### properties?
 
-• `Optional` **properties**: `Object`
+> `optional` **properties**: `object`
 
 Any additional information for the error.
 
 #### Index signature
 
-▪ [id: `string`]: `unknown`
+ \[`id`: `string`\]: `unknown`
 
 #### Inherited from
 
-IErrorResponse.properties
+`IErrorResponse.properties`
 
-___
+***
 
-### source
+### source?
 
-• `Optional` **source**: `string`
+> `optional` **source**: `string`
 
 The source of the error.
 
 #### Inherited from
 
-IErrorResponse.source
+`IErrorResponse.source`
 
-___
+***
 
-### stack
+### stack?
 
-• `Optional` **stack**: `string`
+> `optional` **stack**: `string`
 
 The stack trace for the error.
 
 #### Inherited from
 
-IErrorResponse.stack
+`IErrorResponse.stack`

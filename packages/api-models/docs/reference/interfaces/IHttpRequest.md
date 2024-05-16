@@ -4,34 +4,32 @@ Model for the standard parameters for an http request.
 
 ## Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `unknown` |
+• **T** = `unknown`
 
 ## Properties
 
-### body
+### body?
 
-• `Optional` **body**: `T`
+> `optional` **body**: `T`
 
 Data to return send as the body.
 
-___
+***
 
-### path
+### path?
 
-• `Optional` **path**: `Object`
+> `optional` **path**: `object`
 
 The path parameters.
 
 #### Index signature
 
-▪ [id: `string`]: `string` \| `number` \| `boolean`
+ \[`id`: `string`\]: `string` \| `number` \| `boolean`
 
-___
+***
 
-### query
+### query?
 
-• `Optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
+> `optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
 
 The query parameters.

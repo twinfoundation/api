@@ -1,22 +1,28 @@
-# Class: BaseRestClient
+# Class: `abstract` BaseRestClient
 
 Abstract client class for common REST processing.
 
 ## Constructors
 
-### constructor
+### new BaseRestClient()
 
-• **new BaseRestClient**(`implementationName`, `config`, `pathPrefix`): [`BaseRestClient`](BaseRestClient.md)
+> **new BaseRestClient**(`implementationName`, `config`, `pathPrefix`): [`BaseRestClient`](BaseRestClient.md)
 
 Create a new instance of BaseRestClient.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `implementationName` | `string` | The name of the class implementation REST calls. |
-| `config` | [`IBaseRestClientConfig`](../interfaces/IBaseRestClientConfig.md) | The configuration for the client. |
-| `pathPrefix` | `string` | The default prefix to use if none in configuration. |
+• **implementationName**: `string`
+
+The name of the class implementation REST calls.
+
+• **config**: [`IBaseRestClientConfig`](../interfaces/IBaseRestClientConfig.md)
+
+The configuration for the client.
+
+• **pathPrefix**: `string`
+
+The default prefix to use if none in configuration.
 
 #### Returns
 
@@ -26,33 +32,41 @@ Create a new instance of BaseRestClient.
 
 ### \_includeCredentials
 
-• `Private` `Readonly` **\_includeCredentials**: `boolean`
+> `private` `readonly` **\_includeCredentials**: `boolean`
 
 Include credentials in the request, defaults to true.
 
 ## Methods
 
-### fetch
+### fetch()
 
-▸ **fetch**\<`T`, `U`\>(`requestContext`, `route`, `method`, `request?`): `Promise`\<`U`\>
+> **fetch**\<`T`, `U`\>(`requestContext`, `route`, `method`, `request`?): `Promise`\<`U`\>
 
 Perform a request in json format.
 
 #### Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | extends [`IHttpRequest`](../interfaces/IHttpRequest.md)\<`unknown`\> |
-| `U` | extends [`IHttpResponse`](../interfaces/IHttpResponse.md)\<`unknown`\> |
+• **T** *extends* [`IHttpRequest`](../interfaces/IHttpRequest.md)\<`unknown`\>
+
+• **U** *extends* [`IHttpResponse`](../interfaces/IHttpResponse.md)\<`unknown`\>
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The context for the request. |
-| `route` | `string` | The route of the request. |
-| `method` | `HttpMethods` | The http method. |
-| `request?` | `T` | Request to send to the endpoint. |
+• **requestContext**: `IRequestContext`
+
+The context for the request.
+
+• **route**: `string`
+
+The route of the request.
+
+• **method**: `HttpMethods`
+
+The http method.
+
+• **request?**: `T`
+
+Request to send to the endpoint.
 
 #### Returns
 
@@ -60,11 +74,11 @@ Perform a request in json format.
 
 The response.
 
-___
+***
 
-### getEndpointWithPrefix
+### getEndpointWithPrefix()
 
-▸ **getEndpointWithPrefix**(): `string`
+> **getEndpointWithPrefix**(): `string`
 
 Get the endpoint with the prefix for the namespace.
 

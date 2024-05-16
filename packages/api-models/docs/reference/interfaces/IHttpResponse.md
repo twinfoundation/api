@@ -4,30 +4,28 @@ Model for the standard parameters for an http response.
 
 ## Type parameters
 
-| Name | Type |
-| :------ | :------ |
-| `T` | `unknown` |
+• **T** = `unknown`
 
 ## Properties
 
-### body
+### body?
 
-• `Optional` **body**: `T`
+> `optional` **body**: `T`
 
 Data to return as the main payload.
 
-___
+***
 
-### headers
+### headers?
 
-• `Optional` **headers**: `IHttpRequestHeaders`
+> `optional` **headers**: `IHttpRequestHeaders`
 
 Response headers.
 
-___
+***
 
-### statusCode
+### statusCode?
 
-• `Optional` **statusCode**: `HttpStatusCodes`
+> `optional` **statusCode**: `HttpStatusCodes`
 
 Response status code.

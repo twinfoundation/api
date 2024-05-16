@@ -2,25 +2,23 @@
 
 Definition for a connector which can handle authorisation in the REST pipeline.
 
-## Hierarchy
+## Extends
 
 - `IService`
 
-  ↳ **`IAuthConnector`**
-
 ## Methods
 
-### bootstrap
+### bootstrap()?
 
-▸ **bootstrap**(`requestContext`): `Promise`\<`void`\>
+> `optional` **bootstrap**(`requestContext`): `Promise`\<`void`\>
 
 Bootstrap the service by creating and initializing any resources it needs.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The request context for bootstrapping. |
+• **requestContext**: `IRequestContext`
+
+The request context for bootstrapping.
 
 #### Returns
 
@@ -30,24 +28,33 @@ Nothing.
 
 #### Inherited from
 
-IService.bootstrap
+`IService.bootstrap`
 
-___
+***
 
-### request
+### request()?
 
-▸ **request**(`requestContext`, `route`, `headers`, `query`): `Promise`\<`void`\>
+> `optional` **request**(`requestContext`, `route`, `headers`, `query`): `Promise`\<`void`\>
 
 Process the request to check if the tenant has access to the API.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The context for the request. |
-| `route` | [`IBaseRoute`](IBaseRoute.md) | The route being requested. |
-| `headers` | `IHttpRequestHeaders` | The request headers. |
-| `query` | [`IHttpRequestQuery`](IHttpRequestQuery.md) | The request query params. |
+• **requestContext**: `IRequestContext`
+
+The context for the request.
+
+• **route**: [`IBaseRoute`](IBaseRoute.md)
+
+The route being requested.
+
+• **headers**: `IHttpRequestHeaders`
+
+The request headers.
+
+• **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
+
+The request query params.
 
 #### Returns
 
@@ -55,22 +62,31 @@ Process the request to check if the tenant has access to the API.
 
 Nothing.
 
-___
+***
 
-### response
+### response()?
 
-▸ **response**(`requestContext`, `route`, `requestHeaders`, `response`): `Promise`\<`void`\>
+> `optional` **response**(`requestContext`, `route`, `requestHeaders`, `response`): `Promise`\<`void`\>
 
 Process the response to see if there are any additional headers to add.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The context for the request. |
-| `route` | [`IBaseRoute`](IBaseRoute.md) | The route being responded to. |
-| `requestHeaders` | `IHttpRequestHeaders` | The request headers. |
-| `response` | \{ `[id: string]`: `unknown`;  } & [`IHttpResponse`](IHttpResponse.md)\<`unknown`\> | The response. |
+• **requestContext**: `IRequestContext`
+
+The context for the request.
+
+• **route**: [`IBaseRoute`](IBaseRoute.md)
+
+The route being responded to.
+
+• **requestHeaders**: `IHttpRequestHeaders`
+
+The request headers.
+
+• **response**: `object` & [`IHttpResponse`](IHttpResponse.md)\<`unknown`\>
+
+The response.
 
 #### Returns
 
@@ -78,11 +94,11 @@ Process the response to see if there are any additional headers to add.
 
 Nothing.
 
-___
+***
 
-### start
+### start()?
 
-▸ **start**(): `Promise`\<`void`\>
+> `optional` **start**(): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
@@ -94,13 +110,13 @@ Nothing.
 
 #### Inherited from
 
-IService.start
+`IService.start`
 
-___
+***
 
-### stop
+### stop()?
 
-▸ **stop**(): `Promise`\<`void`\>
+> `optional` **stop**(): `Promise`\<`void`\>
 
 The service needs to be stopped when the application is closed.
 
@@ -112,4 +128,4 @@ Nothing.
 
 #### Inherited from
 
-IService.stop
+`IService.stop`

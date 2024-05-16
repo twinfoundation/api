@@ -6,20 +6,20 @@ The rest request ended in accepted response.
 
 ### headers
 
-• **headers**: `Object`
+> **headers**: `object`
 
 Additional response headers.
 
-#### Type declaration
+#### location
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `location` | `string` | The location where the resource was accepted. |
+> **location**: `string`
 
-___
+The location where the resource was accepted.
+
+***
 
 ### statusCode
 
-• **statusCode**: `HttpStatusCodes`
+> **statusCode**: `HttpStatusCodes`
 
 Response status code.

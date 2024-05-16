@@ -1,22 +1,28 @@
-# Class: BaseSocketClient
+# Class: `abstract` BaseSocketClient
 
 Event bus which publishes using web-sockets.
 
 ## Constructors
 
-### constructor
+### new BaseSocketClient()
 
-• **new BaseSocketClient**(`implementationName`, `config`, `pathPrefix`): [`BaseSocketClient`](BaseSocketClient.md)
+> **new BaseSocketClient**(`implementationName`, `config`, `pathPrefix`): [`BaseSocketClient`](BaseSocketClient.md)
 
 Create a new instance of BaseSocketClient.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `implementationName` | `string` | The name of the class implementation socket calls. |
-| `config` | [`IBaseSocketClientConfig`](../interfaces/IBaseSocketClientConfig.md) | The configuration for the client. |
-| `pathPrefix` | `string` | The default prefix to use if none in configuration. |
+• **implementationName**: `string`
+
+The name of the class implementation socket calls.
+
+• **config**: [`IBaseSocketClientConfig`](../interfaces/IBaseSocketClientConfig.md)
+
+The configuration for the client.
+
+• **pathPrefix**: `string`
+
+The default prefix to use if none in configuration.
 
 #### Returns
 
@@ -24,9 +30,9 @@ Create a new instance of BaseSocketClient.
 
 ## Methods
 
-### handleConnected
+### handleConnected()
 
-▸ **handleConnected**(): `Promise`\<`void`\>
+> `protected` `abstract` **handleConnected**(): `Promise`\<`void`\>
 
 Handle the socket connection.
 
@@ -34,30 +40,33 @@ Handle the socket connection.
 
 `Promise`\<`void`\>
 
-___
+***
 
-### handleError
+### handleError()
 
-▸ **handleError**(`requestContext`, `err`): `Promise`\<`void`\>
+> `protected` `abstract` **handleError**(`requestContext`, `err`): `Promise`\<`void`\>
 
 Handle an error.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The context for the request. |
-| `err` | `IError` | The error to handle. |
+• **requestContext**: `IRequestContext`
+
+The context for the request.
+
+• **err**: `IError`
+
+The error to handle.
 
 #### Returns
 
 `Promise`\<`void`\>
 
-___
+***
 
-### isConnected
+### isConnected()
 
-▸ **isConnected**(): `boolean`
+> `protected` **isConnected**(): `boolean`
 
 Is the socket connected.
 
@@ -67,69 +76,71 @@ Is the socket connected.
 
 True if the socket is connected.
 
-___
+***
 
-### onMessage
+### onMessage()
 
-▸ **onMessage**\<`T`\>(`message`, `callback`): `void`
+> `protected` **onMessage**\<`T`\>(`message`, `callback`): `void`
 
 Setup a handler for a message from the socket.
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `T` |
+• **T**
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `message` | `string` | The message to look for. |
-| `callback` | (`data`: `T`) => `Promise`\<`void`\> | The method to call when the message arrives. |
+• **message**: `string`
+
+The message to look for.
+
+• **callback**
+
+The method to call when the message arrives.
 
 #### Returns
 
 `void`
 
-___
+***
 
-### sendMessage
+### sendMessage()
 
-▸ **sendMessage**\<`T`\>(`message`, `data`): `void`
+> `protected` **sendMessage**\<`T`\>(`message`, `data`): `void`
 
 Send a message on the socket.
 
 #### Type parameters
 
-| Name |
-| :------ |
-| `T` |
+• **T**
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `message` | `string` | The message to send. |
-| `data` | `T` | The data to send with the message. |
+• **message**: `string`
+
+The message to send.
+
+• **data**: `T`
+
+The data to send with the message.
 
 #### Returns
 
 `void`
 
-___
+***
 
-### socketConnect
+### socketConnect()
 
-▸ **socketConnect**(`requestContext`): `boolean`
+> `protected` **socketConnect**(`requestContext`): `boolean`
 
 Connect the socket if its not already connected.
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The context for the request. |
+• **requestContext**: `IRequestContext`
+
+The context for the request.
 
 #### Returns
 
@@ -137,11 +148,11 @@ Connect the socket if its not already connected.
 
 True if the socket is already connected.
 
-___
+***
 
-### socketDisconnect
+### socketDisconnect()
 
-▸ **socketDisconnect**(): `void`
+> `protected` **socketDisconnect**(): `void`
 
 Disconnect the socket if its connected.
 

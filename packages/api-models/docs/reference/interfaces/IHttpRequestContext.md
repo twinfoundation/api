@@ -2,52 +2,50 @@
 
 Context data from the HTTP request.
 
-## Hierarchy
+## Extends
 
 - `IRequestContext`
 
-  ↳ **`IHttpRequestContext`**
-
 ## Properties
 
-### identity
+### identity?
 
-• `Optional` **identity**: `string`
+> `optional` **identity**: `string`
 
 The identity of the requestor if there is an authenticated user.
 
 #### Inherited from
 
-IRequestContext.identity
+`IRequestContext.identity`
 
-___
+***
 
-### locale
+### locale?
 
-• `Optional` **locale**: `string`
+> `optional` **locale**: `string`
 
 The locale of the context as a code e.g. es-ES, defaults to en.
 
 #### Inherited from
 
-IRequestContext.locale
+`IRequestContext.locale`
 
-___
+***
 
-### tenantId
+### tenantId?
 
-• `Optional` **tenantId**: `string`
+> `optional` **tenantId**: `string`
 
 The tenant id for partitioning data, correlated from the api key making the request.
 
 #### Inherited from
 
-IRequestContext.tenantId
+`IRequestContext.tenantId`
 
-___
+***
 
 ### url
 
-• **url**: `URL`
+> **url**: `URL`
 
 The url in the request.

@@ -2,81 +2,84 @@
 
 Interface which defines a socket route.
 
-## Hierarchy
+## Extends
 
 - [`IBaseRoute`](IBaseRoute.md)
 
-  ↳ **`ISocketRoute`**
-
 ## Properties
 
-### handler
+### handler()
 
-• **handler**: (`requestContext`: `IRequestContext`, `socketId`: `string`, `request`: `unknown`, `emitter`: (`topic`: `string`, `response?`: `unknown`) => `Promise`\<`void`\>) => `Promise`\<`void`\>
+> **handler**: (`requestContext`, `socketId`, `request`, `emitter`) => `Promise`\<`void`\>
 
 The handler module.
 
-#### Type declaration
+#### Parameters
 
-▸ (`requestContext`, `socketId`, `request`, `emitter`): `Promise`\<`void`\>
+• **requestContext**: `IRequestContext`
 
-##### Parameters
+The request context.
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `requestContext` | `IRequestContext` | The request context. |
-| `socketId` | `string` | The id of the socket the request is arriving on. |
-| `request` | `unknown` | The request object. |
-| `emitter` | (`topic`: `string`, `response?`: `unknown`) => `Promise`\<`void`\> | Method to emit data on the socket. |
+• **socketId**: `string`
 
-##### Returns
+The id of the socket the request is arriving on.
+
+• **request**: `unknown`
+
+The request object.
+
+• **emitter**
+
+Method to emit data on the socket.
+
+#### Returns
 
 `Promise`\<`void`\>
 
-___
+***
 
 ### operationId
 
-• **operationId**: `string`
+> **operationId**: `string`
 
 The id of the operation.
 
 #### Inherited from
 
-[IBaseRoute](IBaseRoute.md).[operationId](IBaseRoute.md#operationid)
+[`IBaseRoute`](IBaseRoute.md).[`operationId`](IBaseRoute.md#operationid)
 
-___
+***
 
 ### path
 
-• **path**: `string`
+> **path**: `string`
 
 The path to use for routing.
 
 #### Inherited from
 
-[IBaseRoute](IBaseRoute.md).[path](IBaseRoute.md#path)
+[`IBaseRoute`](IBaseRoute.md).[`path`](IBaseRoute.md#path)
 
-___
+***
 
-### skipSubjectAuth
+### skipSubjectAuth?
 
-• `Optional` **skipSubjectAuth**: `boolean`
+> `optional` **skipSubjectAuth**: `boolean`
 
 Skips the subject authentication for this route.
 
 #### Inherited from
 
-[IBaseRoute](IBaseRoute.md).[skipSubjectAuth](IBaseRoute.md#skipsubjectauth)
+[`IBaseRoute`](IBaseRoute.md).[`skipSubjectAuth`](IBaseRoute.md#skipsubjectauth)
 
-___
+***
 
-### skipTenantAuth
+### skipTenantAuth?
 
-• `Optional` **skipTenantAuth**: `boolean`
+> `optional` **skipTenantAuth**: `boolean`
 
 Skips the tenant authentication for this route.
 
 #### Inherited from
 
-[IBaseRoute](IBaseRoute.md).[skipTenantAuth](IBaseRoute.md#skiptenantauth)
+[`IBaseRoute`](IBaseRoute.md).[`skipTenantAuth`](IBaseRoute.md#skiptenantauth)

@@ -1,4 +1,4 @@
-# GTSC / API
+# GTSC API
 
 This mono-repository contains packages which are used when providing or connecting to APIs.
 

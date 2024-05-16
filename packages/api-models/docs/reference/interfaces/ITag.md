@@ -6,14 +6,14 @@ Tag for routes used to generate OpenAPI information.
 
 ### description
 
-• **description**: `string`
+> **description**: `string`
 
 Description for the tag.
 
-___
+***
 
 ### name
 
-• **name**: `string`
+> **name**: `string`
 
 The name of the tag.

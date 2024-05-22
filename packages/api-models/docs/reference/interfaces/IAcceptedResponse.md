@@ -4,6 +4,14 @@ The rest request ended in accepted response.
 
 ## Properties
 
+### statusCode
+
+> **statusCode**: `HttpStatusCodes`
+
+Response status code.
+
+***
+
 ### headers
 
 > **headers**: `object`
@@ -15,11 +23,3 @@ Additional response headers.
 > **location**: `string`
 
 The location where the resource was accepted.
-
-***
-
-### statusCode
-
-> **statusCode**: `HttpStatusCodes`
-
-Response status code.

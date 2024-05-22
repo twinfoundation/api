@@ -30,54 +30,6 @@ The default prefix to use if none in configuration.
 
 ## Methods
 
-### handleConnected()
-
-> `protected` `abstract` **handleConnected**(): `Promise`\<`void`\>
-
-Handle the socket connection.
-
-#### Returns
-
-`Promise`\<`void`\>
-
-***
-
-### handleError()
-
-> `protected` `abstract` **handleError**(`requestContext`, `err`): `Promise`\<`void`\>
-
-Handle an error.
-
-#### Parameters
-
-• **requestContext**: `IRequestContext`
-
-The context for the request.
-
-• **err**: `IError`
-
-The error to handle.
-
-#### Returns
-
-`Promise`\<`void`\>
-
-***
-
-### isConnected()
-
-> `protected` **isConnected**(): `boolean`
-
-Is the socket connected.
-
-#### Returns
-
-`boolean`
-
-True if the socket is connected.
-
-***
-
 ### onMessage()
 
 > `protected` **onMessage**\<`T`\>(`message`, `callback`): `void`
@@ -159,3 +111,51 @@ Disconnect the socket if its connected.
 #### Returns
 
 `void`
+
+***
+
+### isConnected()
+
+> `protected` **isConnected**(): `boolean`
+
+Is the socket connected.
+
+#### Returns
+
+`boolean`
+
+True if the socket is connected.
+
+***
+
+### handleConnected()
+
+> `protected` `abstract` **handleConnected**(): `Promise`\<`void`\>
+
+Handle the socket connection.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### handleError()
+
+> `protected` `abstract` **handleError**(`requestContext`, `err`): `Promise`\<`void`\>
+
+Handle an error.
+
+#### Parameters
+
+• **requestContext**: `IRequestContext`
+
+The context for the request.
+
+• **err**: `IError`
+
+The error to handle.
+
+#### Returns
+
+`Promise`\<`void`\>

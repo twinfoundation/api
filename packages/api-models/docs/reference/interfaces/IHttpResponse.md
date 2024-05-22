@@ -8,11 +8,11 @@ Model for the standard parameters for an http response.
 
 ## Properties
 
-### body?
+### statusCode?
 
-> `optional` **body**: `T`
+> `optional` **statusCode**: `HttpStatusCodes`
 
-Data to return as the main payload.
+Response status code.
 
 ***
 
@@ -24,8 +24,8 @@ Response headers.
 
 ***
 
-### statusCode?
+### body?
 
-> `optional` **statusCode**: `HttpStatusCodes`
+> `optional` **body**: `T`
 
-Response status code.
+Data to return as the main payload.

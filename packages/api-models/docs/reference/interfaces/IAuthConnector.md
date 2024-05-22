@@ -32,6 +32,42 @@ Nothing.
 
 ***
 
+### start()?
+
+> `optional` **start**(): `Promise`\<`void`\>
+
+The service needs to be started when the application is initialized.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.start`
+
+***
+
+### stop()?
+
+> `optional` **stop**(): `Promise`\<`void`\>
+
+The service needs to be stopped when the application is closed.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.stop`
+
+***
+
 ### request()?
 
 > `optional` **request**(`requestContext`, `route`, `headers`, `query`): `Promise`\<`void`\>
@@ -93,39 +129,3 @@ The response.
 `Promise`\<`void`\>
 
 Nothing.
-
-***
-
-### start()?
-
-> `optional` **start**(): `Promise`\<`void`\>
-
-The service needs to be started when the application is initialized.
-
-#### Returns
-
-`Promise`\<`void`\>
-
-Nothing.
-
-#### Inherited from
-
-`IService.start`
-
-***
-
-### stop()?
-
-> `optional` **stop**(): `Promise`\<`void`\>
-
-The service needs to be stopped when the application is closed.
-
-#### Returns
-
-`Promise`\<`void`\>
-
-Nothing.
-
-#### Inherited from
-
-`IService.stop`

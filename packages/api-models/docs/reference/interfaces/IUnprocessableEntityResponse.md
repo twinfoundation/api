@@ -8,23 +8,15 @@ The operation could not be processed, see the error field for more details.
 
 ## Properties
 
-### existingId?
+### name
 
-> `optional` **existingId**: `string`
+> **name**: `string`
 
-The id which caused the unprocessable entity response.
-
-***
-
-### inner?
-
-> `optional` **inner**: `IError`
-
-The inner error if there was one.
+The name for the error.
 
 #### Inherited from
 
-`IErrorResponse.inner`
+`IErrorResponse.name`
 
 ***
 
@@ -40,15 +32,15 @@ The message for the error.
 
 ***
 
-### name
+### source?
 
-> **name**: `string`
+> `optional` **source**: `string`
 
-The name for the error.
+The source of the error.
 
 #### Inherited from
 
-`IErrorResponse.name`
+`IErrorResponse.source`
 
 ***
 
@@ -68,18 +60,6 @@ Any additional information for the error.
 
 ***
 
-### source?
-
-> `optional` **source**: `string`
-
-The source of the error.
-
-#### Inherited from
-
-`IErrorResponse.source`
-
-***
-
 ### stack?
 
 > `optional` **stack**: `string`
@@ -89,3 +69,23 @@ The stack trace for the error.
 #### Inherited from
 
 `IErrorResponse.stack`
+
+***
+
+### inner?
+
+> `optional` **inner**: `IError`
+
+The inner error if there was one.
+
+#### Inherited from
+
+`IErrorResponse.inner`
+
+***
+
+### existingId?
+
+> `optional` **existingId**: `string`
+
+The id which caused the unprocessable entity response.

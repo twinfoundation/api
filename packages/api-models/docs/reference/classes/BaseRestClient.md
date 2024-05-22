@@ -38,6 +38,20 @@ Include credentials in the request, defaults to true.
 
 ## Methods
 
+### getEndpointWithPrefix()
+
+> **getEndpointWithPrefix**(): `string`
+
+Get the endpoint with the prefix for the namespace.
+
+#### Returns
+
+`string`
+
+The endpoint with namespace prefix attached.
+
+***
+
 ### fetch()
 
 > **fetch**\<`T`, `U`\>(`requestContext`, `route`, `method`, `request`?): `Promise`\<`U`\>
@@ -73,17 +87,3 @@ Request to send to the endpoint.
 `Promise`\<`U`\>
 
 The response.
-
-***
-
-### getEndpointWithPrefix()
-
-> **getEndpointWithPrefix**(): `string`
-
-Get the endpoint with the prefix for the namespace.
-
-#### Returns
-
-`string`
-
-The endpoint with namespace prefix attached.

@@ -8,18 +8,6 @@ Context data from the HTTP request.
 
 ## Properties
 
-### identity?
-
-> `optional` **identity**: `string`
-
-The identity of the requestor if there is an authenticated user.
-
-#### Inherited from
-
-`IRequestContext.identity`
-
-***
-
 ### locale?
 
 > `optional` **locale**: `string`
@@ -41,6 +29,18 @@ The tenant id for partitioning data, correlated from the api key making the requ
 #### Inherited from
 
 `IRequestContext.tenantId`
+
+***
+
+### identity?
+
+> `optional` **identity**: `string`
+
+The identity of the requestor if there is an authenticated user.
+
+#### Inherited from
+
+`IRequestContext.identity`
 
 ***
 

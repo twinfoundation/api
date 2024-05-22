@@ -8,14 +8,6 @@ Model for the standard parameters for an http request.
 
 ## Properties
 
-### body?
-
-> `optional` **body**: `T`
-
-Data to return send as the body.
-
-***
-
 ### path?
 
 > `optional` **path**: `object`
@@ -33,3 +25,11 @@ The path parameters.
 > `optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
 
 The query parameters.
+
+***
+
+### body?
+
+> `optional` **body**: `T`
+
+Data to return send as the body.

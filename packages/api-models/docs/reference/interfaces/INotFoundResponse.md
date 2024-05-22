@@ -8,15 +8,15 @@ The resource you tried to access does not exist, see the error field for more de
 
 ## Properties
 
-### inner?
+### name
 
-> `optional` **inner**: `IError`
+> **name**: `string`
 
-The inner error if there was one.
+The name for the error.
 
 #### Inherited from
 
-`IErrorResponse.inner`
+`IErrorResponse.name`
 
 ***
 
@@ -32,23 +32,15 @@ The message for the error.
 
 ***
 
-### name
+### source?
 
-> **name**: `string`
+> `optional` **source**: `string`
 
-The name for the error.
+The source of the error.
 
 #### Inherited from
 
-`IErrorResponse.name`
-
-***
-
-### notFoundId?
-
-> `optional` **notFoundId**: `string`
-
-The id if the item that was not found.
+`IErrorResponse.source`
 
 ***
 
@@ -68,18 +60,6 @@ Any additional information for the error.
 
 ***
 
-### source?
-
-> `optional` **source**: `string`
-
-The source of the error.
-
-#### Inherited from
-
-`IErrorResponse.source`
-
-***
-
 ### stack?
 
 > `optional` **stack**: `string`
@@ -89,3 +69,23 @@ The stack trace for the error.
 #### Inherited from
 
 `IErrorResponse.stack`
+
+***
+
+### inner?
+
+> `optional` **inner**: `IError`
+
+The inner error if there was one.
+
+#### Inherited from
+
+`IErrorResponse.inner`
+
+***
+
+### notFoundId?
+
+> `optional` **notFoundId**: `string`
+
+The id if the item that was not found.

@@ -12,22 +12,6 @@ The endpoint where the api is hosted.
 
 ***
 
-### headers?
-
-> `optional` **headers**: `IHttpRequestHeaders`
-
-The headers to include in requests.
-
-***
-
-### includeCredentials?
-
-> `optional` **includeCredentials**: `boolean`
-
-Include credentials in the request, defaults to true.
-
-***
-
 ### pathPrefix?
 
 > `optional` **pathPrefix**: `string`
@@ -36,8 +20,24 @@ The prefix to the routes.
 
 ***
 
+### headers?
+
+> `optional` **headers**: `IHttpRequestHeaders`
+
+The headers to include in requests.
+
+***
+
 ### timeout?
 
 > `optional` **timeout**: `number`
 
 Timeout for requests in ms.
+
+***
+
+### includeCredentials?
+
+> `optional` **includeCredentials**: `boolean`
+
+Include credentials in the request, defaults to true.

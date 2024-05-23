@@ -4,7 +4,7 @@ This mono-repository contains packages which are used when providing or connecti
 
 ## Packages
 
-- [api](packages/api-models/README.md) - Contains models and classes for use with APIs.
+- [api-models](packages/api-models/README.md) - Contains models and classes for use with APIs.
 
 ## Contributing
 

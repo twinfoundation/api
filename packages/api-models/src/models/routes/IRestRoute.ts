@@ -36,12 +36,7 @@ export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		request: T,
-
-		/**
-		 * Body as standalone if it's a data request.
-		 */
-		body?: unknown
+		request: T
 	) => Promise<U>;
 
 	/**

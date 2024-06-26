@@ -1,6 +1,6 @@
 # GTSC API Models
 
-Contains models and classes for use with APIs.
+Contains models for use with APIs.
 
 ## Installation
 

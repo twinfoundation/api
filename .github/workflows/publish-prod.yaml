@@ -9,6 +9,8 @@ on:
         type: choice
         options:
           - api-models
+          - api-core
+          - api-server-fastify
 
 jobs:
   publish:

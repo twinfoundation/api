@@ -44,8 +44,8 @@ The identity of the requestor if there is an authenticated user.
 
 ***
 
-### url
+### request
 
-> **url**: `URL`
+> **request**: [`IHttpRequest`](IHttpRequest.md)\<`unknown`\>
 
-The url in the request.
+The full HTTP request.

@@ -42,8 +42,8 @@ describe("IRestRoute", () => {
 			tag: "Tag",
 			method: "POST",
 			path: "/",
-			handler: async (requestContext, request, body) =>
-				identityCreate(requestContext, "serviceName", request, body),
+			handler: async (requestContext, request) =>
+				identityCreate(requestContext, "serviceName", request),
 			requestType: {
 				type: nameof<ICreateRequest>(),
 				examples: [
@@ -87,14 +87,12 @@ describe("IRestRoute", () => {
  * @param requestContext The request context for the API.
  * @param serviceName The name of the service to use in the routes.
  * @param request The request.
- * @param body The body if required for pure content.
  * @returns The response object with additional http response properties.
  */
 export async function identityCreate(
 	requestContext: IHttpRequestContext,
 	serviceName: string,
-	request: ICreateRequest,
-	body?: unknown
+	request: ICreateRequest
 ): Promise<ICreateResponse> {
 	return {
 		body: {

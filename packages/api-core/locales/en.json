@@ -1,0 +1,7 @@
+{
+	"error": {
+		"restRouteHandler": {
+			"routeNotFound": "The web server could not find the route \"{notFoundId}\""
+		}
+	}
+}

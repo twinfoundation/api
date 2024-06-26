@@ -1,0 +1,140 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Global Trade and Supply Chain - API Server",
+        "description": "REST API for Global Trade and Supply Chain - API Server.",
+        "version": "1.0.0",
+        "license": {
+            "name": "Apache 2.0 License",
+            "url": "https://opensource.org/licenses/Apache-2.0"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://localhost"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Info",
+            "description": "Information endpoints for the REST server."
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "serverInformation",
+                "summary": "Get the information for the server",
+                "tags": [
+                    "Info"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The information about the server.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerInfo"
+                                },
+                                "examples": {
+                                    "informationResponse": {
+                                        "summary": "The response for the information request.",
+                                        "value": {
+                                            "name": "API Server",
+                                            "version": "1.0.0"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong with the request see the error field for more details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "exampleResponse": {
+                                        "value": {
+                                            "name": "GeneralError",
+                                            "message": "component.error",
+                                            "properties": {
+                                                "foo": "bar"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HttpStatusCodes": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "Standard HTTP status codes."
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name for the error."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "The message for the error."
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "The source of the error."
+                    },
+                    "properties": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "description": "Any additional information for the error."
+                    },
+                    "stack": {
+                        "type": "string",
+                        "description": "The stack trace for the error."
+                    },
+                    "inner": {
+                        "$ref": "#/components/schemas/Error"
+                    }
+                },
+                "required": [
+                    "name",
+                    "message"
+                ],
+                "additionalProperties": false,
+                "description": "Model to describe serialized error."
+            },
+            "ServerInfo": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The application name."
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "The version of the server."
+                    }
+                },
+                "required": [
+                    "name",
+                    "version"
+                ],
+                "additionalProperties": false,
+                "description": "The information about the server."
+            }
+        },
+        "securitySchemes": {}
+    }
+}

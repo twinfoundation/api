@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 
-import type { IRestRoute, ITag } from "@gtsc/api-models";
+import type { INoContentResponse, IRestRoute, ITag } from "@gtsc/api-models";
 import { nameof } from "@gtsc/nameof";
 import { ServiceFactory, type IRequestContext } from "@gtsc/services";
 import type { IServerHealthResponse } from "../models/IServerHealthResponse";
@@ -34,7 +34,12 @@ export function generateRestRoutes(
 		tag: tags[0].name,
 		method: "GET",
 		path: `${baseRouteName}/`,
-		handler: async () => ({})
+		handler: async () => ({}),
+		responseType: [
+			{
+				type: nameof<INoContentResponse>()
+			}
+		]
 	};
 
 	const informationRoute: IRestRoute<void, IServerInfoResponse> = {

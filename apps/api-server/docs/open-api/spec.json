@@ -29,15 +29,8 @@
                     "Info"
                 ],
                 "responses": {
-                    "200": {
-                        "description": "The rest request ended in success with no data.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/OkResponse"
-                                }
-                            }
-                        }
+                    "204": {
+                        "description": "The rest request ended in success with no data."
                     },
                     "400": {
                         "description": "Something went wrong with the request see the error field for more details.",
@@ -211,15 +204,15 @@
     },
     "components": {
         "schemas": {
-            "OkResponse": {
-                "type": "object",
-                "additionalProperties": false,
-                "description": "The rest request ended in success with no data."
-            },
             "HttpStatusCodes": {
                 "type": "object",
                 "additionalProperties": false,
                 "description": "Standard HTTP status codes."
+            },
+            "NoContentResponse": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "The rest request ended in success with no data."
             },
             "Error": {
                 "type": "object",

@@ -8,15 +8,35 @@ Model for the standard parameters for an http request.
 
 ## Properties
 
-### path?
+### method?
 
-> `optional` **path**: `object`
+> `optional` **method**: `HttpMethods`
+
+The request method.
+
+***
+
+### url?
+
+> `optional` **url**: `string`
+
+The request url.
+
+***
+
+### headers?
+
+> `optional` **headers**: `IHttpRequestHeaders`
+
+Incoming Http Headers.
+
+***
+
+### pathParams?
+
+> `optional` **pathParams**: [`IHttpRequestPathParams`](IHttpRequestPathParams.md)
 
 The path parameters.
-
-#### Index signature
-
- \[`id`: `string`\]: `string` \| `number` \| `boolean`
 
 ***
 

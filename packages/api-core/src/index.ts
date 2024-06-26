@@ -2,8 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0.
 export * from "./clients/baseRestClient";
 export * from "./clients/baseSocketClient";
+export * from "./models/IServerHealth";
+export * from "./models/IServerHealthResponse";
 export * from "./models/IServerInfo";
 export * from "./models/IServerInfoResponse";
+export * from "./models/serverHealthStatus";
 export * from "./processors/localProcessor";
 export * from "./processors/requestLoggingProcessor";
 export * from "./processors/responseLoggingProcessor";

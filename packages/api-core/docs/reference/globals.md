@@ -8,8 +8,14 @@
 
 ## Interfaces
 
+- [IServerHealth](interfaces/IServerHealth.md)
+- [IServerHealthResponse](interfaces/IServerHealthResponse.md)
 - [IServerInfo](interfaces/IServerInfo.md)
 - [IServerInfoResponse](interfaces/IServerInfoResponse.md)
+
+## Type Aliases
+
+- [ServerHealthStatus](type-aliases/ServerHealthStatus.md)
 
 ## Variables
 
@@ -24,3 +30,4 @@
 - [routeProcessor](functions/routeProcessor.md)
 - [generateRestRoutes](functions/generateRestRoutes.md)
 - [serverInformation](functions/serverInformation.md)
+- [serverHealth](functions/serverHealth.md)

@@ -60,4 +60,62 @@ Get the server information.
 
 `Promise`\<[`IServerInfo`](../interfaces/IServerInfo.md)\>
 
-the service information.
+The service information.
+
+***
+
+### serverHealth()
+
+> **serverHealth**(): `Promise`\<[`IServerHealth`](../interfaces/IServerHealth.md)\>
+
+Get the server health.
+
+#### Returns
+
+`Promise`\<[`IServerHealth`](../interfaces/IServerHealth.md)\>
+
+The service health.
+
+***
+
+### setComponentHealth()
+
+> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
+
+Set the status of a component.
+
+#### Parameters
+
+• **name**: `string`
+
+The component name.
+
+• **status**: [`ServerHealthStatus`](../type-aliases/ServerHealthStatus.md)
+
+The status of the component.
+
+• **details?**: `string`
+
+The details for the status.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### removeComponentHealth()
+
+> **removeComponentHealth**(`name`): `Promise`\<`void`\>
+
+Remove the status of a component.
+
+#### Parameters
+
+• **name**: `string`
+
+The component name.
+
+#### Returns
+
+`Promise`\<`void`\>

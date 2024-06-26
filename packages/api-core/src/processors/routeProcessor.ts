@@ -5,8 +5,7 @@ import type {
 	HttpRestRouteProcessor,
 	IHttpRequest,
 	IHttpResponse,
-	IRestRoute,
-	IRestRouteResponse
+	IRestRoute
 } from "@gtsc/api-models";
 import {
 	AlreadyExistsError,
@@ -57,7 +56,7 @@ export const routeProcessor: HttpRestRouteProcessor<
 			response.statusCode = HttpStatusCodes.NOT_FOUND;
 		} else {
 			try {
-				const restRouteResponse: IRestRouteResponse = await route.handler(
+				const restRouteResponse = await route.handler(
 					{
 						...requestContext,
 						request
@@ -71,18 +70,18 @@ export const routeProcessor: HttpRestRouteProcessor<
 
 				let statusCode: HttpStatusCodes = response.statusCode ?? HttpStatusCodes.OK;
 
-				if (Is.empty(restRouteResponse.body) && statusCode === HttpStatusCodes.OK) {
+				if (Is.empty(restRouteResponse?.body) && statusCode === HttpStatusCodes.OK) {
 					// If there is no custom status code and the body is empty
 					// use the no content response
 					statusCode = HttpStatusCodes.NO_CONTENT;
 				}
 
-				response.headers = restRouteResponse.headers ?? {};
+				const headers = restRouteResponse?.headers ?? {};
 
 				// If there are custom response types for the route then use them
 				// instead of the default application/json
-				response.headers["Content-Type"] =
-					restRouteResponse.options?.mimeType ??
+				headers["Content-Type"] =
+					restRouteResponse?.options?.mimeType ??
 					response.headers?.["Content-Type"] ??
 					"application/json";
 
@@ -95,18 +94,19 @@ export const routeProcessor: HttpRestRouteProcessor<
 					if (Is.stringValue(restRouteResponse?.options?.filename)) {
 						filename = `; filename="${restRouteResponse?.options?.filename}"`;
 					}
-					response.headers["Content-Disposition"] =
+					headers["Content-Disposition"] =
 						`${restRouteResponse?.options?.inline ? "inline" : "attachment"}${filename}`;
 				}
 
 				// If this is a binary response then set the content length
 				if (Is.uint8Array(restRouteResponse?.body)) {
 					const contentLength = restRouteResponse.body.length;
-					response.headers["Content-Length"] = contentLength.toString();
+					headers["Content-Length"] = contentLength.toString();
 				}
 
+				response.headers = headers;
 				response.statusCode = statusCode;
-				response.body = restRouteResponse.body;
+				response.body = restRouteResponse?.body;
 			} catch (err) {
 				const { error, httpStatusCode } = processError(err, options?.includeErrorStack);
 

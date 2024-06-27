@@ -23,14 +23,22 @@ export class InformationService implements IService {
 	private readonly _serverHealth: IServerHealth;
 
 	/**
+	 * The path to the OpenAPI Spec.
+	 * @internal
+	 */
+	private readonly _openApiSpecPath?: string;
+
+	/**
 	 * Create a new instance of InformationService.
 	 * @param serverInfo The server information.
+	 * @param openApiSpecPath The path to the spec file.
 	 */
-	constructor(serverInfo: IServerInfo) {
+	constructor(serverInfo: IServerInfo, openApiSpecPath?: string) {
 		this._serverInfo = serverInfo;
 		this._serverHealth = {
 			status: "ok"
 		};
+		this._openApiSpecPath = openApiSpecPath;
 	}
 
 	/**
@@ -44,15 +52,23 @@ export class InformationService implements IService {
 	 * Get the server information.
 	 * @returns The service information.
 	 */
-	public async serverInformation(): Promise<IServerInfo> {
+	public serverInformation(): IServerInfo {
 		return this._serverInfo;
+	}
+
+	/**
+	 * Get the path to the OpenAPI spec.
+	 * @returns The OpenAPI spec path.
+	 */
+	public openApiSpecPath(): string | undefined {
+		return this._openApiSpecPath;
 	}
 
 	/**
 	 * Get the server health.
 	 * @returns The service health.
 	 */
-	public async serverHealth(): Promise<IServerHealth> {
+	public serverHealth(): IServerHealth {
 		let errorCount = 0;
 		let warningCount = 0;
 
@@ -78,11 +94,7 @@ export class InformationService implements IService {
 	 * @param status The status of the component.
 	 * @param details The details for the status.
 	 */
-	public async setComponentHealth(
-		name: string,
-		status: ServerHealthStatus,
-		details?: string
-	): Promise<void> {
+	public setComponentHealth(name: string, status: ServerHealthStatus, details?: string): void {
 		const component = this._serverHealth.components?.find(c => c.name === name);
 
 		if (Is.undefined(component)) {
@@ -102,7 +114,7 @@ export class InformationService implements IService {
 	 * Remove the status of a component.
 	 * @param name The component name.
 	 */
-	public async removeComponentHealth(name: string): Promise<void> {
+	public removeComponentHealth(name: string): void {
 		if (Is.arrayValue(this._serverHealth.components)) {
 			const componentIndex = this._serverHealth.components.findIndex(c => c.name === name);
 			if (componentIndex >= 0) {

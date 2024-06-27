@@ -10,7 +10,7 @@ The information service for the server.
 
 ### new InformationService()
 
-> **new InformationService**(`serverInfo`): [`InformationService`](InformationService.md)
+> **new InformationService**(`serverInfo`, `openApiSpecPath`?): [`InformationService`](InformationService.md)
 
 Create a new instance of InformationService.
 
@@ -19,6 +19,10 @@ Create a new instance of InformationService.
 • **serverInfo**: [`IServerInfo`](../interfaces/IServerInfo.md)
 
 The server information.
+
+• **openApiSpecPath?**: `string`
+
+The path to the spec file.
 
 #### Returns
 
@@ -52,27 +56,41 @@ Nothing.
 
 ### serverInformation()
 
-> **serverInformation**(): `Promise`\<[`IServerInfo`](../interfaces/IServerInfo.md)\>
+> **serverInformation**(): [`IServerInfo`](../interfaces/IServerInfo.md)
 
 Get the server information.
 
 #### Returns
 
-`Promise`\<[`IServerInfo`](../interfaces/IServerInfo.md)\>
+[`IServerInfo`](../interfaces/IServerInfo.md)
 
 The service information.
 
 ***
 
+### openApiSpecPath()
+
+> **openApiSpecPath**(): `undefined` \| `string`
+
+Get the path to the OpenAPI spec.
+
+#### Returns
+
+`undefined` \| `string`
+
+The OpenAPI spec path.
+
+***
+
 ### serverHealth()
 
-> **serverHealth**(): `Promise`\<[`IServerHealth`](../interfaces/IServerHealth.md)\>
+> **serverHealth**(): [`IServerHealth`](../interfaces/IServerHealth.md)
 
 Get the server health.
 
 #### Returns
 
-`Promise`\<[`IServerHealth`](../interfaces/IServerHealth.md)\>
+[`IServerHealth`](../interfaces/IServerHealth.md)
 
 The service health.
 
@@ -80,7 +98,7 @@ The service health.
 
 ### setComponentHealth()
 
-> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
+> **setComponentHealth**(`name`, `status`, `details`?): `void`
 
 Set the status of a component.
 
@@ -100,13 +118,13 @@ The details for the status.
 
 #### Returns
 
-`Promise`\<`void`\>
+`void`
 
 ***
 
 ### removeComponentHealth()
 
-> **removeComponentHealth**(`name`): `Promise`\<`void`\>
+> **removeComponentHealth**(`name`): `void`
 
 Remove the status of a component.
 
@@ -118,4 +136,4 @@ The component name.
 
 #### Returns
 
-`Promise`\<`void`\>
+`void`

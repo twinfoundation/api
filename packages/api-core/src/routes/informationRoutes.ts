@@ -43,7 +43,8 @@ export function generateRestRoutes(
 			{
 				type: nameof<INoContentResponse>()
 			}
-		]
+		],
+		excludeFromSpec: true
 	};
 
 	const informationRoute: IRestRoute<void, IServerInfoResponse> = {

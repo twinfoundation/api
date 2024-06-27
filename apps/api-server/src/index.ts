@@ -28,7 +28,7 @@ import type { HttpMethods } from "@gtsc/web";
 async function run(): Promise<void> {
 	const serverInfo: IServerInfo = {
 		name: "API Server",
-		version: "0.0.3-next.16"
+		version: "0.0.3-next.17"
 	};
 
 	const webServerOptions: IWebServerOptions = {

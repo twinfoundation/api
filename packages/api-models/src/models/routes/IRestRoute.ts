@@ -83,4 +83,9 @@ export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 		mimeType: string;
 		description: string;
 	}[];
+
+	/**
+	 * Exclude the route from being included in the spec file.
+	 */
+	excludeFromSpec?: boolean;
 }

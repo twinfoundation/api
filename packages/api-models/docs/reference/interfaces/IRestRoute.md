@@ -149,3 +149,11 @@ The request can have alternative content mime types.
 > `optional` **responseContentType**: `object`[]
 
 The response can have alternative content mime types.
+
+***
+
+### excludeFromSpec?
+
+> `optional` **excludeFromSpec**: `boolean`
+
+Exclude the route from being included in the spec file.

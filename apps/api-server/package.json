@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-server",
-	"version": "0.0.3-next.16",
+	"version": "0.0.3-next.17",
 	"description": "Serve APIs using the specified configuration",
 	"repository": {
 		"type": "git",
@@ -31,9 +31,9 @@
 		"start": "node dist/esm/index.mjs"
 	},
 	"dependencies": {
-		"@gtsc/api-core": "0.0.3-next.16",
-		"@gtsc/api-models": "0.0.3-next.16",
-		"@gtsc/api-server-fastify": "0.0.3-next.16",
+		"@gtsc/api-core": "0.0.3-next.17",
+		"@gtsc/api-models": "0.0.3-next.17",
+		"@gtsc/api-server-fastify": "0.0.3-next.17",
 		"@gtsc/cli-core": "next",
 		"@gtsc/core": "next",
 		"@gtsc/logging-models": "next",

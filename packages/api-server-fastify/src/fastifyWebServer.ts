@@ -110,7 +110,7 @@ export class FastifyWebServer implements IWebServer {
 		const hasWildcardOrigin = origins.includes("*");
 
 		const methods = options?.methods ?? ["GET", "PUT", "POST", "DELETE", "OPTIONS"];
-		const allowedHeaders = options?.allowedHeaders ?? [
+		const allowedHeaders = [
 			"Access-Control-Allow-Origin",
 			"Content-Type",
 			"Content-Encoding",
@@ -118,7 +118,14 @@ export class FastifyWebServer implements IWebServer {
 			"Accept",
 			"Accept-Encoding"
 		];
-		const exposedHeaders = options?.exposedHeaders ?? ["Content-Disposition"];
+		const exposedHeaders = ["Content-Disposition"];
+
+		if (Is.arrayValue(options?.allowedHeaders)) {
+			allowedHeaders.push(...options.allowedHeaders);
+		}
+		if (Is.arrayValue(options?.exposedHeaders)) {
+			exposedHeaders.push(...options.exposedHeaders);
+		}
 
 		await this._fastify.register(FastifyCors, {
 			origin: (origin, callback) => {

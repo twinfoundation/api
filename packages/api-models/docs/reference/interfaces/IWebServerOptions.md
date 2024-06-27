@@ -50,13 +50,7 @@ The methods that the server accepts.
 
 > `optional` **allowedHeaders**: `string`[]
 
-The allowed headers.
-
-#### Default
-
-```ts
-[ "X-Requested-With", "Access-Control-Allow-Origin", "X-HTTP-Method-Override", "Content-Type", "Content-Encoding", "Authorization", "Accept", "Accept-Encoding", "X-Api-Key" ]
-```
+Any additional allowed headers.
 
 ***
 
@@ -64,13 +58,7 @@ The allowed headers.
 
 > `optional` **exposedHeaders**: `string`[]
 
-The exposed headers.
-
-#### Default
-
-```ts
-["Content-Disposition"]
-```
+And additional exposed headers.
 
 ***
 

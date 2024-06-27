@@ -26,14 +26,12 @@ export interface IWebServerOptions {
 	methods?: HttpMethods[];
 
 	/**
-	 * The allowed headers.
-	 * @default [ "X-Requested-With", "Access-Control-Allow-Origin", "X-HTTP-Method-Override", "Content-Type", "Content-Encoding", "Authorization", "Accept", "Accept-Encoding", "X-Api-Key" ]
+	 * Any additional allowed headers.
 	 */
 	allowedHeaders?: string[];
 
 	/**
-	 * The exposed headers.
-	 * @default ["Content-Disposition"]
+	 * And additional exposed headers.
 	 */
 	exposedHeaders?: string[];
 

@@ -45,7 +45,7 @@ export const routeProcessor: HttpRestRouteProcessor<
 	if (Is.empty(response.statusCode)) {
 		if (Is.empty(route)) {
 			response.headers ??= {};
-			response.headers["Content-Type"] = "application/json";
+			response.headers["Content-Type"] = "application/json; charset=utf-8";
 			response.body = {
 				name: NotFoundError.CLASS_NAME,
 				message: "restRouteHandler.routeNotFound",
@@ -83,7 +83,7 @@ export const routeProcessor: HttpRestRouteProcessor<
 				headers["Content-Type"] =
 					restRouteResponse?.options?.mimeType ??
 					response.headers?.["Content-Type"] ??
-					"application/json";
+					"application/json; charset=utf-8";
 
 				// If there are filename or inline options set then add the content disposition
 				if (
@@ -111,7 +111,7 @@ export const routeProcessor: HttpRestRouteProcessor<
 				const { error, httpStatusCode } = processError(err, options?.includeErrorStack);
 
 				response.headers ??= {};
-				response.headers["Content-Type"] = "application/json";
+				response.headers["Content-Type"] = "application/json; charset=utf-8";
 				response.body = error;
 				response.statusCode = httpStatusCode;
 			}

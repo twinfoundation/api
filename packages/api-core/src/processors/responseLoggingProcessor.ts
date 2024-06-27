@@ -42,7 +42,7 @@ export const responseLoggingProcessor: HttpRestRouteProcessor<
 		let data;
 		if (options?.includeBody) {
 			const contentType = response.headers?.["Content-Type"];
-			const isJson = contentType?.includes("application/json");
+			const isJson = contentType?.includes("application/json; charset=utf-8");
 			const contentLength = response.headers?.["Content-Length"];
 			if (isJson) {
 				data = JSON.stringify(response.body);

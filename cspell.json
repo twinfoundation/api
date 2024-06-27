@@ -17,6 +17,6 @@
 		".eslintrc.cjs",
 		"**/wordlists/**"
 	],
-	"words": ["Fastify", "GTSC", "nameof", "Stiftung"],
+	"words": ["Fastify", "GTSC", "nameof", "openapi", "Stiftung"],
 	"ignoreRegExpList": ["/from\\s+(['\"]).*\\1/", "/eslint-disable.*/"]
 }

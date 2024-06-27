@@ -28,7 +28,7 @@ import type { HttpMethods } from "@gtsc/web";
 async function run(): Promise<void> {
 	const serverInfo: IServerInfo = {
 		name: "API Server",
-		version: "0.0.3-next.15"
+		version: "0.0.3-next.16"
 	};
 
 	const webServerOptions: IWebServerOptions = {
@@ -50,9 +50,9 @@ async function run(): Promise<void> {
 
 	CLIDisplay.header(serverInfo.name, serverInfo.version, "🌩️ ");
 
-	const localesDirectory = path.resolve(
-		path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "locales")
-	);
+	const rootContent = path.dirname(fileURLToPath(import.meta.url));
+
+	const localesDirectory = path.resolve(path.join(rootContent, "..", "locales"));
 	const enLangContent = await readFile(`${localesDirectory}/en.json`, "utf8");
 	I18n.addDictionary("en", JSON.parse(enLangContent) as ILocaleDictionary);
 
@@ -62,7 +62,11 @@ async function run(): Promise<void> {
 	});
 	LoggingConnectorFactory.register("logging", () => loggingConnector);
 
-	const informationService = new InformationService(serverInfo);
+	const specFile = path.resolve(
+		path.join(rootContent, "..", "..", "docs", "open-api", "spec.json")
+	);
+
+	const informationService = new InformationService(serverInfo, specFile);
 	ServiceFactory.register("information", () => informationService);
 
 	const webServer = new FastifyWebServer();
@@ -71,15 +75,15 @@ async function run(): Promise<void> {
 		localeProcessor,
 		async (requestContext, request, response, route, state): Promise<void> =>
 			requestLoggingProcessor(requestContext, request, response, route, state, {
-				includeBody: true
+				includeBody: Coerce.boolean(process.env.DEBUG) ?? false
 			}),
 		async (requestContext, request, response, route, state): Promise<void> =>
 			routeProcessor(requestContext, request, response, route, state, {
-				includeErrorStack: true
+				includeErrorStack: Coerce.boolean(process.env.DEBUG) ?? false
 			}),
 		async (requestContext, request, response, route, state): Promise<void> =>
 			responseLoggingProcessor(requestContext, request, response, route, state, {
-				includeBody: true
+				includeBody: Coerce.boolean(process.env.DEBUG) ?? false
 			})
 	];
 
@@ -88,7 +92,7 @@ async function run(): Promise<void> {
 	await webServer.build(restRouteProcessors, routes, webServerOptions);
 	await webServer.start();
 
-	for (const signal of ["SIGTERM", "SIGINT"]) {
+	for (const signal of ["SIGHUP", "SIGINT", "SIGTERM"]) {
 		process.on(signal, () => webServer.stop());
 	}
 }

@@ -1,11 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 
+import { readFile } from "node:fs/promises";
 import type { INoContentResponse, IRestRoute, ITag } from "@gtsc/api-models";
+import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import { ServiceFactory, type IRequestContext } from "@gtsc/services";
+import { HttpStatusCodes } from "@gtsc/web";
 import type { IServerHealthResponse } from "../models/IServerHealthResponse";
 import type { IServerInfoResponse } from "../models/IServerInfoResponse";
+import type { IServerSpecResponse } from "../models/IServerSpecResponse";
 import type { InformationService } from "../services/informationService";
 
 /**
@@ -145,7 +149,35 @@ export function generateRestRoutes(
 		]
 	};
 
-	return [rootRoute, informationRoute, healthRoute];
+	const specRoute: IRestRoute<void, IServerSpecResponse> = {
+		operationId: "serverSpec",
+		summary: "Get the OpenAPI specification for the endpoints",
+		tag: tags[0].name,
+		method: "GET",
+		path: `${baseRouteName}/spec`,
+		handler: async (requestContext, request) =>
+			serverSpec(requestContext, factoryServiceName, request),
+		responseType: [
+			{
+				type: nameof<IServerSpecResponse>(),
+				examples: [
+					{
+						id: "specResponse",
+						description: "The response for the spec request.",
+						response: {
+							body: {
+								openapi: "3.1.0",
+								info: {},
+								paths: {}
+							}
+						}
+					}
+				]
+			}
+		]
+	};
+
+	return [rootRoute, informationRoute, healthRoute, specRoute];
 }
 
 /**
@@ -162,7 +194,7 @@ export async function serverInformation(
 ): Promise<IServerInfoResponse> {
 	const service = ServiceFactory.get<InformationService>(factoryServiceName);
 	return {
-		body: await service.serverInformation()
+		body: service.serverInformation()
 	};
 }
 
@@ -180,6 +212,34 @@ export async function serverHealth(
 ): Promise<IServerHealthResponse> {
 	const service = ServiceFactory.get<InformationService>(factoryServiceName);
 	return {
-		body: await service.serverHealth()
+		body: service.serverHealth()
+	};
+}
+
+/**
+ * Get the spec for the server.
+ * @param requestContext The request context for the API.
+ * @param factoryServiceName The name of the service to use in the routes.
+ * @param request The request.
+ * @returns The response object with additional http response properties.
+ */
+export async function serverSpec(
+	requestContext: IRequestContext,
+	factoryServiceName: string,
+	request: unknown
+): Promise<IServerSpecResponse> {
+	const service = ServiceFactory.get<InformationService>(factoryServiceName);
+	const filename = service.openApiSpecPath();
+	let content;
+
+	if (Is.stringValue(filename)) {
+		const contentBuffer = await readFile(filename, "utf8");
+		content = JSON.parse(contentBuffer);
+		return {
+			body: content
+		};
+	}
+	return {
+		statusCode: HttpStatusCodes.NOT_FOUND
 	};
 }

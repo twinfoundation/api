@@ -130,9 +130,9 @@ export class FastifyWebServer implements IWebServer {
 			credentials: true
 		});
 
-		this._fastify.setNotFoundHandler({}, async (request, reply) => {
-			await this.handleRequest(request, reply, restRouteProcessors);
-		});
+		this._fastify.setNotFoundHandler({}, async (request, reply) =>
+			this.handleRequest(request, reply, restRouteProcessors)
+		);
 
 		this._fastify.setErrorHandler(async (error, request, reply) => {
 			await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
@@ -171,9 +171,9 @@ export class FastifyWebServer implements IWebServer {
 				| "options"
 				| "head";
 
-			this._fastify[method](path, async (request, reply) => {
-				await this.handleRequest(request, reply, restRouteProcessors, restRoute);
-			});
+			this._fastify[method](path, async (request, reply) =>
+				this.handleRequest(request, reply, restRouteProcessors, restRoute)
+			);
 		}
 	}
 
@@ -259,7 +259,7 @@ export class FastifyWebServer implements IWebServer {
 		reply: FastifyReply,
 		restRouteProcessors: HttpRestRouteProcessor[],
 		restRoute?: IRestRoute
-	): Promise<void> {
+	): Promise<FastifyReply> {
 		const httpRequest: IHttpRequest = {
 			method: request.method.toUpperCase() as HttpMethods,
 			url: `${request.protocol}://${request.hostname}${request.url}`,
@@ -285,6 +285,8 @@ export class FastifyWebServer implements IWebServer {
 				reply.header(header, httpResponse.headers[header]);
 			}
 		}
-		reply.status((httpResponse.statusCode ?? HttpStatusCodes.OK) as number).send(httpResponse.body);
+		return reply
+			.status((httpResponse.statusCode ?? HttpStatusCodes.OK) as number)
+			.send(httpResponse.body);
 	}
 }

@@ -200,6 +200,58 @@
                     }
                 }
             }
+        },
+        "/spec": {
+            "get": {
+                "operationId": "serverSpec",
+                "summary": "Get the OpenAPI specification for the endpoints",
+                "tags": [
+                    "Info"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The OpenAPI spec for the endpoints.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerSpecResponse"
+                                },
+                                "examples": {
+                                    "specResponse": {
+                                        "summary": "The response for the spec request.",
+                                        "value": {
+                                            "openapi": "3.1.0",
+                                            "info": {},
+                                            "paths": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Something went wrong with the request see the error field for more details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "exampleResponse": {
+                                        "value": {
+                                            "name": "GeneralError",
+                                            "message": "component.error",
+                                            "properties": {
+                                                "foo": "bar"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -314,6 +366,19 @@
                     "error"
                 ],
                 "description": "The status of the server."
+            },
+            "ServerSpecResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "$ref": "#/components/schemas/HttpStatusCodes"
+                    },
+                    "body": {
+                        "description": "The spec for the server."
+                    }
+                },
+                "additionalProperties": false,
+                "description": "The OpenAPI spec for the endpoints."
             }
         },
         "securitySchemes": {}

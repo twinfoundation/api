@@ -12,6 +12,7 @@
 - [IServerHealthResponse](interfaces/IServerHealthResponse.md)
 - [IServerInfo](interfaces/IServerInfo.md)
 - [IServerInfoResponse](interfaces/IServerInfoResponse.md)
+- [IServerSpecResponse](interfaces/IServerSpecResponse.md)
 
 ## Type Aliases
 
@@ -31,3 +32,4 @@
 - [generateRestRoutes](functions/generateRestRoutes.md)
 - [serverInformation](functions/serverInformation.md)
 - [serverHealth](functions/serverHealth.md)
+- [serverSpec](functions/serverSpec.md)

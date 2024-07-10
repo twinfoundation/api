@@ -6,6 +6,6 @@
 		"started": "The Web Server started on {addresses}",
 		"stopped": "The Web Server was stopped",
 		"badRequest": "The web server could not handle the request \"{error}\"",
-		"restRouteAdded": "Added REST route \"{route}\""
+		"restRouteAdded": "Added REST route \"{route}\" \"{method}\""
 	}
 }

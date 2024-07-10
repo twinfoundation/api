@@ -167,7 +167,7 @@ export class FastifyWebServer implements IWebServer {
 				ts: Date.now(),
 				source: FastifyWebServer._CLASS_NAME,
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.restRouteAdded`,
-				data: { route: path }
+				data: { route: path, method: restRoute.method }
 			});
 			const method = restRoute.method.toLowerCase() as
 				| "get"

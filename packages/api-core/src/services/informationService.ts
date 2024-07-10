@@ -1,7 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { Is } from "@gtsc/core";
-import type { IRequestContext, IService } from "@gtsc/services";
+import { nameof } from "@gtsc/nameof";
+import type { IService } from "@gtsc/services";
 import type { IServerHealth } from "../models/IServerHealth";
 import type { IServerInfo } from "../models/IServerInfo";
 import type { ServerHealthStatus } from "../models/serverHealthStatus";
@@ -10,6 +11,11 @@ import type { ServerHealthStatus } from "../models/serverHealthStatus";
  * The information service for the server.
  */
 export class InformationService implements IService {
+	/**
+	 * Runtime name for the class.
+	 */
+	public readonly CLASS_NAME: string = nameof<InformationService>();
+
 	/**
 	 * The server information.
 	 * @internal
@@ -40,13 +46,6 @@ export class InformationService implements IService {
 		};
 		this._openApiSpecPath = openApiSpecPath;
 	}
-
-	/**
-	 * Bootstrap the service by creating and initializing any resources it needs.
-	 * @param requestContext The request context for bootstrapping.
-	 * @returns Nothing.
-	 */
-	public async bootstrap?(requestContext: IRequestContext): Promise<void> {}
 
 	/**
 	 * Get the server information.

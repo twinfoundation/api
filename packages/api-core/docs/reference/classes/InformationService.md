@@ -28,31 +28,19 @@ The path to the spec file.
 
 [`InformationService`](InformationService.md)
 
-## Methods
+## Properties
 
-### bootstrap()?
+### CLASS\_NAME
 
-> `optional` **bootstrap**(`requestContext`): `Promise`\<`void`\>
+> `readonly` **CLASS\_NAME**: `string`
 
-Bootstrap the service by creating and initializing any resources it needs.
-
-#### Parameters
-
-• **requestContext**: `IRequestContext`
-
-The request context for bootstrapping.
-
-#### Returns
-
-`Promise`\<`void`\>
-
-Nothing.
+Runtime name for the class.
 
 #### Implementation of
 
-`IService.bootstrap`
+`IService.CLASS_NAME`
 
-***
+## Methods
 
 ### serverInformation()
 

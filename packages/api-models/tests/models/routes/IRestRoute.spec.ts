@@ -11,7 +11,7 @@ interface ICreateRequest {
 	/**
 	 * The data for the request.
 	 */
-	body?: {
+	body: {
 		/**
 		 * The value for the request.
 		 */
@@ -26,7 +26,7 @@ interface ICreateResponse {
 	/**
 	 * The data for the response.
 	 */
-	body?: {
+	body: {
 		/**
 		 * The value for the response.
 		 */

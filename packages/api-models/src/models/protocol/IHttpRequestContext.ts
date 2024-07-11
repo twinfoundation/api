@@ -8,7 +8,7 @@ import type { IHttpRequest } from "./IHttpRequest";
  */
 export interface IHttpRequestContext extends IRequestContext {
 	/**
-	 * The full HTTP request.
+	 * The raw HTTP request.
 	 */
-	request: IHttpRequest;
+	rawRequest: IHttpRequest;
 }

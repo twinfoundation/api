@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 import { readFile } from "node:fs/promises";
-import type { INoContentResponse, IRestRoute, ITag } from "@gtsc/api-models";
+import type { IHttpRequest, INoContentResponse, IRestRoute, ITag } from "@gtsc/api-models";
 import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import { ServiceFactory, type IRequestContext } from "@gtsc/services";
@@ -32,7 +32,7 @@ export function generateRestRoutes(
 	baseRouteName: string,
 	factoryServiceName: string
 ): IRestRoute[] {
-	const rootRoute: IRestRoute<void, unknown> = {
+	const rootRoute: IRestRoute = {
 		operationId: "serverRoot",
 		summary: "Get the root blank page",
 		tag: tags[0].name,
@@ -47,7 +47,7 @@ export function generateRestRoutes(
 		excludeFromSpec: true
 	};
 
-	const informationRoute: IRestRoute<void, IServerInfoResponse> = {
+	const informationRoute: IRestRoute<IHttpRequest, IServerInfoResponse> = {
 		operationId: "serverInformation",
 		summary: "Get the information for the server",
 		tag: tags[0].name,
@@ -74,7 +74,7 @@ export function generateRestRoutes(
 		]
 	};
 
-	const healthRoute: IRestRoute<void, IServerHealthResponse> = {
+	const healthRoute: IRestRoute<IHttpRequest, IServerHealthResponse> = {
 		operationId: "serverHealth",
 		summary: "Get the health for the server",
 		tag: tags[0].name,
@@ -150,7 +150,7 @@ export function generateRestRoutes(
 		]
 	};
 
-	const specRoute: IRestRoute<void, IServerSpecResponse> = {
+	const specRoute: IRestRoute<IHttpRequest, IServerSpecResponse> = {
 		operationId: "serverSpec",
 		summary: "Get the OpenAPI specification for the endpoints",
 		tag: tags[0].name,

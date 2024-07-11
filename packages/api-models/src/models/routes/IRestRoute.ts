@@ -2,13 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { HttpMethods } from "@gtsc/web";
 import type { IBaseRoute } from "./IBaseRoute";
+import type { IRestRouteResponseOptions } from "./IRestRouteResponseOptions";
+import type { IHttpRequest } from "../protocol/IHttpRequest";
 import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
+import type { IHttpResponse } from "../protocol/IHttpResponse";
 
 /**
  * Interface which defines a REST route.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface IRestRoute<T = any, U = any> extends IBaseRoute {
+export interface IRestRoute<
+	T extends IHttpRequest = IHttpRequest,
+	U extends IHttpResponse & IRestRouteResponseOptions = IHttpResponse & IRestRouteResponseOptions
+> extends IBaseRoute {
 	/**
 	 * Summary of what task the operation performs.
 	 */
@@ -36,8 +41,8 @@ export interface IRestRoute<T = any, U = any> extends IBaseRoute {
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		request: T
-	) => Promise<U>;
+		request: T | never
+	) => Promise<U | never>;
 
 	/**
 	 * The type of the request object.

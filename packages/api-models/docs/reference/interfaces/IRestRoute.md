@@ -8,9 +8,9 @@ Interface which defines a REST route.
 
 ## Type parameters
 
-• **T** = `any`
+• **T** *extends* [`IHttpRequest`](IHttpRequest.md) = [`IHttpRequest`](IHttpRequest.md)
 
-• **U** = `any`
+• **U** *extends* [`IHttpResponse`](IHttpResponse.md) & [`IRestRouteResponseOptions`](IRestRouteResponseOptions.md) = [`IHttpResponse`](IHttpResponse.md) & [`IRestRouteResponseOptions`](IRestRouteResponseOptions.md)
 
 ## Properties
 

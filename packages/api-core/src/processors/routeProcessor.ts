@@ -59,10 +59,10 @@ export const routeProcessor: HttpRestRouteProcessor<
 				const restRouteResponse = await route.handler(
 					{
 						...requestContext,
-						request
+						rawRequest: request
 					},
 					{
-						path: request.pathParams,
+						pathParams: request.pathParams,
 						query: request.query,
 						body: request.body
 					}

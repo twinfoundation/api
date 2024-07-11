@@ -16,7 +16,7 @@ Build the server.
 
 The hooks to process the incoming requests.
 
-• **restRoutes**: [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
+• **restRoutes**: [`IRestRoute`](IRestRoute.md)\<[`IHttpRequest`](IHttpRequest.md)\<`unknown`\>, [`IHttpResponse`](IHttpResponse.md)\<`unknown`\> & [`IRestRouteResponseOptions`](IRestRouteResponseOptions.md)\>[]
 
 The REST routes.
 

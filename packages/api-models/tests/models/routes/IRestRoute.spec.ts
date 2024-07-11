@@ -11,7 +11,7 @@ interface ICreateRequest {
 	/**
 	 * The data for the request.
 	 */
-	body: {
+	body?: {
 		/**
 		 * The value for the request.
 		 */
@@ -26,7 +26,7 @@ interface ICreateResponse {
 	/**
 	 * The data for the response.
 	 */
-	body: {
+	body?: {
 		/**
 		 * The value for the response.
 		 */
@@ -36,7 +36,7 @@ interface ICreateResponse {
 
 describe("IRestRoute", () => {
 	test("Can construct REST Routes", () => {
-		const createRoute: IRestRoute<ICreateRequest, ICreateResponse> = {
+		const createRoute: IRestRoute = {
 			operationId: "identityCreate",
 			summary: "Create a new identity",
 			tag: "Tag",

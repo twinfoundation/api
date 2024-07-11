@@ -25,16 +25,8 @@ The path to use for routing.
 
 ***
 
-### skipTenantAuth?
+### skipAuth?
 
-> `optional` **skipTenantAuth**: `boolean`
+> `optional` **skipAuth**: `boolean`
 
-Skips the tenant authentication for this route.
-
-***
-
-### skipSubjectAuth?
-
-> `optional` **skipSubjectAuth**: `boolean`
-
-Skips the subject authentication for this route.
+Skips the authentication for this route.

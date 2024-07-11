@@ -68,7 +68,8 @@ export const routeProcessor: HttpRestRouteProcessor<
 					}
 				);
 
-				let statusCode: HttpStatusCodes = response.statusCode ?? HttpStatusCodes.OK;
+				let statusCode: HttpStatusCodes =
+					restRouteResponse.statusCode ?? response.statusCode ?? HttpStatusCodes.OK;
 
 				if (Is.empty(restRouteResponse?.body) && statusCode === HttpStatusCodes.OK) {
 					// If there is no custom status code and the body is empty

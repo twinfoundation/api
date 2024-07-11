@@ -16,12 +16,7 @@ export interface IBaseRoute {
 	path: string;
 
 	/**
-	 * Skips the tenant authentication for this route.
+	 * Skips the authentication for this route.
 	 */
-	skipTenantAuth?: boolean;
-
-	/**
-	 * Skips the subject authentication for this route.
-	 */
-	skipSubjectAuth?: boolean;
+	skipAuth?: boolean;
 }

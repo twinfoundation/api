@@ -18,7 +18,7 @@ The incoming request.
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`IHttpRequest`\<`any`\>, `IHttpResponse`\<`any`\> & `IRestRouteResponseOptions`\>
+• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
 
 The route to process.
 

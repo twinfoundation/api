@@ -56,16 +56,18 @@ export const routeProcessor: HttpRestRouteProcessor<
 			response.statusCode = HttpStatusCodes.NOT_FOUND;
 		} else {
 			try {
+				const req: IHttpRequest = {
+					pathParams: request.pathParams,
+					query: request.query,
+					body: request.body
+				};
+
 				const restRouteResponse = await route.handler(
 					{
 						...requestContext,
 						rawRequest: request
 					},
-					{
-						pathParams: request.pathParams,
-						query: request.query,
-						body: request.body
-					}
+					req
 				);
 
 				let statusCode: HttpStatusCodes =

@@ -60,9 +60,9 @@ Perform a request in json format.
 
 #### Type parameters
 
-• **T** *extends* `IHttpRequest`\<`unknown`\>
+• **T** *extends* `IHttpRequest`\<`any`\>
 
-• **U** *extends* `IHttpResponse`\<`unknown`\>
+• **U** *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
 

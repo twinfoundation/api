@@ -28,19 +28,19 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@fastify/compress": "^7.0.3",
-		"@fastify/cors": "^9.0.1",
+		"@fastify/compress": "7.0.3",
+		"@fastify/cors": "9.0.1",
 		"@gtsc/api-models": "0.0.3-next.21",
 		"@gtsc/api-core": "0.0.3-next.21",
 		"@gtsc/core": "next",
 		"@gtsc/logging-models": "next",
-		"@gtsc/nameof": "^0.0.4",
+		"@gtsc/nameof": "0.0.4",
 		"@gtsc/services": "next",
 		"@gtsc/web": "next",
-		"fastify": "^4.28.0"
+		"fastify": "4.28.0"
 	},
 	"devDependencies": {
-		"@gtsc/nameof-transformer": "^0.0.4",
+		"@gtsc/nameof-transformer": "0.0.4",
 		"@vitest/coverage-v8": "1.6.0",
 		"@types/node": "20.14.8",
 		"copyfiles": "2.4.1",

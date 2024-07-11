@@ -7,7 +7,8 @@ import type { IHttpRequestQuery } from "./IHttpRequestQuery";
 /**
  * Model for the standard parameters for an http request.
  */
-export interface IHttpRequest<T = unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface IHttpRequest<T = any> {
 	/**
 	 * The request method.
 	 */

@@ -36,7 +36,7 @@ interface ICreateResponse {
 
 describe("IRestRoute", () => {
 	test("Can construct REST Routes", () => {
-		const createRoute: IRestRoute = {
+		const createRoute: IRestRoute<ICreateRequest, ICreateResponse> = {
 			operationId: "identityCreate",
 			summary: "Create a new identity",
 			tag: "Tag",

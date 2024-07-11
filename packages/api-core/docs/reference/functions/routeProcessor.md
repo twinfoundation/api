@@ -10,15 +10,15 @@ Process the REST request and hands it on to the route handler.
 
 The context for the request.
 
-• **request**: `IHttpRequest`\<`unknown`\>
+• **request**: `IHttpRequest`\<`any`\>
 
 The incoming request.
 
-• **response**: `IHttpResponse`\<`unknown`\>
+• **response**: `IHttpResponse`\<`any`\>
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`IHttpRequest`\<`unknown`\>, `IHttpResponse`\<`unknown`\> & `IRestRouteResponseOptions`\>
+• **route**: `undefined` \| `IRestRoute`\<`IHttpRequest`\<`any`\>, `IHttpResponse`\<`any`\> & `IRestRouteResponseOptions`\>
 
 The route to process.
 

@@ -5,7 +5,8 @@ import type { HttpStatusCodes, IHttpRequestHeaders } from "@gtsc/web";
 /**
  * Model for the standard parameters for an http response.
  */
-export interface IHttpResponse<T = unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface IHttpResponse<T = any> {
 	/**
 	 * Response status code.
 	 */

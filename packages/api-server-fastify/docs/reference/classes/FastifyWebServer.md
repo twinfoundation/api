@@ -42,7 +42,7 @@ Build the server.
 
 The hooks to process the incoming requests.
 
-• **restRoutes**: `IRestRoute`\<`IHttpRequest`\<`unknown`\>, `IHttpResponse`\<`unknown`\> & `IRestRouteResponseOptions`\>[]
+• **restRoutes**: `IRestRoute`\<`IHttpRequest`\<`any`\>, `IHttpResponse`\<`any`\> & `IRestRouteResponseOptions`\>[]
 
 The REST routes.
 

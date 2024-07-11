@@ -4,7 +4,7 @@ Model for the standard parameters for an http request.
 
 ## Type parameters
 
-• **T** = `unknown`
+• **T** = `any`
 
 ## Properties
 

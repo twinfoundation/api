@@ -46,6 +46,6 @@ The identity of the requestor if there is an authenticated user.
 
 ### rawRequest
 
-> **rawRequest**: [`IHttpRequest`](IHttpRequest.md)\<`unknown`\>
+> **rawRequest**: [`IHttpRequest`](IHttpRequest.md)\<`any`\>
 
 The raw HTTP request.

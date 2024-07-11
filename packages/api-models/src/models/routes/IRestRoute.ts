@@ -41,8 +41,8 @@ export interface IRestRoute<
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		request: T | never
-	) => Promise<U | never>;
+		request: T
+	) => Promise<U>;
 
 	/**
 	 * The type of the request object.

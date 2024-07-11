@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-server-fastify",
-	"version": "0.0.3-next.21",
+	"version": "0.0.3-next.22",
 	"description": "Use Fastify as the core web server for APIs",
 	"repository": {
 		"type": "git",
@@ -16,8 +16,8 @@
 	"scripts": {
 		"clean": "rimraf dist coverage",
 		"build": "tspc",
-		"test": "vitest --run --config ./vitest.config.ts",
-		"coverage": "vitest --run --coverage --config ./vitest.config.ts",
+		"test": "vitest --run --config ./vitest.config.ts --no-cache",
+		"coverage": "vitest --run --coverage --config ./vitest.config.ts --no-cache",
 		"bundle:esm": "rollup --config rollup.config.mjs --environment MODULE:esm",
 		"bundle:cjs": "rollup --config rollup.config.mjs --environment MODULE:cjs",
 		"bundle": "npm run bundle:esm && npm run bundle:cjs",
@@ -30,8 +30,8 @@
 	"dependencies": {
 		"@fastify/compress": "7.0.3",
 		"@fastify/cors": "9.0.1",
-		"@gtsc/api-models": "0.0.3-next.21",
-		"@gtsc/api-core": "0.0.3-next.21",
+		"@gtsc/api-models": "0.0.3-next.22",
+		"@gtsc/api-core": "0.0.3-next.22",
 		"@gtsc/core": "next",
 		"@gtsc/logging-models": "next",
 		"@gtsc/nameof": "0.0.4",

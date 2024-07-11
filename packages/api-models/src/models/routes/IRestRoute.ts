@@ -11,8 +11,10 @@ import type { IHttpResponse } from "../protocol/IHttpResponse";
  * Interface which defines a REST route.
  */
 export interface IRestRoute<
-	T extends IHttpRequest = IHttpRequest,
-	U extends IHttpResponse & IRestRouteResponseOptions = IHttpResponse & IRestRouteResponseOptions
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	T extends IHttpRequest = any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	U extends IHttpResponse & IRestRouteResponseOptions = any
 > extends IBaseRoute {
 	/**
 	 * Summary of what task the operation performs.

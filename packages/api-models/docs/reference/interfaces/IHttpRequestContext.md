@@ -4,31 +4,19 @@ Context data from the HTTP request.
 
 ## Extends
 
-- `IRequestContext`
+- `IServiceRequestContext`
 
 ## Properties
 
-### locale?
+### partitionId?
 
-> `optional` **locale**: `string`
+> `optional` **partitionId**: `string`
 
-The locale of the context as a code e.g. es-ES, defaults to en.
-
-#### Inherited from
-
-`IRequestContext.locale`
-
-***
-
-### tenantId?
-
-> `optional` **tenantId**: `string`
-
-The tenant id for partitioning data, correlated from the api key making the request.
+The id for partitioning data, usually correlated from the api key making the request.
 
 #### Inherited from
 
-`IRequestContext.tenantId`
+`IServiceRequestContext.partitionId`
 
 ***
 
@@ -40,7 +28,7 @@ The identity of the requestor if there is an authenticated user.
 
 #### Inherited from
 
-`IRequestContext.identity`
+`IServiceRequestContext.identity`
 
 ***
 

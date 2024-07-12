@@ -90,7 +90,7 @@ Connect the socket if its not already connected.
 
 #### Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IServiceRequestContext`
 
 The context for the request.
 
@@ -148,7 +148,7 @@ Handle an error.
 
 #### Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IServiceRequestContext`
 
 The context for the request.
 

@@ -1,32 +1,10 @@
-# Class: InformationService
+# Interface: IInformation
 
 The information service for the server.
 
-## Implements
+## Extends
 
-- `IInformation`
-
-## Constructors
-
-### new InformationService()
-
-> **new InformationService**(`serverInfo`, `openApiSpecPath`?): [`InformationService`](InformationService.md)
-
-Create a new instance of InformationService.
-
-#### Parameters
-
-• **serverInfo**: [`IServerInfo`](../interfaces/IServerInfo.md)
-
-The server information.
-
-• **openApiSpecPath?**: `string`
-
-The path to the spec file.
-
-#### Returns
-
-[`InformationService`](InformationService.md)
+- `IService`
 
 ## Properties
 
@@ -34,17 +12,41 @@ The path to the spec file.
 
 > `readonly` **CLASS\_NAME**: `string`
 
-Runtime name for the class.
+The name of the service.
 
-#### Implementation of
+#### Inherited from
 
-`IInformation.CLASS_NAME`
+`IService.CLASS_NAME`
 
 ## Methods
 
-### start()
+### bootstrap()?
 
-> **start**(): `Promise`\<`void`\>
+> `optional` **bootstrap**(`requestContext`): `Promise`\<`void`\>
+
+Bootstrap the service by creating and initializing any resources it needs.
+
+#### Parameters
+
+• **requestContext**: `IServiceRequestContext`
+
+The request context for bootstrapping.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.bootstrap`
+
+***
+
+### start()?
+
+> `optional` **start**(): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
@@ -54,15 +56,33 @@ The service needs to be started when the application is initialized.
 
 Nothing.
 
-#### Implementation of
+#### Inherited from
 
-`IInformation.start`
+`IService.start`
+
+***
+
+### stop()?
+
+> `optional` **stop**(): `Promise`\<`void`\>
+
+The service needs to be stopped when the application is closed.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.stop`
 
 ***
 
 ### info()
 
-> **info**(`requestContext`?): `Promise`\<[`IServerInfo`](../interfaces/IServerInfo.md)\>
+> **info**(`requestContext`?): `Promise`\<[`IServerInfo`](IServerInfo.md)\>
 
 Get the server information.
 
@@ -74,13 +94,9 @@ The context of the service request.
 
 #### Returns
 
-`Promise`\<[`IServerInfo`](../interfaces/IServerInfo.md)\>
+`Promise`\<[`IServerInfo`](IServerInfo.md)\>
 
 The service information.
-
-#### Implementation of
-
-`IInformation.info`
 
 ***
 
@@ -102,15 +118,11 @@ The context of the service request.
 
 The OpenAPI spec.
 
-#### Implementation of
-
-`IInformation.spec`
-
 ***
 
 ### health()
 
-> **health**(`requestContext`?): `Promise`\<`IHealthInfo`\>
+> **health**(`requestContext`?): `Promise`\<[`IHealthInfo`](IHealthInfo.md)\>
 
 Get the server health.
 
@@ -122,13 +134,9 @@ The context of the service request.
 
 #### Returns
 
-`Promise`\<`IHealthInfo`\>
+`Promise`\<[`IHealthInfo`](IHealthInfo.md)\>
 
 The service health.
-
-#### Implementation of
-
-`IInformation.health`
 
 ***
 
@@ -144,7 +152,7 @@ Set the status of a component.
 
 The component name.
 
-• **status**: `HealthStatus`
+• **status**: [`HealthStatus`](../type-aliases/HealthStatus.md)
 
 The status of the component.
 
@@ -161,10 +169,6 @@ The context of the service request.
 `Promise`\<`void`\>
 
 Nothing.
-
-#### Implementation of
-
-`IInformation.setComponentHealth`
 
 ***
 
@@ -189,7 +193,3 @@ The context of the service request.
 `Promise`\<`void`\>
 
 Nothing.
-
-#### Implementation of
-
-`IInformation.removeComponentHealth`

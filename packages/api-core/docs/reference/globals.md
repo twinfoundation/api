@@ -24,12 +24,10 @@
 
 ## Functions
 
-- [localeProcessor](functions/localeProcessor.md)
-- [parseAcceptLanguageHeader](functions/parseAcceptLanguageHeader.md)
 - [requestLoggingProcessor](functions/requestLoggingProcessor.md)
 - [responseLoggingProcessor](functions/responseLoggingProcessor.md)
 - [routeProcessor](functions/routeProcessor.md)
 - [generateRestRoutes](functions/generateRestRoutes.md)
-- [serverInformation](functions/serverInformation.md)
+- [serverInfo](functions/serverInfo.md)
 - [serverHealth](functions/serverHealth.md)
 - [serverSpec](functions/serverSpec.md)

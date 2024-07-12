@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-
 import type {
 	HttpRestRouteProcessor,
 	IHttpRequest,
@@ -17,7 +16,7 @@ import {
 	UnauthorizedError,
 	type IError
 } from "@gtsc/core";
-import type { IRequestContext } from "@gtsc/services";
+import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCodes } from "@gtsc/web";
 
 /**
@@ -33,7 +32,7 @@ import { HttpStatusCodes } from "@gtsc/web";
 export const routeProcessor: HttpRestRouteProcessor<
 	{ includeErrorStack?: boolean } | undefined
 > = async (
-	requestContext: IRequestContext,
+	requestContext: IServiceRequestContext,
 	request: IHttpRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,

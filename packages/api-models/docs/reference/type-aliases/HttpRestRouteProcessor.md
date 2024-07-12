@@ -10,7 +10,7 @@ Process the REST request for the specified route.
 
 ## Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IServiceRequestContext`
 
 The context for the request.
 

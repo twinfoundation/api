@@ -6,7 +6,7 @@ Get the spec for the server.
 
 ## Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IHttpRequestContext`
 
 The request context for the API.
 

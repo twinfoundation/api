@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-
 import type {
 	HttpRestRouteProcessor,
 	IHttpRequest,
@@ -9,7 +8,7 @@ import type {
 } from "@gtsc/api-models";
 import { Coerce, Is } from "@gtsc/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
-import type { IRequestContext } from "@gtsc/services";
+import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCodes } from "@gtsc/web";
 
 let loggingConnector: ILoggingConnector | undefined;
@@ -28,7 +27,7 @@ let loggingConnector: ILoggingConnector | undefined;
 export const responseLoggingProcessor: HttpRestRouteProcessor<
 	{ includeBody?: boolean } | undefined
 > = async (
-	requestContext: IRequestContext,
+	requestContext: IServiceRequestContext,
 	request: IHttpRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,

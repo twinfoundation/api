@@ -10,23 +10,27 @@ Implementation of the web server using Fastify.
 
 ### new FastifyWebServer()
 
-> **new FastifyWebServer**(`options`?): [`FastifyWebServer`](FastifyWebServer.md)
+> **new FastifyWebServer**(`logger`): [`FastifyWebServer`](FastifyWebServer.md)
 
 Create a new instance of FastifyWebServer.
 
 #### Parameters
 
-• **options?**
+• **logger**
 
-Options for the server.
-
-• **options.loggingConnectorType?**: `string`
-
-The type of logging connector to use, defaults to "logging".
+The logger to use.
 
 #### Returns
 
 [`FastifyWebServer`](FastifyWebServer.md)
+
+## Properties
+
+### CLASS\_NAME
+
+> `readonly` **CLASS\_NAME**: `string`
+
+Runtime name for the class.
 
 ## Methods
 

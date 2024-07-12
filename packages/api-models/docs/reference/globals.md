@@ -23,6 +23,9 @@
 - [ITag](interfaces/ITag.md)
 - [IWebServer](interfaces/IWebServer.md)
 - [IWebServerOptions](interfaces/IWebServerOptions.md)
+- [IHealthInfo](interfaces/IHealthInfo.md)
+- [IInformation](interfaces/IInformation.md)
+- [IServerInfo](interfaces/IServerInfo.md)
 
 ## Type Aliases
 
@@ -31,3 +34,4 @@
 - [IForbiddenResponse](type-aliases/IForbiddenResponse.md)
 - [IUnauthorizedResponse](type-aliases/IUnauthorizedResponse.md)
 - [HttpRestRouteProcessor](type-aliases/HttpRestRouteProcessor.md)
+- [HealthStatus](type-aliases/HealthStatus.md)

@@ -8,7 +8,6 @@ export * from "./models/IServerInfo";
 export * from "./models/IServerInfoResponse";
 export * from "./models/IServerSpecResponse";
 export * from "./models/serverHealthStatus";
-export * from "./processors/localProcessor";
 export * from "./processors/requestLoggingProcessor";
 export * from "./processors/responseLoggingProcessor";
 export * from "./processors/routeProcessor";

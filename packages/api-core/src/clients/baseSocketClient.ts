@@ -1,10 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-
 import type { IBaseSocketClientConfig } from "@gtsc/api-models";
 import { BaseError, Guards, Is, StringHelper, type IError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IRequestContext } from "@gtsc/services";
+import type { IServiceRequestContext } from "@gtsc/services";
 import lookup, { type Socket } from "socket.io-client";
 
 /**
@@ -79,7 +78,7 @@ export abstract class BaseSocketClient {
 	 * @param requestContext The context for the request.
 	 * @returns True if the socket is already connected.
 	 */
-	protected socketConnect(requestContext: IRequestContext): boolean {
+	protected socketConnect(requestContext: IServiceRequestContext): boolean {
 		if (!this._socket.connected) {
 			this._socket.connect();
 
@@ -127,5 +126,8 @@ export abstract class BaseSocketClient {
 	 * @param requestContext The context for the request.
 	 * @param err The error to handle.
 	 */
-	protected abstract handleError(requestContext: IRequestContext, err: IError): Promise<void>;
+	protected abstract handleError(
+		requestContext: IServiceRequestContext,
+		err: IError
+	): Promise<void>;
 }

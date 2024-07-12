@@ -1,10 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-
 import type { IBaseRestClientConfig, IHttpRequest, IHttpResponse } from "@gtsc/api-models";
 import { BaseError, Coerce, Guards, Is, StringHelper, type IKeyValue } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IRequestContext } from "@gtsc/services";
 import {
 	FetchError,
 	FetchHelper,
@@ -86,23 +84,16 @@ export abstract class BaseRestClient {
 
 	/**
 	 * Perform a request in json format.
-	 * @param requestContext The context for the request.
 	 * @param route The route of the request.
 	 * @param method The http method.
 	 * @param request Request to send to the endpoint.
 	 * @returns The response.
 	 */
 	public async fetch<T extends IHttpRequest, U extends IHttpResponse>(
-		requestContext: IRequestContext,
 		route: string,
 		method: HttpMethods,
 		request?: T
 	): Promise<U> {
-		Guards.object<IRequestContext>(
-			this._implementationName,
-			nameof(requestContext),
-			requestContext
-		);
 		Guards.stringValue(this._implementationName, nameof(route), route);
 		Guards.arrayOneOf(this._implementationName, nameof(method), method, [
 			"GET",
@@ -177,9 +168,6 @@ export abstract class BaseRestClient {
 		if (Is.object(this._headers)) {
 			headers = { ...headers, ...this._headers };
 		}
-
-		const locale = requestContext.locale;
-		headers["Accept-Language"] = Is.stringValue(locale) ? locale : "en";
 
 		const response = await FetchHelper.fetch(
 			this._implementationName,

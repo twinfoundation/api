@@ -13,22 +13,16 @@ import type {
 	IWebServerOptions
 } from "@gtsc/api-models";
 import { BaseError, I18n, Is, StringHelper } from "@gtsc/core";
-import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
+import type { ILogEntry } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
-import { RequestContextHelper, type IRequestContext } from "@gtsc/services";
+import type { IServiceRequestContext } from "@gtsc/services";
 import { type HttpMethods, HttpStatusCodes, type IHttpRequestHeaders } from "@gtsc/web";
-import Fastify, { type FastifyReply, type FastifyInstance, type FastifyRequest } from "fastify";
+import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from "fastify";
 
 /**
  * Implementation of the web server using Fastify.
  */
 export class FastifyWebServer implements IWebServer {
-	/**
-	 * Runtime name for the class.
-	 * @internal
-	 */
-	private static readonly _CLASS_NAME: string = nameof<FastifyWebServer>();
-
 	/**
 	 * Runtime name for the class in camel case.
 	 * @internal
@@ -49,10 +43,15 @@ export class FastifyWebServer implements IWebServer {
 	private static readonly _DEFAULT_HOST: string = "localhost";
 
 	/**
+	 * Runtime name for the class.
+	 */
+	public readonly CLASS_NAME: string = nameof<FastifyWebServer>();
+
+	/**
 	 * The logging connector.
 	 * @internal
 	 */
-	private readonly _logging?: ILoggingConnector;
+	private readonly _logger?: (logEntry: ILogEntry) => Promise<void>;
 
 	/**
 	 * The options for the server.
@@ -68,11 +67,10 @@ export class FastifyWebServer implements IWebServer {
 
 	/**
 	 * Create a new instance of FastifyWebServer.
-	 * @param options Options for the server.
-	 * @param options.loggingConnectorType The type of logging connector to use, defaults to "logging".
+	 * @param logger The logger to use.
 	 */
-	constructor(options?: { loggingConnectorType?: string }) {
-		this._logging = LoggingConnectorFactory.getIfExists(options?.loggingConnectorType ?? "logging");
+	constructor(logger: (logEntry: ILogEntry) => Promise<void>) {
+		this._logger = logger;
 	}
 
 	/**
@@ -87,10 +85,10 @@ export class FastifyWebServer implements IWebServer {
 		restRoutes: IRestRoute[],
 		options?: IWebServerOptions
 	): Promise<void> {
-		await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+		await this._logger?.({
 			level: "info",
 			ts: Date.now(),
-			source: FastifyWebServer._CLASS_NAME,
+			source: this.CLASS_NAME,
 			message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.building`
 		});
 
@@ -142,10 +140,10 @@ export class FastifyWebServer implements IWebServer {
 		);
 
 		this._fastify.setErrorHandler(async (error, request, reply) => {
-			await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+			await this._logger?.({
 				level: "error",
 				ts: Date.now(),
-				source: FastifyWebServer._CLASS_NAME,
+				source: this.CLASS_NAME,
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`,
 				data: error
 			});
@@ -162,10 +160,10 @@ export class FastifyWebServer implements IWebServer {
 			if (!path.startsWith("/")) {
 				path = `/${path}`;
 			}
-			await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+			await this._logger?.({
 				level: "info",
 				ts: Date.now(),
-				source: FastifyWebServer._CLASS_NAME,
+				source: this.CLASS_NAME,
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.restRouteAdded`,
 				data: { route: path, method: restRoute.method }
 			});
@@ -192,10 +190,10 @@ export class FastifyWebServer implements IWebServer {
 		const host = this._options?.host ?? FastifyWebServer._DEFAULT_HOST;
 		const port = this._options?.port ?? FastifyWebServer._DEFAULT_PORT;
 
-		await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+		await this._logger?.({
 			level: "info",
 			ts: Date.now(),
-			source: FastifyWebServer._CLASS_NAME,
+			source: this.CLASS_NAME,
 			message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.starting`,
 			data: {
 				host,
@@ -209,10 +207,10 @@ export class FastifyWebServer implements IWebServer {
 				const addresses = this._fastify.addresses();
 
 				const protocol = Is.object(this._fastify.initialConfig.https) ? "https://" : "http://";
-				await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+				await this._logger?.({
 					level: "info",
 					ts: Date.now(),
-					source: FastifyWebServer._CLASS_NAME,
+					source: this.CLASS_NAME,
 					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.started`,
 					data: {
 						addresses: addresses
@@ -224,10 +222,10 @@ export class FastifyWebServer implements IWebServer {
 					}
 				});
 			} catch (err) {
-				await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+				await this._logger?.({
 					level: "error",
 					ts: Date.now(),
-					source: FastifyWebServer._CLASS_NAME,
+					source: this.CLASS_NAME,
 					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.startFailed`,
 					error: BaseError.fromError(err)
 				});
@@ -244,10 +242,10 @@ export class FastifyWebServer implements IWebServer {
 			await this._fastify.close();
 			this._fastify = undefined;
 
-			await this._logging?.log(RequestContextHelper.SYSTEM_CONTEXT, {
+			await this._logger?.({
 				level: "info",
 				ts: Date.now(),
-				source: FastifyWebServer._CLASS_NAME,
+				source: this.CLASS_NAME,
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.stopped`
 			});
 		}
@@ -276,7 +274,7 @@ export class FastifyWebServer implements IWebServer {
 			headers: request.headers as IHttpRequestHeaders
 		};
 		const httpResponse: IHttpResponse = {};
-		const requestContext: IRequestContext = {};
+		const requestContext: IServiceRequestContext = {};
 		const processorState = {};
 		for (const restRouteProcessor of restRouteProcessors) {
 			await restRouteProcessor(

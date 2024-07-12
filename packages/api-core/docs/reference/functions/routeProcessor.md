@@ -6,7 +6,7 @@ Process the REST request and hands it on to the route handler.
 
 ## Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IServiceRequestContext`
 
 The context for the request.
 

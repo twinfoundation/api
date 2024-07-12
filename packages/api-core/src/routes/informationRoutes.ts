@@ -1,16 +1,20 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-
-import { readFile } from "node:fs/promises";
-import type { IHttpRequest, INoContentResponse, IRestRoute, ITag } from "@gtsc/api-models";
+import type {
+	IHttpRequest,
+	IHttpRequestContext,
+	IInformation,
+	INoContentResponse,
+	IRestRoute,
+	ITag
+} from "@gtsc/api-models";
 import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import { ServiceFactory, type IRequestContext } from "@gtsc/services";
+import { ServiceFactory } from "@gtsc/services";
 import { HttpStatusCodes } from "@gtsc/web";
 import type { IServerHealthResponse } from "../models/IServerHealthResponse";
 import type { IServerInfoResponse } from "../models/IServerInfoResponse";
 import type { IServerSpecResponse } from "../models/IServerSpecResponse";
-import type { InformationService } from "../services/informationService";
 
 /**
  * The tag to associate with the routes.
@@ -44,7 +48,8 @@ export function generateRestRoutes(
 				type: nameof<INoContentResponse>()
 			}
 		],
-		excludeFromSpec: true
+		excludeFromSpec: true,
+		skipAuth: true
 	};
 
 	const informationRoute: IRestRoute<IHttpRequest, IServerInfoResponse> = {
@@ -54,7 +59,7 @@ export function generateRestRoutes(
 		method: "GET",
 		path: `${baseRouteName}/info`,
 		handler: async (requestContext, request) =>
-			serverInformation(requestContext, factoryServiceName, request),
+			serverInfo(requestContext, factoryServiceName, request),
 		responseType: [
 			{
 				type: nameof<IServerInfoResponse>(),
@@ -71,7 +76,8 @@ export function generateRestRoutes(
 					}
 				]
 			}
-		]
+		],
+		skipAuth: true
 	};
 
 	const healthRoute: IRestRoute<IHttpRequest, IServerHealthResponse> = {
@@ -147,7 +153,8 @@ export function generateRestRoutes(
 					}
 				]
 			}
-		]
+		],
+		skipAuth: true
 	};
 
 	const specRoute: IRestRoute<IHttpRequest, IServerSpecResponse> = {
@@ -175,7 +182,8 @@ export function generateRestRoutes(
 					}
 				]
 			}
-		]
+		],
+		skipAuth: true
 	};
 
 	return [rootRoute, informationRoute, healthRoute, specRoute];
@@ -188,14 +196,14 @@ export function generateRestRoutes(
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
-export async function serverInformation(
-	requestContext: IRequestContext,
+export async function serverInfo(
+	requestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: unknown
 ): Promise<IServerInfoResponse> {
-	const service = ServiceFactory.get<InformationService>(factoryServiceName);
+	const service = ServiceFactory.get<IInformation>(factoryServiceName);
 	return {
-		body: service.serverInformation()
+		body: await service.info(requestContext)
 	};
 }
 
@@ -207,13 +215,13 @@ export async function serverInformation(
  * @returns The response object with additional http response properties.
  */
 export async function serverHealth(
-	requestContext: IRequestContext,
+	requestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: unknown
 ): Promise<IServerHealthResponse> {
-	const service = ServiceFactory.get<InformationService>(factoryServiceName);
+	const service = ServiceFactory.get<IInformation>(factoryServiceName);
 	return {
-		body: service.serverHealth()
+		body: await service.health()
 	};
 }
 
@@ -225,19 +233,16 @@ export async function serverHealth(
  * @returns The response object with additional http response properties.
  */
 export async function serverSpec(
-	requestContext: IRequestContext,
+	requestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: unknown
 ): Promise<IServerSpecResponse> {
-	const service = ServiceFactory.get<InformationService>(factoryServiceName);
-	const filename = service.openApiSpecPath();
-	let content;
+	const service = ServiceFactory.get<IInformation>(factoryServiceName);
+	const spec = await service.spec();
 
-	if (Is.stringValue(filename)) {
-		const contentBuffer = await readFile(filename, "utf8");
-		content = JSON.parse(contentBuffer);
+	if (Is.objectValue(spec)) {
 		return {
-			body: content
+			body: spec
 		};
 	}
 	return {

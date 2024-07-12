@@ -1,16 +1,17 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { readFile } from "node:fs/promises";
+import type { HealthStatus, IHealthInfo, IInformation } from "@gtsc/api-models";
 import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IService } from "@gtsc/services";
+import type { IServiceRequestContext } from "@gtsc/services";
 import type { IServerHealth } from "../models/IServerHealth";
 import type { IServerInfo } from "../models/IServerInfo";
-import type { ServerHealthStatus } from "../models/serverHealthStatus";
 
 /**
  * The information service for the server.
  */
-export class InformationService implements IService {
+export class InformationService implements IInformation {
 	/**
 	 * Runtime name for the class.
 	 */
@@ -35,6 +36,12 @@ export class InformationService implements IService {
 	private readonly _openApiSpecPath?: string;
 
 	/**
+	 * The OpenAPI spec.
+	 * @internal
+	 */
+	private _openApiSpec?: unknown;
+
+	/**
 	 * Create a new instance of InformationService.
 	 * @param serverInfo The server information.
 	 * @param openApiSpecPath The path to the spec file.
@@ -48,26 +55,42 @@ export class InformationService implements IService {
 	}
 
 	/**
+	 * The service needs to be started when the application is initialized.
+	 * @returns Nothing.
+	 */
+	public async start(): Promise<void> {
+		const filename = this._openApiSpecPath;
+
+		if (Is.stringValue(filename)) {
+			const contentBuffer = await readFile(filename, "utf8");
+			this._openApiSpec = JSON.parse(contentBuffer);
+		}
+	}
+
+	/**
 	 * Get the server information.
+	 * @param requestContext The context of the service request.
 	 * @returns The service information.
 	 */
-	public serverInformation(): IServerInfo {
+	public async info(requestContext?: IServiceRequestContext): Promise<IServerInfo> {
 		return this._serverInfo;
 	}
 
 	/**
-	 * Get the path to the OpenAPI spec.
-	 * @returns The OpenAPI spec path.
+	 * Get the OpenAPI spec.
+	 * @param requestContext The context of the service request.
+	 * @returns The OpenAPI spec.
 	 */
-	public openApiSpecPath(): string | undefined {
-		return this._openApiSpecPath;
+	public async spec(requestContext?: IServiceRequestContext): Promise<unknown> {
+		return this._openApiSpec;
 	}
 
 	/**
 	 * Get the server health.
+	 * @param requestContext The context of the service request.
 	 * @returns The service health.
 	 */
-	public serverHealth(): IServerHealth {
+	public async health(requestContext?: IServiceRequestContext): Promise<IHealthInfo> {
 		let errorCount = 0;
 		let warningCount = 0;
 
@@ -92,8 +115,15 @@ export class InformationService implements IService {
 	 * @param name The component name.
 	 * @param status The status of the component.
 	 * @param details The details for the status.
+	 * @param requestContext The context of the service request.
+	 * @returns Nothing.
 	 */
-	public setComponentHealth(name: string, status: ServerHealthStatus, details?: string): void {
+	public async setComponentHealth(
+		name: string,
+		status: HealthStatus,
+		details?: string,
+		requestContext?: IServiceRequestContext
+	): Promise<void> {
 		const component = this._serverHealth.components?.find(c => c.name === name);
 
 		if (Is.undefined(component)) {
@@ -112,8 +142,13 @@ export class InformationService implements IService {
 	/**
 	 * Remove the status of a component.
 	 * @param name The component name.
+	 * @param requestContext The context of the service request.
+	 * @returns Nothing.
 	 */
-	public removeComponentHealth(name: string): void {
+	public async removeComponentHealth(
+		name: string,
+		requestContext?: IServiceRequestContext
+	): Promise<void> {
 		if (Is.arrayValue(this._serverHealth.components)) {
 			const componentIndex = this._serverHealth.components.findIndex(c => c.name === name);
 			if (componentIndex >= 0) {

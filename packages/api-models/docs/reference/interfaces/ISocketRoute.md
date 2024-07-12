@@ -52,7 +52,7 @@ The handler module.
 
 #### Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IServiceRequestContext`
 
 The request context.
 

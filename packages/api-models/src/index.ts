@@ -26,3 +26,7 @@ export * from "./models/routes/ITag";
 export * from "./models/server/httpRestRouteProcessor";
 export * from "./models/server/IWebServer";
 export * from "./models/server/IWebServerOptions";
+export * from "./models/services/healthStatus";
+export * from "./models/services/IHealthInfo";
+export * from "./models/services/IInformation";
+export * from "./models/services/IServerInfo";

@@ -6,7 +6,7 @@ Process the REST request and log its information.
 
 ## Parameters
 
-• **requestContext**: `IRequestContext`
+• **requestContext**: `IServiceRequestContext`
 
 The context for the request.
 

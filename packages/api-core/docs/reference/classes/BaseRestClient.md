@@ -54,7 +54,7 @@ The endpoint with namespace prefix attached.
 
 ### fetch()
 
-> **fetch**\<`T`, `U`\>(`requestContext`, `route`, `method`, `request`?): `Promise`\<`U`\>
+> **fetch**\<`T`, `U`\>(`route`, `method`, `request`?): `Promise`\<`U`\>
 
 Perform a request in json format.
 
@@ -65,10 +65,6 @@ Perform a request in json format.
 • **U** *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
-
-• **requestContext**: `IRequestContext`
-
-The context for the request.
 
 • **route**: `string`
 

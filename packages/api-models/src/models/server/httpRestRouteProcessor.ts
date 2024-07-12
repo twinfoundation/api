@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IRequestContext } from "@gtsc/services";
+import type { IServiceRequestContext } from "@gtsc/services";
 import type { IHttpRequest } from "../protocol/IHttpRequest";
 import type { IHttpResponse } from "../protocol/IHttpResponse";
 import type { IRestRoute } from "../routes/IRestRoute";
@@ -15,7 +15,7 @@ import type { IRestRoute } from "../routes/IRestRoute";
  * @param options Options for the processor.
  */
 export type HttpRestRouteProcessor<T = never> = (
-	requestContext: IRequestContext,
+	requestContext: IServiceRequestContext,
 	request: IHttpRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,

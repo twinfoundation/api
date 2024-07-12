@@ -7,7 +7,7 @@ import type { IRestRoute } from "../../../src/models/routes/IRestRoute";
 /**
  * Create a new item.
  */
-interface ICreateRequest {
+interface ITestRequest {
 	/**
 	 * The data for the request.
 	 */
@@ -22,7 +22,7 @@ interface ICreateRequest {
 /**
  * The rest request ended in created response.
  */
-interface ICreateResponse {
+interface ITestResponse {
 	/**
 	 * The data for the response.
 	 */
@@ -36,16 +36,16 @@ interface ICreateResponse {
 
 describe("IRestRoute", () => {
 	test("Can construct REST Routes", () => {
-		const createRoute: IRestRoute<ICreateRequest, ICreateResponse> = {
-			operationId: "identityCreate",
-			summary: "Create a new identity",
+		const createRoute: IRestRoute<ITestRequest, ITestResponse> = {
+			operationId: "testRequestResponse",
+			summary: "Perform a request response",
 			tag: "Tag",
 			method: "POST",
 			path: "/",
 			handler: async (requestContext, request) =>
-				identityCreate(requestContext, "serviceName", request),
+				testRequestResponse(requestContext, "serviceName", request),
 			requestType: {
-				type: nameof<ICreateRequest>(),
+				type: nameof<ITestRequest>(),
 				examples: [
 					{
 						id: "example-request",
@@ -60,7 +60,7 @@ describe("IRestRoute", () => {
 			},
 			responseType: [
 				{
-					type: nameof<ICreateResponse>(),
+					type: nameof<ITestResponse>(),
 					examples: [
 						{
 							id: "example-response",
@@ -83,17 +83,17 @@ describe("IRestRoute", () => {
 });
 
 /**
- * Create a new identity.
+ * Test request response method.
  * @param requestContext The request context for the API.
  * @param serviceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
-export async function identityCreate(
+export async function testRequestResponse(
 	requestContext: IHttpRequestContext,
 	serviceName: string,
-	request: ICreateRequest
-): Promise<ICreateResponse> {
+	request: ITestRequest
+): Promise<ITestResponse> {
 	return {
 		body: {
 			value: "foo"

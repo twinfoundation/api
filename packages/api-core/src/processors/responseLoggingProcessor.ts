@@ -15,10 +15,10 @@ let loggingConnector: ILoggingConnector | undefined;
 
 /**
  * Process the REST response and log its information.
- * @param requestContext The context for the request.
  * @param request The incoming request.
  * @param response The outgoing response.
  * @param route The route to process.
+ * @param requestContext The context for the request.
  * @param state The state for the request.
  * @param state.requestStart The timestamp when the request was started.
  * @param options Additional options for the processing.
@@ -27,10 +27,10 @@ let loggingConnector: ILoggingConnector | undefined;
 export const responseLoggingProcessor: HttpRestRouteProcessor<
 	{ includeBody?: boolean } | undefined
 > = async (
-	requestContext: IServiceRequestContext,
 	request: IHttpRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,
+	requestContext: IServiceRequestContext,
 	state: { [id: string]: unknown; requestStart?: bigint },
 	options?: { includeBody?: boolean }
 ) => {
@@ -58,15 +58,18 @@ export const responseLoggingProcessor: HttpRestRouteProcessor<
 		const start = Coerce.bigint(state.requestStart) ?? now;
 		const elapsed = now - start;
 		const elapsedMicroSeconds = Math.floor(Number(elapsed) / 1000);
-		await loggingConnector.log(requestContext, {
-			level:
-				Is.number(response.statusCode) && response.statusCode >= HttpStatusCodes.BAD_REQUEST
-					? "error"
-					: "info",
-			source: "restResponseLoggingHandler",
-			ts: Date.now(),
-			message: `<=== ${response.statusCode} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
-			data
-		});
+		await loggingConnector.log(
+			{
+				level:
+					Is.number(response.statusCode) && response.statusCode >= HttpStatusCodes.BAD_REQUEST
+						? "error"
+						: "info",
+				source: "restResponseLoggingHandler",
+				ts: Date.now(),
+				message: `<=== ${response.statusCode} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
+				data
+			},
+			requestContext
+		);
 	}
 };

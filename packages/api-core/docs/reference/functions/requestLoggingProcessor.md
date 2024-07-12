@@ -1,14 +1,10 @@
 # Function: requestLoggingProcessor()
 
-> **requestLoggingProcessor**(`requestContext`, `request`, `response`, `route`, `state`, `options`?): `Promise`\<`void`\>
+> **requestLoggingProcessor**(`request`, `response`, `route`, `requestContext`, `state`, `options`?): `Promise`\<`void`\>
 
 Process the REST request and log its information.
 
 ## Parameters
-
-• **requestContext**: `IServiceRequestContext`
-
-The context for the request.
 
 • **request**: `IHttpRequest`\<`any`\>
 
@@ -21,6 +17,10 @@ The outgoing response.
 • **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
 
 The route to process.
+
+• **requestContext**: `IServiceRequestContext`
+
+The context for the request.
 
 • **state**
 

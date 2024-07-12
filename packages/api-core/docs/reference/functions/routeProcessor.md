@@ -1,14 +1,10 @@
 # Function: routeProcessor()
 
-> **routeProcessor**(`requestContext`, `request`, `response`, `route`, `state`, `options`?): `Promise`\<`void`\>
+> **routeProcessor**(`request`, `response`, `route`, `requestContext`, `state`, `options`?): `Promise`\<`void`\>
 
 Process the REST request and hands it on to the route handler.
 
 ## Parameters
-
-• **requestContext**: `IServiceRequestContext`
-
-The context for the request.
 
 • **request**: `IHttpRequest`\<`any`\>
 
@@ -21,6 +17,10 @@ The outgoing response.
 • **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
 
 The route to process.
+
+• **requestContext**: `IServiceRequestContext`
+
+The context for the request.
 
 • **state**
 

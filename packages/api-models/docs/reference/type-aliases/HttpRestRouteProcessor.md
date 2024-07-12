@@ -1,6 +1,6 @@
 # Type alias: HttpRestRouteProcessor()\<T\>
 
-> **HttpRestRouteProcessor**\<`T`\>: (`requestContext`, `request`, `response`, `route`, `state`, `options`?) => `Promise`\<`void`\>
+> **HttpRestRouteProcessor**\<`T`\>: (`request`, `response`, `route`, `requestContext`, `state`, `options`?) => `Promise`\<`void`\>
 
 Process the REST request for the specified route.
 
@@ -9,10 +9,6 @@ Process the REST request for the specified route.
 • **T** = `never`
 
 ## Parameters
-
-• **requestContext**: `IServiceRequestContext`
-
-The context for the request.
 
 • **request**: [`IHttpRequest`](../interfaces/IHttpRequest.md)
 
@@ -25,6 +21,10 @@ The response data to send if any.
 • **route**: [`IRestRoute`](../interfaces/IRestRoute.md) \| `undefined`
 
 The route being requested, if a matching one was found.
+
+• **requestContext**: `IServiceRequestContext`
+
+The context for the request.
 
 • **state**
 

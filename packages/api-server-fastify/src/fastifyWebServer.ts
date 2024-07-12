@@ -278,10 +278,10 @@ export class FastifyWebServer implements IWebServer {
 		const processorState = {};
 		for (const restRouteProcessor of restRouteProcessors) {
 			await restRouteProcessor(
-				requestContext,
 				httpRequest,
 				httpResponse,
 				restRoute,
+				requestContext,
 				processorState
 			);
 		}

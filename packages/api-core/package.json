@@ -31,13 +31,13 @@
 		"@gtsc/api-models": "0.0.3-next.26",
 		"@gtsc/core": "next",
 		"@gtsc/logging-models": "next",
-		"@gtsc/nameof": "0.0.4",
+		"@gtsc/nameof": "next",
 		"@gtsc/services": "next",
 		"@gtsc/web": "next",
 		"socket.io-client": "4.7.5"
 	},
 	"devDependencies": {
-		"@gtsc/nameof-transformer": "0.0.4",
+		"@gtsc/nameof-transformer": "next",
 		"@vitest/coverage-v8": "1.6.0",
 		"@types/node": "20.14.8",
 		"copyfiles": "2.4.1",

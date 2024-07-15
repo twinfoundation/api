@@ -4,6 +4,14 @@ The resource you tried to access does not exist, see the error field for more de
 
 ## Properties
 
+### statusCode
+
+> **statusCode**: `404`
+
+Response status code.
+
+***
+
 ### body
 
 > **body**: `IError` & `object`

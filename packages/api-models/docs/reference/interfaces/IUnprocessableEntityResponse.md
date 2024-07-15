@@ -4,6 +4,14 @@ The operation could not be processed, see the error field for more details.
 
 ## Properties
 
+### statusCode
+
+> **statusCode**: `422`
+
+Response status code.
+
+***
+
 ### body
 
 > **body**: `IError` & `object`

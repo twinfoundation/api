@@ -6,6 +6,6 @@ The rest request ended in success with no data.
 
 ### statusCode
 
-> **statusCode**: `HttpStatusCode`
+> **statusCode**: `200`
 
 Response status code.

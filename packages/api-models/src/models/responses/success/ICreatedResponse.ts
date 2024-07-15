@@ -9,7 +9,7 @@ export interface ICreatedResponse {
 	/**
 	 * Response status code.
 	 */
-	statusCode: HttpStatusCode;
+	statusCode: typeof HttpStatusCode.created;
 
 	/**
 	 * Additional response headers.

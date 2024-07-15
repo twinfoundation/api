@@ -4,6 +4,14 @@ The operation that you tried to perform is not possible, see the error field for
 
 ## Properties
 
+### statusCode
+
+> **statusCode**: `403`
+
+Response status code.
+
+***
+
 ### body
 
 > **body**: `IError`

@@ -9,5 +9,5 @@ export interface INoContentResponse {
 	/**
 	 * Response status code.
 	 */
-	statusCode: HttpStatusCode;
+	statusCode: typeof HttpStatusCode.noContent;
 }

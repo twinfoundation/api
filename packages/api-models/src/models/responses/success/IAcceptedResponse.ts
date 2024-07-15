@@ -9,7 +9,7 @@ export interface IAcceptedResponse {
 	/**
 	 * Response status code.
 	 */
-	statusCode: HttpStatusCode;
+	statusCode: typeof HttpStatusCode.accepted;
 
 	/**
 	 * Additional response headers.

@@ -9,5 +9,5 @@ export interface IOkResponse {
 	/**
 	 * Response status code.
 	 */
-	statusCode: HttpStatusCode;
+	statusCode: typeof HttpStatusCode.ok;
 }

@@ -6,7 +6,7 @@ The rest request ended in created response.
 
 ### statusCode
 
-> **statusCode**: `HttpStatusCode`
+> **statusCode**: `201`
 
 Response status code.
 

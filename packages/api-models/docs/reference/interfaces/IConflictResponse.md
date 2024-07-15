@@ -4,6 +4,14 @@ The request resulted in a conflicting operation, see the error field for more de
 
 ## Properties
 
+### statusCode
+
+> **statusCode**: `409`
+
+Response status code.
+
+***
+
 ### body
 
 > **body**: `IError` & `object`

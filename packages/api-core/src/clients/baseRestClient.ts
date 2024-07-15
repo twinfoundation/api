@@ -6,8 +6,8 @@ import { nameof } from "@gtsc/nameof";
 import {
 	FetchError,
 	FetchHelper,
+	HttpMethod,
 	HttpStatusCode,
-	type HttpMethod,
 	type IHttpRequestHeaders
 } from "@gtsc/web";
 
@@ -95,17 +95,7 @@ export abstract class BaseRestClient {
 		request?: T
 	): Promise<U> {
 		Guards.stringValue(this._implementationName, nameof(route), route);
-		Guards.arrayOneOf(this._implementationName, nameof(method), method, [
-			"GET",
-			"POST",
-			"PUT",
-			"DELETE",
-			"PATCH",
-			"OPTIONS",
-			"HEAD",
-			"TRACE",
-			"CONNECT"
-		]);
+		Guards.arrayOneOf(this._implementationName, nameof(method), method, Object.values(HttpMethod));
 
 		const routeParts = route.split("/");
 

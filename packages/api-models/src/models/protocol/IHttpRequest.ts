@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpMethods, IHttpRequestHeaders } from "@gtsc/web";
+import type { IHttpRequestHeaders } from "@gtsc/web";
 import type { IHttpRequestPathParams } from "./IHttpRequestPathParams";
 import type { IHttpRequestQuery } from "./IHttpRequestQuery";
 
@@ -9,16 +9,6 @@ import type { IHttpRequestQuery } from "./IHttpRequestQuery";
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface IHttpRequest<T = any> {
-	/**
-	 * The request method.
-	 */
-	method?: HttpMethods;
-
-	/**
-	 * The request url.
-	 */
-	url?: string;
-
 	/**
 	 * Incoming Http Headers.
 	 */

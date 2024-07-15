@@ -70,7 +70,7 @@ Perform a request in json format.
 
 The route of the request.
 
-• **method**: `HttpMethods`
+• **method**: `HttpMethod`
 
 The http method.
 

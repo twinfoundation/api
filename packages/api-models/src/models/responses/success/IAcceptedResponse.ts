@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpStatusCodes } from "@gtsc/web";
+import type { HttpStatusCode } from "@gtsc/web";
 
 /**
  * The rest request ended in accepted response.
@@ -9,7 +9,7 @@ export interface IAcceptedResponse {
 	/**
 	 * Response status code.
 	 */
-	statusCode: HttpStatusCodes;
+	statusCode: HttpStatusCode;
 
 	/**
 	 * Additional response headers.

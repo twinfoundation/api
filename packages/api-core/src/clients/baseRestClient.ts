@@ -6,8 +6,8 @@ import { nameof } from "@gtsc/nameof";
 import {
 	FetchError,
 	FetchHelper,
-	HttpStatusCodes,
-	type HttpMethods,
+	HttpStatusCode,
+	type HttpMethod,
 	type IHttpRequestHeaders
 } from "@gtsc/web";
 
@@ -91,7 +91,7 @@ export abstract class BaseRestClient {
 	 */
 	public async fetch<T extends IHttpRequest, U extends IHttpResponse>(
 		route: string,
-		method: HttpMethods,
+		method: HttpMethod,
 		request?: T
 	): Promise<U> {
 		Guards.stringValue(this._implementationName, nameof(route), route);
@@ -120,7 +120,7 @@ export abstract class BaseRestClient {
 					throw new FetchError(
 						this._implementationName,
 						`${BaseRestClient._CLASS_NAME}.missingRouteProp`,
-						HttpStatusCodes.BAD_REQUEST,
+						HttpStatusCode.badRequest,
 						{ route, routeProp }
 					);
 				}
@@ -179,7 +179,7 @@ export abstract class BaseRestClient {
 		);
 
 		if (response.ok) {
-			if (response.status === HttpStatusCodes.NO_CONTENT) {
+			if (response.status === HttpStatusCode.noContent) {
 				return {} as U;
 			}
 			try {
@@ -189,7 +189,7 @@ export abstract class BaseRestClient {
 				throw new FetchError(
 					this._implementationName,
 					`${BaseRestClient._CLASS_NAME}.decodingFailed`,
-					response.status,
+					response.status as HttpStatusCode,
 					{
 						route
 					},
@@ -201,8 +201,8 @@ export abstract class BaseRestClient {
 		const errResponse = await response.json();
 		let err: BaseError | undefined;
 		if (
-			response.status >= HttpStatusCodes.BAD_REQUEST &&
-			response.status < HttpStatusCodes.INTERNAL_SERVER_ERROR &&
+			response.status >= HttpStatusCode.badRequest &&
+			response.status < HttpStatusCode.internalServerError &&
 			Is.object(errResponse) &&
 			Is.stringValue(errResponse.message)
 		) {
@@ -213,7 +213,7 @@ export abstract class BaseRestClient {
 			err = new FetchError(
 				this._implementationName,
 				`${BaseRestClient._CLASS_NAME}.failureStatusText`,
-				response.status,
+				response.status as HttpStatusCode,
 				{
 					statusText: response.statusText ?? response.status,
 					route: finalRoute,

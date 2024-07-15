@@ -34,7 +34,7 @@ localhost
 
 ### methods?
 
-> `optional` **methods**: `HttpMethods`[]
+> `optional` **methods**: `HttpMethod`[]
 
 The methods that the server accepts.
 

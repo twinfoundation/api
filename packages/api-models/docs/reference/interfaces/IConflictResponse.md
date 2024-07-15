@@ -2,89 +2,17 @@
 
 The request resulted in a conflicting operation, see the error field for more details.
 
-## Extends
-
-- [`IErrorResponse`](../type-aliases/IErrorResponse.md)
-
 ## Properties
 
-### name
+### body
 
-> **name**: `string`
+> **body**: `IError` & `object`
 
-The name for the error.
+The body which contains the error.
 
-#### Inherited from
+#### Type declaration
 
-`IErrorResponse.name`
-
-***
-
-### message
-
-> **message**: `string`
-
-The message for the error.
-
-#### Inherited from
-
-`IErrorResponse.message`
-
-***
-
-### source?
-
-> `optional` **source**: `string`
-
-The source of the error.
-
-#### Inherited from
-
-`IErrorResponse.source`
-
-***
-
-### properties?
-
-> `optional` **properties**: `object`
-
-Any additional information for the error.
-
-#### Index signature
-
- \[`id`: `string`\]: `unknown`
-
-#### Inherited from
-
-`IErrorResponse.properties`
-
-***
-
-### stack?
-
-> `optional` **stack**: `string`
-
-The stack trace for the error.
-
-#### Inherited from
-
-`IErrorResponse.stack`
-
-***
-
-### inner?
-
-> `optional` **inner**: `IError`
-
-The inner error if there was one.
-
-#### Inherited from
-
-`IErrorResponse.inner`
-
-***
-
-### conflicts
+##### conflicts
 
 > **conflicts**: `string`[]
 

@@ -1,9 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
-	IHttpRequest,
 	IHttpRequestContext,
 	IInformation,
+	INoContentRequest,
 	INoContentResponse,
 	IRestRoute,
 	ITag
@@ -11,7 +11,7 @@ import type {
 import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import { ServiceFactory } from "@gtsc/services";
-import { HttpStatusCodes } from "@gtsc/web";
+import { HttpStatusCode } from "@gtsc/web";
 import type { IServerHealthResponse } from "../models/IServerHealthResponse";
 import type { IServerInfoResponse } from "../models/IServerInfoResponse";
 import type { IServerSpecResponse } from "../models/IServerSpecResponse";
@@ -52,7 +52,7 @@ export function generateRestRoutes(
 		skipAuth: true
 	};
 
-	const informationRoute: IRestRoute<IHttpRequest, IServerInfoResponse> = {
+	const informationRoute: IRestRoute<INoContentRequest, IServerInfoResponse> = {
 		operationId: "serverInformation",
 		summary: "Get the information for the server",
 		tag: tags[0].name,
@@ -80,7 +80,7 @@ export function generateRestRoutes(
 		skipAuth: true
 	};
 
-	const healthRoute: IRestRoute<IHttpRequest, IServerHealthResponse> = {
+	const healthRoute: IRestRoute<INoContentRequest, IServerHealthResponse> = {
 		operationId: "serverHealth",
 		summary: "Get the health for the server",
 		tag: tags[0].name,
@@ -157,7 +157,7 @@ export function generateRestRoutes(
 		skipAuth: true
 	};
 
-	const specRoute: IRestRoute<IHttpRequest, IServerSpecResponse> = {
+	const specRoute: IRestRoute<INoContentRequest, IServerSpecResponse> = {
 		operationId: "serverSpec",
 		summary: "Get the OpenAPI specification for the endpoints",
 		tag: tags[0].name,
@@ -199,7 +199,7 @@ export function generateRestRoutes(
 export async function serverInfo(
 	requestContext: IHttpRequestContext,
 	factoryServiceName: string,
-	request: unknown
+	request: INoContentRequest
 ): Promise<IServerInfoResponse> {
 	const service = ServiceFactory.get<IInformation>(factoryServiceName);
 	return {
@@ -217,7 +217,7 @@ export async function serverInfo(
 export async function serverHealth(
 	requestContext: IHttpRequestContext,
 	factoryServiceName: string,
-	request: unknown
+	request: INoContentRequest
 ): Promise<IServerHealthResponse> {
 	const service = ServiceFactory.get<IInformation>(factoryServiceName);
 	return {
@@ -235,7 +235,7 @@ export async function serverHealth(
 export async function serverSpec(
 	requestContext: IHttpRequestContext,
 	factoryServiceName: string,
-	request: unknown
+	request: INoContentRequest
 ): Promise<IServerSpecResponse> {
 	const service = ServiceFactory.get<IInformation>(factoryServiceName);
 	const spec = await service.spec();
@@ -246,6 +246,6 @@ export async function serverSpec(
 		};
 	}
 	return {
-		statusCode: HttpStatusCodes.NOT_FOUND
+		statusCode: HttpStatusCode.notFound
 	};
 }

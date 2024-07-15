@@ -10,7 +10,7 @@ Model for the standard parameters for an http response.
 
 ### statusCode?
 
-> `optional` **statusCode**: `HttpStatusCodes`
+> `optional` **statusCode**: `HttpStatusCode`
 
 Response status code.
 

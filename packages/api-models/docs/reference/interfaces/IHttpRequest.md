@@ -2,27 +2,16 @@
 
 Model for the standard parameters for an http request.
 
+## Extended by
+
+- [`IHttpServerRequest`](IHttpServerRequest.md)
+- [`INoContentRequest`](INoContentRequest.md)
+
 ## Type parameters
 
 • **T** = `any`
 
 ## Properties
-
-### method?
-
-> `optional` **method**: `HttpMethods`
-
-The request method.
-
-***
-
-### url?
-
-> `optional` **url**: `string`
-
-The request url.
-
-***
 
 ### headers?
 

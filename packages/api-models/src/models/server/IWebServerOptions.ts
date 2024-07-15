@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpMethods } from "@gtsc/web";
+import type { HttpMethod } from "@gtsc/web";
 
 /**
  * Options for the web server.
@@ -22,7 +22,7 @@ export interface IWebServerOptions {
 	 * The methods that the server accepts.
 	 * @default ["GET", "PUT", "POST", "DELETE", "OPTIONS"]
 	 */
-	methods?: HttpMethods[];
+	methods?: HttpMethod[];
 
 	/**
 	 * Any additional allowed headers.

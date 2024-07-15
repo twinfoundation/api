@@ -6,7 +6,7 @@ Process the REST request and hands it on to the route handler.
 
 ## Parameters
 
-• **request**: `IHttpRequest`\<`any`\>
+• **request**: `IHttpServerRequest`\<`any`\>
 
 The incoming request.
 

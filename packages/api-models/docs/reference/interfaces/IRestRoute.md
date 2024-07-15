@@ -68,7 +68,7 @@ Tag for the operation.
 
 ### method
 
-> **method**: `HttpMethods`
+> **method**: `HttpMethod`
 
 The http method.
 

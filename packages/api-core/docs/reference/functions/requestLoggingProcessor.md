@@ -6,7 +6,7 @@ Process the REST request and log its information.
 
 ## Parameters
 
-• **request**: `IHttpRequest`\<`any`\>
+• **request**: `IHttpServerRequest`\<`any`\>
 
 The incoming request.
 

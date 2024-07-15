@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type {
 	HttpRestRouteProcessor,
-	IHttpRequest,
 	IHttpResponse,
+	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
 import { Is } from "@gtsc/core";
@@ -26,7 +26,7 @@ let loggingConnector: ILoggingConnector | undefined;
 export const requestLoggingProcessor: HttpRestRouteProcessor<
 	{ includeBody?: boolean } | undefined
 > = async (
-	request: IHttpRequest,
+	request: IHttpServerRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,
 	requestContext: IServiceRequestContext,

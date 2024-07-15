@@ -6,7 +6,7 @@ The rest request ended in accepted response.
 
 ### statusCode
 
-> **statusCode**: `HttpStatusCodes`
+> **statusCode**: `HttpStatusCode`
 
 Response status code.
 

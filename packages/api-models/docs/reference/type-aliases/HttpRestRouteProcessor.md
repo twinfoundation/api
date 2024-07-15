@@ -10,7 +10,7 @@ Process the REST request for the specified route.
 
 ## Parameters
 
-• **request**: [`IHttpRequest`](../interfaces/IHttpRequest.md)
+• **request**: [`IHttpServerRequest`](../interfaces/IHttpServerRequest.md)
 
 The request to handle.
 

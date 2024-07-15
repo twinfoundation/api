@@ -4,6 +4,7 @@ import type {
 	HttpRestRouteProcessor,
 	IHttpRequest,
 	IHttpResponse,
+	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
 import {
@@ -17,7 +18,7 @@ import {
 	type IError
 } from "@gtsc/core";
 import type { IServiceRequestContext } from "@gtsc/services";
-import { HttpStatusCodes } from "@gtsc/web";
+import { HttpStatusCode } from "@gtsc/web";
 
 /**
  * Process the REST request and hands it on to the route handler.
@@ -32,7 +33,7 @@ import { HttpStatusCodes } from "@gtsc/web";
 export const routeProcessor: HttpRestRouteProcessor<
 	{ includeErrorStack?: boolean } | undefined
 > = async (
-	request: IHttpRequest,
+	request: IHttpServerRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,
 	requestContext: IServiceRequestContext,
@@ -52,7 +53,7 @@ export const routeProcessor: HttpRestRouteProcessor<
 					notFoundId: request.url
 				}
 			};
-			response.statusCode = HttpStatusCodes.NOT_FOUND;
+			response.statusCode = HttpStatusCode.notFound;
 		} else {
 			try {
 				const req: IHttpRequest = {
@@ -64,18 +65,18 @@ export const routeProcessor: HttpRestRouteProcessor<
 				const restRouteResponse = await route.handler(
 					{
 						...requestContext,
-						rawRequest: request
+						serverRequest: request
 					},
 					req
 				);
 
-				let statusCode: HttpStatusCodes =
-					restRouteResponse.statusCode ?? response.statusCode ?? HttpStatusCodes.OK;
+				let statusCode: HttpStatusCode =
+					restRouteResponse.statusCode ?? response.statusCode ?? HttpStatusCode.ok;
 
-				if (Is.empty(restRouteResponse?.body) && statusCode === HttpStatusCodes.OK) {
+				if (Is.empty(restRouteResponse?.body) && statusCode === HttpStatusCode.ok) {
 					// If there is no custom status code and the body is empty
 					// use the no content response
-					statusCode = HttpStatusCodes.NO_CONTENT;
+					statusCode = HttpStatusCode.noContent;
 				}
 
 				const headers = restRouteResponse?.headers ?? {};
@@ -132,7 +133,7 @@ function processError(
 	includeStack?: boolean
 ): {
 	error: IError;
-	httpStatusCode: number;
+	httpStatusCode: HttpStatusCode;
 } {
 	const error: BaseError = BaseError.fromError(err);
 
@@ -140,17 +141,17 @@ function processError(
 	// types then set the http response code accordingly
 	const flattened = BaseError.flatten(error);
 
-	let httpStatusCode = HttpStatusCodes.BAD_REQUEST;
+	let httpStatusCode: HttpStatusCode = HttpStatusCode.badRequest;
 	if (flattened.some(e => BaseError.isErrorName(e, ConflictError.CLASS_NAME))) {
-		httpStatusCode = HttpStatusCodes.CONFLICT;
+		httpStatusCode = HttpStatusCode.conflict;
 	} else if (flattened.some(e => BaseError.isErrorName(e, NotFoundError.CLASS_NAME))) {
-		httpStatusCode = HttpStatusCodes.NOT_FOUND;
+		httpStatusCode = HttpStatusCode.notFound;
 	} else if (flattened.some(e => BaseError.isErrorName(e, AlreadyExistsError.CLASS_NAME))) {
-		httpStatusCode = HttpStatusCodes.UNPROCESSABLE_ENTITY;
+		httpStatusCode = HttpStatusCode.unprocessableEntity;
 	} else if (flattened.some(e => BaseError.isErrorName(e, UnauthorizedError.CLASS_NAME))) {
-		httpStatusCode = HttpStatusCodes.UNAUTHORIZED;
+		httpStatusCode = HttpStatusCode.unauthorized;
 	} else if (flattened.some(e => BaseError.isErrorName(e, NotImplementedError.CLASS_NAME))) {
-		httpStatusCode = HttpStatusCodes.FORBIDDEN;
+		httpStatusCode = HttpStatusCode.forbidden;
 	}
 
 	return {

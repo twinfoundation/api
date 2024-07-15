@@ -9,8 +9,13 @@
 - [IHttpRequestPathParams](interfaces/IHttpRequestPathParams.md)
 - [IHttpRequestQuery](interfaces/IHttpRequestQuery.md)
 - [IHttpResponse](interfaces/IHttpResponse.md)
+- [IHttpServerRequest](interfaces/IHttpServerRequest.md)
+- [INoContentRequest](interfaces/INoContentRequest.md)
+- [IBadRequestResponse](interfaces/IBadRequestResponse.md)
 - [IConflictResponse](interfaces/IConflictResponse.md)
+- [IForbiddenResponse](interfaces/IForbiddenResponse.md)
 - [INotFoundResponse](interfaces/INotFoundResponse.md)
+- [IUnauthorizedResponse](interfaces/IUnauthorizedResponse.md)
 - [IUnprocessableEntityResponse](interfaces/IUnprocessableEntityResponse.md)
 - [IAcceptedResponse](interfaces/IAcceptedResponse.md)
 - [ICreatedResponse](interfaces/ICreatedResponse.md)
@@ -29,9 +34,5 @@
 
 ## Type Aliases
 
-- [IBadRequestResponse](type-aliases/IBadRequestResponse.md)
-- [IErrorResponse](type-aliases/IErrorResponse.md)
-- [IForbiddenResponse](type-aliases/IForbiddenResponse.md)
-- [IUnauthorizedResponse](type-aliases/IUnauthorizedResponse.md)
 - [HttpRestRouteProcessor](type-aliases/HttpRestRouteProcessor.md)
 - [HealthStatus](type-aliases/HealthStatus.md)

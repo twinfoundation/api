@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type {
 	HttpRestRouteProcessor,
-	IHttpRequest,
 	IHttpResponse,
+	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
 import { Coerce, Is } from "@gtsc/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
 import type { IServiceRequestContext } from "@gtsc/services";
-import { HttpStatusCodes } from "@gtsc/web";
+import { HttpStatusCode } from "@gtsc/web";
 
 let loggingConnector: ILoggingConnector | undefined;
 
@@ -27,7 +27,7 @@ let loggingConnector: ILoggingConnector | undefined;
 export const responseLoggingProcessor: HttpRestRouteProcessor<
 	{ includeBody?: boolean } | undefined
 > = async (
-	request: IHttpRequest,
+	request: IHttpServerRequest,
 	response: IHttpResponse,
 	route: IRestRoute | undefined,
 	requestContext: IServiceRequestContext,
@@ -61,7 +61,7 @@ export const responseLoggingProcessor: HttpRestRouteProcessor<
 		await loggingConnector.log(
 			{
 				level:
-					Is.number(response.statusCode) && response.statusCode >= HttpStatusCodes.BAD_REQUEST
+					Is.number(response.statusCode) && response.statusCode >= HttpStatusCode.badRequest
 						? "error"
 						: "info",
 				source: "restResponseLoggingHandler",

@@ -4,10 +4,10 @@ import FastifyCompress from "@fastify/compress";
 import FastifyCors from "@fastify/cors";
 import type {
 	HttpRestRouteProcessor,
-	IHttpRequest,
 	IHttpRequestPathParams,
 	IHttpRequestQuery,
 	IHttpResponse,
+	IHttpServerRequest,
 	IRestRoute,
 	IWebServer,
 	IWebServerOptions
@@ -16,7 +16,7 @@ import { BaseError, I18n, Is, StringHelper } from "@gtsc/core";
 import type { ILogEntry } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
-import { type HttpMethods, HttpStatusCodes, type IHttpRequestHeaders } from "@gtsc/web";
+import { type HttpMethod, HttpStatusCode, type IHttpRequestHeaders } from "@gtsc/web";
 import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from "fastify";
 
 /**
@@ -147,7 +147,7 @@ export class FastifyWebServer implements IWebServer {
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`,
 				data: error
 			});
-			return reply.status(HttpStatusCodes.BAD_REQUEST).send({
+			return reply.status(HttpStatusCode.badRequest).send({
 				error: I18n.formatMessage(`${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`, {
 					error: error.message
 				})
@@ -265,8 +265,8 @@ export class FastifyWebServer implements IWebServer {
 		restRouteProcessors: HttpRestRouteProcessor[],
 		restRoute?: IRestRoute
 	): Promise<FastifyReply> {
-		const httpRequest: IHttpRequest = {
-			method: request.method.toUpperCase() as HttpMethods,
+		const httpServerRequest: IHttpServerRequest = {
+			method: request.method.toUpperCase() as HttpMethod,
 			url: `${request.protocol}://${request.hostname}${request.url}`,
 			body: request.body,
 			query: request.query as IHttpRequestQuery,
@@ -278,7 +278,7 @@ export class FastifyWebServer implements IWebServer {
 		const processorState = {};
 		for (const restRouteProcessor of restRouteProcessors) {
 			await restRouteProcessor(
-				httpRequest,
+				httpServerRequest,
 				httpResponse,
 				restRoute,
 				requestContext,
@@ -291,7 +291,7 @@ export class FastifyWebServer implements IWebServer {
 			}
 		}
 		return reply
-			.status((httpResponse.statusCode ?? HttpStatusCodes.OK) as number)
+			.status((httpResponse.statusCode ?? HttpStatusCode.ok) as number)
 			.send(httpResponse.body);
 	}
 }

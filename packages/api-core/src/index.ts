@@ -12,4 +12,5 @@ export * from "./processors/requestLoggingProcessor";
 export * from "./processors/responseLoggingProcessor";
 export * from "./processors/routeProcessor";
 export * from "./routes/informationRoutes";
+export * from "./routes/restEntryPoints";
 export * from "./services/informationService";

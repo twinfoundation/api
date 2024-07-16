@@ -20,14 +20,15 @@
 
 ## Variables
 
-- [tags](variables/tags.md)
+- [tagsInformation](variables/tagsInformation.md)
+- [restEntryPoints](variables/restEntryPoints.md)
 
 ## Functions
 
 - [requestLoggingProcessor](functions/requestLoggingProcessor.md)
 - [responseLoggingProcessor](functions/responseLoggingProcessor.md)
 - [routeProcessor](functions/routeProcessor.md)
-- [generateRestRoutes](functions/generateRestRoutes.md)
+- [generateRestRoutesInformation](functions/generateRestRoutesInformation.md)
 - [serverInfo](functions/serverInfo.md)
 - [serverHealth](functions/serverHealth.md)
 - [serverSpec](functions/serverSpec.md)

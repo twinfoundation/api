@@ -147,7 +147,7 @@ function processError(
 	} else if (flattened.some(e => BaseError.isErrorName(e, NotFoundError.CLASS_NAME))) {
 		httpStatusCode = HttpStatusCode.notFound;
 	} else if (flattened.some(e => BaseError.isErrorName(e, AlreadyExistsError.CLASS_NAME))) {
-		httpStatusCode = HttpStatusCode.unprocessableEntity;
+		httpStatusCode = HttpStatusCode.conflict;
 	} else if (flattened.some(e => BaseError.isErrorName(e, UnauthorizedError.CLASS_NAME))) {
 		httpStatusCode = HttpStatusCode.unauthorized;
 	} else if (flattened.some(e => BaseError.isErrorName(e, NotImplementedError.CLASS_NAME))) {

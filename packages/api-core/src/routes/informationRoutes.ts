@@ -19,7 +19,7 @@ import type { IServerSpecResponse } from "../models/IServerSpecResponse";
 /**
  * The tag to associate with the routes.
  */
-export const tags: ITag[] = [
+export const tagsInformation: ITag[] = [
 	{
 		name: "Info",
 		description: "Information endpoints for the REST server."
@@ -32,14 +32,14 @@ export const tags: ITag[] = [
  * @param factoryServiceName The name of the service to use in the routes store in the ServiceFactory.
  * @returns The generated routes.
  */
-export function generateRestRoutes(
+export function generateRestRoutesInformation(
 	baseRouteName: string,
 	factoryServiceName: string
 ): IRestRoute[] {
 	const rootRoute: IRestRoute = {
 		operationId: "serverRoot",
 		summary: "Get the root blank page",
-		tag: tags[0].name,
+		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/`,
 		handler: async () => ({}),
@@ -55,7 +55,7 @@ export function generateRestRoutes(
 	const informationRoute: IRestRoute<INoContentRequest, IServerInfoResponse> = {
 		operationId: "serverInformation",
 		summary: "Get the information for the server",
-		tag: tags[0].name,
+		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/info`,
 		handler: async (requestContext, request) =>
@@ -83,7 +83,7 @@ export function generateRestRoutes(
 	const healthRoute: IRestRoute<INoContentRequest, IServerHealthResponse> = {
 		operationId: "serverHealth",
 		summary: "Get the health for the server",
-		tag: tags[0].name,
+		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/health`,
 		handler: async (requestContext, request) =>
@@ -160,7 +160,7 @@ export function generateRestRoutes(
 	const specRoute: IRestRoute<INoContentRequest, IServerSpecResponse> = {
 		operationId: "serverSpec",
 		summary: "Get the OpenAPI specification for the endpoints",
-		tag: tags[0].name,
+		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/spec`,
 		handler: async (requestContext, request) =>

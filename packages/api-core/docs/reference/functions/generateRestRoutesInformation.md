@@ -1,6 +1,6 @@
-# Function: generateRestRoutes()
+# Function: generateRestRoutesInformation()
 
-> **generateRestRoutes**(`baseRouteName`, `factoryServiceName`): `IRestRoute`[]
+> **generateRestRoutesInformation**(`baseRouteName`, `factoryServiceName`): `IRestRoute`[]
 
 The REST routes for server information.
 

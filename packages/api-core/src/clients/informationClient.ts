@@ -4,8 +4,8 @@ import type {
 	HealthStatus,
 	IBaseRestClientConfig,
 	IHealthInfo,
-	IHttpRequest,
-	IInformation
+	IInformation,
+	INoContentRequest
 } from "@gtsc/api-models";
 import { NotSupportedError, StringHelper } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
@@ -37,7 +37,7 @@ export class InformationClient extends BaseRestClient implements IInformation {
 	 * @returns The service information.
 	 */
 	public async info(): Promise<IServerInfo> {
-		const response = await this.fetch<IHttpRequest, IServerInfoResponse>("/info", "GET");
+		const response = await this.fetch<INoContentRequest, IServerInfoResponse>("/info", "GET");
 		return response.body;
 	}
 
@@ -46,7 +46,7 @@ export class InformationClient extends BaseRestClient implements IInformation {
 	 * @returns The OpenAPI spec.
 	 */
 	public async spec(): Promise<unknown> {
-		const response = await this.fetch<IHttpRequest, IServerSpecResponse>("/spec", "GET");
+		const response = await this.fetch<INoContentRequest, IServerSpecResponse>("/spec", "GET");
 		return response.body;
 	}
 
@@ -55,7 +55,7 @@ export class InformationClient extends BaseRestClient implements IInformation {
 	 * @returns The service health.
 	 */
 	public async health(): Promise<IHealthInfo> {
-		const response = await this.fetch<IHttpRequest, IServerHealthResponse>("/health", "GET");
+		const response = await this.fetch<INoContentRequest, IServerHealthResponse>("/health", "GET");
 		return response.body;
 	}
 

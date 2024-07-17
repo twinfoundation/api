@@ -13,6 +13,11 @@ export interface IRestRouteEntryPoint {
 	name: string;
 
 	/**
+	 * The default base route name for the REST routes.
+	 */
+	defaultBaseRouteName?: string;
+
+	/**
 	 * The tags for the REST routes.
 	 */
 	tags: ITag[];

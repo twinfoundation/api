@@ -6,6 +6,7 @@ import { generateRestRoutesInformation, tagsInformation } from "./informationRou
 export const restEntryPoints: IRestRouteEntryPoint[] = [
 	{
 		name: "information",
+		defaultBaseRouteName: "",
 		tags: tagsInformation,
 		generateRoutes: generateRestRoutesInformation
 	}

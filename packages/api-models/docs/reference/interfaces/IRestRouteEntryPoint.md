@@ -12,6 +12,14 @@ The name of the REST routes.
 
 ***
 
+### defaultBaseRouteName?
+
+> `optional` **defaultBaseRouteName**: `string`
+
+The default base route name for the REST routes.
+
+***
+
 ### tags
 
 > **tags**: [`ITag`](ITag.md)[]

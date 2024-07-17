@@ -15,7 +15,7 @@ export interface IRestRouteEntryPoint {
 	/**
 	 * The default base route name for the REST routes.
 	 */
-	defaultBaseRouteName?: string;
+	defaultBaseRoute: string;
 
 	/**
 	 * The tags for the REST routes.

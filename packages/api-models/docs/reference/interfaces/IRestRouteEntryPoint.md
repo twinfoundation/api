@@ -12,9 +12,9 @@ The name of the REST routes.
 
 ***
 
-### defaultBaseRouteName?
+### defaultBaseRoute
 
-> `optional` **defaultBaseRouteName**: `string`
+> **defaultBaseRoute**: `string`
 
 The default base route name for the REST routes.
 

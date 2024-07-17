@@ -2,6 +2,9 @@
 
 ## Interfaces
 
+- [IServerHealthResponse](interfaces/IServerHealthResponse.md)
+- [IServerInfoResponse](interfaces/IServerInfoResponse.md)
+- [IServerSpecResponse](interfaces/IServerSpecResponse.md)
 - [IBaseRestClientConfig](interfaces/IBaseRestClientConfig.md)
 - [IBaseSocketClientConfig](interfaces/IBaseSocketClientConfig.md)
 - [IHttpRequest](interfaces/IHttpRequest.md)
@@ -26,6 +29,7 @@
 - [IRestRouteResponseOptions](interfaces/IRestRouteResponseOptions.md)
 - [ISocketRoute](interfaces/ISocketRoute.md)
 - [ITag](interfaces/ITag.md)
+- [IHttpRestRouteProcessor](interfaces/IHttpRestRouteProcessor.md)
 - [IWebServer](interfaces/IWebServer.md)
 - [IWebServerOptions](interfaces/IWebServerOptions.md)
 - [IHealthInfo](interfaces/IHealthInfo.md)
@@ -34,5 +38,4 @@
 
 ## Type Aliases
 
-- [HttpRestRouteProcessor](type-aliases/HttpRestRouteProcessor.md)
 - [HealthStatus](type-aliases/HealthStatus.md)

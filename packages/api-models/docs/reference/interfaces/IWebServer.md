@@ -12,7 +12,7 @@ Build the server.
 
 #### Parameters
 
-• **restRouteProcessors**: [`HttpRestRouteProcessor`](../type-aliases/HttpRestRouteProcessor.md)[]
+• **restRouteProcessors**: [`IHttpRestRouteProcessor`](IHttpRestRouteProcessor.md)[]
 
 The hooks to process the incoming requests.
 

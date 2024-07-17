@@ -42,7 +42,7 @@ Build the server.
 
 #### Parameters
 
-• **restRouteProcessors**: `HttpRestRouteProcessor`[]
+• **restRouteProcessors**: `IHttpRestRouteProcessor`[]
 
 The hooks to process the incoming requests.
 

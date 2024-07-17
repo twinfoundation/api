@@ -3,7 +3,7 @@
 import FastifyCompress from "@fastify/compress";
 import FastifyCors from "@fastify/cors";
 import type {
-	HttpRestRouteProcessor,
+	IHttpRestRouteProcessor,
 	IHttpRequestPathParams,
 	IHttpRequestQuery,
 	IHttpResponse,
@@ -81,7 +81,7 @@ export class FastifyWebServer implements IWebServer {
 	 * @returns Nothing.
 	 */
 	public async build(
-		restRouteProcessors: HttpRestRouteProcessor[],
+		restRouteProcessors: IHttpRestRouteProcessor[],
 		restRoutes: IRestRoute[],
 		options?: IWebServerOptions
 	): Promise<void> {
@@ -262,7 +262,7 @@ export class FastifyWebServer implements IWebServer {
 	private async handleRequest(
 		request: FastifyRequest,
 		reply: FastifyReply,
-		restRouteProcessors: HttpRestRouteProcessor[],
+		restRouteProcessors: IHttpRestRouteProcessor[],
 		restRoute?: IRestRoute
 	): Promise<FastifyReply> {
 		const httpServerRequest: IHttpServerRequest = {
@@ -277,7 +277,7 @@ export class FastifyWebServer implements IWebServer {
 		const requestContext: IServiceRequestContext = {};
 		const processorState = {};
 		for (const restRouteProcessor of restRouteProcessors) {
-			await restRouteProcessor(
+			await restRouteProcessor.process(
 				httpServerRequest,
 				httpResponse,
 				restRoute,

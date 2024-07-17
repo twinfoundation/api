@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpRestRouteProcessor } from "./httpRestRouteProcessor";
+import type { IHttpRestRouteProcessor } from "./IHttpRestRouteProcessor";
 import type { IWebServerOptions } from "./IWebServerOptions";
 import type { IRestRoute } from "../routes/IRestRoute";
 
@@ -16,7 +16,7 @@ export interface IWebServer {
 	 * @returns Nothing.
 	 */
 	build(
-		restRouteProcessors: HttpRestRouteProcessor[],
+		restRouteProcessors: IHttpRestRouteProcessor[],
 		restRoutes: IRestRoute[],
 		options?: IWebServerOptions
 	): Promise<void>;

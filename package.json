@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api",
-	"version": "0.0.3-next.27",
+	"version": "0.0.3-next.28",
 	"description": "API",
 	"repository": {
 		"type": "git",
@@ -41,6 +41,9 @@
 	"workspaces": [
 		"packages/api-models",
 		"packages/api-core",
+		"packages/api-processors",
+		"packages/api-service",
+		"packages/api-rest-client",
 		"packages/api-server-fastify"
 	],
 	"type": "module"

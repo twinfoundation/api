@@ -10,6 +10,9 @@ on:
         options:
           - api-models
           - api-core
+          - api-processors
+          - api-service
+          - api-rest-client
           - api-server-fastify
 
 jobs:

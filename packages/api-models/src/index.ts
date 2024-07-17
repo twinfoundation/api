@@ -1,5 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+export * from "./models/api/IServerHealthResponse";
+export * from "./models/api/IServerInfoResponse";
+export * from "./models/api/IServerSpecResponse";
 export * from "./models/config/IBaseRestClientConfig";
 export * from "./models/config/IBaseSocketClientConfig";
 export * from "./models/protocol/IHttpRequest";
@@ -24,7 +27,7 @@ export * from "./models/routes/IRestRouteEntryPoint";
 export * from "./models/routes/IRestRouteResponseOptions";
 export * from "./models/routes/ISocketRoute";
 export * from "./models/routes/ITag";
-export * from "./models/server/httpRestRouteProcessor";
+export * from "./models/server/IHttpRestRouteProcessor";
 export * from "./models/server/IWebServer";
 export * from "./models/server/IWebServerOptions";
 export * from "./models/services/healthStatus";

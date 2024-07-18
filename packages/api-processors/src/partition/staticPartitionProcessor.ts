@@ -32,7 +32,8 @@ export class StaticPartitionProcessor implements IHttpRestRouteProcessor {
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
 	constructor(options: { partitionId: string }) {
-		Guards.stringValue(this.CLASS_NAME, nameof(options?.partitionId), options?.partitionId);
+		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.stringValue(this.CLASS_NAME, nameof(options.partitionId), options.partitionId);
 		this._partitionId = options.partitionId;
 	}
 

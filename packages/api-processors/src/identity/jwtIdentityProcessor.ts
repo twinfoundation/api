@@ -39,7 +39,8 @@ export class JwtIdentityProcessor implements IHttpRestRouteProcessor {
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
 	constructor(options: { key: Uint8Array }) {
-		Guards.uint8Array(this.CLASS_NAME, nameof(options?.key), options?.key);
+		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.uint8Array(this.CLASS_NAME, nameof(options.key), options.key);
 		this._key = options.key;
 	}
 

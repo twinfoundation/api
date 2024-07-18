@@ -10,17 +10,17 @@ Adds a static identity to the request context.
 
 ### new StaticIdentityProcessor()
 
-> **new StaticIdentityProcessor**(`options`?): [`StaticIdentityProcessor`](StaticIdentityProcessor.md)
+> **new StaticIdentityProcessor**(`options`): [`StaticIdentityProcessor`](StaticIdentityProcessor.md)
 
 Create a new instance of StaticIdentityProcessor.
 
 #### Parameters
 
-• **options?**
+• **options**
 
 Options for the processor.
 
-• **options.identity?**: `Uint8Array`
+• **options.identity**: `Uint8Array`
 
 The fixed identity for request context.
 

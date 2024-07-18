@@ -40,30 +40,31 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	 * The fixed partition id used for looking up the api keys.
 	 * @internal
 	 */
-	private readonly _fixedPartitionId: string;
+	private readonly _apiKeyPartitionId: string;
 
 	/**
 	 * Create a new instance of ApiKeyPartitionProcessor.
 	 * @param options Options for the processor.
+	 * @param options.apiKeyPartitionId The partition id for the api keys as none is yet set until the lookup is performed.
 	 * @param options.entityStorageConnectorType The type for the entity storage connector, defaults to "api-key".
-	 * @param options.fixedPartitionId The partition id for the api keys.
 	 * @param options.headerName The name of the header to look for the API key, defaults to "x-api-key".
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
 	constructor(options: {
 		entityStorageConnectorType?: string;
-		fixedPartitionId: string;
+		apiKeyPartitionId: string;
 		headerName?: string;
 	}) {
+		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(options.apiKeyPartitionId),
+			options.apiKeyPartitionId
+		);
 		this._entityStorageConnector = EntityStorageConnectorFactory.get(
 			options?.entityStorageConnectorType ?? "api-key"
 		);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options?.fixedPartitionId),
-			options?.fixedPartitionId
-		);
-		this._fixedPartitionId = options.fixedPartitionId;
+		this._apiKeyPartitionId = options.apiKeyPartitionId;
 		this._headerName = options.headerName ?? "x-api-key";
 	}
 
@@ -91,7 +92,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			response.statusCode = HttpStatusCode.unauthorized;
 		} else {
 			const apiKeyEntity = await this._entityStorageConnector?.get(apiKey, undefined, {
-				partitionId: this._fixedPartitionId
+				partitionId: this._apiKeyPartitionId
 			});
 			if (!Is.object(apiKeyEntity)) {
 				response.body = {

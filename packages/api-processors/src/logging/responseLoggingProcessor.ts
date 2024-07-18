@@ -40,7 +40,7 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 	 * @param options.includeBody Include the body objects when logging the information.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: { loggingConnectorType: string; includeBody?: boolean }) {
+	constructor(options?: { loggingConnectorType?: string; includeBody?: boolean }) {
 		this._loggingConnector = LoggingConnectorFactory.get(
 			options?.loggingConnectorType ?? "logging"
 		);
@@ -74,7 +74,9 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 				if (Is.stringValue(contentType)) {
 					dataParts.push(`Content Type: ${contentType}`);
 				}
-				dataParts.push(`Content Length: ${contentLength}`);
+				if (Is.stringValue(contentType)) {
+					dataParts.push(`Content Length: ${contentLength}`);
+				}
 				data = dataParts.join(", ");
 			}
 		}
@@ -90,7 +92,7 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 						: "info",
 				source: this.CLASS_NAME,
 				ts: Date.now(),
-				message: `<=== ${response.statusCode} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
+				message: `<=== ${response.statusCode ?? ""} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
 				data
 			},
 			requestContext

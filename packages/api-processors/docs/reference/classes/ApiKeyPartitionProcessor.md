@@ -24,9 +24,9 @@ Options for the processor.
 
 The type for the entity storage connector, defaults to "api-key".
 
-• **options.fixedPartitionId**: `string`
+• **options.apiKeyPartitionId**: `string`
 
-The partition id for the api keys.
+The partition id for the api keys as none is yet set until the lookup is performed.
 
 • **options.headerName?**: `string`
 

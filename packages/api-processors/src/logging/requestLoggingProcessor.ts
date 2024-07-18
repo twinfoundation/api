@@ -38,7 +38,7 @@ export class RequestLoggingProcessor implements IHttpRestRouteProcessor {
 	 * @param options.includeBody Include the body objects when logging the information.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: { loggingConnectorType: string; includeBody?: boolean }) {
+	constructor(options?: { loggingConnectorType?: string; includeBody?: boolean }) {
 		this._loggingConnector = LoggingConnectorFactory.get(
 			options?.loggingConnectorType ?? "logging"
 		);

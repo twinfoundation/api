@@ -3,16 +3,16 @@
 import FastifyCompress from "@fastify/compress";
 import FastifyCors from "@fastify/cors";
 import type {
-	IHttpRestRouteProcessor,
 	IHttpRequestPathParams,
 	IHttpRequestQuery,
 	IHttpResponse,
+	IHttpRestRouteProcessor,
 	IHttpServerRequest,
 	IRestRoute,
 	IWebServer,
 	IWebServerOptions
 } from "@gtsc/api-models";
-import { BaseError, I18n, Is, StringHelper } from "@gtsc/core";
+import { BaseError, type IError, Is, StringHelper } from "@gtsc/core";
 import type { ILogEntry } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
@@ -140,17 +140,25 @@ export class FastifyWebServer implements IWebServer {
 		);
 
 		this._fastify.setErrorHandler(async (error, request, reply) => {
+			const err: IError = {
+				source: this.CLASS_NAME,
+				name: error.name,
+				message: `${error.code}: ${error.message}`
+			};
+			const statusCode = error.statusCode ?? HttpStatusCode.badRequest;
+
 			await this._logger?.({
 				level: "error",
 				ts: Date.now(),
 				source: this.CLASS_NAME,
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`,
-				data: error
+				data: {
+					error: err.message
+				}
 			});
-			return reply.status(HttpStatusCode.badRequest).send({
-				error: I18n.formatMessage(`${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`, {
-					error: error.message
-				})
+
+			return reply.status(statusCode).send({
+				error: err
 			});
 		});
 

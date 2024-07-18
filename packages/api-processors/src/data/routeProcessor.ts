@@ -171,8 +171,13 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 			httpStatusCode = HttpStatusCode.forbidden;
 		}
 
+		const returnError = error.toJsonObject();
+		if (!this._includeErrorStack) {
+			delete returnError.stack;
+		}
+
 		return {
-			error: error.toJsonObject(this._includeErrorStack),
+			error: returnError,
 			httpStatusCode
 		};
 	}

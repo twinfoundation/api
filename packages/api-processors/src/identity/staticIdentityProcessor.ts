@@ -31,7 +31,7 @@ export class StaticIdentityProcessor implements IHttpRestRouteProcessor {
 	 * @param options.identity The fixed identity for request context.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options: { identity: Uint8Array }) {
+	constructor(options: { identity: string }) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
 		Guards.stringValue(this.CLASS_NAME, nameof(options?.identity), options?.identity);
 		this._identity = options.identity;

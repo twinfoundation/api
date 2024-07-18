@@ -20,7 +20,7 @@ Create a new instance of StaticIdentityProcessor.
 
 Options for the processor.
 
-• **options.identity**: `Uint8Array`
+• **options.identity**: `string`
 
 The fixed identity for request context.
 

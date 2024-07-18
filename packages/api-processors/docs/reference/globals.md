@@ -4,6 +4,7 @@
 
 - [RouteProcessor](classes/RouteProcessor.md)
 - [ApiKey](classes/ApiKey.md)
+- [JwtIdentityProcessor](classes/JwtIdentityProcessor.md)
 - [StaticIdentityProcessor](classes/StaticIdentityProcessor.md)
 - [RequestLoggingProcessor](classes/RequestLoggingProcessor.md)
 - [ResponseLoggingProcessor](classes/ResponseLoggingProcessor.md)

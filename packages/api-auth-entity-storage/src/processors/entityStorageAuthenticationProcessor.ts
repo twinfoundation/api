@@ -6,42 +6,57 @@ import type {
 	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
-import { Guards, Is, UnauthorizedError } from "@gtsc/core";
+import { Is, UnauthorizedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
+import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import { HttpStatusCode, Jwt } from "@gtsc/web";
 
 /**
- * Handle a JWT token in the headers or cookie and validate it to populate request context identity.
+ * Handle a JWT token in the headers and validate it to populate request context identity.
  */
-export class JwtIdentityProcessor implements IHttpRestRouteProcessor {
-	/**
-	 * The name of the cookie to look for the access token.
-	 * @internal
-	 */
-	private static readonly _COOKIE_NAME: string = "access_token";
-
+export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<JwtIdentityProcessor>();
+	public readonly CLASS_NAME: string = nameof<EntityStorageAuthenticationProcessor>();
 
 	/**
-	 * The key for verifying the JWT token.
+	 * The vault for the keys.
 	 * @internal
 	 */
-	private readonly _key: Uint8Array;
+	private readonly _vaultConnector: IVaultConnector;
 
 	/**
-	 * Create a new instance of JwtIdentityProcessor.
-	 * @param options Options for the processor.
-	 * @param options.key The key for verifying the JWT token.
-	 * @returns Promise that resolves when the processor is initialized.
+	 * The name of the key to retrieve from the vault for signing JWT.
+	 * @internal
 	 */
-	constructor(options: { key: Uint8Array }) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.uint8Array(this.CLASS_NAME, nameof(options.key), options.key);
-		this._key = options.key;
+	private readonly _signingKeyName: string;
+
+	/**
+	 * The system partition id to use for the vault.
+	 * @internal
+	 */
+	private _systemPartitionId?: string;
+
+	/**
+	 * Create a new instance of JwtAuthenticationProcessor.
+	 * @param options Options for the processor.
+	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
+	 * @param options.signingKeyName The name of the key to retrieve from the vault for verifying the JWT, defaults to "auth-signing".
+	 */
+	constructor(options: { vaultConnectorType?: string; signingKeyName?: string }) {
+		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
+		this._signingKeyName = options?.signingKeyName ?? "auth-signing";
+	}
+
+	/**
+	 * The service needs to be started when the application is initialized.
+	 * @param systemPartitionId The system partition id.
+	 * @returns Nothing.
+	 */
+	public async start(systemPartitionId: string): Promise<void> {
+		this._systemPartitionId = systemPartitionId;
 	}
 
 	/**
@@ -62,27 +77,11 @@ export class JwtIdentityProcessor implements IHttpRestRouteProcessor {
 		if (!(route?.skipAuth ?? false)) {
 			let jwt: string | undefined;
 			const authHeader = request.headers?.authorization;
-			const cookieHeader = request.headers?.cookie;
 
 			if (Is.stringValue(authHeader)) {
 				const parts = authHeader.split(" ");
 				if (parts.length === 2 && parts[0] === "Bearer") {
 					jwt = parts[1];
-				}
-			} else if (Is.notEmpty(cookieHeader)) {
-				const cookies = Is.arrayValue(cookieHeader) ? cookieHeader : [cookieHeader];
-				for (const cookie of cookies) {
-					if (Is.stringValue(cookie)) {
-						const accessTokenCookie = cookie
-							.split(";")
-							.map(c => c.trim())
-							.find(c => c.startsWith(JwtIdentityProcessor._COOKIE_NAME));
-
-						if (Is.stringValue(accessTokenCookie)) {
-							jwt = accessTokenCookie.slice(JwtIdentityProcessor._COOKIE_NAME.length + 1).trim();
-							break;
-						}
-					}
 				}
 			}
 
@@ -93,7 +92,11 @@ export class JwtIdentityProcessor implements IHttpRestRouteProcessor {
 				};
 				response.statusCode = HttpStatusCode.unauthorized;
 			} else {
-				const decoded = await Jwt.verify(jwt, this._key);
+				const decoded = await Jwt.verifyWithVerifier(jwt, async (alg, key, payload, signature) =>
+					this._vaultConnector.verify(this._signingKeyName, payload, signature, {
+						partitionId: this._systemPartitionId
+					})
+				);
 
 				// If the signature validation failed then it is unauthorized.
 				if (!decoded.verified) {

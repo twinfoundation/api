@@ -7,7 +7,13 @@ import type { IRestRoute } from "../routes/IRestRoute";
 /**
  * Interface describing a web server.
  */
-export interface IWebServer {
+export interface IWebServer<T> {
+	/**
+	 * Get the web server instance.
+	 * @returns The web server instance.
+	 */
+	getInstance(): T;
+
 	/**
 	 * Build the server.
 	 * @param restRouteProcessors The hooks to process the incoming requests.

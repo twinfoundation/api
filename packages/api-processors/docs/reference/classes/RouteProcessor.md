@@ -38,6 +38,10 @@ Promise that resolves when the processor is initialized.
 
 Runtime name for the class.
 
+#### Implementation of
+
+`IHttpRestRouteProcessor.CLASS_NAME`
+
 ## Methods
 
 ### process()

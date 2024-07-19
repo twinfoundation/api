@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api",
-	"version": "0.0.3-next.35",
+	"version": "0.0.3-next.36",
 	"description": "API",
 	"repository": {
 		"type": "git",
@@ -42,9 +42,10 @@
 		"packages/api-models",
 		"packages/api-core",
 		"packages/api-processors",
+		"packages/api-auth-entity-storage",
 		"packages/api-service",
-		"packages/api-rest-client",
-		"packages/api-server-fastify"
+		"packages/api-server-fastify",
+		"packages/api-auth-entity-storage"
 	],
 	"type": "module"
 }

@@ -12,7 +12,15 @@ jobs:
       max-parallel: 1
       matrix:
         package:
-          [api-models, api-core, api-processors, api-service, api-rest-client, api-server-fastify]
+          [
+            api-models,
+            api-core,
+            api-processors,
+            api-service,
+            api-rest-client,
+            api-server-fastify,
+            api-auth-entity-storage
+          ]
 
     steps:
       - name: Checkout

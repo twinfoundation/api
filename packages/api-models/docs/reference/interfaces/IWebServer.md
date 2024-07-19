@@ -1,8 +1,26 @@
-# Interface: IWebServer
+# Interface: IWebServer\<T\>
 
 Interface describing a web server.
 
+## Type parameters
+
+• **T**
+
 ## Methods
+
+### getInstance()
+
+> **getInstance**(): `T`
+
+Get the web server instance.
+
+#### Returns
+
+`T`
+
+The web server instance.
+
+***
 
 ### build()
 

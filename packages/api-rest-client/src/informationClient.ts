@@ -16,7 +16,7 @@ import { NotSupportedError, StringHelper } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 
 /**
- * The information service for the server.
+ * The client to connect to the information service.
  */
 export class InformationClient extends BaseRestClient implements IInformation {
 	/**

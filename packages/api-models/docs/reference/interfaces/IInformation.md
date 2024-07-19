@@ -22,15 +22,15 @@ The name of the service.
 
 ### bootstrap()?
 
-> `optional` **bootstrap**(`requestContext`?): `Promise`\<`void`\>
+> `optional` **bootstrap**(`systemPartitionId`): `Promise`\<`void`\>
 
 Bootstrap the service by creating and initializing any resources it needs.
 
 #### Parameters
 
-• **requestContext?**: `IServiceRequestContext`
+• **systemPartitionId**: `string`
 
-The request context for bootstrapping.
+The system partition id.
 
 #### Returns
 
@@ -46,9 +46,15 @@ Nothing.
 
 ### start()?
 
-> `optional` **start**(): `Promise`\<`void`\>
+> `optional` **start**(`systemPartitionId`): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
 
 #### Returns
 
@@ -64,9 +70,15 @@ Nothing.
 
 ### stop()?
 
-> `optional` **stop**(): `Promise`\<`void`\>
+> `optional` **stop**(`systemPartitionId`): `Promise`\<`void`\>
 
 The service needs to be stopped when the application is closed.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
 
 #### Returns
 

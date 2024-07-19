@@ -4,7 +4,7 @@ Implementation of the web server using Fastify.
 
 ## Implements
 
-- `IWebServer`
+- `IWebServer`\<`FastifyInstance`\>
 
 ## Constructors
 
@@ -33,6 +33,24 @@ The logger to use.
 Runtime name for the class.
 
 ## Methods
+
+### getInstance()
+
+> **getInstance**(): `FastifyInstance`\<`RawServerDefault`, `IncomingMessage`, `ServerResponse`\<`IncomingMessage`\>, `FastifyBaseLogger`, `FastifyTypeProviderDefault`\>
+
+Get the web server instance.
+
+#### Returns
+
+`FastifyInstance`\<`RawServerDefault`, `IncomingMessage`, `ServerResponse`\<`IncomingMessage`\>, `FastifyBaseLogger`, `FastifyTypeProviderDefault`\>
+
+The web server instance.
+
+#### Implementation of
+
+`IWebServer.getInstance`
+
+***
 
 ### build()
 

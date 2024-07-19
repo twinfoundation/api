@@ -22,7 +22,7 @@ import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest }
 /**
  * Implementation of the web server using Fastify.
  */
-export class FastifyWebServer implements IWebServer {
+export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	/**
 	 * Runtime name for the class in camel case.
 	 * @internal
@@ -63,7 +63,13 @@ export class FastifyWebServer implements IWebServer {
 	 * The Fastify instance.
 	 * @internal
 	 */
-	private _fastify?: FastifyInstance;
+	private readonly _fastify: FastifyInstance;
+
+	/**
+	 * Whether the server has been started.
+	 * @internal
+	 */
+	private _started: boolean;
 
 	/**
 	 * Create a new instance of FastifyWebServer.
@@ -71,6 +77,16 @@ export class FastifyWebServer implements IWebServer {
 	 */
 	constructor(logger: (logEntry: ILogEntry) => Promise<void>) {
 		this._logger = logger;
+		this._fastify = Fastify();
+		this._started = false;
+	}
+
+	/**
+	 * Get the web server instance.
+	 * @returns The web server instance.
+	 */
+	public getInstance(): FastifyInstance {
+		return this._fastify;
 	}
 
 	/**
@@ -93,50 +109,13 @@ export class FastifyWebServer implements IWebServer {
 		});
 
 		this._options = options;
-		this._fastify = Fastify();
 
 		await this._fastify.register(FastifyCompress);
 
-		let origins: string[] = ["*"];
-
-		if (Is.arrayValue(options?.corsOrigins)) {
-			origins = options?.corsOrigins;
-		} else if (Is.stringValue(options?.corsOrigins)) {
-			origins = [options?.corsOrigins];
-		}
-
-		const hasWildcardOrigin = origins.includes("*");
-
-		const methods = options?.methods ?? ["GET", "PUT", "POST", "DELETE", "OPTIONS"];
-		const allowedHeaders = [
-			"Access-Control-Allow-Origin",
-			"Content-Type",
-			"Content-Encoding",
-			"Authorization",
-			"Accept",
-			"Accept-Encoding"
-		];
-		const exposedHeaders = ["Content-Disposition"];
-
-		if (Is.arrayValue(options?.allowedHeaders)) {
-			allowedHeaders.push(...options.allowedHeaders);
-		}
-		if (Is.arrayValue(options?.exposedHeaders)) {
-			exposedHeaders.push(...options.exposedHeaders);
-		}
-
-		await this._fastify.register(FastifyCors, {
-			origin: (origin, callback) => {
-				callback(null, hasWildcardOrigin ? true : origins.includes(origin as string));
-			},
-			methods,
-			allowedHeaders,
-			exposedHeaders,
-			credentials: true
-		});
+		await this.initCors(options);
 
 		this._fastify.setNotFoundHandler({}, async (request, reply) =>
-			this.handleRequest(request, reply, restRouteProcessors)
+			this.handleRequest(restRouteProcessors, request, reply)
 		);
 
 		this._fastify.setErrorHandler(async (error, request, reply) => {
@@ -185,7 +164,7 @@ export class FastifyWebServer implements IWebServer {
 				| "head";
 
 			this._fastify[method](path, async (request, reply) =>
-				this.handleRequest(request, reply, restRouteProcessors, restRoute)
+				this.handleRequest(restRouteProcessors, request, reply, restRoute)
 			);
 		}
 	}
@@ -209,7 +188,7 @@ export class FastifyWebServer implements IWebServer {
 			}
 		});
 
-		if (this._fastify) {
+		if (!this._started) {
 			try {
 				await this._fastify.listen({ port, host });
 				const addresses = this._fastify.addresses();
@@ -229,6 +208,7 @@ export class FastifyWebServer implements IWebServer {
 							.join(", ")
 					}
 				});
+				this._started = true;
 			} catch (err) {
 				await this._logger?.({
 					level: "error",
@@ -246,9 +226,10 @@ export class FastifyWebServer implements IWebServer {
 	 * @returns Nothing.
 	 */
 	public async stop(): Promise<void> {
-		if (this._fastify) {
+		if (this._started) {
+			this._started = false;
+
 			await this._fastify.close();
-			this._fastify = undefined;
 
 			await this._logger?.({
 				level: "info",
@@ -261,16 +242,16 @@ export class FastifyWebServer implements IWebServer {
 
 	/**
 	 * Handle the incoming request.
+	 * @param restRouteProcessors The hooks to process the incoming requests.
 	 * @param request The incoming request.
 	 * @param reply The outgoing response.
-	 * @param restRouteProcessors The hooks to process the incoming requests.
 	 * @param restRoute The REST route to handle.
 	 * @internal
 	 */
 	private async handleRequest(
+		restRouteProcessors: IHttpRestRouteProcessor[],
 		request: FastifyRequest,
 		reply: FastifyReply,
-		restRouteProcessors: IHttpRestRouteProcessor[],
 		restRoute?: IRestRoute
 	): Promise<FastifyReply> {
 		const httpServerRequest: IHttpServerRequest = {
@@ -284,6 +265,7 @@ export class FastifyWebServer implements IWebServer {
 		const httpResponse: IHttpResponse = {};
 		const requestContext: IServiceRequestContext = {};
 		const processorState = {};
+
 		for (const restRouteProcessor of restRouteProcessors) {
 			await restRouteProcessor.process(
 				httpServerRequest,
@@ -293,6 +275,7 @@ export class FastifyWebServer implements IWebServer {
 				processorState
 			);
 		}
+
 		if (!Is.empty(httpResponse.headers)) {
 			for (const header of Object.keys(httpResponse.headers)) {
 				reply.header(header, httpResponse.headers[header]);
@@ -301,5 +284,50 @@ export class FastifyWebServer implements IWebServer {
 		return reply
 			.status((httpResponse.statusCode ?? HttpStatusCode.ok) as number)
 			.send(httpResponse.body);
+	}
+
+	/**
+	 * Initialize the cors options.
+	 * @param options The web server options.
+	 * @internal
+	 */
+	private async initCors(options?: IWebServerOptions): Promise<void> {
+		let origins: string[] = ["*"];
+
+		if (Is.arrayValue(options?.corsOrigins)) {
+			origins = options?.corsOrigins;
+		} else if (Is.stringValue(options?.corsOrigins)) {
+			origins = [options?.corsOrigins];
+		}
+
+		const hasWildcardOrigin = origins.includes("*");
+
+		const methods = options?.methods ?? ["GET", "PUT", "POST", "DELETE", "OPTIONS"];
+		const allowedHeaders = [
+			"Access-Control-Allow-Origin",
+			"Content-Type",
+			"Content-Encoding",
+			"Authorization",
+			"Accept",
+			"Accept-Encoding"
+		];
+		const exposedHeaders = ["Content-Disposition"];
+
+		if (Is.arrayValue(options?.allowedHeaders)) {
+			allowedHeaders.push(...options.allowedHeaders);
+		}
+		if (Is.arrayValue(options?.exposedHeaders)) {
+			exposedHeaders.push(...options.exposedHeaders);
+		}
+
+		await this._fastify.register(FastifyCors, {
+			origin: (origin, callback) => {
+				callback(null, hasWildcardOrigin ? true : origins.includes(origin as string));
+			},
+			methods,
+			allowedHeaders,
+			exposedHeaders,
+			credentials: true
+		});
 	}
 }

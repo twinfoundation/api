@@ -2,7 +2,95 @@
 
 The definition for a processor for handling REST routes.
 
+## Extends
+
+- `IService`
+
+## Properties
+
+### CLASS\_NAME
+
+> `readonly` **CLASS\_NAME**: `string`
+
+The name of the service.
+
+#### Inherited from
+
+`IService.CLASS_NAME`
+
 ## Methods
+
+### bootstrap()?
+
+> `optional` **bootstrap**(`systemPartitionId`): `Promise`\<`void`\>
+
+Bootstrap the service by creating and initializing any resources it needs.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.bootstrap`
+
+***
+
+### start()?
+
+> `optional` **start**(`systemPartitionId`): `Promise`\<`void`\>
+
+The service needs to be started when the application is initialized.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.start`
+
+***
+
+### stop()?
+
+> `optional` **stop**(`systemPartitionId`): `Promise`\<`void`\>
+
+The service needs to be stopped when the application is closed.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Inherited from
+
+`IService.stop`
+
+***
 
 ### process()
 

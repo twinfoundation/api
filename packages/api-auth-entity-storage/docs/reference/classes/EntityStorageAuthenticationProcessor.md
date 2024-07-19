@@ -1,0 +1,107 @@
+# Class: EntityStorageAuthenticationProcessor
+
+Handle a JWT token in the headers and validate it to populate request context identity.
+
+## Implements
+
+- `IHttpRestRouteProcessor`
+
+## Constructors
+
+### new EntityStorageAuthenticationProcessor()
+
+> **new EntityStorageAuthenticationProcessor**(`options`): [`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
+
+Create a new instance of JwtAuthenticationProcessor.
+
+#### Parameters
+
+• **options**
+
+Options for the processor.
+
+• **options.vaultConnectorType?**: `string`
+
+The vault for the private keys, defaults to "vault".
+
+• **options.signingKeyName?**: `string`
+
+The name of the key to retrieve from the vault for verifying the JWT, defaults to "auth-signing".
+
+#### Returns
+
+[`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
+
+## Properties
+
+### CLASS\_NAME
+
+> `readonly` **CLASS\_NAME**: `string`
+
+Runtime name for the class.
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.CLASS_NAME`
+
+## Methods
+
+### start()
+
+> **start**(`systemPartitionId`): `Promise`\<`void`\>
+
+The service needs to be started when the application is initialized.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.start`
+
+***
+
+### process()
+
+> **process**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+
+Process the REST request for the specified route.
+
+#### Parameters
+
+• **request**: `IHttpServerRequest`\<`any`\>
+
+The incoming request.
+
+• **response**: `IHttpResponse`\<`any`\>
+
+The outgoing response.
+
+• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+
+The route to process.
+
+• **requestContext**: `IServiceRequestContext`
+
+The context for the request.
+
+• **state**
+
+The state for the request.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.process`

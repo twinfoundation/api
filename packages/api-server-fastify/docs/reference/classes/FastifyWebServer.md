@@ -24,10 +24,6 @@ The options for the server.
 
 The type of the logging connector to use, if undefined, no logging will happen.
 
-• **options.systemPartitionId?**: `string`
-
-The system partition id to use when logging information.
-
 #### Returns
 
 [`FastifyWebServer`](FastifyWebServer.md)

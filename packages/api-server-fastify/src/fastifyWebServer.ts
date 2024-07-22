@@ -54,12 +54,6 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	private readonly _loggingConnector?: ILoggingConnector;
 
 	/**
-	 * The system partition id for logging.
-	 * @internal
-	 */
-	private readonly _systemPartitionId?: string;
-
-	/**
 	 * The options for the server.
 	 * @internal
 	 */
@@ -81,15 +75,13 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	 * Create a new instance of FastifyWebServer.
 	 * @param options The options for the server.
 	 * @param options.loggingConnectorType The type of the logging connector to use, if undefined, no logging will happen.
-	 * @param options.systemPartitionId The system partition id to use when logging information.
 	 */
-	constructor(options?: { loggingConnectorType?: string; systemPartitionId?: string }) {
+	constructor(options?: { loggingConnectorType?: string }) {
 		this._loggingConnector = Is.stringValue(options?.loggingConnectorType)
 			? LoggingConnectorFactory.get(options.loggingConnectorType)
 			: undefined;
 		this._fastify = Fastify();
 		this._started = false;
-		this._systemPartitionId = options?.systemPartitionId;
 	}
 
 	/**
@@ -112,15 +104,12 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		restRoutes: IRestRoute[],
 		options?: IWebServerOptions
 	): Promise<void> {
-		await this._loggingConnector?.log(
-			{
-				level: "info",
-				ts: Date.now(),
-				source: this.CLASS_NAME,
-				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.building`
-			},
-			{ partitionId: this._systemPartitionId }
-		);
+		await this._loggingConnector?.log({
+			level: "info",
+			ts: Date.now(),
+			source: this.CLASS_NAME,
+			message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.building`
+		});
 
 		this._options = options;
 
@@ -140,18 +129,15 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			};
 			const statusCode = error.statusCode ?? HttpStatusCode.badRequest;
 
-			await this._loggingConnector?.log(
-				{
-					level: "error",
-					ts: Date.now(),
-					source: this.CLASS_NAME,
-					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`,
-					data: {
-						error: err.message
-					}
-				},
-				{ partitionId: this._systemPartitionId }
-			);
+			await this._loggingConnector?.log({
+				level: "error",
+				ts: Date.now(),
+				source: this.CLASS_NAME,
+				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`,
+				data: {
+					error: err.message
+				}
+			});
 
 			return reply.status(statusCode).send({
 				error: err
@@ -164,16 +150,13 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			if (!path.startsWith("/")) {
 				path = `/${path}`;
 			}
-			await this._loggingConnector?.log(
-				{
-					level: "info",
-					ts: Date.now(),
-					source: this.CLASS_NAME,
-					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.restRouteAdded`,
-					data: { route: path, method: restRoute.method }
-				},
-				{ partitionId: this._systemPartitionId }
-			);
+			await this._loggingConnector?.log({
+				level: "info",
+				ts: Date.now(),
+				source: this.CLASS_NAME,
+				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.restRouteAdded`,
+				data: { route: path, method: restRoute.method }
+			});
 			const method = restRoute.method.toLowerCase() as
 				| "get"
 				| "post"
@@ -197,19 +180,16 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		const host = this._options?.host ?? FastifyWebServer._DEFAULT_HOST;
 		const port = this._options?.port ?? FastifyWebServer._DEFAULT_PORT;
 
-		await this._loggingConnector?.log(
-			{
-				level: "info",
-				ts: Date.now(),
-				source: this.CLASS_NAME,
-				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.starting`,
-				data: {
-					host,
-					port
-				}
-			},
-			{ partitionId: this._systemPartitionId }
-		);
+		await this._loggingConnector?.log({
+			level: "info",
+			ts: Date.now(),
+			source: this.CLASS_NAME,
+			message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.starting`,
+			data: {
+				host,
+				port
+			}
+		});
 
 		if (!this._started) {
 			try {
@@ -217,35 +197,29 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 				const addresses = this._fastify.addresses();
 
 				const protocol = Is.object(this._fastify.initialConfig.https) ? "https://" : "http://";
-				await this._loggingConnector?.log(
-					{
-						level: "info",
-						ts: Date.now(),
-						source: this.CLASS_NAME,
-						message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.started`,
-						data: {
-							addresses: addresses
-								.map(
-									a =>
-										`${protocol}${a.family === "IPv6" ? "[" : ""}${a.address}${a.family === "IPv6" ? "]" : ""}:${a.port}`
-								)
-								.join(", ")
-						}
-					},
-					{ partitionId: this._systemPartitionId }
-				);
+				await this._loggingConnector?.log({
+					level: "info",
+					ts: Date.now(),
+					source: this.CLASS_NAME,
+					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.started`,
+					data: {
+						addresses: addresses
+							.map(
+								a =>
+									`${protocol}${a.family === "IPv6" ? "[" : ""}${a.address}${a.family === "IPv6" ? "]" : ""}:${a.port}`
+							)
+							.join(", ")
+					}
+				});
 				this._started = true;
 			} catch (err) {
-				await this._loggingConnector?.log(
-					{
-						level: "error",
-						ts: Date.now(),
-						source: this.CLASS_NAME,
-						message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.startFailed`,
-						error: BaseError.fromError(err)
-					},
-					{ partitionId: this._systemPartitionId }
-				);
+				await this._loggingConnector?.log({
+					level: "error",
+					ts: Date.now(),
+					source: this.CLASS_NAME,
+					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.startFailed`,
+					error: BaseError.fromError(err)
+				});
 			}
 		}
 	}
@@ -260,15 +234,12 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 
 			await this._fastify.close();
 
-			await this._loggingConnector?.log(
-				{
-					level: "info",
-					ts: Date.now(),
-					source: this.CLASS_NAME,
-					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.stopped`
-				},
-				{ partitionId: this._systemPartitionId }
-			);
+			await this._loggingConnector?.log({
+				level: "info",
+				ts: Date.now(),
+				source: this.CLASS_NAME,
+				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.stopped`
+			});
 		}
 	}
 

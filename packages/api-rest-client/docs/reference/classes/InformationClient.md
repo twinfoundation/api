@@ -1,6 +1,6 @@
 # Class: InformationClient
 
-The information service for the server.
+The client to connect to the information service.
 
 ## Extends
 

@@ -1,11 +1,11 @@
 {
-	"name": "@gtsc/api-rest-client",
+	"name": "@gtsc/api-auth-entity-storage-service",
 	"version": "0.0.3-next.37",
-	"description": "Information contract implementation which can connect to REST endpoints",
+	"description": "Auth Entity Storage contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/gtscio/api.git",
-		"directory": "packages/api-rest-client"
+		"directory": "packages/api-auth-entity-storage-service"
 	},
 	"author": "martyn.janes@iota.org",
 	"license": "Apache-2.0",
@@ -28,11 +28,15 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
+		"@gtsc/api-auth-entity-storage-models": "0.0.3-next.37",
 		"@gtsc/api-core": "0.0.3-next.37",
 		"@gtsc/api-models": "0.0.3-next.37",
 		"@gtsc/core": "next",
+		"@gtsc/entity": "next",
+		"@gtsc/entity-storage-models": "next",
 		"@gtsc/nameof": "next",
 		"@gtsc/services": "next",
+		"@gtsc/vault-models": "next",
 		"@gtsc/web": "next"
 	},
 	"devDependencies": {

@@ -14,7 +14,9 @@ on:
           - api-service
           - api-rest-client
           - api-server-fastify
-          - api-auth-entity-storage
+          - api-auth-entity-storage-models
+          - api-auth-entity-storage-service
+          - api-auth-entity-storage-rest-client
 
 jobs:
   publish:

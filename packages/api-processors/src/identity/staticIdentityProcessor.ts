@@ -6,7 +6,7 @@ import type {
 	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
-import { Guards } from "@gtsc/core";
+import { Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 
@@ -52,7 +52,7 @@ export class StaticIdentityProcessor implements IHttpRestRouteProcessor {
 		requestContext: IServiceRequestContext,
 		state: { [id: string]: unknown }
 	): Promise<void> {
-		if (!(route?.skipAuth ?? false)) {
+		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
 			requestContext.identity = this._identity;
 		}
 	}

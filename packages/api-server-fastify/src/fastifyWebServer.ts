@@ -146,7 +146,29 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 
 		// Add the routes to the server.
 		for (const restRoute of restRoutes) {
-			await this.addRoute(restRoute, restRouteProcessors);
+			let path = StringHelper.trimTrailingSlashes(restRoute.path);
+			if (!path.startsWith("/")) {
+				path = `/${path}`;
+			}
+			await this._loggingConnector?.log({
+				level: "info",
+				ts: Date.now(),
+				source: this.CLASS_NAME,
+				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.restRouteAdded`,
+				data: { route: path, method: restRoute.method }
+			});
+			const method = restRoute.method.toLowerCase() as
+				| "get"
+				| "post"
+				| "put"
+				| "patch"
+				| "delete"
+				| "options"
+				| "head";
+
+			this._fastify[method](path, async (request, reply) =>
+				this.handleRequest(restRouteProcessors, request, reply, restRoute)
+			);
 		}
 	}
 
@@ -219,41 +241,6 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.stopped`
 			});
 		}
-	}
-
-	/**
-	 * Add a route to the server.
-	 * @param restRoute The REST route to add.
-	 * @param restRouteProcessors The hooks to process the incoming requests.
-	 * @internal
-	 */
-	private async addRoute(
-		restRoute: IRestRoute,
-		restRouteProcessors: IHttpRestRouteProcessor[]
-	): Promise<void> {
-		let path = StringHelper.trimTrailingSlashes(restRoute.path);
-		if (!path.startsWith("/")) {
-			path = `/${path}`;
-		}
-		await this._loggingConnector?.log({
-			level: "info",
-			ts: Date.now(),
-			source: this.CLASS_NAME,
-			message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.restRouteAdded`,
-			data: { route: path, method: restRoute.method }
-		});
-		const method = restRoute.method.toLowerCase() as
-			| "get"
-			| "post"
-			| "put"
-			| "patch"
-			| "delete"
-			| "options"
-			| "head";
-
-		this._fastify[method](path, async (request, reply) =>
-			this.handleRequest(restRouteProcessors, request, reply, restRoute)
-		);
 	}
 
 	/**

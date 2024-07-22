@@ -75,7 +75,7 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 		requestContext: IServiceRequestContext,
 		state: { [id: string]: unknown }
 	): Promise<void> {
-		if (!(route?.skipAuth ?? false)) {
+		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
 			let jwt: string | undefined;
 			const authHeader = request.headers?.authorization;
 

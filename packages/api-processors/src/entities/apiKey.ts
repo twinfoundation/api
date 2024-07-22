@@ -8,14 +8,20 @@ import { entity, property } from "@gtsc/entity";
 @entity()
 export class ApiKey {
 	/**
-	 * The id.
+	 * The key.
 	 */
 	@property({ type: "string", isPrimary: true })
-	public id!: string;
+	public key!: string;
 
 	/**
 	 * The partition id for the data.
 	 */
 	@property({ type: "string" })
 	public partitionId!: string;
+
+	/**
+	 * The owner of the api key.
+	 */
+	@property({ type: "string", isSecondary: true })
+	public owner!: string;
 }

@@ -40,7 +40,7 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	private _systemPartitionId?: string;
 
 	/**
-	 * Create a new instance of JwtAuthenticationProcessor.
+	 * Create a new instance of EntityStorageAuthenticationProcessor.
 	 * @param options Options for the processor.
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
 	 * @param options.signingKeyName The name of the key to retrieve from the vault for verifying the JWT, defaults to "auth-signing".

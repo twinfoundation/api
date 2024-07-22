@@ -12,7 +12,7 @@ Handle a JWT token in the headers and validate it to populate request context id
 
 > **new EntityStorageAuthenticationProcessor**(`options`): [`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
 
-Create a new instance of JwtAuthenticationProcessor.
+Create a new instance of EntityStorageAuthenticationProcessor.
 
 #### Parameters
 

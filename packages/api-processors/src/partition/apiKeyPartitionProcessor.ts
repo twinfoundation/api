@@ -6,14 +6,16 @@ import type {
 	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
-import { Guards, Is, UnauthorizedError } from "@gtsc/core";
+import { Converter, Guards, Is, RandomHelper, UnauthorizedError } from "@gtsc/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
+import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
+import type { ApiKey } from "../entities/apiKey";
 
 /**
  * Lookup Api Keys in entity storage to try and find the associated partition id.
@@ -28,7 +30,13 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	 * The entity storage for the api keys.
 	 * @internal
 	 */
-	private readonly _entityStorageConnector: IEntityStorageConnector;
+	private readonly _entityStorageConnector: IEntityStorageConnector<ApiKey>;
+
+	/**
+	 * The logging connector.
+	 * @internal
+	 */
+	private readonly _logging: ILoggingConnector;
 
 	/**
 	 * The name of the header to look for the API key.
@@ -40,32 +48,88 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	 * The fixed partition id used for looking up the api keys.
 	 * @internal
 	 */
-	private readonly _apiKeyPartitionId: string;
+	private _systemPartitionId?: string;
 
 	/**
 	 * Create a new instance of ApiKeyPartitionProcessor.
 	 * @param options Options for the processor.
-	 * @param options.apiKeyPartitionId The partition id for the api keys as none is yet set until the lookup is performed.
 	 * @param options.entityStorageConnectorType The type for the entity storage connector, defaults to "api-key".
+	 * @param options.loggingConnectorType The type of logging connector to use, defaults to "logging".
 	 * @param options.headerName The name of the header to look for the API key, defaults to "x-api-key".
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
 	constructor(options: {
 		entityStorageConnectorType?: string;
-		apiKeyPartitionId: string;
+		loggingConnectorType?: string;
 		headerName?: string;
 	}) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(options.apiKeyPartitionId),
-			options.apiKeyPartitionId
-		);
 		this._entityStorageConnector = EntityStorageConnectorFactory.get(
 			options?.entityStorageConnectorType ?? "api-key"
 		);
-		this._apiKeyPartitionId = options.apiKeyPartitionId;
+		this._logging = LoggingConnectorFactory.get(options.loggingConnectorType ?? "logging");
 		this._headerName = options.headerName ?? "x-api-key";
+	}
+
+	/**
+	 * Bootstrap the service by creating and initializing any resources it needs.
+	 * @param systemPartitionId The system partition id.
+	 * @returns Nothing.
+	 */
+	public async bootstrap(systemPartitionId: string): Promise<void> {
+		let hasKey = false;
+
+		try {
+			const systemApiKey = await this._entityStorageConnector.get("system", "owner", {
+				partitionId: systemPartitionId
+			});
+			hasKey = !Is.empty(systemApiKey?.key);
+
+			if (hasKey) {
+				this._logging.log(
+					{
+						level: "info",
+						source: this.CLASS_NAME,
+						message: "apiKeyFound",
+						data: {
+							apiKey: systemApiKey?.key
+						}
+					},
+					{ partitionId: systemPartitionId }
+				);
+			}
+		} catch {}
+
+		if (!hasKey) {
+			const apiKey = Converter.bytesToBase64(RandomHelper.generate(32));
+
+			await this._entityStorageConnector.set({
+				key: apiKey,
+				partitionId: systemPartitionId,
+				owner: "system"
+			});
+
+			this._logging.log(
+				{
+					level: "info",
+					source: this.CLASS_NAME,
+					message: "apiKeyCreated",
+					data: {
+						apiKey
+					}
+				},
+				{ partitionId: systemPartitionId }
+			);
+		}
+	}
+
+	/**
+	 * The service needs to be started when the application is initialized.
+	 * @param systemPartitionId The system partition id.
+	 * @returns Nothing.
+	 */
+	public async start(systemPartitionId: string): Promise<void> {
+		this._systemPartitionId = systemPartitionId;
 	}
 
 	/**
@@ -92,7 +156,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			response.statusCode = HttpStatusCode.unauthorized;
 		} else {
 			const apiKeyEntity = await this._entityStorageConnector?.get(apiKey, undefined, {
-				partitionId: this._apiKeyPartitionId
+				partitionId: this._systemPartitionId
 			});
 			if (!Is.object(apiKeyEntity)) {
 				response.body = {

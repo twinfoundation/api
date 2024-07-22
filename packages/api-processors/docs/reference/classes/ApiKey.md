@@ -14,11 +14,11 @@ Class defining the mapping from api key to partition id.
 
 ## Properties
 
-### id
+### key
 
-> **id**: `string`
+> **key**: `string`
 
-The id.
+The key.
 
 ***
 
@@ -27,3 +27,11 @@ The id.
 > **partitionId**: `string`
 
 The partition id for the data.
+
+***
+
+### owner
+
+> **owner**: `string`
+
+The owner of the api key.

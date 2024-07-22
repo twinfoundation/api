@@ -24,9 +24,9 @@ Options for the processor.
 
 The type for the entity storage connector, defaults to "api-key".
 
-• **options.apiKeyPartitionId**: `string`
+• **options.loggingConnectorType?**: `string`
 
-The partition id for the api keys as none is yet set until the lookup is performed.
+The type of logging connector to use, defaults to "logging".
 
 • **options.headerName?**: `string`
 
@@ -51,6 +51,54 @@ Runtime name for the class.
 `IHttpRestRouteProcessor.CLASS_NAME`
 
 ## Methods
+
+### bootstrap()
+
+> **bootstrap**(`systemPartitionId`): `Promise`\<`void`\>
+
+Bootstrap the service by creating and initializing any resources it needs.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.bootstrap`
+
+***
+
+### start()
+
+> **start**(`systemPartitionId`): `Promise`\<`void`\>
+
+The service needs to be started when the application is initialized.
+
+#### Parameters
+
+• **systemPartitionId**: `string`
+
+The system partition id.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.start`
+
+***
 
 ### process()
 

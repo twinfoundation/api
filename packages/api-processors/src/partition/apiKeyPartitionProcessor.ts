@@ -103,11 +103,14 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 		if (!hasKey) {
 			const apiKey = Converter.bytesToBase64(RandomHelper.generate(32));
 
-			await this._entityStorageConnector.set({
-				key: apiKey,
-				partitionId: systemPartitionId,
-				owner: "system"
-			});
+			await this._entityStorageConnector.set(
+				{
+					key: apiKey,
+					partitionId: systemPartitionId,
+					owner: "system"
+				},
+				{ partitionId: systemPartitionId }
+			);
 
 			this._logging.log(
 				{

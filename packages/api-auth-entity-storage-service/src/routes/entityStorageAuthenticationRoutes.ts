@@ -44,8 +44,8 @@ export function generateRestRoutesAuthentication(
 		operationId: "authenticationLogin",
 		summary: "Login to the server",
 		tag: tagsAuthentication[0].name,
-		method: "GET",
-		path: `${baseRouteName}/`,
+		method: "POST",
+		path: `${baseRouteName}/login`,
 		handler: async (requestContext, request) =>
 			authenticationLogin(requestContext, factoryServiceName, request),
 		responseType: [

@@ -10,15 +10,23 @@ Implementation of the web server using Fastify.
 
 ### new FastifyWebServer()
 
-> **new FastifyWebServer**(`logger`): [`FastifyWebServer`](FastifyWebServer.md)
+> **new FastifyWebServer**(`options`?): [`FastifyWebServer`](FastifyWebServer.md)
 
 Create a new instance of FastifyWebServer.
 
 #### Parameters
 
-• **logger**
+• **options?**
 
-The logger to use.
+The options for the server.
+
+• **options.loggingConnectorType?**: `string`
+
+The type of the logging connector to use, if undefined, no logging will happen.
+
+• **options.systemPartitionId?**: `string`
+
+The system partition id to use when logging information.
 
 #### Returns
 

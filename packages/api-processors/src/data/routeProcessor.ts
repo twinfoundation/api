@@ -1,11 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type {
-	IHttpRestRouteProcessor,
-	IHttpRequest,
-	IHttpResponse,
-	IHttpServerRequest,
-	IRestRoute
+import {
+	type IHttpRestRouteProcessor,
+	type IHttpRequest,
+	type IHttpResponse,
+	type IHttpServerRequest,
+	type IRestRoute,
+	ResponseHelper
 } from "@gtsc/api-models";
 import {
 	AlreadyExistsError,
@@ -65,16 +66,17 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 		// status code e.g. from an auth processor
 		if (Is.empty(response.statusCode)) {
 			if (Is.empty(route)) {
-				response.headers ??= {};
-				response.headers["Content-Type"] = "application/json; charset=utf-8";
-				response.body = {
-					name: NotFoundError.CLASS_NAME,
-					message: `${this.CLASS_NAME}.routeNotFound`,
-					properties: {
-						notFoundId: request.url
-					}
-				};
-				response.statusCode = HttpStatusCode.notFound;
+				ResponseHelper.buildError(
+					response,
+					{
+						name: NotFoundError.CLASS_NAME,
+						message: `${this.CLASS_NAME}.routeNotFound`,
+						properties: {
+							notFoundId: request.url
+						}
+					},
+					HttpStatusCode.notFound
+				);
 			} else {
 				try {
 					const req: IHttpRequest = {
@@ -134,10 +136,7 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 				} catch (err) {
 					const { error, httpStatusCode } = this.processError(err);
 
-					response.headers ??= {};
-					response.headers["Content-Type"] = "application/json; charset=utf-8";
-					response.body = error;
-					response.statusCode = httpStatusCode;
+					ResponseHelper.buildError(response, error, httpStatusCode);
 				}
 			}
 		}

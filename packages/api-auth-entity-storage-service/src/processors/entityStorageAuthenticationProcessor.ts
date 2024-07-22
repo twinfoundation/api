@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type {
-	IHttpResponse,
-	IHttpRestRouteProcessor,
-	IHttpServerRequest,
-	IRestRoute
+import {
+	ResponseHelper,
+	type IHttpResponse,
+	type IHttpRestRouteProcessor,
+	type IHttpServerRequest,
+	type IRestRoute
 } from "@gtsc/api-models";
 import { Is, UnauthorizedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
@@ -86,11 +87,14 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 			}
 
 			if (!Is.stringValue(jwt)) {
-				response.body = {
-					name: UnauthorizedError.CLASS_NAME,
-					message: `${this.CLASS_NAME}.missing`
-				};
-				response.statusCode = HttpStatusCode.unauthorized;
+				ResponseHelper.buildError(
+					response,
+					{
+						name: UnauthorizedError.CLASS_NAME,
+						message: `${this.CLASS_NAME}.missing`
+					},
+					HttpStatusCode.unauthorized
+				);
 			} else {
 				const decoded = await Jwt.verifyWithVerifier(jwt, async (alg, key, payload, signature) =>
 					this._vaultConnector.verify(this._signingKeyName, payload, signature, {
@@ -100,21 +104,27 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 
 				// If the signature validation failed then it is unauthorized.
 				if (!decoded.verified) {
-					response.body = {
-						name: UnauthorizedError.CLASS_NAME,
-						message: `${this.CLASS_NAME}.invalid`
-					};
-					response.statusCode = HttpStatusCode.unauthorized;
+					ResponseHelper.buildError(
+						response,
+						{
+							name: UnauthorizedError.CLASS_NAME,
+							message: `${this.CLASS_NAME}.invalid`
+						},
+						HttpStatusCode.unauthorized
+					);
 				} else if (
 					!Is.empty(decoded.payload?.exp) &&
 					decoded.payload.exp < Math.floor(Date.now() / 1000)
 				) {
 					// If the token has expired then it is unauthorized.
-					response.body = {
-						name: UnauthorizedError.CLASS_NAME,
-						message: `${this.CLASS_NAME}.expired`
-					};
-					response.statusCode = HttpStatusCode.unauthorized;
+					ResponseHelper.buildError(
+						response,
+						{
+							name: UnauthorizedError.CLASS_NAME,
+							message: `${this.CLASS_NAME}.expired`
+						},
+						HttpStatusCode.unauthorized
+					);
 				} else {
 					requestContext.identity = decoded.payload?.sub;
 				}

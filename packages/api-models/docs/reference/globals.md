@@ -1,5 +1,9 @@
 # @gtsc/api-models
 
+## Classes
+
+- [ResponseHelper](classes/ResponseHelper.md)
+
 ## Interfaces
 
 - [IServerHealthResponse](interfaces/IServerHealthResponse.md)

@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type {
-	IHttpResponse,
-	IHttpRestRouteProcessor,
-	IHttpServerRequest,
-	IRestRoute
+import {
+	ResponseHelper,
+	type IHttpResponse,
+	type IHttpRestRouteProcessor,
+	type IHttpServerRequest,
+	type IRestRoute
 } from "@gtsc/api-models";
 import { Converter, Guards, Is, RandomHelper, UnauthorizedError } from "@gtsc/core";
 import {
@@ -152,21 +153,27 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	): Promise<void> {
 		const apiKey = request?.headers?.[this._headerName] ?? request?.query?.[this._headerName];
 		if (!Is.stringValue(apiKey)) {
-			response.body = {
-				name: UnauthorizedError.CLASS_NAME,
-				message: `${this.CLASS_NAME}.apiKeyMissing`
-			};
-			response.statusCode = HttpStatusCode.unauthorized;
+			ResponseHelper.buildError(
+				response,
+				{
+					name: UnauthorizedError.CLASS_NAME,
+					message: `${this.CLASS_NAME}.apiKeyMissing`
+				},
+				HttpStatusCode.unauthorized
+			);
 		} else {
 			const apiKeyEntity = await this._entityStorageConnector?.get(apiKey, undefined, {
 				partitionId: this._systemPartitionId
 			});
 			if (!Is.object(apiKeyEntity)) {
-				response.body = {
-					name: UnauthorizedError.CLASS_NAME,
-					message: `${this.CLASS_NAME}.apiKeyNotFound`
-				};
-				response.statusCode = HttpStatusCode.unauthorized;
+				ResponseHelper.buildError(
+					response,
+					{
+						name: UnauthorizedError.CLASS_NAME,
+						message: `${this.CLASS_NAME}.apiKeyNotFound`
+					},
+					HttpStatusCode.unauthorized
+				);
 			} else {
 				requestContext.partitionId = apiKeyEntity.partitionId;
 			}

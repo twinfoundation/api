@@ -18,20 +18,6 @@ auth-signing
 
 ***
 
-### encryptionKeyName?
-
-> `optional` **encryptionKeyName**: `string`
-
-The name of the key to retrieve from the vault for encrypting passwords.
-
-#### Default
-
-```ts
-auth-encryption
-```
-
-***
-
 ### systemIdentity
 
 > **systemIdentity**: `string`

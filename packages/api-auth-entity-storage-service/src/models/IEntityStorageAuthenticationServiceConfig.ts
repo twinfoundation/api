@@ -12,12 +12,6 @@ export interface IEntityStorageAuthenticationServiceConfig {
 	signingKeyName?: string;
 
 	/**
-	 * The name of the key to retrieve from the vault for encrypting passwords.
-	 * @default auth-encryption
-	 */
-	encryptionKeyName?: string;
-
-	/**
 	 * The identity of the system which owns the signing key.
 	 */
 	systemIdentity: string;

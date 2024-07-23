@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthentication } from "@gtsc/api-auth-entity-storage-models";
 import { Converter, GeneralError, Guards, Is, RandomHelper, UnauthorizedError } from "@gtsc/core";
-import { PasswordGenerator } from "@gtsc/crypto";
+import { Blake2b, PasswordGenerator } from "@gtsc/crypto";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
@@ -10,12 +10,7 @@ import {
 import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
-import {
-	VaultConnectorFactory,
-	VaultEncryptionType,
-	VaultKeyType,
-	type IVaultConnector
-} from "@gtsc/vault-models";
+import { VaultConnectorFactory, VaultKeyType, type IVaultConnector } from "@gtsc/vault-models";
 import { Jwt, JwtAlgorithms } from "@gtsc/web";
 import type { AuthenticationUser } from "../entities/authenticationUser";
 import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
@@ -52,12 +47,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	 * @internal
 	 */
 	private readonly _signingKeyName: string;
-
-	/**
-	 * The name of the key to retrieve from the vault for encrypting passwords.
-	 * @internal
-	 */
-	private readonly _encryptionKeyName: string;
 
 	/**
 	 * The system identity.
@@ -100,7 +89,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._logging = LoggingConnectorFactory.get(options?.loggingConnectorType ?? "logging");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
-		this._encryptionKeyName = options?.config?.signingKeyName ?? "auth-encryption";
 		this._systemIdentity = options.config.systemIdentity;
 	}
 
@@ -111,7 +99,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	 */
 	public async bootstrap(systemPartitionId: string): Promise<void> {
 		let hasSigningKey = false;
-		let hasEncryptionKey = false;
 		let hasSystemUser = false;
 
 		const systemRequestContext: IServiceRequestContext = {
@@ -156,42 +143,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		}
 
 		try {
-			const vaultKey = await this._vaultConnector.getKey(
-				this._encryptionKeyName,
-				systemRequestContext
-			);
-			hasEncryptionKey = vaultKey.type === VaultKeyType.Ed25519;
-
-			if (hasEncryptionKey) {
-				await this._logging.log(
-					{
-						level: "info",
-						source: this.CLASS_NAME,
-						message: "encryptionKeyFound"
-					},
-					systemRequestContext
-				);
-			}
-		} catch {}
-
-		if (!hasEncryptionKey) {
-			await this._vaultConnector.createKey(
-				this._encryptionKeyName,
-				VaultKeyType.Ed25519,
-				systemRequestContext
-			);
-
-			await this._logging.log(
-				{
-					level: "info",
-					source: this.CLASS_NAME,
-					message: "encryptionKeyCreated"
-				},
-				systemRequestContext
-			);
-		}
-
-		try {
 			const systemUser = await this._userEntityStorage.get(
 				"system@system",
 				undefined,
@@ -220,15 +171,11 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			const passwordBytes = Converter.utf8ToBytes(generatedPassword);
 			const saltBytes = RandomHelper.generate(16);
 
-			const encryptedPassword = await this.encryptPassword(
-				passwordBytes,
-				saltBytes,
-				systemRequestContext
-			);
+			const hashedPassword = await this.hashPassword(passwordBytes, saltBytes);
 
 			const systemUser: AuthenticationUser = {
 				email: "system@system",
-				password: encryptedPassword,
+				password: hashedPassword,
 				salt: Converter.bytesToBase64(saltBytes),
 				identity: this._systemIdentity
 			};
@@ -288,13 +235,9 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			const saltBytes = Converter.base64ToBytes(user.salt);
 			const passwordBytes = Converter.utf8ToBytes(password);
 
-			const encryptedPassword = await this.encryptPassword(
-				passwordBytes,
-				saltBytes,
-				systemRequestContext
-			);
+			const hashedPassword = await this.hashPassword(passwordBytes, saltBytes);
 
-			if (encryptedPassword !== user.password) {
+			if (hashedPassword !== user.password) {
 				throw new GeneralError(this.CLASS_NAME, "passwordMismatch");
 			}
 
@@ -314,29 +257,19 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	}
 
 	/**
-	 * Encrypt the password for the user.
+	 * Hash the password for the user.
 	 * @param passwordBytes The password bytes.
 	 * @param saltBytes The salt bytes.
-	 * @param requestContext The context for the request.
-	 * @returns The encrypted password.
+	 * @returns The hashed password.
 	 * @internal
 	 */
-	private async encryptPassword(
-		passwordBytes: Uint8Array,
-		saltBytes: Uint8Array,
-		requestContext: IServiceRequestContext
-	): Promise<string> {
+	private async hashPassword(passwordBytes: Uint8Array, saltBytes: Uint8Array): Promise<string> {
 		const combined = new Uint8Array(saltBytes.length + passwordBytes.length);
 		combined.set(saltBytes);
 		combined.set(passwordBytes, saltBytes.length);
 
-		const encryptedPassword = await this._vaultConnector.encrypt(
-			this._encryptionKeyName,
-			VaultEncryptionType.ChaCha20Poly1305,
-			combined,
-			requestContext
-		);
+		const hashedPassword = Blake2b.sum256(combined);
 
-		return Converter.bytesToBase64(encryptedPassword);
+		return Converter.bytesToBase64(hashedPassword);
 	}
 }

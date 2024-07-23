@@ -7,7 +7,7 @@ import {
 	type IHttpServerRequest,
 	type IRestRoute
 } from "@gtsc/api-models";
-import { Guards, Is, UnauthorizedError } from "@gtsc/core";
+import { Is, UnauthorizedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
@@ -57,13 +57,6 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 		vaultConnectorType?: string;
 		config?: IEntityStorageAuthenticationProcessorConfig;
 	}) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object<IEntityStorageAuthenticationProcessorConfig>(
-			this.CLASS_NAME,
-			nameof(options.config),
-			options.config
-		);
-
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
 	}

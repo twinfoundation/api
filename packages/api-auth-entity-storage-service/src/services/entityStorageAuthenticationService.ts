@@ -66,13 +66,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		vaultConnectorType?: string;
 		config?: IEntityStorageAuthenticationServiceConfig;
 	}) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object<IEntityStorageAuthenticationServiceConfig>(
-			this.CLASS_NAME,
-			nameof(options.config),
-			options.config
-		);
-
 		this._userEntityStorage = EntityStorageConnectorFactory.get(
 			options?.userEntityStorageType ?? "authentication-user"
 		);

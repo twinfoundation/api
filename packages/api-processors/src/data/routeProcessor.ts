@@ -1,12 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
-	type IHttpRestRouteProcessor,
+	ResponseHelper,
 	type IHttpRequest,
 	type IHttpResponse,
+	type IHttpRestRouteProcessor,
 	type IHttpServerRequest,
-	type IRestRoute,
-	ResponseHelper
+	type IRestRoute
 } from "@gtsc/api-models";
 import {
 	AlreadyExistsError,
@@ -22,6 +22,7 @@ import {
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
+import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
 
 /**
  * Process the REST request and hands it on to the route handler.
@@ -41,11 +42,11 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Create a new instance of RouteProcessor.
 	 * @param options Options for the processor.
-	 * @param options.includeErrorStack Include the stack with errors.
+	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: { includeErrorStack?: boolean }) {
-		this._includeErrorStack = options?.includeErrorStack ?? false;
+	constructor(options?: { config?: IRouteProcessorConfig }) {
+		this._includeErrorStack = options?.config?.includeErrorStack ?? false;
 	}
 
 	/**

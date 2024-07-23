@@ -20,9 +20,9 @@ Create a new instance of StaticIdentityProcessor.
 
 Options for the processor.
 
-• **options.identity**: `string`
+• **options.config**: [`IStaticIdentityProcessorConfig`](../interfaces/IStaticIdentityProcessorConfig.md)
 
-The fixed identity for request context.
+The configuration for the processor.
 
 #### Returns
 

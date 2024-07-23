@@ -28,9 +28,9 @@ The type for the entity storage connector, defaults to "api-key".
 
 The type of logging connector to use, defaults to "logging".
 
-• **options.headerName?**: `string`
+• **options.config?**: [`IApiKeyPartitionProcessorConfig`](../interfaces/IApiKeyPartitionProcessorConfig.md)
 
-The name of the header to look for the API key, defaults to "x-api-key".
+The configuration for the processor.
 
 #### Returns
 

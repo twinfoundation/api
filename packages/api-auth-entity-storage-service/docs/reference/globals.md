@@ -8,7 +8,8 @@
 
 ## Interfaces
 
-- [IEntityStorageAuthenticationConfig](interfaces/IEntityStorageAuthenticationConfig.md)
+- [IEntityStorageAuthenticationProcessorConfig](interfaces/IEntityStorageAuthenticationProcessorConfig.md)
+- [IEntityStorageAuthenticationServiceConfig](interfaces/IEntityStorageAuthenticationServiceConfig.md)
 
 ## Variables
 

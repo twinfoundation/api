@@ -24,9 +24,9 @@ Options for the processor.
 
 The vault for the private keys, defaults to "vault".
 
-• **options.signingKeyName?**: `string`
+• **options.config**: [`IEntityStorageAuthenticationProcessorConfig`](../interfaces/IEntityStorageAuthenticationProcessorConfig.md)
 
-The name of the key to retrieve from the vault for verifying the JWT, defaults to "auth-signing".
+The configuration for the processor.
 
 #### Returns
 

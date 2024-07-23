@@ -4,7 +4,7 @@
 /**
  * Configuration for the entity storage authentication connector.
  */
-export interface IEntityStorageAuthenticationConfig {
+export interface IEntityStorageAuthenticationProcessorConfig {
 	/**
 	 * The name of the key to retrieve from the vault for signing JWT.
 	 * @default auth-signing
@@ -12,8 +12,7 @@ export interface IEntityStorageAuthenticationConfig {
 	signingKeyName?: string;
 
 	/**
-	 * The name of the key to retrieve from the vault for encrypting passwords.
-	 * @default auth-encryption
+	 * The identity of the system which owns the signing key.
 	 */
-	encryptionKeyName?: string;
+	systemIdentity: string;
 }

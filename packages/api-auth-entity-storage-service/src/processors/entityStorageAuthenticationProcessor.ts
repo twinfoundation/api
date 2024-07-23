@@ -7,11 +7,12 @@ import {
 	type IHttpServerRequest,
 	type IRestRoute
 } from "@gtsc/api-models";
-import { Is, UnauthorizedError } from "@gtsc/core";
+import { Guards, Is, UnauthorizedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import { HttpStatusCode, Jwt } from "@gtsc/web";
+import type { IEntityStorageAuthenticationProcessorConfig } from "../models/IEntityStorageAuthenticationProcessorConfig";
 
 /**
  * Handle a JWT token in the headers and validate it to populate request context identity.
@@ -35,6 +36,12 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	private readonly _signingKeyName: string;
 
 	/**
+	 * The system identity.
+	 * @internal
+	 */
+	private readonly _systemIdentity: string;
+
+	/**
 	 * The system partition id to use for the vault.
 	 * @internal
 	 */
@@ -44,11 +51,23 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	 * Create a new instance of EntityStorageAuthenticationProcessor.
 	 * @param options Options for the processor.
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
-	 * @param options.signingKeyName The name of the key to retrieve from the vault for verifying the JWT, defaults to "auth-signing".
+	 * @param options.config The configuration for the processor.
 	 */
-	constructor(options: { vaultConnectorType?: string; signingKeyName?: string }) {
+	constructor(options: {
+		vaultConnectorType?: string;
+		config: IEntityStorageAuthenticationProcessorConfig;
+	}) {
+		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(options.config.systemIdentity),
+			options.config.systemIdentity
+		);
+
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
-		this._signingKeyName = options?.signingKeyName ?? "auth-signing";
+		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
+		this._systemIdentity = options.config.systemIdentity;
 	}
 
 	/**
@@ -96,10 +115,18 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 					HttpStatusCode.unauthorized
 				);
 			} else {
+				const systemRequestContext: IServiceRequestContext = {
+					identity: this._systemIdentity,
+					partitionId: this._systemPartitionId
+				};
+
 				const decoded = await Jwt.verifyWithVerifier(jwt, async (alg, key, payload, signature) =>
-					this._vaultConnector.verify(this._signingKeyName, payload, signature, {
-						partitionId: this._systemPartitionId
-					})
+					this._vaultConnector.verify(
+						this._signingKeyName,
+						payload,
+						signature,
+						systemRequestContext
+					)
 				);
 
 				// If the signature validation failed then it is unauthorized.

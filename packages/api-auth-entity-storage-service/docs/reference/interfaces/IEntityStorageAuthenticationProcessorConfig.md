@@ -1,4 +1,4 @@
-# Interface: IEntityStorageAuthenticationConfig
+# Interface: IEntityStorageAuthenticationProcessorConfig
 
 Configuration for the entity storage authentication connector.
 
@@ -18,14 +18,8 @@ auth-signing
 
 ***
 
-### encryptionKeyName?
+### systemIdentity
 
-> `optional` **encryptionKeyName**: `string`
+> **systemIdentity**: `string`
 
-The name of the key to retrieve from the vault for encrypting passwords.
-
-#### Default
-
-```ts
-auth-encryption
-```
+The identity of the system which owns the signing key.

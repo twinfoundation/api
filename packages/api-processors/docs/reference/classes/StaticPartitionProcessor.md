@@ -20,9 +20,9 @@ Create a new instance of StaticPartitionProcessor.
 
 Options for the processor.
 
-• **options.partitionId**: `string`
+• **options.config**: [`IStaticPartitionProcessorConfig`](../interfaces/IStaticPartitionProcessorConfig.md)
 
-The static partition id.
+The configuration for the processor.
 
 #### Returns
 

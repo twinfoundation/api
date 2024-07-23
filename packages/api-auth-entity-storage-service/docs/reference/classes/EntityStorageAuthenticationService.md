@@ -10,13 +10,13 @@ Implementation of the authentication service using entity storage.
 
 ### new EntityStorageAuthenticationService()
 
-> **new EntityStorageAuthenticationService**(`options`?): [`EntityStorageAuthenticationService`](EntityStorageAuthenticationService.md)
+> **new EntityStorageAuthenticationService**(`options`): [`EntityStorageAuthenticationService`](EntityStorageAuthenticationService.md)
 
 Create a new instance of EntityStorageAuthentication.
 
 #### Parameters
 
-• **options?**
+• **options**
 
 The dependencies for the identity connector.
 
@@ -28,7 +28,11 @@ The entity storage for the users, defaults to "authentication-user".
 
 The vault for the private keys, defaults to "vault".
 
-• **options.config?**: [`IEntityStorageAuthenticationConfig`](../interfaces/IEntityStorageAuthenticationConfig.md)
+• **options.loggingConnectorType?**: `string`
+
+The type of logging connector to use, defaults to "logging".
+
+• **options.config**: [`IEntityStorageAuthenticationServiceConfig`](../interfaces/IEntityStorageAuthenticationServiceConfig.md)
 
 The configuration for the authentication.
 

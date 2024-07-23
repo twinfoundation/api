@@ -24,9 +24,9 @@ Options for the processor.
 
 The type for the logging connector, defaults to "logging".
 
-• **options.includeBody?**: `boolean`
+• **options.config?**: [`IRequestLoggingProcessorConfig`](../interfaces/IRequestLoggingProcessorConfig.md)
 
-Include the body objects when logging the information.
+The configuration for the processor.
 
 #### Returns
 

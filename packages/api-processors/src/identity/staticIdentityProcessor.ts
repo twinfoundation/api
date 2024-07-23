@@ -1,14 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
-	IHttpRestRouteProcessor,
 	IHttpResponse,
+	IHttpRestRouteProcessor,
 	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
 import { Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
+import type { IStaticIdentityProcessorConfig } from "../models/IStaticIdentityProcessorConfig";
 
 /**
  * Adds a static identity to the request context.
@@ -28,13 +29,14 @@ export class StaticIdentityProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Create a new instance of StaticIdentityProcessor.
 	 * @param options Options for the processor.
-	 * @param options.identity The fixed identity for request context.
+	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options: { identity: string }) {
+	constructor(options: { config: IStaticIdentityProcessorConfig }) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.stringValue(this.CLASS_NAME, nameof(options?.identity), options?.identity);
-		this._identity = options.identity;
+		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
+		Guards.stringValue(this.CLASS_NAME, nameof(options.config.identity), options.config.identity);
+		this._identity = options.config.identity;
 	}
 
 	/**

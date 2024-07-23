@@ -1,6 +1,6 @@
 # Interface: IUnauthorizedResponse
 
-You are not authorized to use the API or no credentials were supplied.
+You are not authorized to use the API or no credentials were supplied, see the error field for more details.
 
 ## Properties
 

@@ -9,6 +9,7 @@ import type {
 import { Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
+import type { IStaticPartitionProcessorConfig } from "../models/IStaticPartitionProcessorConfig";
 
 /**
  * Adds a static partition to the request context.
@@ -28,13 +29,18 @@ export class StaticPartitionProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Create a new instance of StaticPartitionProcessor.
 	 * @param options Options for the processor.
-	 * @param options.partitionId The static partition id.
+	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options: { partitionId: string }) {
+	constructor(options: { config: IStaticPartitionProcessorConfig }) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.stringValue(this.CLASS_NAME, nameof(options.partitionId), options.partitionId);
-		this._partitionId = options.partitionId;
+		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(options.config.partitionId),
+			options.config.partitionId
+		);
+		this._partitionId = options.config.partitionId;
 	}
 
 	/**

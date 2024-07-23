@@ -9,6 +9,7 @@ import type {
 import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
+import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingProcessorConfig";
 
 /**
  * Process the REST request and log its information.
@@ -35,14 +36,17 @@ export class RequestLoggingProcessor implements IHttpRestRouteProcessor {
 	 * Create a new instance of RequestLoggingProcessor.
 	 * @param options Options for the processor.
 	 * @param options.loggingConnectorType The type for the logging connector, defaults to "logging".
-	 * @param options.includeBody Include the body objects when logging the information.
+	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: { loggingConnectorType?: string; includeBody?: boolean }) {
+	constructor(options?: {
+		loggingConnectorType?: string;
+		config?: IRequestLoggingProcessorConfig;
+	}) {
 		this._loggingConnector = LoggingConnectorFactory.get(
 			options?.loggingConnectorType ?? "logging"
 		);
-		this._includeBody = options?.includeBody ?? false;
+		this._includeBody = options?.config?.includeBody ?? false;
 	}
 
 	/**

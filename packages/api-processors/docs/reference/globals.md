@@ -10,6 +10,15 @@
 - [ApiKeyPartitionProcessor](classes/ApiKeyPartitionProcessor.md)
 - [StaticPartitionProcessor](classes/StaticPartitionProcessor.md)
 
+## Interfaces
+
+- [IApiKeyPartitionProcessorConfig](interfaces/IApiKeyPartitionProcessorConfig.md)
+- [IRequestLoggingProcessorConfig](interfaces/IRequestLoggingProcessorConfig.md)
+- [IResponseLoggingProcessorConfig](interfaces/IResponseLoggingProcessorConfig.md)
+- [IRouteProcessorConfig](interfaces/IRouteProcessorConfig.md)
+- [IStaticIdentityProcessorConfig](interfaces/IStaticIdentityProcessorConfig.md)
+- [IStaticPartitionProcessorConfig](interfaces/IStaticPartitionProcessorConfig.md)
+
 ## Functions
 
 - [initSchema](functions/initSchema.md)

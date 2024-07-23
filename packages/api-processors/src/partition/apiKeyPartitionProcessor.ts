@@ -17,6 +17,7 @@ import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
 import type { ApiKey } from "../entities/apiKey";
+import type { IApiKeyPartitionProcessorConfig } from "../models/IApiKeyPartitionProcessorConfig";
 
 /**
  * Lookup Api Keys in entity storage to try and find the associated partition id.
@@ -56,20 +57,20 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	 * @param options Options for the processor.
 	 * @param options.entityStorageConnectorType The type for the entity storage connector, defaults to "api-key".
 	 * @param options.loggingConnectorType The type of logging connector to use, defaults to "logging".
-	 * @param options.headerName The name of the header to look for the API key, defaults to "x-api-key".
+	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
 	constructor(options: {
 		entityStorageConnectorType?: string;
 		loggingConnectorType?: string;
-		headerName?: string;
+		config?: IApiKeyPartitionProcessorConfig;
 	}) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
 		this._entityStorageConnector = EntityStorageConnectorFactory.get(
 			options?.entityStorageConnectorType ?? "api-key"
 		);
 		this._logging = LoggingConnectorFactory.get(options.loggingConnectorType ?? "logging");
-		this._headerName = options.headerName ?? "x-api-key";
+		this._headerName = options?.config?.headerName ?? "x-api-key";
 	}
 
 	/**
@@ -87,7 +88,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			hasKey = !Is.empty(systemApiKey?.key);
 
 			if (hasKey) {
-				this._logging.log(
+				await this._logging.log(
 					{
 						level: "info",
 						source: this.CLASS_NAME,
@@ -113,7 +114,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 				{ partitionId: systemPartitionId }
 			);
 
-			this._logging.log(
+			await this._logging.log(
 				{
 					level: "info",
 					source: this.CLASS_NAME,

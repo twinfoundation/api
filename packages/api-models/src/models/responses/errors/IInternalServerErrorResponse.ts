@@ -4,7 +4,7 @@ import type { IError } from "@gtsc/core";
 import type { HttpStatusCode } from "@gtsc/web";
 
 /**
- * Something went wrong with the request see the error field for more details.
+ * The server has encountered a situation it does not know how to handle, see the error field for more details.
  */
 export interface IInternalServerErrorResponse {
 	/**

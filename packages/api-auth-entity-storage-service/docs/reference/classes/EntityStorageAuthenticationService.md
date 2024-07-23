@@ -10,13 +10,13 @@ Implementation of the authentication service using entity storage.
 
 ### new EntityStorageAuthenticationService()
 
-> **new EntityStorageAuthenticationService**(`options`): [`EntityStorageAuthenticationService`](EntityStorageAuthenticationService.md)
+> **new EntityStorageAuthenticationService**(`options`?): [`EntityStorageAuthenticationService`](EntityStorageAuthenticationService.md)
 
 Create a new instance of EntityStorageAuthentication.
 
 #### Parameters
 
-• **options**
+• **options?**
 
 The dependencies for the identity connector.
 
@@ -28,11 +28,7 @@ The entity storage for the users, defaults to "authentication-user".
 
 The vault for the private keys, defaults to "vault".
 
-• **options.loggingConnectorType?**: `string`
-
-The type of logging connector to use, defaults to "logging".
-
-• **options.config**: [`IEntityStorageAuthenticationServiceConfig`](../interfaces/IEntityStorageAuthenticationServiceConfig.md)
+• **options.config?**: [`IEntityStorageAuthenticationServiceConfig`](../interfaces/IEntityStorageAuthenticationServiceConfig.md)
 
 The configuration for the authentication.
 
@@ -56,15 +52,19 @@ Runtime name for the class.
 
 ### bootstrap()
 
-> **bootstrap**(`systemPartitionId`): `Promise`\<`void`\>
+> **bootstrap**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 Bootstrap the service by creating and initializing any resources it needs.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 
@@ -80,15 +80,19 @@ Nothing.
 
 ### start()
 
-> **start**(`systemPartitionId`): `Promise`\<`void`\>
+> **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 

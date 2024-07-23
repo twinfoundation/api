@@ -10,13 +10,13 @@ Handle a JWT token in the headers and validate it to populate request context id
 
 ### new EntityStorageAuthenticationProcessor()
 
-> **new EntityStorageAuthenticationProcessor**(`options`): [`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
+> **new EntityStorageAuthenticationProcessor**(`options`?): [`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
 
 Create a new instance of EntityStorageAuthenticationProcessor.
 
 #### Parameters
 
-• **options**
+• **options?**
 
 Options for the processor.
 
@@ -24,7 +24,7 @@ Options for the processor.
 
 The vault for the private keys, defaults to "vault".
 
-• **options.config**: [`IEntityStorageAuthenticationProcessorConfig`](../interfaces/IEntityStorageAuthenticationProcessorConfig.md)
+• **options.config?**: [`IEntityStorageAuthenticationProcessorConfig`](../interfaces/IEntityStorageAuthenticationProcessorConfig.md)
 
 The configuration for the processor.
 
@@ -48,15 +48,19 @@ Runtime name for the class.
 
 ### start()
 
-> **start**(`systemPartitionId`): `Promise`\<`void`\>
+> **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 

@@ -39,7 +39,7 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	 * The system identity.
 	 * @internal
 	 */
-	private readonly _systemIdentity: string;
+	private _systemIdentity?: string;
 
 	/**
 	 * The system partition id to use for the vault.
@@ -53,30 +53,33 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
 	 * @param options.config The configuration for the processor.
 	 */
-	constructor(options: {
+	constructor(options?: {
 		vaultConnectorType?: string;
-		config: IEntityStorageAuthenticationProcessorConfig;
+		config?: IEntityStorageAuthenticationProcessorConfig;
 	}) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
-		Guards.stringValue(
+		Guards.object<IEntityStorageAuthenticationProcessorConfig>(
 			this.CLASS_NAME,
-			nameof(options.config.systemIdentity),
-			options.config.systemIdentity
+			nameof(options.config),
+			options.config
 		);
 
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
-		this._systemIdentity = options.config.systemIdentity;
 	}
 
 	/**
 	 * The service needs to be started when the application is initialized.
-	 * @param systemPartitionId The system partition id.
+	 * @param systemRequestContext The system request context.
+	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async start(systemPartitionId: string): Promise<void> {
-		this._systemPartitionId = systemPartitionId;
+	public async start(
+		systemRequestContext: IServiceRequestContext,
+		systemLoggingConnectorType?: string
+	): Promise<void> {
+		this._systemPartitionId = systemRequestContext.partitionId;
+		this._systemIdentity = systemRequestContext.identity;
 	}
 
 	/**

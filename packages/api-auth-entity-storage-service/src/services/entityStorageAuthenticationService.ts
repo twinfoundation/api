@@ -7,7 +7,7 @@ import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
-import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
+import { LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, VaultKeyType, type IVaultConnector } from "@gtsc/vault-models";
@@ -37,12 +37,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	private readonly _vaultConnector: IVaultConnector;
 
 	/**
-	 * The logging connector.
-	 * @internal
-	 */
-	private readonly _logging: ILoggingConnector;
-
-	/**
 	 * The name of the key to retrieve from the vault for signing JWT.
 	 * @internal
 	 */
@@ -52,7 +46,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	 * The system identity.
 	 * @internal
 	 */
-	private readonly _systemIdentity: string;
+	private _systemIdentity?: string;
 
 	/**
 	 * The system partition id to use for the vault.
@@ -65,21 +59,18 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	 * @param options The dependencies for the identity connector.
 	 * @param options.userEntityStorageType The entity storage for the users, defaults to "authentication-user".
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
-	 * @param options.loggingConnectorType The type of logging connector to use, defaults to "logging".
 	 * @param options.config The configuration for the authentication.
 	 */
-	constructor(options: {
+	constructor(options?: {
 		userEntityStorageType?: string;
 		vaultConnectorType?: string;
-		loggingConnectorType?: string;
-		config: IEntityStorageAuthenticationServiceConfig;
+		config?: IEntityStorageAuthenticationServiceConfig;
 	}) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
-		Guards.stringValue(
+		Guards.object<IEntityStorageAuthenticationServiceConfig>(
 			this.CLASS_NAME,
-			nameof(options.config.systemIdentity),
-			options.config.systemIdentity
+			nameof(options.config),
+			options.config
 		);
 
 		this._userEntityStorage = EntityStorageConnectorFactory.get(
@@ -87,24 +78,31 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		);
 
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
-		this._logging = LoggingConnectorFactory.get(options?.loggingConnectorType ?? "logging");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
-		this._systemIdentity = options.config.systemIdentity;
 	}
 
 	/**
 	 * Bootstrap the service by creating and initializing any resources it needs.
-	 * @param systemPartitionId The system partition id.
+	 * @param systemRequestContext The system request context.
+	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async bootstrap(systemPartitionId: string): Promise<void> {
+	public async bootstrap(
+		systemRequestContext: IServiceRequestContext,
+		systemLoggingConnectorType?: string
+	): Promise<void> {
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(systemRequestContext.identity),
+			systemRequestContext.identity
+		);
+
+		const systemLogging = LoggingConnectorFactory.getIfExists(
+			systemLoggingConnectorType ?? "system-logging"
+		);
+
 		let hasSigningKey = false;
 		let hasSystemUser = false;
-
-		const systemRequestContext: IServiceRequestContext = {
-			identity: this._systemIdentity,
-			partitionId: systemPartitionId
-		};
 
 		try {
 			const vaultKey = await this._vaultConnector.getKey(
@@ -114,7 +112,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			hasSigningKey = vaultKey.type === VaultKeyType.Ed25519;
 
 			if (hasSigningKey) {
-				await this._logging.log(
+				await systemLogging?.log(
 					{
 						level: "info",
 						source: this.CLASS_NAME,
@@ -132,7 +130,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 				systemRequestContext
 			);
 
-			await this._logging.log(
+			await systemLogging?.log(
 				{
 					level: "info",
 					source: this.CLASS_NAME,
@@ -151,7 +149,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			hasSystemUser = Is.notEmpty(systemUser);
 
 			if (hasSystemUser) {
-				await this._logging.log(
+				await systemLogging?.log(
 					{
 						level: "info",
 						source: this.CLASS_NAME,
@@ -177,12 +175,12 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 				email: "system@system",
 				password: hashedPassword,
 				salt: Converter.bytesToBase64(saltBytes),
-				identity: this._systemIdentity
+				identity: systemRequestContext.identity
 			};
 
 			await this._userEntityStorage.set(systemUser, systemRequestContext);
 
-			await this._logging.log(
+			await systemLogging?.log(
 				{
 					level: "info",
 					source: this.CLASS_NAME,
@@ -199,11 +197,16 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 
 	/**
 	 * The service needs to be started when the application is initialized.
-	 * @param systemPartitionId The system partition id.
+	 * @param systemRequestContext The system request context.
+	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async start(systemPartitionId: string): Promise<void> {
-		this._systemPartitionId = systemPartitionId;
+	public async start(
+		systemRequestContext: IServiceRequestContext,
+		systemLoggingConnectorType?: string
+	): Promise<void> {
+		this._systemPartitionId = systemRequestContext.partitionId;
+		this._systemIdentity = systemRequestContext.identity;
 	}
 
 	/**

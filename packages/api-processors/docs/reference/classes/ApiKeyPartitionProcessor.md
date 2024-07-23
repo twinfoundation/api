@@ -54,15 +54,19 @@ Runtime name for the class.
 
 ### bootstrap()
 
-> **bootstrap**(`systemPartitionId`): `Promise`\<`void`\>
+> **bootstrap**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 Bootstrap the service by creating and initializing any resources it needs.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 
@@ -78,15 +82,19 @@ Nothing.
 
 ### start()
 
-> **start**(`systemPartitionId`): `Promise`\<`void`\>
+> **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 

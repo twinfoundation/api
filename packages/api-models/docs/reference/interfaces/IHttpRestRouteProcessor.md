@@ -22,15 +22,19 @@ The name of the service.
 
 ### bootstrap()?
 
-> `optional` **bootstrap**(`systemPartitionId`): `Promise`\<`void`\>
+> `optional` **bootstrap**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 Bootstrap the service by creating and initializing any resources it needs.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 
@@ -46,15 +50,19 @@ Nothing.
 
 ### start()?
 
-> `optional` **start**(`systemPartitionId`): `Promise`\<`void`\>
+> `optional` **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 
@@ -70,15 +78,19 @@ Nothing.
 
 ### stop()?
 
-> `optional` **stop**(`systemPartitionId`): `Promise`\<`void`\>
+> `optional` **stop**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be stopped when the application is closed.
 
 #### Parameters
 
-• **systemPartitionId**: `string`
+• **systemRequestContext**: `IServiceRequestContext`
 
-The system partition id.
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
 
 #### Returns
 

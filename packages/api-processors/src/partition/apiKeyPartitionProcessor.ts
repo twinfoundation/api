@@ -12,7 +12,7 @@ import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
+import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
@@ -75,16 +75,32 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 
 	/**
 	 * Bootstrap the service by creating and initializing any resources it needs.
-	 * @param systemPartitionId The system partition id.
+	 * @param systemRequestContext The system request context.
+	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async bootstrap(systemPartitionId: string): Promise<void> {
+	public async bootstrap(
+		systemRequestContext: IServiceRequestContext,
+		systemLoggingConnectorType?: string
+	): Promise<void> {
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(systemRequestContext.partitionId),
+			systemRequestContext.partitionId
+		);
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(systemRequestContext.identity),
+			systemRequestContext.identity
+		);
 		let hasKey = false;
 
 		try {
-			const systemApiKey = await this._entityStorageConnector.get("system", "owner", {
-				partitionId: systemPartitionId
-			});
+			const systemApiKey = await this._entityStorageConnector.get(
+				"system",
+				"owner",
+				systemRequestContext
+			);
 			hasKey = !Is.empty(systemApiKey?.key);
 
 			if (hasKey) {
@@ -97,7 +113,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 							apiKey: systemApiKey?.key
 						}
 					},
-					{ partitionId: systemPartitionId }
+					systemRequestContext
 				);
 			}
 		} catch {}
@@ -108,10 +124,10 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			await this._entityStorageConnector.set(
 				{
 					key: apiKey,
-					partitionId: systemPartitionId,
-					owner: "system"
+					partitionId: systemRequestContext.partitionId,
+					owner: systemRequestContext.identity
 				},
-				{ partitionId: systemPartitionId }
+				systemRequestContext
 			);
 
 			await this._logging.log(
@@ -123,18 +139,22 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 						apiKey
 					}
 				},
-				{ partitionId: systemPartitionId }
+				systemRequestContext
 			);
 		}
 	}
 
 	/**
 	 * The service needs to be started when the application is initialized.
-	 * @param systemPartitionId The system partition id.
+	 * @param systemRequestContext The system request context.
+	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async start(systemPartitionId: string): Promise<void> {
-		this._systemPartitionId = systemPartitionId;
+	public async start(
+		systemRequestContext: IServiceRequestContext,
+		systemLoggingConnectorType?: string
+	): Promise<void> {
+		this._systemPartitionId = systemRequestContext.partitionId;
 	}
 
 	/**

@@ -10,9 +10,4 @@ export interface IEntityStorageAuthenticationProcessorConfig {
 	 * @default auth-signing
 	 */
 	signingKeyName?: string;
-
-	/**
-	 * The identity of the system which owns the signing key.
-	 */
-	systemIdentity: string;
 }

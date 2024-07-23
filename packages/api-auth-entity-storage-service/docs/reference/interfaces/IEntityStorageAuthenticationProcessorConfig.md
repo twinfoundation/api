@@ -15,11 +15,3 @@ The name of the key to retrieve from the vault for signing JWT.
 ```ts
 auth-signing
 ```
-
-***
-
-### systemIdentity
-
-> **systemIdentity**: `string`
-
-The identity of the system which owns the signing key.

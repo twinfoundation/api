@@ -44,6 +44,18 @@ Skips the authentication for this route.
 
 ***
 
+### skipPartition?
+
+> `optional` **skipPartition**: `boolean`
+
+Skips the partition id check for this route.
+
+#### Inherited from
+
+[`IBaseRoute`](IBaseRoute.md).[`skipPartition`](IBaseRoute.md#skippartition)
+
+***
+
 ### handler()
 
 > **handler**: (`requestContext`, `socketId`, `request`, `emitter`) => `Promise`\<`void`\>

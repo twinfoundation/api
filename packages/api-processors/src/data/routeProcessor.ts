@@ -12,6 +12,7 @@ import {
 	AlreadyExistsError,
 	BaseError,
 	ConflictError,
+	GuardError,
 	Is,
 	NotFoundError,
 	NotImplementedError,
@@ -157,8 +158,10 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 		// types then set the http response code accordingly
 		const flattened = BaseError.flatten(error);
 
-		let httpStatusCode: HttpStatusCode = HttpStatusCode.badRequest;
-		if (flattened.some(e => BaseError.isErrorName(e, ConflictError.CLASS_NAME))) {
+		let httpStatusCode: HttpStatusCode = HttpStatusCode.internalServerError;
+		if (flattened.some(e => BaseError.isErrorName(e, GuardError.CLASS_NAME))) {
+			httpStatusCode = HttpStatusCode.badRequest;
+		} else if (flattened.some(e => BaseError.isErrorName(e, ConflictError.CLASS_NAME))) {
 			httpStatusCode = HttpStatusCode.conflict;
 		} else if (flattened.some(e => BaseError.isErrorName(e, NotFoundError.CLASS_NAME))) {
 			httpStatusCode = HttpStatusCode.notFound;

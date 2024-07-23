@@ -6,7 +6,7 @@ import type {
 	IHttpServerRequest,
 	IRestRoute
 } from "@gtsc/api-models";
-import { Guards } from "@gtsc/core";
+import { Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 
@@ -52,6 +52,8 @@ export class StaticPartitionProcessor implements IHttpRestRouteProcessor {
 		requestContext: IServiceRequestContext,
 		state: { [id: string]: unknown }
 	): Promise<void> {
-		requestContext.partitionId = this._partitionId;
+		if (!Is.empty(route) && !(route.skipPartition ?? false)) {
+			requestContext.partitionId = this._partitionId;
+		}
 	}
 }

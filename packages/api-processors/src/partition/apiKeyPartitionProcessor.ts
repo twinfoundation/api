@@ -151,31 +151,33 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 		requestContext: IServiceRequestContext,
 		state: { [id: string]: unknown }
 	): Promise<void> {
-		const apiKey = request?.headers?.[this._headerName] ?? request?.query?.[this._headerName];
-		if (!Is.stringValue(apiKey)) {
-			ResponseHelper.buildError(
-				response,
-				{
-					name: UnauthorizedError.CLASS_NAME,
-					message: `${this.CLASS_NAME}.apiKeyMissing`
-				},
-				HttpStatusCode.unauthorized
-			);
-		} else {
-			const apiKeyEntity = await this._entityStorageConnector?.get(apiKey, undefined, {
-				partitionId: this._systemPartitionId
-			});
-			if (!Is.object(apiKeyEntity)) {
+		if (!Is.empty(route) && !(route.skipPartition ?? false)) {
+			const apiKey = request?.headers?.[this._headerName] ?? request?.query?.[this._headerName];
+			if (!Is.stringValue(apiKey)) {
 				ResponseHelper.buildError(
 					response,
 					{
 						name: UnauthorizedError.CLASS_NAME,
-						message: `${this.CLASS_NAME}.apiKeyNotFound`
+						message: `${this.CLASS_NAME}.apiKeyMissing`
 					},
 					HttpStatusCode.unauthorized
 				);
 			} else {
-				requestContext.partitionId = apiKeyEntity.partitionId;
+				const apiKeyEntity = await this._entityStorageConnector?.get(apiKey, undefined, {
+					partitionId: this._systemPartitionId
+				});
+				if (!Is.object(apiKeyEntity)) {
+					ResponseHelper.buildError(
+						response,
+						{
+							name: UnauthorizedError.CLASS_NAME,
+							message: `${this.CLASS_NAME}.apiKeyNotFound`
+						},
+						HttpStatusCode.unauthorized
+					);
+				} else {
+					requestContext.partitionId = apiKeyEntity.partitionId;
+				}
 			}
 		}
 	}

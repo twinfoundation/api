@@ -192,7 +192,6 @@ export abstract class BaseRestClient {
 		let err: BaseError | undefined;
 		if (
 			response.status >= HttpStatusCode.badRequest &&
-			response.status < HttpStatusCode.internalServerError &&
 			Is.object(errResponse) &&
 			Is.stringValue(errResponse.message)
 		) {

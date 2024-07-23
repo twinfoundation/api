@@ -137,7 +137,7 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 					);
 				} else if (
 					!Is.empty(decoded.payload?.exp) &&
-					decoded.payload.exp < Math.floor(Date.now() / 1000)
+					decoded.payload.exp < Math.trunc(Date.now() / 1000)
 				) {
 					// If the token has expired then it is unauthorized.
 					ResponseHelper.buildError(

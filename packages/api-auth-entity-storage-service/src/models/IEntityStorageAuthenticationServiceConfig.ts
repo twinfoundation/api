@@ -10,4 +10,10 @@ export interface IEntityStorageAuthenticationServiceConfig {
 	 * @default auth-signing
 	 */
 	signingKeyName?: string;
+
+	/**
+	 * The default time to live for the JWT.
+	 * @default 1440
+	 */
+	defaultTtlMinutes?: number;
 }

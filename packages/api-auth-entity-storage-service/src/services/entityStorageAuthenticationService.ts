@@ -20,6 +20,11 @@ import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntit
  */
 export class EntityStorageAuthenticationService implements IAuthentication {
 	/**
+	 * Default TTL in minutes 1440 is 24 hours.
+	 */
+	private static readonly _DEFAULT_TTL: number = 1440;
+
+	/**
 	 * Runtime name for the class.
 	 */
 	public readonly CLASS_NAME: string = nameof<EntityStorageAuthenticationService>();
@@ -41,6 +46,12 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	 * @internal
 	 */
 	private readonly _signingKeyName: string;
+
+	/**
+	 * The default TTL for the token.
+	 * @internal
+	 */
+	private readonly _defaultTtlMinutes: number;
 
 	/**
 	 * The system identity.
@@ -72,6 +83,8 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
+		this._defaultTtlMinutes =
+			options?.config?.defaultTtlMinutes ?? EntityStorageAuthenticationService._DEFAULT_TTL;
 	}
 
 	/**
@@ -237,10 +250,14 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 				throw new GeneralError(this.CLASS_NAME, "passwordMismatch");
 			}
 
+			const nowSeconds = Math.trunc(Date.now() / 1000);
+			const ttlSeconds = this._defaultTtlMinutes * 60;
+
 			const jwt = await Jwt.encodeWithSigner(
 				{ alg: JwtAlgorithms.EdDSA },
 				{
-					sub: user.identity
+					sub: user.identity,
+					exp: nowSeconds + ttlSeconds
 				},
 				async (alg, key, payload) =>
 					this._vaultConnector.sign(this._signingKeyName, payload, systemRequestContext)

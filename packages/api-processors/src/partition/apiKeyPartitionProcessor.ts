@@ -12,7 +12,7 @@ import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
-import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
+import { LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
@@ -35,12 +35,6 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	private readonly _entityStorageConnector: IEntityStorageConnector<ApiKey>;
 
 	/**
-	 * The logging connector.
-	 * @internal
-	 */
-	private readonly _logging: ILoggingConnector;
-
-	/**
 	 * The name of the header to look for the API key.
 	 * @internal
 	 */
@@ -56,20 +50,16 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 	 * Create a new instance of ApiKeyPartitionProcessor.
 	 * @param options Options for the processor.
 	 * @param options.entityStorageConnectorType The type for the entity storage connector, defaults to "api-key".
-	 * @param options.loggingConnectorType The type of logging connector to use, defaults to "logging".
 	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options: {
+	constructor(options?: {
 		entityStorageConnectorType?: string;
-		loggingConnectorType?: string;
 		config?: IApiKeyPartitionProcessorConfig;
 	}) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
 		this._entityStorageConnector = EntityStorageConnectorFactory.get(
 			options?.entityStorageConnectorType ?? "api-key"
 		);
-		this._logging = LoggingConnectorFactory.get(options.loggingConnectorType ?? "logging");
 		this._headerName = options?.config?.headerName ?? "x-api-key";
 	}
 
@@ -93,6 +83,11 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			nameof(systemRequestContext.identity),
 			systemRequestContext.identity
 		);
+
+		const systemLogging = LoggingConnectorFactory.getIfExists(
+			systemLoggingConnectorType ?? "system-logging"
+		);
+
 		let hasKey = false;
 
 		try {
@@ -104,7 +99,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			hasKey = !Is.empty(systemApiKey?.key);
 
 			if (hasKey) {
-				await this._logging.log(
+				await systemLogging?.log(
 					{
 						level: "info",
 						source: this.CLASS_NAME,
@@ -130,7 +125,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 				systemRequestContext
 			);
 
-			await this._logging.log(
+			await systemLogging?.log(
 				{
 					level: "info",
 					source: this.CLASS_NAME,

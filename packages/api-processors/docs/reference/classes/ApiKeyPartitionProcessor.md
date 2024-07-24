@@ -10,23 +10,19 @@ Lookup Api Keys in entity storage to try and find the associated partition id.
 
 ### new ApiKeyPartitionProcessor()
 
-> **new ApiKeyPartitionProcessor**(`options`): [`ApiKeyPartitionProcessor`](ApiKeyPartitionProcessor.md)
+> **new ApiKeyPartitionProcessor**(`options`?): [`ApiKeyPartitionProcessor`](ApiKeyPartitionProcessor.md)
 
 Create a new instance of ApiKeyPartitionProcessor.
 
 #### Parameters
 
-• **options**
+• **options?**
 
 Options for the processor.
 
 • **options.entityStorageConnectorType?**: `string`
 
 The type for the entity storage connector, defaults to "api-key".
-
-• **options.loggingConnectorType?**: `string`
-
-The type of logging connector to use, defaults to "logging".
 
 • **options.config?**: [`IApiKeyPartitionProcessorConfig`](../interfaces/IApiKeyPartitionProcessorConfig.md)
 

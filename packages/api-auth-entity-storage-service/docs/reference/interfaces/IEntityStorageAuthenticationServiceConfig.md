@@ -15,3 +15,17 @@ The name of the key to retrieve from the vault for signing JWT.
 ```ts
 auth-signing
 ```
+
+***
+
+### defaultTtlMinutes?
+
+> `optional` **defaultTtlMinutes**: `number`
+
+The default time to live for the JWT.
+
+#### Default
+
+```ts
+1440
+```

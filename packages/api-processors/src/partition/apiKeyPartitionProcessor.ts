@@ -92,7 +92,7 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 
 		try {
 			const systemApiKey = await this._entityStorageConnector.get(
-				"system",
+				systemRequestContext.identity,
 				"owner",
 				systemRequestContext
 			);

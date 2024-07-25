@@ -161,8 +161,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 						source: this.CLASS_NAME,
 						message: "systemUserFound",
 						data: {
-							email: systemUser?.email,
-							password: systemUser?.password
+							email: systemUser?.email
 						}
 					},
 					systemRequestContext

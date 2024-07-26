@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-service",
-	"version": "0.0.3-next.56",
+	"version": "0.0.3-next.57",
 	"description": "Information contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
@@ -28,7 +28,7 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-models": "0.0.3-next.56",
+		"@gtsc/api-models": "0.0.3-next.57",
 		"@gtsc/core": "next",
 		"@gtsc/nameof": "next",
 		"@gtsc/services": "next",

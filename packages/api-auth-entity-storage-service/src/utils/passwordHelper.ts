@@ -12,7 +12,6 @@ export class PasswordHelper {
 	 * @param passwordBytes The password bytes.
 	 * @param saltBytes The salt bytes.
 	 * @returns The hashed password.
-	 * @internal
 	 */
 	public static async hashPassword(
 		passwordBytes: Uint8Array,

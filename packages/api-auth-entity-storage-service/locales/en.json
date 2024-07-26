@@ -11,15 +11,5 @@
 			"invalid": "The JSON Web token signature could not be validated",
 			"expired": "The JSON Web token has expired"
 		}
-	},
-	"info": {
-		"entityStorageAuthenticationService": {
-			"signingKeyFound": "The signing encryption key was found in the vault",
-			"signingKeyCreated": "The signing encryption key was created in the vault",
-			"encryptionKeyFound": "The encryption encryption key was found in the vault",
-			"encryptionKeyCreated": "The encryption encryption key was created in the vault",
-			"systemUserFound": "The default system user already exists, email: \"{email}\"",
-			"systemUserCreated": "The default system user has been created, email: \"{email}\", password: \"{password}\""
-		}
 	}
 }

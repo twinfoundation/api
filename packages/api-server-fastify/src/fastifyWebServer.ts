@@ -80,7 +80,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		this._loggingConnector = Is.stringValue(options?.loggingConnectorType)
 			? LoggingConnectorFactory.get(options.loggingConnectorType)
 			: undefined;
-		this._fastify = Fastify();
+		this._fastify = Fastify({ maxParamLength: 2000 });
 		this._started = false;
 	}
 
@@ -169,6 +169,8 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			this._fastify[method](path, async (request, reply) =>
 				this.handleRequest(restRouteProcessors, request, reply, restRoute)
 			);
+
+			console.log(this._fastify.printRoutes());
 		}
 	}
 

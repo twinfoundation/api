@@ -48,34 +48,6 @@ Runtime name for the class.
 
 ## Methods
 
-### bootstrap()
-
-> **bootstrap**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
-
-Bootstrap the service by creating and initializing any resources it needs.
-
-#### Parameters
-
-• **systemRequestContext**: `IServiceRequestContext`
-
-The system request context.
-
-• **systemLoggingConnectorType?**: `string`
-
-The system logging connector type, defaults to "system-logging".
-
-#### Returns
-
-`Promise`\<`void`\>
-
-Nothing.
-
-#### Implementation of
-
-`IHttpRestRouteProcessor.bootstrap`
-
-***
-
 ### start()
 
 > **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>

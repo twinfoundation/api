@@ -4,7 +4,8 @@
 
 - [RouteProcessor](classes/RouteProcessor.md)
 - [ApiKey](classes/ApiKey.md)
-- [StaticIdentityProcessor](classes/StaticIdentityProcessor.md)
+- [StaticUserIdentityProcessor](classes/StaticUserIdentityProcessor.md)
+- [SystemIdentityProcessor](classes/SystemIdentityProcessor.md)
 - [RequestLoggingProcessor](classes/RequestLoggingProcessor.md)
 - [ResponseLoggingProcessor](classes/ResponseLoggingProcessor.md)
 - [ApiKeyPartitionProcessor](classes/ApiKeyPartitionProcessor.md)
@@ -16,8 +17,8 @@
 - [IRequestLoggingProcessorConfig](interfaces/IRequestLoggingProcessorConfig.md)
 - [IResponseLoggingProcessorConfig](interfaces/IResponseLoggingProcessorConfig.md)
 - [IRouteProcessorConfig](interfaces/IRouteProcessorConfig.md)
-- [IStaticIdentityProcessorConfig](interfaces/IStaticIdentityProcessorConfig.md)
 - [IStaticPartitionProcessorConfig](interfaces/IStaticPartitionProcessorConfig.md)
+- [IStaticUserIdentityProcessorConfig](interfaces/IStaticUserIdentityProcessorConfig.md)
 
 ## Functions
 

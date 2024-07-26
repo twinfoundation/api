@@ -72,7 +72,7 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 		systemLoggingConnectorType?: string
 	): Promise<void> {
 		this._systemPartitionId = systemRequestContext.partitionId;
-		this._systemIdentity = systemRequestContext.identity;
+		this._systemIdentity = systemRequestContext.systemIdentity;
 	}
 
 	/**
@@ -112,7 +112,8 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 				);
 			} else {
 				const systemRequestContext: IServiceRequestContext = {
-					identity: this._systemIdentity,
+					systemIdentity: this._systemIdentity,
+					userIdentity: this._systemIdentity,
 					partitionId: this._systemPartitionId
 				};
 
@@ -149,7 +150,7 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 						HttpStatusCode.unauthorized
 					);
 				} else {
-					requestContext.identity = decoded.payload?.sub;
+					requestContext.userIdentity = decoded.payload?.sub;
 				}
 			}
 		}

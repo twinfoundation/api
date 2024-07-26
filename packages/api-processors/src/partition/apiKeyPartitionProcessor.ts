@@ -7,12 +7,11 @@ import {
 	type IHttpServerRequest,
 	type IRestRoute
 } from "@gtsc/api-models";
-import { Converter, Guards, Is, RandomHelper, UnauthorizedError } from "@gtsc/core";
+import { Is, UnauthorizedError } from "@gtsc/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
-import { LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
@@ -61,82 +60,6 @@ export class ApiKeyPartitionProcessor implements IHttpRestRouteProcessor {
 			options?.entityStorageConnectorType ?? "api-key"
 		);
 		this._headerName = options?.config?.headerName ?? "x-api-key";
-	}
-
-	/**
-	 * Bootstrap the service by creating and initializing any resources it needs.
-	 * @param systemRequestContext The system request context.
-	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
-	 * @returns Nothing.
-	 */
-	public async bootstrap(
-		systemRequestContext: IServiceRequestContext,
-		systemLoggingConnectorType?: string
-	): Promise<void> {
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(systemRequestContext.partitionId),
-			systemRequestContext.partitionId
-		);
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(systemRequestContext.identity),
-			systemRequestContext.identity
-		);
-
-		const systemLogging = LoggingConnectorFactory.getIfExists(
-			systemLoggingConnectorType ?? "system-logging"
-		);
-
-		let hasKey = false;
-
-		try {
-			const systemApiKey = await this._entityStorageConnector.get(
-				systemRequestContext.identity,
-				"owner",
-				systemRequestContext
-			);
-			hasKey = !Is.empty(systemApiKey?.key);
-
-			if (hasKey) {
-				await systemLogging?.log(
-					{
-						level: "info",
-						source: this.CLASS_NAME,
-						message: "apiKeyFound",
-						data: {
-							apiKey: systemApiKey?.key
-						}
-					},
-					systemRequestContext
-				);
-			}
-		} catch {}
-
-		if (!hasKey) {
-			const apiKey = Converter.bytesToBase64(RandomHelper.generate(32));
-
-			await this._entityStorageConnector.set(
-				{
-					key: apiKey,
-					partitionId: systemRequestContext.partitionId,
-					owner: systemRequestContext.identity
-				},
-				systemRequestContext
-			);
-
-			await systemLogging?.log(
-				{
-					level: "info",
-					source: this.CLASS_NAME,
-					message: "apiKeyCreated",
-					data: {
-						apiKey
-					}
-				},
-				systemRequestContext
-			);
-		}
 	}
 
 	/**

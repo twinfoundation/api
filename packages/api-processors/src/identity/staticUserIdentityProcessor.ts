@@ -9,22 +9,22 @@ import type {
 import { Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
-import type { IStaticIdentityProcessorConfig } from "../models/IStaticIdentityProcessorConfig";
+import type { IStaticUserIdentityProcessorConfig } from "../models/IStaticUserIdentityProcessorConfig";
 
 /**
- * Adds a static identity to the request context.
+ * Adds a static user identity to the request context.
  */
-export class StaticIdentityProcessor implements IHttpRestRouteProcessor {
+export class StaticUserIdentityProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<StaticIdentityProcessor>();
+	public readonly CLASS_NAME: string = nameof<StaticUserIdentityProcessor>();
 
 	/**
 	 * The fixed identity for request context.
 	 * @internal
 	 */
-	private readonly _identity: string;
+	private readonly _userIdentity: string;
 
 	/**
 	 * Create a new instance of StaticIdentityProcessor.
@@ -32,11 +32,15 @@ export class StaticIdentityProcessor implements IHttpRestRouteProcessor {
 	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options: { config: IStaticIdentityProcessorConfig }) {
+	constructor(options: { config: IStaticUserIdentityProcessorConfig }) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
 		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
-		Guards.stringValue(this.CLASS_NAME, nameof(options.config.identity), options.config.identity);
-		this._identity = options.config.identity;
+		Guards.stringValue(
+			this.CLASS_NAME,
+			nameof(options.config.userIdentity),
+			options.config.userIdentity
+		);
+		this._userIdentity = options.config.userIdentity;
 	}
 
 	/**
@@ -55,7 +59,7 @@ export class StaticIdentityProcessor implements IHttpRestRouteProcessor {
 		state: { [id: string]: unknown }
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
-			requestContext.identity = this._identity;
+			requestContext.userIdentity = this._userIdentity;
 		}
 	}
 }

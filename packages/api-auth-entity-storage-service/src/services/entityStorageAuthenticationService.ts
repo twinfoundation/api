@@ -1,16 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthentication } from "@gtsc/api-auth-entity-storage-models";
-import { Converter, GeneralError, Guards, Is, RandomHelper, UnauthorizedError } from "@gtsc/core";
-import { Blake2b, PasswordGenerator } from "@gtsc/crypto";
+import { Converter, GeneralError, Guards, UnauthorizedError } from "@gtsc/core";
+import { Blake2b } from "@gtsc/crypto";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
-import { LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
-import { VaultConnectorFactory, VaultKeyType, type IVaultConnector } from "@gtsc/vault-models";
+import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import { Jwt, JwtAlgorithms } from "@gtsc/web";
 import type { AuthenticationUser } from "../entities/authenticationUser";
 import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
@@ -88,119 +87,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	}
 
 	/**
-	 * Bootstrap the service by creating and initializing any resources it needs.
-	 * @param systemRequestContext The system request context.
-	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
-	 * @returns Nothing.
-	 */
-	public async bootstrap(
-		systemRequestContext: IServiceRequestContext,
-		systemLoggingConnectorType?: string
-	): Promise<void> {
-		Guards.stringValue(
-			this.CLASS_NAME,
-			nameof(systemRequestContext.identity),
-			systemRequestContext.identity
-		);
-
-		const systemLogging = LoggingConnectorFactory.getIfExists(
-			systemLoggingConnectorType ?? "system-logging"
-		);
-
-		let hasSigningKey = false;
-		let hasSystemUser = false;
-
-		try {
-			const vaultKey = await this._vaultConnector.getKey(
-				this._signingKeyName,
-				systemRequestContext
-			);
-			hasSigningKey = vaultKey.type === VaultKeyType.Ed25519;
-
-			if (hasSigningKey) {
-				await systemLogging?.log(
-					{
-						level: "info",
-						source: this.CLASS_NAME,
-						message: "signingKeyFound"
-					},
-					systemRequestContext
-				);
-			}
-		} catch {}
-
-		if (!hasSigningKey) {
-			await this._vaultConnector.createKey(
-				this._signingKeyName,
-				VaultKeyType.Ed25519,
-				systemRequestContext
-			);
-
-			await systemLogging?.log(
-				{
-					level: "info",
-					source: this.CLASS_NAME,
-					message: "signingKeyCreated"
-				},
-				systemRequestContext
-			);
-		}
-
-		try {
-			const systemUser = await this._userEntityStorage.get(
-				"system@system",
-				undefined,
-				systemRequestContext
-			);
-			hasSystemUser = Is.notEmpty(systemUser);
-
-			if (hasSystemUser) {
-				await systemLogging?.log(
-					{
-						level: "info",
-						source: this.CLASS_NAME,
-						message: "systemUserFound",
-						data: {
-							email: systemUser?.email
-						}
-					},
-					systemRequestContext
-				);
-			}
-		} catch {}
-
-		if (!hasSystemUser) {
-			const generatedPassword = PasswordGenerator.generate(16);
-			const passwordBytes = Converter.utf8ToBytes(generatedPassword);
-			const saltBytes = RandomHelper.generate(16);
-
-			const hashedPassword = await this.hashPassword(passwordBytes, saltBytes);
-
-			const systemUser: AuthenticationUser = {
-				email: "system@system",
-				password: hashedPassword,
-				salt: Converter.bytesToBase64(saltBytes),
-				identity: systemRequestContext.identity
-			};
-
-			await this._userEntityStorage.set(systemUser, systemRequestContext);
-
-			await systemLogging?.log(
-				{
-					level: "info",
-					source: this.CLASS_NAME,
-					message: "systemUserCreated",
-					data: {
-						email: systemUser?.email,
-						password: generatedPassword
-					}
-				},
-				systemRequestContext
-			);
-		}
-	}
-
-	/**
 	 * The service needs to be started when the application is initialized.
 	 * @param systemRequestContext The system request context.
 	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
@@ -211,7 +97,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		systemLoggingConnectorType?: string
 	): Promise<void> {
 		this._systemPartitionId = systemRequestContext.partitionId;
-		this._systemIdentity = systemRequestContext.identity;
+		this._systemIdentity = systemRequestContext.systemIdentity;
 	}
 
 	/**
@@ -231,7 +117,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 
 		try {
 			const systemRequestContext: IServiceRequestContext = {
-				identity: this._systemIdentity,
+				systemIdentity: this._systemIdentity,
 				partitionId: this._systemPartitionId
 			};
 

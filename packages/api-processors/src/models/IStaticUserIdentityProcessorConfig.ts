@@ -4,9 +4,9 @@
 /**
  * Configuration for the static identity processor.
  */
-export interface IStaticIdentityProcessorConfig {
+export interface IStaticUserIdentityProcessorConfig {
 	/**
-	 * The fixed identity for request context.
+	 * The fixed user identity for request context.
 	 */
-	identity: string;
+	userIdentity: string;
 }

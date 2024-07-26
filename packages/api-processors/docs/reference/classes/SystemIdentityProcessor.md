@@ -1,6 +1,6 @@
-# Class: StaticIdentityProcessor
+# Class: SystemIdentityProcessor
 
-Adds a static identity to the request context.
+Adds a system identity to the request context.
 
 ## Implements
 
@@ -8,27 +8,13 @@ Adds a static identity to the request context.
 
 ## Constructors
 
-### new StaticIdentityProcessor()
+### new SystemIdentityProcessor()
 
-> **new StaticIdentityProcessor**(`options`): [`StaticIdentityProcessor`](StaticIdentityProcessor.md)
-
-Create a new instance of StaticIdentityProcessor.
-
-#### Parameters
-
-• **options**
-
-Options for the processor.
-
-• **options.config**: [`IStaticIdentityProcessorConfig`](../interfaces/IStaticIdentityProcessorConfig.md)
-
-The configuration for the processor.
+> **new SystemIdentityProcessor**(): [`SystemIdentityProcessor`](SystemIdentityProcessor.md)
 
 #### Returns
 
-[`StaticIdentityProcessor`](StaticIdentityProcessor.md)
-
-Promise that resolves when the processor is initialized.
+[`SystemIdentityProcessor`](SystemIdentityProcessor.md)
 
 ## Properties
 
@@ -43,6 +29,34 @@ Runtime name for the class.
 `IHttpRestRouteProcessor.CLASS_NAME`
 
 ## Methods
+
+### start()
+
+> **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+
+The service needs to be started when the application is initialized.
+
+#### Parameters
+
+• **systemRequestContext**: `IServiceRequestContext`
+
+The system request context.
+
+• **systemLoggingConnectorType?**: `string`
+
+The system logging connector type, defaults to "system-logging".
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.start`
+
+***
 
 ### process()
 

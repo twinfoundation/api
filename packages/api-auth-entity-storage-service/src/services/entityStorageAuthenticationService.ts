@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthentication } from "@gtsc/api-auth-entity-storage-models";
 import { Converter, GeneralError, Guards, UnauthorizedError } from "@gtsc/core";
-import { Blake2b } from "@gtsc/crypto";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
@@ -13,6 +12,7 @@ import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models"
 import { Jwt, JwtAlgorithms } from "@gtsc/web";
 import type { AuthenticationUser } from "../entities/authenticationUser";
 import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
+import { PasswordHelper } from "../utils/passwordHelper";
 
 /**
  * Implementation of the authentication service using entity storage.
@@ -118,6 +118,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		try {
 			const systemRequestContext: IServiceRequestContext = {
 				systemIdentity: this._systemIdentity,
+				userIdentity: this._systemIdentity,
 				partitionId: this._systemPartitionId
 			};
 
@@ -129,7 +130,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			const saltBytes = Converter.base64ToBytes(user.salt);
 			const passwordBytes = Converter.utf8ToBytes(password);
 
-			const hashedPassword = await this.hashPassword(passwordBytes, saltBytes);
+			const hashedPassword = await PasswordHelper.hashPassword(passwordBytes, saltBytes);
 
 			if (hashedPassword !== user.password) {
 				throw new GeneralError(this.CLASS_NAME, "passwordMismatch");
@@ -152,22 +153,5 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		} catch (error) {
 			throw new UnauthorizedError(this.CLASS_NAME, "loginFailed", error);
 		}
-	}
-
-	/**
-	 * Hash the password for the user.
-	 * @param passwordBytes The password bytes.
-	 * @param saltBytes The salt bytes.
-	 * @returns The hashed password.
-	 * @internal
-	 */
-	private async hashPassword(passwordBytes: Uint8Array, saltBytes: Uint8Array): Promise<string> {
-		const combined = new Uint8Array(saltBytes.length + passwordBytes.length);
-		combined.set(saltBytes);
-		combined.set(passwordBytes, saltBytes.length);
-
-		const hashedPassword = Blake2b.sum256(combined);
-
-		return Converter.bytesToBase64(hashedPassword);
 	}
 }

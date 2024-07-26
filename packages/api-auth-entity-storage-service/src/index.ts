@@ -8,3 +8,4 @@ export * from "./restEntryPoints";
 export * from "./routes/entityStorageAuthenticationRoutes";
 export * from "./schema";
 export * from "./services/entityStorageAuthenticationService";
+export * from "./utils/passwordHelper";

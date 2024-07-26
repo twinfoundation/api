@@ -5,6 +5,7 @@
 - [AuthenticationUser](classes/AuthenticationUser.md)
 - [EntityStorageAuthenticationProcessor](classes/EntityStorageAuthenticationProcessor.md)
 - [EntityStorageAuthenticationService](classes/EntityStorageAuthenticationService.md)
+- [PasswordHelper](classes/PasswordHelper.md)
 
 ## Interfaces
 

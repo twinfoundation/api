@@ -169,8 +169,6 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			this._fastify[method](path, async (request, reply) =>
 				this.handleRequest(restRouteProcessors, request, reply, restRoute)
 			);
-
-			console.log(this._fastify.printRoutes());
 		}
 	}
 

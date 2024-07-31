@@ -14,7 +14,7 @@ Model for the standard parameters for an http request.
 
 ### headers?
 
-> `optional` **headers**: `IHttpRequestHeaders`
+> `optional` **headers**: `IHttpHeaders`
 
 Incoming Http Headers.
 

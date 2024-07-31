@@ -3,13 +3,7 @@
 import type { IBaseRestClientConfig, IHttpRequest, IHttpResponse } from "@gtsc/api-models";
 import { BaseError, Coerce, Guards, Is, StringHelper, type IKeyValue } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import {
-	FetchError,
-	FetchHelper,
-	HttpMethod,
-	HttpStatusCode,
-	type IHttpRequestHeaders
-} from "@gtsc/web";
+import { FetchError, FetchHelper, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
 
 /**
  * Abstract client class for common REST processing.
@@ -37,7 +31,7 @@ export abstract class BaseRestClient {
 	 * The headers to include in requests.
 	 * @internal
 	 */
-	private readonly _headers?: IHttpRequestHeaders;
+	private readonly _headers?: IHttpHeaders;
 
 	/**
 	 * Timeout for requests in ms.
@@ -149,14 +143,14 @@ export abstract class BaseRestClient {
 
 		const body = isHttpRequest && request?.body ? JSON.stringify(request?.body) : undefined;
 
-		let headers: IHttpRequestHeaders = {};
+		let requestHeaders: IHttpHeaders = {};
 
 		if (body) {
-			headers["Content-Type"] = "application/json";
+			requestHeaders["Content-Type"] = "application/json";
 		}
 
 		if (Is.object(this._headers)) {
-			headers = { ...headers, ...this._headers };
+			requestHeaders = { ...requestHeaders, ...this._headers };
 		}
 
 		const response = await FetchHelper.fetch(
@@ -165,16 +159,35 @@ export abstract class BaseRestClient {
 			finalRoute,
 			method,
 			body,
-			{ headers, timeoutMs: this._timeout, includeCredentials: this._includeCredentials }
+			{
+				headers: requestHeaders,
+				timeoutMs: this._timeout,
+				includeCredentials: this._includeCredentials
+			}
 		);
 
 		if (response.ok) {
-			if (response.status === HttpStatusCode.noContent) {
-				return {} as U;
-			}
 			try {
-				const data = await response.json();
-				return { data } as unknown as U;
+				const httpResponse: IHttpResponse = {};
+
+				if (response.status !== HttpStatusCode.noContent) {
+					httpResponse.body = await response.json();
+				}
+
+				const responseHeaders: IHttpHeaders = {};
+				for (const header of response.headers) {
+					responseHeaders[header[0]] = header[1];
+				}
+
+				if (Object.keys(responseHeaders).length > 0) {
+					httpResponse.headers = responseHeaders;
+				}
+
+				if (response.status !== HttpStatusCode.ok) {
+					httpResponse.statusCode = response.status as HttpStatusCode;
+				}
+
+				return httpResponse as U;
 			} catch (err) {
 				throw new FetchError(
 					this._implementationName,

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IHttpRequestHeaders } from "@gtsc/web";
+import type { IHttpHeaders } from "@gtsc/web";
 
 /**
  * Definition for the configuration of a socket service.
@@ -19,5 +19,5 @@ export interface IBaseSocketClientConfig {
 	/**
 	 * The headers to include in requests.
 	 */
-	headers?: IHttpRequestHeaders;
+	headers?: IHttpHeaders;
 }

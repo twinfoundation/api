@@ -18,7 +18,7 @@ Response status code.
 
 ### headers?
 
-> `optional` **headers**: `IHttpRequestHeaders`
+> `optional` **headers**: `IHttpHeaders`
 
 Response headers.
 

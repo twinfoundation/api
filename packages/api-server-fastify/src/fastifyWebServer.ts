@@ -16,7 +16,7 @@ import { BaseError, type IError, Is, StringHelper } from "@gtsc/core";
 import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
-import { type HttpMethod, HttpStatusCode, type IHttpRequestHeaders } from "@gtsc/web";
+import { type HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
 import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from "fastify";
 
 /**
@@ -263,7 +263,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			body: request.body,
 			query: request.query as IHttpRequestQuery,
 			pathParams: request.params as IHttpRequestPathParams,
-			headers: request.headers as IHttpRequestHeaders
+			headers: request.headers as IHttpHeaders
 		};
 		const httpResponse: IHttpResponse = {};
 		const requestContext: IServiceRequestContext = {};

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpStatusCode, IHttpRequestHeaders } from "@gtsc/web";
+import type { HttpStatusCode, IHttpHeaders } from "@gtsc/web";
 
 /**
  * Model for the standard parameters for an http response.
@@ -15,7 +15,7 @@ export interface IHttpResponse<T = any> {
 	/**
 	 * Response headers.
 	 */
-	headers?: IHttpRequestHeaders;
+	headers?: IHttpHeaders;
 
 	/**
 	 * Data to return as the main payload.

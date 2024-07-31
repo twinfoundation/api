@@ -66,22 +66,28 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 		requestContext: IServiceRequestContext,
 		state: { [id: string]: unknown }
 	): Promise<void> {
-		let data;
+		let data: { [id: string]: unknown } | undefined;
 		if (this._includeBody) {
 			const contentType = response.headers?.["Content-Type"];
 			const isJson = contentType?.includes("application/json; charset=utf-8");
 			const contentLength = response.headers?.["Content-Length"];
 			if (isJson) {
-				data = JSON.stringify(response.body);
+				data = {
+					body: response.body
+				};
 			} else {
-				const dataParts = [];
+				const dataParts: { [id: string]: string } = {};
 				if (Is.stringValue(contentType)) {
-					dataParts.push(`Content Type: ${contentType}`);
+					dataParts["Content Type"] = contentType;
 				}
-				if (Is.stringValue(contentType)) {
-					dataParts.push(`Content Length: ${contentLength}`);
+				if (Is.stringValue(contentLength)) {
+					dataParts["Content Length"] = contentLength;
 				}
-				data = dataParts.join(", ");
+				if (Object.keys(dataParts).length > 0) {
+					data = {
+						headers: dataParts
+					};
+				}
 			}
 		}
 		const now = process.hrtime.bigint();

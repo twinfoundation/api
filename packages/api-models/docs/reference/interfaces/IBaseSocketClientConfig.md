@@ -22,6 +22,6 @@ The prefix to the routes.
 
 ### headers?
 
-> `optional` **headers**: `IHttpRequestHeaders`
+> `optional` **headers**: `IHttpHeaders`
 
 The headers to include in requests.

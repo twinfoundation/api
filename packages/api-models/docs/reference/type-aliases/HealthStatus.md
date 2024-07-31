@@ -1,5 +1,5 @@
 # Type alias: HealthStatus
 
-> **HealthStatus**: `"ok"` \| `"warning"` \| `"error"`
+> **HealthStatus**: *typeof* [`HealthStatus`](../variables/HealthStatus.md)\[keyof *typeof* [`HealthStatus`](../variables/HealthStatus.md)\]
 
 The health status of the component.

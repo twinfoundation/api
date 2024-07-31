@@ -44,3 +44,7 @@
 ## Type Aliases
 
 - [HealthStatus](type-aliases/HealthStatus.md)
+
+## Variables
+
+- [HealthStatus](variables/HealthStatus.md)

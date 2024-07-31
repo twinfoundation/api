@@ -41,7 +41,7 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 		Guards.stringValue(this.CLASS_NAME, nameof(email), email);
 		Guards.stringValue(this.CLASS_NAME, nameof(password), password);
 
-		const response = await this.fetch<ILoginRequest, ILoginResponse>("/", "POST");
+		const response = await this.fetch<ILoginRequest, ILoginResponse>("/login", "POST");
 		return response.body.token;
 	}
 }

@@ -8,7 +8,7 @@ export interface ILogoutRequest {
 	/**
 	 * The logout token details.
 	 */
-	query: {
+	query?: {
 		/**
 		 * The token to logout, if it uses a mechanism with public access.
 		 */

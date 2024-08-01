@@ -17,7 +17,10 @@ export interface IAuthentication extends IService {
 		email: string,
 		password: string,
 		requestContext?: IServiceRequestContext
-	): Promise<string | undefined>;
+	): Promise<{
+		token?: string;
+		expiry: number;
+	}>;
 
 	/**
 	 * Logout the current user.
@@ -33,5 +36,11 @@ export interface IAuthentication extends IService {
 	 * @param requestContext The context for the request.
 	 * @returns The refreshed token, if it uses a mechanism with public access.
 	 */
-	refresh(token?: string, requestContext?: IServiceRequestContext): Promise<string | undefined>;
+	refresh(
+		token?: string,
+		requestContext?: IServiceRequestContext
+	): Promise<{
+		token?: string;
+		expiry: number;
+	}>;
 }

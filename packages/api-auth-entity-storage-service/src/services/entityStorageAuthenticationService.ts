@@ -111,7 +111,10 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		email: string,
 		password: string,
 		requestContext?: IServiceRequestContext
-	): Promise<string | undefined> {
+	): Promise<{
+		token?: string;
+		expiry: number;
+	}> {
 		Guards.stringValue(this.CLASS_NAME, nameof(email), email);
 		Guards.stringValue(this.CLASS_NAME, nameof(password), password);
 
@@ -136,7 +139,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 				throw new GeneralError(this.CLASS_NAME, "passwordMismatch");
 			}
 
-			const token = await TokenHelper.createToken(
+			const tokenAndExpiry = await TokenHelper.createToken(
 				this._systemIdentity,
 				this._systemPartitionId,
 				this._vaultConnector,
@@ -145,7 +148,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 				this._defaultTtlMinutes
 			);
 
-			return token;
+			return tokenAndExpiry;
 		} catch (error) {
 			throw new UnauthorizedError(this.CLASS_NAME, "loginFailed", error);
 		}
@@ -170,7 +173,10 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	public async refresh(
 		token?: string,
 		requestContext?: IServiceRequestContext
-	): Promise<string | undefined> {
+	): Promise<{
+		token: string;
+		expiry: number;
+	}> {
 		// If the verify fails on the current token then it will throw an exception.
 		const headerAndPayload = await TokenHelper.verify(
 			this._systemIdentity,
@@ -180,7 +186,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			token
 		);
 
-		const refreshToken = await TokenHelper.createToken(
+		const refreshTokenAndExpiry = await TokenHelper.createToken(
 			this._systemIdentity,
 			this._systemPartitionId,
 			this._vaultConnector,
@@ -189,6 +195,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			this._defaultTtlMinutes
 		);
 
-		return refreshToken;
+		return refreshTokenAndExpiry;
 	}
 }

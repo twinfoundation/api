@@ -4,9 +4,9 @@ Perform a logout on the auth token.
 
 ## Properties
 
-### query
+### query?
 
-> **query**: `object`
+> `optional` **query**: `object`
 
 The logout token details.
 

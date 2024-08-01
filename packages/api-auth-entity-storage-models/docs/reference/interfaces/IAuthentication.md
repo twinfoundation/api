@@ -102,7 +102,7 @@ Nothing.
 
 ### login()
 
-> **login**(`email`, `password`, `requestContext`?): `Promise`\<`undefined` \| `string`\>
+> **login**(`email`, `password`, `requestContext`?): `Promise`\<`object`\>
 
 Perform a login for the user.
 
@@ -122,9 +122,17 @@ The context for the request.
 
 #### Returns
 
-`Promise`\<`undefined` \| `string`\>
+`Promise`\<`object`\>
 
 The authentication token for the user, if it uses a mechanism with public access.
+
+##### token?
+
+> `optional` **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`
 
 ***
 
@@ -154,7 +162,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?, `requestContext`?): `Promise`\<`undefined` \| `string`\>
+> **refresh**(`token`?, `requestContext`?): `Promise`\<`object`\>
 
 Refresh the token.
 
@@ -170,6 +178,14 @@ The context for the request.
 
 #### Returns
 
-`Promise`\<`undefined` \| `string`\>
+`Promise`\<`object`\>
 
 The refreshed token, if it uses a mechanism with public access.
+
+##### token?
+
+> `optional` **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`

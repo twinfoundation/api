@@ -78,7 +78,8 @@ export function generateRestRoutesAuthentication(
 						description: "The response for the login request.",
 						response: {
 							body: {
-								token: "eyJhbGciOiJIU...sw5c"
+								token: "eyJhbGciOiJIU...sw5c",
+								expiry: 1722514341067
 							}
 						}
 					}
@@ -152,7 +153,8 @@ export function generateRestRoutesAuthentication(
 						description: "The response for the refresh token request.",
 						response: {
 							body: {
-								token: "eyJhbGciOiJIU...sw5c"
+								token: "eyJhbGciOiJIU...sw5c",
+								expiry: 1722514341067
 							}
 						}
 					}
@@ -183,13 +185,13 @@ export async function authenticationLogin(
 	Guards.object<ILoginRequest["body"]>(ROUTES_SOURCE, nameof(request.body), request.body);
 
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
+	const result = await service.login(request.body.email, request.body.password, requestContext);
+
 	return {
 		auth: {
 			operation: "login"
 		},
-		body: {
-			token: await service.login(request.body.email, request.body.password, requestContext)
-		}
+		body: result
 	};
 }
 
@@ -231,15 +233,13 @@ export async function authenticationRefreshToken(
 	request: IRefreshTokenRequest
 ): Promise<IRefreshTokenResponse & IRestRouteResponseOptions> {
 	Guards.object<IRefreshTokenRequest>(ROUTES_SOURCE, nameof(request), request);
-	Guards.object<IRefreshTokenRequest["query"]>(ROUTES_SOURCE, nameof(request.query), request.query);
 
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
+	const result = await service.refresh(request.query?.token, requestContext);
 	return {
 		auth: {
 			operation: "refresh"
 		},
-		body: {
-			token: await service.refresh(request.query.token, requestContext)
-		}
+		body: result
 	};
 }

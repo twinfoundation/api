@@ -16,7 +16,7 @@ Helper class for token operations.
 
 ### createToken()
 
-> `static` **createToken**(`systemIdentity`, `systemPartitionId`, `vaultConnector`, `signingKeyName`, `subject`, `ttlMinutes`): `Promise`\<`string`\>
+> `static` **createToken**(`systemIdentity`, `systemPartitionId`, `vaultConnector`, `signingKeyName`, `subject`, `ttlMinutes`): `Promise`\<`object`\>
 
 Create a new token.
 
@@ -48,9 +48,17 @@ The time to live for the token in minutes.
 
 #### Returns
 
-`Promise`\<`string`\>
+`Promise`\<`object`\>
 
-The new token.
+The new token and its expiry date.
+
+##### token
+
+> **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`
 
 ***
 

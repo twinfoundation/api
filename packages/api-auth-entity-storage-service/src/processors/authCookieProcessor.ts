@@ -164,8 +164,8 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 			) {
 				response.headers ??= {};
 				response.headers["Set-Cookie"] =
-					`${this._cookieName}=${response.body?.token}; Secure; HttpOnly; SameSite=None; Path=/`;
-				delete response.body?.token;
+					`${this._cookieName}=${response.body.token}; Secure; HttpOnly; SameSite=None; Path=/`;
+				delete response.body.token;
 			} else if (responseAuthOptions.operation === "logout") {
 				response.headers ??= {};
 				response.headers["Set-Cookie"] =

@@ -13,5 +13,10 @@ export interface IRefreshTokenResponse {
 		 * The refreshed token, if it uses a mechanism with public access.
 		 */
 		token?: string;
+
+		/**
+		 * The expiry time of the token.
+		 */
+		expiry: number;
 	};
 }

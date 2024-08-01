@@ -24,7 +24,7 @@ export class TokenHelper {
 	 * @param signingKeyName The signing key name.
 	 * @param subject The subject for the token.
 	 * @param ttlMinutes The time to live for the token in minutes.
-	 * @returns The new token.
+	 * @returns The new token and its expiry date.
 	 */
 	public static async createToken(
 		systemIdentity: string | undefined,
@@ -33,7 +33,10 @@ export class TokenHelper {
 		signingKeyName: string,
 		subject: string,
 		ttlMinutes: number
-	): Promise<string> {
+	): Promise<{
+		token: string;
+		expiry: number;
+	}> {
 		// Verify was a success so we can now generate a new token.
 		const nowSeconds = Math.trunc(Date.now() / 1000);
 		const ttlSeconds = ttlMinutes * 60;
@@ -54,7 +57,10 @@ export class TokenHelper {
 				vaultConnector.sign(signingKeyName, payload, systemRequestContext)
 		);
 
-		return jwt;
+		return {
+			token: jwt,
+			expiry: (nowSeconds + ttlSeconds) * 1000
+		};
 	}
 
 	/**

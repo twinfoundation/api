@@ -40,7 +40,13 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 	 * @param password The password for the user.
 	 * @returns The authentication token for the user, if it uses a mechanism with public access.
 	 */
-	public async login(email: string, password: string): Promise<string | undefined> {
+	public async login(
+		email: string,
+		password: string
+	): Promise<{
+		token?: string;
+		expiry: number;
+	}> {
 		Guards.stringValue(this.CLASS_NAME, nameof(email), email);
 		Guards.stringValue(this.CLASS_NAME, nameof(password), password);
 
@@ -51,7 +57,7 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 			}
 		});
 
-		return response.body.token;
+		return response.body;
 	}
 
 	/**
@@ -72,7 +78,10 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 	 * @param token The token to refresh, if it uses a mechanism with public access.
 	 * @returns The refreshed token, if it uses a mechanism with public access.
 	 */
-	public async refresh(token?: string): Promise<string | undefined> {
+	public async refresh(token?: string): Promise<{
+		token?: string;
+		expiry: number;
+	}> {
 		const response = await this.fetch<IRefreshTokenRequest, IRefreshTokenResponse>(
 			"/refresh",
 			"GET",
@@ -83,6 +92,6 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 			}
 		);
 
-		return response.body.token;
+		return response.body;
 	}
 }

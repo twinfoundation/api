@@ -15,3 +15,9 @@ The login response details.
 > `optional` **token**: `string`
 
 The access token, if it uses a mechanism with public access.
+
+#### expiry
+
+> **expiry**: `number`
+
+The expiry time of the token.

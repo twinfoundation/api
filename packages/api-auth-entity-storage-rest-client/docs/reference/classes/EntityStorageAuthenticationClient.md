@@ -48,7 +48,7 @@ Runtime name for the class.
 
 ### login()
 
-> **login**(`email`, `password`): `Promise`\<`undefined` \| `string`\>
+> **login**(`email`, `password`): `Promise`\<`object`\>
 
 Perform a login for the user.
 
@@ -64,9 +64,17 @@ The password for the user.
 
 #### Returns
 
-`Promise`\<`undefined` \| `string`\>
+`Promise`\<`object`\>
 
 The authentication token for the user, if it uses a mechanism with public access.
+
+##### token?
+
+> `optional` **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`
 
 #### Implementation of
 
@@ -100,7 +108,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<`undefined` \| `string`\>
+> **refresh**(`token`?): `Promise`\<`object`\>
 
 Refresh the token.
 
@@ -112,9 +120,17 @@ The token to refresh, if it uses a mechanism with public access.
 
 #### Returns
 
-`Promise`\<`undefined` \| `string`\>
+`Promise`\<`object`\>
 
 The refreshed token, if it uses a mechanism with public access.
+
+##### token?
+
+> `optional` **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`
 
 #### Implementation of
 

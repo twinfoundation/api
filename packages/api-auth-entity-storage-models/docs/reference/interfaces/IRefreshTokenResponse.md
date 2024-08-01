@@ -15,3 +15,9 @@ The refresh token details.
 > `optional` **token**: `string`
 
 The refreshed token, if it uses a mechanism with public access.
+
+#### expiry
+
+> **expiry**: `number`
+
+The expiry time of the token.

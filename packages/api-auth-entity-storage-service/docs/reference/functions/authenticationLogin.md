@@ -1,6 +1,6 @@
 # Function: authenticationLogin()
 
-> **authenticationLogin**(`requestContext`, `factoryServiceName`, `request`): `Promise`\<`ILoginResponse`\>
+> **authenticationLogin**(`requestContext`, `factoryServiceName`, `request`): `Promise`\<`ILoginResponse` & `IRestRouteResponseOptions`\>
 
 Login to the server.
 
@@ -20,6 +20,6 @@ The request.
 
 ## Returns
 
-`Promise`\<`ILoginResponse`\>
+`Promise`\<`ILoginResponse` & `IRestRouteResponseOptions`\>
 
 The response object with additional http response properties.

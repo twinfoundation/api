@@ -3,10 +3,13 @@
 import type {
 	IAuthentication,
 	ILoginRequest,
-	ILoginResponse
+	ILoginResponse,
+	ILogoutRequest,
+	IRefreshTokenRequest,
+	IRefreshTokenResponse
 } from "@gtsc/api-auth-entity-storage-models";
 import { BaseRestClient } from "@gtsc/api-core";
-import type { IBaseRestClientConfig } from "@gtsc/api-models";
+import type { IBaseRestClientConfig, INoContentResponse } from "@gtsc/api-models";
 import { Guards, StringHelper } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 
@@ -35,9 +38,9 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 	 * Perform a login for the user.
 	 * @param email The email address for the user.
 	 * @param password The password for the user.
-	 * @returns The authentication token for the user.
+	 * @returns The authentication token for the user, if it uses a mechanism with public access.
 	 */
-	public async login(email: string, password: string): Promise<string> {
+	public async login(email: string, password: string): Promise<string | undefined> {
 		Guards.stringValue(this.CLASS_NAME, nameof(email), email);
 		Guards.stringValue(this.CLASS_NAME, nameof(password), password);
 
@@ -47,6 +50,39 @@ export class EntityStorageAuthenticationClient extends BaseRestClient implements
 				password
 			}
 		});
+
+		return response.body.token;
+	}
+
+	/**
+	 * Logout the current user.
+	 * @param token The token to logout, if it uses a mechanism with public access.
+	 * @returns Nothing.
+	 */
+	public async logout(token?: string): Promise<void> {
+		await this.fetch<ILogoutRequest, INoContentResponse>("/logout", "GET", {
+			query: {
+				token
+			}
+		});
+	}
+
+	/**
+	 * Refresh the token.
+	 * @param token The token to refresh, if it uses a mechanism with public access.
+	 * @returns The refreshed token, if it uses a mechanism with public access.
+	 */
+	public async refresh(token?: string): Promise<string | undefined> {
+		const response = await this.fetch<IRefreshTokenRequest, IRefreshTokenResponse>(
+			"/refresh",
+			"GET",
+			{
+				query: {
+					token
+				}
+			}
+		);
+
 		return response.body.token;
 	}
 }

@@ -4,26 +4,16 @@ Interface which defines a REST route response.
 
 ## Properties
 
-### options?
+### attachment?
 
-> `optional` **options**: `object`
+> `optional` **attachment**: [`IRestRouteResponseAttachmentOptions`](IRestRouteResponseAttachmentOptions.md)
 
 Additional options that can be used to control the response.
 
-#### mimeType?
+***
 
-> `optional` **mimeType**: `string`
+### auth?
 
-The content type to use in the response.
+> `optional` **auth**: [`IRestRouteResponseAuthOptions`](IRestRouteResponseAuthOptions.md)
 
-#### filename?
-
-> `optional` **filename**: `string`
-
-The filename to use in content disposition.
-
-#### inline?
-
-> `optional` **inline**: `boolean`
-
-Whether to inline the content.
+Additional options that can be used to control the authentication response.

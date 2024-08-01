@@ -38,11 +38,11 @@ The configuration for the authentication.
 
 ## Properties
 
-### \_DEFAULT\_TTL
+### \_DEFAULT\_TTL\_MINUTES
 
-> `static` `private` `readonly` **\_DEFAULT\_TTL**: `number` = `1440`
+> `static` `private` `readonly` **\_DEFAULT\_TTL\_MINUTES**: `number` = `60`
 
-Default TTL in minutes 1440 is 24 hours.
+Default TTL in minutes.
 
 ***
 
@@ -88,7 +88,7 @@ Nothing.
 
 ### login()
 
-> **login**(`email`, `password`, `requestContext`?): `Promise`\<`string`\>
+> **login**(`email`, `password`, `requestContext`?): `Promise`\<`undefined` \| `string`\>
 
 Perform a login for the user.
 
@@ -108,10 +108,66 @@ The context for the request.
 
 #### Returns
 
-`Promise`\<`string`\>
+`Promise`\<`undefined` \| `string`\>
 
-The authentication token for the user.
+The authentication token for the user, if it uses a mechanism with public access.
 
 #### Implementation of
 
 `IAuthentication.login`
+
+***
+
+### logout()
+
+> **logout**(`token`?, `requestContext`?): `Promise`\<`void`\>
+
+Logout the current user.
+
+#### Parameters
+
+• **token?**: `string`
+
+The token to logout, if it uses a mechanism with public access.
+
+• **requestContext?**: `IServiceRequestContext`
+
+The context for the request.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IAuthentication.logout`
+
+***
+
+### refresh()
+
+> **refresh**(`token`?, `requestContext`?): `Promise`\<`undefined` \| `string`\>
+
+Refresh the token.
+
+#### Parameters
+
+• **token?**: `string`
+
+The token to refresh, if it uses a mechanism with public access.
+
+• **requestContext?**: `IServiceRequestContext`
+
+The context for the request.
+
+#### Returns
+
+`Promise`\<`undefined` \| `string`\>
+
+The refreshed token, if it uses a mechanism with public access.
+
+#### Implementation of
+
+`IAuthentication.refresh`

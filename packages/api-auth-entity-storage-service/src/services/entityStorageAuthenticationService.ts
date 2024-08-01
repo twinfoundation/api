@@ -9,19 +9,19 @@ import {
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
-import { Jwt, JwtAlgorithms } from "@gtsc/web";
 import type { AuthenticationUser } from "../entities/authenticationUser";
 import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
 import { PasswordHelper } from "../utils/passwordHelper";
+import { TokenHelper } from "../utils/tokenHelper";
 
 /**
  * Implementation of the authentication service using entity storage.
  */
 export class EntityStorageAuthenticationService implements IAuthentication {
 	/**
-	 * Default TTL in minutes 1440 is 24 hours.
+	 * Default TTL in minutes.
 	 */
-	private static readonly _DEFAULT_TTL: number = 1440;
+	private static readonly _DEFAULT_TTL_MINUTES: number = 60;
 
 	/**
 	 * Runtime name for the class.
@@ -83,7 +83,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
 		this._defaultTtlMinutes =
-			options?.config?.defaultTtlMinutes ?? EntityStorageAuthenticationService._DEFAULT_TTL;
+			options?.config?.defaultTtlMinutes ?? EntityStorageAuthenticationService._DEFAULT_TTL_MINUTES;
 	}
 
 	/**
@@ -105,13 +105,13 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	 * @param email The email address for the user.
 	 * @param password The password for the user.
 	 * @param requestContext The context for the request.
-	 * @returns The authentication token for the user.
+	 * @returns The authentication token for the user, if it uses a mechanism with public access.
 	 */
 	public async login(
 		email: string,
 		password: string,
 		requestContext?: IServiceRequestContext
-	): Promise<string> {
+	): Promise<string | undefined> {
 		Guards.stringValue(this.CLASS_NAME, nameof(email), email);
 		Guards.stringValue(this.CLASS_NAME, nameof(password), password);
 
@@ -136,22 +136,59 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 				throw new GeneralError(this.CLASS_NAME, "passwordMismatch");
 			}
 
-			const nowSeconds = Math.trunc(Date.now() / 1000);
-			const ttlSeconds = this._defaultTtlMinutes * 60;
-
-			const jwt = await Jwt.encodeWithSigner(
-				{ alg: JwtAlgorithms.EdDSA },
-				{
-					sub: user.identity,
-					exp: nowSeconds + ttlSeconds
-				},
-				async (alg, key, payload) =>
-					this._vaultConnector.sign(this._signingKeyName, payload, systemRequestContext)
+			const token = await TokenHelper.createToken(
+				this._systemIdentity,
+				this._systemPartitionId,
+				this._vaultConnector,
+				this._signingKeyName,
+				user.identity,
+				this._defaultTtlMinutes
 			);
 
-			return jwt;
+			return token;
 		} catch (error) {
 			throw new UnauthorizedError(this.CLASS_NAME, "loginFailed", error);
 		}
+	}
+
+	/**
+	 * Logout the current user.
+	 * @param token The token to logout, if it uses a mechanism with public access.
+	 * @param requestContext The context for the request.
+	 * @returns Nothing.
+	 */
+	public async logout(token?: string, requestContext?: IServiceRequestContext): Promise<void> {
+		// Nothing to do here.
+	}
+
+	/**
+	 * Refresh the token.
+	 * @param token The token to refresh, if it uses a mechanism with public access.
+	 * @param requestContext The context for the request.
+	 * @returns The refreshed token, if it uses a mechanism with public access.
+	 */
+	public async refresh(
+		token?: string,
+		requestContext?: IServiceRequestContext
+	): Promise<string | undefined> {
+		// If the verify fails on the current token then it will throw an exception.
+		const headerAndPayload = await TokenHelper.verify(
+			this._systemIdentity,
+			this._systemPartitionId,
+			this._vaultConnector,
+			this._signingKeyName,
+			token
+		);
+
+		const refreshToken = await TokenHelper.createToken(
+			this._systemIdentity,
+			this._systemPartitionId,
+			this._vaultConnector,
+			this._signingKeyName,
+			headerAndPayload.payload.sub ?? "",
+			this._defaultTtlMinutes
+		);
+
+		return refreshToken;
 	}
 }

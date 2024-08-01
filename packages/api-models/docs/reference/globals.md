@@ -31,6 +31,8 @@
 - [IBaseRoute](interfaces/IBaseRoute.md)
 - [IRestRoute](interfaces/IRestRoute.md)
 - [IRestRouteEntryPoint](interfaces/IRestRouteEntryPoint.md)
+- [IRestRouteResponseAttachmentOptions](interfaces/IRestRouteResponseAttachmentOptions.md)
+- [IRestRouteResponseAuthOptions](interfaces/IRestRouteResponseAuthOptions.md)
 - [IRestRouteResponseOptions](interfaces/IRestRouteResponseOptions.md)
 - [ISocketRoute](interfaces/ISocketRoute.md)
 - [ITag](interfaces/ITag.md)

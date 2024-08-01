@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
- * Configuration for the entity storage authentication service.
+ * Configuration for the authentication cookie pre processor.
  */
-export interface IEntityStorageAuthenticationServiceConfig {
+export interface AuthCookiePreProcessorConfig {
 	/**
 	 * The name of the key to retrieve from the vault for signing JWT.
 	 * @default auth-signing
@@ -16,10 +16,4 @@ export interface IEntityStorageAuthenticationServiceConfig {
 	 * @default access_token
 	 */
 	cookieName?: string;
-
-	/**
-	 * The default time to live for the JWT.
-	 * @default 1440
-	 */
-	defaultTtlMinutes?: number;
 }

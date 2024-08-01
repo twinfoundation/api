@@ -102,7 +102,7 @@ Nothing.
 
 ### login()
 
-> **login**(`email`, `password`, `requestContext`?): `Promise`\<`string`\>
+> **login**(`email`, `password`, `requestContext`?): `Promise`\<`undefined` \| `string`\>
 
 Perform a login for the user.
 
@@ -122,6 +122,54 @@ The context for the request.
 
 #### Returns
 
-`Promise`\<`string`\>
+`Promise`\<`undefined` \| `string`\>
 
-The authentication token for the user.
+The authentication token for the user, if it uses a mechanism with public access.
+
+***
+
+### logout()
+
+> **logout**(`token`?, `requestContext`?): `Promise`\<`void`\>
+
+Logout the current user.
+
+#### Parameters
+
+• **token?**: `string`
+
+The token to logout, if it uses a mechanism with public access.
+
+• **requestContext?**: `IServiceRequestContext`
+
+The context for the request.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+***
+
+### refresh()
+
+> **refresh**(`token`?, `requestContext`?): `Promise`\<`undefined` \| `string`\>
+
+Refresh the token.
+
+#### Parameters
+
+• **token?**: `string`
+
+The token to refresh, if it uses a mechanism with public access.
+
+• **requestContext?**: `IServiceRequestContext`
+
+The context for the request.
+
+#### Returns
+
+`Promise`\<`undefined` \| `string`\>
+
+The refreshed token, if it uses a mechanism with public access.

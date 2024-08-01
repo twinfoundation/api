@@ -1,6 +1,6 @@
-# Class: EntityStorageAuthenticationProcessor
+# Class: AuthCookiePreProcessor
 
-Handle a JWT token in the headers and validate it to populate request context identity.
+Handle a JWT token in the cookies and validate it to populate request context identity.
 
 ## Implements
 
@@ -8,11 +8,11 @@ Handle a JWT token in the headers and validate it to populate request context id
 
 ## Constructors
 
-### new EntityStorageAuthenticationProcessor()
+### new AuthCookiePreProcessor()
 
-> **new EntityStorageAuthenticationProcessor**(`options`?): [`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
+> **new AuthCookiePreProcessor**(`options`?): [`AuthCookiePreProcessor`](AuthCookiePreProcessor.md)
 
-Create a new instance of EntityStorageAuthenticationProcessor.
+Create a new instance of AuthCookiePreProcessor.
 
 #### Parameters
 
@@ -24,13 +24,13 @@ Options for the processor.
 
 The vault for the private keys, defaults to "vault".
 
-• **options.config?**: [`IEntityStorageAuthenticationProcessorConfig`](../interfaces/IEntityStorageAuthenticationProcessorConfig.md)
+• **options.config?**: [`AuthCookiePreProcessorConfig`](../interfaces/AuthCookiePreProcessorConfig.md)
 
 The configuration for the processor.
 
 #### Returns
 
-[`EntityStorageAuthenticationProcessor`](EntityStorageAuthenticationProcessor.md)
+[`AuthCookiePreProcessor`](AuthCookiePreProcessor.md)
 
 ## Properties
 

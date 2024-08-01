@@ -1,6 +1,6 @@
-# Interface: IEntityStorageAuthenticationServiceConfig
+# Interface: AuthCookiePreProcessorConfig
 
-Configuration for the entity storage authentication service.
+Configuration for the authentication cookie pre processor.
 
 ## Properties
 
@@ -28,18 +28,4 @@ The name of the cookie to use for the token.
 
 ```ts
 access_token
-```
-
-***
-
-### defaultTtlMinutes?
-
-> `optional` **defaultTtlMinutes**: `number`
-
-The default time to live for the JWT.
-
-#### Default
-
-```ts
-1440
 ```

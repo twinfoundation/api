@@ -7,21 +7,28 @@ import {
 	type IHttpServerRequest,
 	type IRestRoute
 } from "@gtsc/api-models";
-import { Is, UnauthorizedError } from "@gtsc/core";
+import { BaseError, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
-import { HttpStatusCode, Jwt } from "@gtsc/web";
-import type { IEntityStorageAuthenticationProcessorConfig } from "../models/IEntityStorageAuthenticationProcessorConfig";
+import { HttpStatusCode } from "@gtsc/web";
+import type { AuthCookiePreProcessorConfig } from "../models/IAuthCookiePreProcessorConfig";
+import { TokenHelper } from "../utils/tokenHelper";
 
 /**
- * Handle a JWT token in the headers and validate it to populate request context identity.
+ * Handle a JWT token in the cookies and validate it to populate request context identity.
  */
-export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProcessor {
+export class AuthCookiePreProcessor implements IHttpRestRouteProcessor {
+	/**
+	 * The name for the access token as a cookie.
+	 * @internal
+	 */
+	public static readonly COOKIE_NAME: string = "access_token";
+
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EntityStorageAuthenticationProcessor>();
+	public readonly CLASS_NAME: string = nameof<AuthCookiePreProcessor>();
 
 	/**
 	 * The vault for the keys.
@@ -36,6 +43,12 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	private readonly _signingKeyName: string;
 
 	/**
+	 * The name of the cookie to use for the token.
+	 * @internal
+	 */
+	private readonly _cookieName: string;
+
+	/**
 	 * The system identity.
 	 * @internal
 	 */
@@ -48,17 +61,15 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 	private _systemPartitionId?: string;
 
 	/**
-	 * Create a new instance of EntityStorageAuthenticationProcessor.
+	 * Create a new instance of AuthCookiePreProcessor.
 	 * @param options Options for the processor.
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
 	 * @param options.config The configuration for the processor.
 	 */
-	constructor(options?: {
-		vaultConnectorType?: string;
-		config?: IEntityStorageAuthenticationProcessorConfig;
-	}) {
+	constructor(options?: { vaultConnectorType?: string; config?: AuthCookiePreProcessorConfig }) {
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
+		this._cookieName = options?.config?.cookieName ?? AuthCookiePreProcessor.COOKIE_NAME;
 	}
 
 	/**
@@ -91,67 +102,38 @@ export class EntityStorageAuthenticationProcessor implements IHttpRestRouteProce
 		state: { [id: string]: unknown }
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
-			let jwt: string | undefined;
-			const authHeader = request.headers?.authorization;
+			const cookiesHeader = request.headers?.cookie;
+			let token: string | undefined;
 
-			if (Is.stringValue(authHeader)) {
-				const parts = authHeader.split(" ");
-				if (parts.length === 2 && parts[0] === "Bearer") {
-					jwt = parts[1];
+			if (Is.notEmpty(cookiesHeader)) {
+				const cookies = Is.arrayValue(cookiesHeader) ? cookiesHeader : [cookiesHeader];
+				for (const cookie of cookies) {
+					if (Is.stringValue(cookie)) {
+						const accessTokenCookie = cookie
+							.split(";")
+							.map(c => c.trim())
+							.find(c => c.startsWith(this._cookieName));
+						if (Is.stringValue(accessTokenCookie)) {
+							token = accessTokenCookie.slice(this._cookieName.length + 1).trim();
+							break;
+						}
+					}
 				}
 			}
 
-			if (!Is.stringValue(jwt)) {
-				ResponseHelper.buildError(
-					response,
-					{
-						name: UnauthorizedError.CLASS_NAME,
-						message: `${this.CLASS_NAME}.missing`
-					},
-					HttpStatusCode.unauthorized
-				);
-			} else {
-				const systemRequestContext: IServiceRequestContext = {
-					systemIdentity: this._systemIdentity,
-					userIdentity: this._systemIdentity,
-					partitionId: this._systemPartitionId
-				};
-
-				const decoded = await Jwt.verifyWithVerifier(jwt, async (alg, key, payload, signature) =>
-					this._vaultConnector.verify(
-						this._signingKeyName,
-						payload,
-						signature,
-						systemRequestContext
-					)
+			try {
+				const headerAndPayload = await TokenHelper.verify(
+					this._systemIdentity,
+					this._systemPartitionId,
+					this._vaultConnector,
+					this._signingKeyName,
+					token
 				);
 
-				// If the signature validation failed then it is unauthorized.
-				if (!decoded.verified) {
-					ResponseHelper.buildError(
-						response,
-						{
-							name: UnauthorizedError.CLASS_NAME,
-							message: `${this.CLASS_NAME}.invalid`
-						},
-						HttpStatusCode.unauthorized
-					);
-				} else if (
-					!Is.empty(decoded.payload?.exp) &&
-					decoded.payload.exp < Math.trunc(Date.now() / 1000)
-				) {
-					// If the token has expired then it is unauthorized.
-					ResponseHelper.buildError(
-						response,
-						{
-							name: UnauthorizedError.CLASS_NAME,
-							message: `${this.CLASS_NAME}.expired`
-						},
-						HttpStatusCode.unauthorized
-					);
-				} else {
-					requestContext.userIdentity = decoded.payload?.sub;
-				}
+				requestContext.userIdentity = headerAndPayload.payload?.sub;
+			} catch (err) {
+				const error = BaseError.fromError(err);
+				ResponseHelper.buildError(response, error, HttpStatusCode.unauthorized);
 			}
 		}
 	}

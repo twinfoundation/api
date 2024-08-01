@@ -10,8 +10,8 @@ export interface ILoginResponse {
 	 */
 	body: {
 		/**
-		 * The access token for future requests.
+		 * The access token, if it uses a mechanism with public access.
 		 */
-		token: string;
+		token?: string;
 	};
 }

@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
+	type IRestRouteResponseOptions,
 	ResponseHelper,
 	type IHttpRequest,
 	type IHttpResponse,
@@ -87,7 +88,7 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 						body: request.body
 					};
 
-					const restRouteResponse = await route.handler(
+					const restRouteResponse: IHttpResponse & IRestRouteResponseOptions = await route.handler(
 						{
 							...requestContext,
 							serverRequest: request
@@ -109,27 +110,31 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					// If there are custom response types for the route then use them
 					// instead of the default application/json
 					headers["Content-Type"] =
-						restRouteResponse?.options?.mimeType ??
+						restRouteResponse?.attachment?.mimeType ??
 						response.headers?.["Content-Type"] ??
 						"application/json; charset=utf-8";
 
 					// If there are filename or inline options set then add the content disposition
 					if (
-						Is.stringValue(restRouteResponse?.options?.filename) ||
-						Is.boolean(restRouteResponse?.options?.inline)
+						Is.stringValue(restRouteResponse?.attachment?.filename) ||
+						Is.boolean(restRouteResponse?.attachment?.inline)
 					) {
 						let filename = "";
-						if (Is.stringValue(restRouteResponse?.options?.filename)) {
-							filename = `; filename="${restRouteResponse?.options?.filename}"`;
+						if (Is.stringValue(restRouteResponse?.attachment?.filename)) {
+							filename = `; filename="${restRouteResponse?.attachment?.filename}"`;
 						}
 						headers["Content-Disposition"] =
-							`${restRouteResponse?.options?.inline ? "inline" : "attachment"}${filename}`;
+							`${restRouteResponse?.attachment?.inline ? "inline" : "attachment"}${filename}`;
 					}
 
 					// If this is a binary response then set the content length
 					if (Is.uint8Array(restRouteResponse?.body)) {
 						const contentLength = restRouteResponse.body.length;
 						headers["Content-Length"] = contentLength.toString();
+					}
+
+					if (Is.object(restRouteResponse?.auth)) {
+						state.auth = restRouteResponse.auth;
 					}
 
 					response.headers = headers;

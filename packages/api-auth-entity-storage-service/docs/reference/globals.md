@@ -3,13 +3,16 @@
 ## Classes
 
 - [AuthenticationUser](classes/AuthenticationUser.md)
-- [EntityStorageAuthenticationProcessor](classes/EntityStorageAuthenticationProcessor.md)
+- [AuthCookiePostProcessor](classes/AuthCookiePostProcessor.md)
+- [AuthCookiePreProcessor](classes/AuthCookiePreProcessor.md)
 - [EntityStorageAuthenticationService](classes/EntityStorageAuthenticationService.md)
 - [PasswordHelper](classes/PasswordHelper.md)
+- [TokenHelper](classes/TokenHelper.md)
 
 ## Interfaces
 
-- [IEntityStorageAuthenticationProcessorConfig](interfaces/IEntityStorageAuthenticationProcessorConfig.md)
+- [IAuthCookiePreProcessorConfig](interfaces/IAuthCookiePreProcessorConfig.md)
+- [AuthCookiePreProcessorConfig](interfaces/AuthCookiePreProcessorConfig.md)
 - [IEntityStorageAuthenticationServiceConfig](interfaces/IEntityStorageAuthenticationServiceConfig.md)
 
 ## Variables
@@ -21,4 +24,6 @@
 
 - [generateRestRoutesAuthentication](functions/generateRestRoutesAuthentication.md)
 - [authenticationLogin](functions/authenticationLogin.md)
+- [authenticationLogout](functions/authenticationLogout.md)
+- [authenticationRefreshToken](functions/authenticationRefreshToken.md)
 - [initSchema](functions/initSchema.md)

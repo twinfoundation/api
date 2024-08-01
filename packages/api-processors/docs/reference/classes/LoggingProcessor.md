@@ -1,4 +1,4 @@
-# Class: RequestLoggingProcessor
+# Class: LoggingProcessor
 
 Process the REST request and log its information.
 
@@ -8,9 +8,9 @@ Process the REST request and log its information.
 
 ## Constructors
 
-### new RequestLoggingProcessor()
+### new LoggingProcessor()
 
-> **new RequestLoggingProcessor**(`options`?): [`RequestLoggingProcessor`](RequestLoggingProcessor.md)
+> **new LoggingProcessor**(`options`?): [`LoggingProcessor`](LoggingProcessor.md)
 
 Create a new instance of RequestLoggingProcessor.
 
@@ -30,7 +30,7 @@ The configuration for the processor.
 
 #### Returns
 
-[`RequestLoggingProcessor`](RequestLoggingProcessor.md)
+[`LoggingProcessor`](LoggingProcessor.md)
 
 Promise that resolves when the processor is initialized.
 
@@ -48,11 +48,11 @@ Runtime name for the class.
 
 ## Methods
 
-### process()
+### pre()
 
-> **process**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> **pre**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
 
-Process the REST request for the specified route.
+Pre process the REST request for the specified route.
 
 #### Parameters
 
@@ -82,4 +82,42 @@ The state for the request.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.process`
+`IHttpRestRouteProcessor.pre`
+
+***
+
+### post()
+
+> **post**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+
+Post process the REST request for the specified route.
+
+#### Parameters
+
+• **request**: `IHttpServerRequest`\<`any`\>
+
+The incoming request.
+
+• **response**: `IHttpResponse`\<`any`\>
+
+The outgoing response.
+
+• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+
+The route to process.
+
+• **requestContext**: `IServiceRequestContext`
+
+The context for the request.
+
+• **state**
+
+The state for the request.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.post`

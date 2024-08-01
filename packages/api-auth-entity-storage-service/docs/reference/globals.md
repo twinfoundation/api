@@ -3,16 +3,14 @@
 ## Classes
 
 - [AuthenticationUser](classes/AuthenticationUser.md)
-- [AuthCookiePostProcessor](classes/AuthCookiePostProcessor.md)
-- [AuthCookiePreProcessor](classes/AuthCookiePreProcessor.md)
+- [AuthCookieProcessor](classes/AuthCookieProcessor.md)
 - [EntityStorageAuthenticationService](classes/EntityStorageAuthenticationService.md)
 - [PasswordHelper](classes/PasswordHelper.md)
 - [TokenHelper](classes/TokenHelper.md)
 
 ## Interfaces
 
-- [IAuthCookiePreProcessorConfig](interfaces/IAuthCookiePreProcessorConfig.md)
-- [AuthCookiePreProcessorConfig](interfaces/AuthCookiePreProcessorConfig.md)
+- [IAuthCookieProcessorConfig](interfaces/IAuthCookieProcessorConfig.md)
 - [IEntityStorageAuthenticationServiceConfig](interfaces/IEntityStorageAuthenticationServiceConfig.md)
 
 ## Variables

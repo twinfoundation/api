@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
+	type IRestRouteResponseAuthOptions,
 	ResponseHelper,
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
@@ -12,13 +13,13 @@ import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import { HttpStatusCode } from "@gtsc/web";
-import type { AuthCookiePreProcessorConfig } from "../models/IAuthCookiePreProcessorConfig";
+import type { IAuthCookieProcessorConfig } from "../models/IAuthCookieProcessorConfig";
 import { TokenHelper } from "../utils/tokenHelper";
 
 /**
  * Handle a JWT token in the cookies and validate it to populate request context identity.
  */
-export class AuthCookiePreProcessor implements IHttpRestRouteProcessor {
+export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * The name for the access token as a cookie.
 	 * @internal
@@ -28,7 +29,7 @@ export class AuthCookiePreProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<AuthCookiePreProcessor>();
+	public readonly CLASS_NAME: string = nameof<AuthCookieProcessor>();
 
 	/**
 	 * The vault for the keys.
@@ -66,10 +67,10 @@ export class AuthCookiePreProcessor implements IHttpRestRouteProcessor {
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
 	 * @param options.config The configuration for the processor.
 	 */
-	constructor(options?: { vaultConnectorType?: string; config?: AuthCookiePreProcessorConfig }) {
+	constructor(options?: { vaultConnectorType?: string; config?: IAuthCookieProcessorConfig }) {
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
-		this._cookieName = options?.config?.cookieName ?? AuthCookiePreProcessor.COOKIE_NAME;
+		this._cookieName = options?.config?.cookieName ?? AuthCookieProcessor.COOKIE_NAME;
 	}
 
 	/**
@@ -87,14 +88,14 @@ export class AuthCookiePreProcessor implements IHttpRestRouteProcessor {
 	}
 
 	/**
-	 * Process the REST request for the specified route.
+	 * Pre process the REST request for the specified route.
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
 	 * @param state The state for the request.
 	 */
-	public async process(
+	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
@@ -134,6 +135,41 @@ export class AuthCookiePreProcessor implements IHttpRestRouteProcessor {
 			} catch (err) {
 				const error = BaseError.fromError(err);
 				ResponseHelper.buildError(response, error, HttpStatusCode.unauthorized);
+			}
+		}
+	}
+
+	/**
+	 * Post process the REST request for the specified route.
+	 * @param request The incoming request.
+	 * @param response The outgoing response.
+	 * @param route The route to process.
+	 * @param requestContext The context for the request.
+	 * @param state The state for the request.
+	 */
+	public async post(
+		request: IHttpServerRequest,
+		response: IHttpResponse,
+		route: IRestRoute | undefined,
+		requestContext: IServiceRequestContext,
+		state: { [id: string]: unknown }
+	): Promise<void> {
+		const responseAuthOptions = state?.auth as IRestRouteResponseAuthOptions | undefined;
+
+		if (!Is.empty(route) && Is.object(responseAuthOptions)) {
+			if (
+				(responseAuthOptions.operation === "login" ||
+					responseAuthOptions.operation === "refresh") &&
+				Is.stringValue(response.body?.token)
+			) {
+				response.headers ??= {};
+				response.headers["Set-Cookie"] =
+					`${this._cookieName}=${response.body?.token}; Secure; HttpOnly; SameSite=None; Path=/`;
+				delete response.body?.token;
+			} else if (responseAuthOptions.operation === "logout") {
+				response.headers ??= {};
+				response.headers["Set-Cookie"] =
+					`${this._cookieName}=; Max-Age=0; Secure; HttpOnly; SameSite=None; Path=/`;
 			}
 		}
 	}

@@ -44,11 +44,11 @@ Runtime name for the class.
 
 ## Methods
 
-### process()
+### pre()
 
-> **process**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> **pre**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
 
-Process the REST request for the specified route.
+Pre process the REST request for the specified route.
 
 #### Parameters
 
@@ -78,4 +78,4 @@ The state for the request.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.process`
+`IHttpRestRouteProcessor.pre`

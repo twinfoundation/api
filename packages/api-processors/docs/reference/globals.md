@@ -6,8 +6,7 @@
 - [ApiKey](classes/ApiKey.md)
 - [StaticUserIdentityProcessor](classes/StaticUserIdentityProcessor.md)
 - [SystemIdentityProcessor](classes/SystemIdentityProcessor.md)
-- [RequestLoggingProcessor](classes/RequestLoggingProcessor.md)
-- [ResponseLoggingProcessor](classes/ResponseLoggingProcessor.md)
+- [LoggingProcessor](classes/LoggingProcessor.md)
 - [ApiKeyPartitionProcessor](classes/ApiKeyPartitionProcessor.md)
 - [StaticPartitionProcessor](classes/StaticPartitionProcessor.md)
 

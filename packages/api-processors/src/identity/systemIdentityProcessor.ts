@@ -38,14 +38,14 @@ export class SystemIdentityProcessor implements IHttpRestRouteProcessor {
 	}
 
 	/**
-	 * Process the REST request for the specified route.
+	 * Pre process the REST request for the specified route.
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
 	 * @param state The state for the request.
 	 */
-	public async process(
+	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,

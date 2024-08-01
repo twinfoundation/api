@@ -1,6 +1,6 @@
-# Interface: AuthCookiePreProcessorConfig
+# Interface: IAuthCookieProcessorConfig
 
-Configuration for the authentication cookie pre processor.
+Configuration for the authentication cookie post processor
 
 ## Properties
 

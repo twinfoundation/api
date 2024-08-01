@@ -1,4 +1,4 @@
-# Class: AuthCookiePreProcessor
+# Class: AuthCookieProcessor
 
 Handle a JWT token in the cookies and validate it to populate request context identity.
 
@@ -8,9 +8,9 @@ Handle a JWT token in the cookies and validate it to populate request context id
 
 ## Constructors
 
-### new AuthCookiePreProcessor()
+### new AuthCookieProcessor()
 
-> **new AuthCookiePreProcessor**(`options`?): [`AuthCookiePreProcessor`](AuthCookiePreProcessor.md)
+> **new AuthCookieProcessor**(`options`?): [`AuthCookieProcessor`](AuthCookieProcessor.md)
 
 Create a new instance of AuthCookiePreProcessor.
 
@@ -24,13 +24,13 @@ Options for the processor.
 
 The vault for the private keys, defaults to "vault".
 
-• **options.config?**: [`AuthCookiePreProcessorConfig`](../interfaces/AuthCookiePreProcessorConfig.md)
+• **options.config?**: [`IAuthCookieProcessorConfig`](../interfaces/IAuthCookieProcessorConfig.md)
 
 The configuration for the processor.
 
 #### Returns
 
-[`AuthCookiePreProcessor`](AuthCookiePreProcessor.md)
+[`AuthCookieProcessor`](AuthCookieProcessor.md)
 
 ## Properties
 
@@ -74,11 +74,11 @@ Nothing.
 
 ***
 
-### process()
+### pre()
 
-> **process**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> **pre**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
 
-Process the REST request for the specified route.
+Pre process the REST request for the specified route.
 
 #### Parameters
 
@@ -108,4 +108,42 @@ The state for the request.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.process`
+`IHttpRestRouteProcessor.pre`
+
+***
+
+### post()
+
+> **post**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+
+Post process the REST request for the specified route.
+
+#### Parameters
+
+• **request**: `IHttpServerRequest`\<`any`\>
+
+The incoming request.
+
+• **response**: `IHttpResponse`\<`any`\>
+
+The outgoing response.
+
+• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+
+The route to process.
+
+• **requestContext**: `IServiceRequestContext`
+
+The context for the request.
+
+• **state**
+
+The state for the request.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+#### Implementation of
+
+`IHttpRestRouteProcessor.post`

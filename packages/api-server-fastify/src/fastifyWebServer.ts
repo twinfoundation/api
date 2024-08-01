@@ -270,13 +270,39 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		const processorState = {};
 
 		for (const restRouteProcessor of restRouteProcessors) {
-			await restRouteProcessor.process(
-				httpServerRequest,
-				httpResponse,
-				restRoute,
-				requestContext,
-				processorState
-			);
+			if (Is.function(restRouteProcessor.pre)) {
+				await restRouteProcessor.pre(
+					httpServerRequest,
+					httpResponse,
+					restRoute,
+					requestContext,
+					processorState
+				);
+			}
+		}
+
+		for (const restRouteProcessor of restRouteProcessors) {
+			if (Is.function(restRouteProcessor.process)) {
+				await restRouteProcessor.process(
+					httpServerRequest,
+					httpResponse,
+					restRoute,
+					requestContext,
+					processorState
+				);
+			}
+		}
+
+		for (const restRouteProcessor of restRouteProcessors) {
+			if (Is.function(restRouteProcessor.post)) {
+				await restRouteProcessor.post(
+					httpServerRequest,
+					httpResponse,
+					restRoute,
+					requestContext,
+					processorState
+				);
+			}
 		}
 
 		if (!Is.empty(httpResponse.headers)) {

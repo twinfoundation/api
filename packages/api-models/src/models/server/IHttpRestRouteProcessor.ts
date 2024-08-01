@@ -10,6 +10,23 @@ import type { IRestRoute } from "../routes/IRestRoute";
  */
 export interface IHttpRestRouteProcessor extends IService {
 	/**
+	 * Pre process the REST request for the specified route.
+	 * @param request The request to handle.
+	 * @param response The response data to send if any.
+	 * @param route The route being requested, if a matching one was found.
+	 * @param requestContext The context for the request.
+	 * @param state The state for the request.
+	 * @returns Promise that resolves when the request is processed.
+	 */
+	pre?(
+		request: IHttpServerRequest,
+		response: IHttpResponse,
+		route: IRestRoute | undefined,
+		requestContext: IServiceRequestContext,
+		state: { [id: string]: unknown }
+	): Promise<void>;
+
+	/**
 	 * Process the REST request for the specified route.
 	 * @param request The request to handle.
 	 * @param response The response data to send if any.
@@ -18,7 +35,24 @@ export interface IHttpRestRouteProcessor extends IService {
 	 * @param state The state for the request.
 	 * @returns Promise that resolves when the request is processed.
 	 */
-	process(
+	process?(
+		request: IHttpServerRequest,
+		response: IHttpResponse,
+		route: IRestRoute | undefined,
+		requestContext: IServiceRequestContext,
+		state: { [id: string]: unknown }
+	): Promise<void>;
+
+	/**
+	 * Post process the REST request for the specified route.
+	 * @param request The request to handle.
+	 * @param response The response data to send if any.
+	 * @param route The route being requested, if a matching one was found.
+	 * @param requestContext The context for the request.
+	 * @param state The state for the request.
+	 * @returns Promise that resolves when the request is processed.
+	 */
+	post?(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,

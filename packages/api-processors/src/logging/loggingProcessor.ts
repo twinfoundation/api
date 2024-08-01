@@ -11,16 +11,16 @@ import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-m
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
-import type { IResponseLoggingProcessorConfig } from "../models/IResponseLoggingProcessorConfig";
+import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingProcessorConfig";
 
 /**
- * Process the REST response and log its information.
+ * Process the REST request and log its information.
  */
-export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
+export class LoggingProcessor implements IHttpRestRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<ResponseLoggingProcessor>();
+	public readonly CLASS_NAME: string = nameof<LoggingProcessor>();
 
 	/**
 	 * The connector for logging the information.
@@ -35,7 +35,7 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 	private readonly _includeBody: boolean;
 
 	/**
-	 * Create a new instance of ResponseLoggingProcessor.
+	 * Create a new instance of RequestLoggingProcessor.
 	 * @param options Options for the processor.
 	 * @param options.loggingConnectorType The type for the logging connector, defaults to "logging".
 	 * @param options.config The configuration for the processor.
@@ -43,7 +43,7 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 	 */
 	constructor(options?: {
 		loggingConnectorType?: string;
-		config?: IResponseLoggingProcessorConfig;
+		config?: IRequestLoggingProcessorConfig;
 	}) {
 		this._loggingConnector = LoggingConnectorFactory.get(
 			options?.loggingConnectorType ?? "logging"
@@ -52,14 +52,44 @@ export class ResponseLoggingProcessor implements IHttpRestRouteProcessor {
 	}
 
 	/**
-	 * Process the REST request for the specified route.
+	 * Pre process the REST request for the specified route.
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
 	 * @param state The state for the request.
 	 */
-	public async process(
+	public async pre(
+		request: IHttpServerRequest,
+		response: IHttpResponse,
+		route: IRestRoute | undefined,
+		requestContext: IServiceRequestContext,
+		state: { [id: string]: unknown }
+	): Promise<void> {
+		const now = process.hrtime.bigint();
+		state.requestStart = now;
+
+		await this._loggingConnector.log(
+			{
+				level: "info",
+				source: this.CLASS_NAME,
+				ts: Date.now(),
+				message: `===> ${request.method} ${request.url ? new URL(request.url).pathname : ""}`,
+				data: this._includeBody ? request?.body : undefined
+			},
+			requestContext
+		);
+	}
+
+	/**
+	 * Post process the REST request for the specified route.
+	 * @param request The incoming request.
+	 * @param response The outgoing response.
+	 * @param route The route to process.
+	 * @param requestContext The context for the request.
+	 * @param state The state for the request.
+	 */
+	public async post(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,

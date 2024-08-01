@@ -9,11 +9,3 @@ Interface which defines a REST route response.
 > `optional` **attachment**: [`IRestRouteResponseAttachmentOptions`](IRestRouteResponseAttachmentOptions.md)
 
 Additional options that can be used to control the response.
-
-***
-
-### auth?
-
-> `optional` **auth**: [`IRestRouteResponseAuthOptions`](IRestRouteResponseAuthOptions.md)
-
-Additional options that can be used to control the authentication response.

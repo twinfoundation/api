@@ -15,7 +15,7 @@ export interface IHttpRestRouteProcessor extends IService {
 	 * @param response The response data to send if any.
 	 * @param route The route being requested, if a matching one was found.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 * @returns Promise that resolves when the request is processed.
 	 */
 	pre?(
@@ -23,7 +23,7 @@ export interface IHttpRestRouteProcessor extends IService {
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void>;
 
 	/**
@@ -32,7 +32,7 @@ export interface IHttpRestRouteProcessor extends IService {
 	 * @param response The response data to send if any.
 	 * @param route The route being requested, if a matching one was found.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 * @returns Promise that resolves when the request is processed.
 	 */
 	process?(
@@ -40,7 +40,7 @@ export interface IHttpRestRouteProcessor extends IService {
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void>;
 
 	/**
@@ -49,7 +49,7 @@ export interface IHttpRestRouteProcessor extends IService {
 	 * @param response The response data to send if any.
 	 * @param route The route being requested, if a matching one was found.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 * @returns Promise that resolves when the request is processed.
 	 */
 	post?(
@@ -57,6 +57,6 @@ export interface IHttpRestRouteProcessor extends IService {
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void>;
 }

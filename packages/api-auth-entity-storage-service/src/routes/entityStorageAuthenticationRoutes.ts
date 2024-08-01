@@ -187,10 +187,11 @@ export async function authenticationLogin(
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
 	const result = await service.login(request.body.email, request.body.password, requestContext);
 
+	// Need to give a hint to any auth processors about the operation
+	// in case they need to manipulate the response
+	requestContext.processorState.authOperation = "login";
+
 	return {
-		auth: {
-			operation: "login"
-		},
 		body: result
 	};
 }
@@ -212,10 +213,11 @@ export async function authenticationLogout(
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
 	await service.logout(request.query?.token, requestContext);
 
+	// Need to give a hint to any auth processors about the operation
+	// in case they need to manipulate the response
+	requestContext.processorState.authOperation = "logout";
+
 	return {
-		auth: {
-			operation: "logout"
-		},
 		statusCode: HttpStatusCode.noContent
 	};
 }
@@ -235,11 +237,17 @@ export async function authenticationRefreshToken(
 	Guards.object<IRefreshTokenRequest>(ROUTES_SOURCE, nameof(request), request);
 
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
-	const result = await service.refresh(request.query?.token, requestContext);
+
+	// If the token is not in the query, then maybe an auth processor has extracted it
+	// and stored it in the processor state
+	const token = request.query?.token ?? (requestContext.processorState.authToken as string);
+	const result = await service.refresh(token, requestContext);
+
+	// Need to give a hint to any auth processors about the operation
+	// in case they need to manipulate the response
+	requestContext.processorState.authOperation = "refresh";
+
 	return {
-		auth: {
-			operation: "refresh"
-		},
 		body: result
 	};
 }

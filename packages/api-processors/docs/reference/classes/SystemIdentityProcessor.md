@@ -60,7 +60,7 @@ Nothing.
 
 ### pre()
 
-> **pre**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> **pre**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
 
 Pre process the REST request for the specified route.
 
@@ -82,9 +82,9 @@ The route to process.
 
 The context for the request.
 
-• **state**
+• **processorState**
 
-The state for the request.
+The state handed through the processors.
 
 #### Returns
 

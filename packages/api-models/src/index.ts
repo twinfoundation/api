@@ -27,7 +27,6 @@ export * from "./models/routes/IBaseRoute";
 export * from "./models/routes/IRestRoute";
 export * from "./models/routes/IRestRouteEntryPoint";
 export * from "./models/routes/IRestRouteResponseAttachmentOptions";
-export * from "./models/routes/IRestRouteResponseAuthOptions";
 export * from "./models/routes/IRestRouteResponseOptions";
 export * from "./models/routes/ISocketRoute";
 export * from "./models/routes/ITag";

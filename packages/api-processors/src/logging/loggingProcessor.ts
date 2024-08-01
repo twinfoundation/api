@@ -57,17 +57,17 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		const now = process.hrtime.bigint();
-		state.requestStart = now;
+		processorState.requestStart = now;
 
 		await this._loggingConnector.log(
 			{
@@ -87,14 +87,14 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 */
 	public async post(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		let data: { [id: string]: unknown } | undefined;
 		if (this._includeBody) {
@@ -121,7 +121,7 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 			}
 		}
 		const now = process.hrtime.bigint();
-		const start = Coerce.bigint(state.requestStart) ?? now;
+		const start = Coerce.bigint(processorState.requestStart) ?? now;
 		const elapsed = now - start;
 		const elapsedMicroSeconds = Math.floor(Number(elapsed) / 1000);
 		await this._loggingConnector.log(

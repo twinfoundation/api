@@ -4,7 +4,13 @@ import { Is, UnauthorizedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import type { IVaultConnector } from "@gtsc/vault-models";
-import { type IJwtHeader, type IJwtPayload, Jwt, JwtAlgorithms } from "@gtsc/web";
+import {
+	type IHttpHeaders,
+	type IJwtHeader,
+	type IJwtPayload,
+	Jwt,
+	JwtAlgorithms
+} from "@gtsc/web";
 
 /**
  * Helper class for token operations.
@@ -117,5 +123,39 @@ export class TokenHelper {
 			header: decoded.header,
 			payload: decoded.payload
 		};
+	}
+
+	/**
+	 * Extract the auth token from the headers, either from the authorization header or the cookie header.
+	 * @param headers The headers to extract the token from.
+	 * @param cookieName The name of the cookie to extract the token from.
+	 * @returns The token if found.
+	 */
+	public static extractTokenFromHeaders(
+		headers?: IHttpHeaders,
+		cookieName?: string
+	): string | undefined {
+		const cookiesHeader = headers?.cookie;
+		let token: string | undefined;
+
+		if (Is.string(headers?.authorization) && headers.authorization.startsWith("Bearer ")) {
+			token = headers.authorization.slice(7).trim();
+		} else if (Is.notEmpty(cookiesHeader) && Is.stringValue(cookieName)) {
+			const cookies = Is.arrayValue(cookiesHeader) ? cookiesHeader : [cookiesHeader];
+			for (const cookie of cookies) {
+				if (Is.stringValue(cookie)) {
+					const accessTokenCookie = cookie
+						.split(";")
+						.map(c => c.trim())
+						.find(c => c.startsWith(cookieName));
+					if (Is.stringValue(accessTokenCookie)) {
+						token = accessTokenCookie.slice(cookieName.length + 1).trim();
+						break;
+					}
+				}
+			}
+		}
+
+		return token;
 	}
 }

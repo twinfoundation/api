@@ -49,14 +49,14 @@ export class StaticUserIdentityProcessor implements IHttpRestRouteProcessor {
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
 			requestContext.userIdentity = this._userIdentity;

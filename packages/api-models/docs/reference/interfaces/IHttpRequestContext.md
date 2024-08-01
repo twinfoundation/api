@@ -49,3 +49,15 @@ The identity of the requestor if there is an authenticated user.
 > **serverRequest**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
 
 The raw HTTP request.
+
+***
+
+### processorState
+
+> **processorState**: `object`
+
+The state handed through the processors.
+
+#### Index signature
+
+ \[`id`: `string`\]: `unknown`

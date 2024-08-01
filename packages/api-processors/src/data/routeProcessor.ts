@@ -56,14 +56,14 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 */
 	public async process(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		// Don't handle the route if another processor has already set the response
 		// status code e.g. from an auth processor
@@ -91,7 +91,8 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					const restRouteResponse: IHttpResponse & IRestRouteResponseOptions = await route.handler(
 						{
 							...requestContext,
-							serverRequest: request
+							serverRequest: request,
+							processorState
 						},
 						req
 					);
@@ -131,10 +132,6 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					if (Is.uint8Array(restRouteResponse?.body)) {
 						const contentLength = restRouteResponse.body.length;
 						headers["Content-Length"] = contentLength.toString();
-					}
-
-					if (Is.object(restRouteResponse?.auth)) {
-						state.auth = restRouteResponse.auth;
 					}
 
 					response.headers = headers;

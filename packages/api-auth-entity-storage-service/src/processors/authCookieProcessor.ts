@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
-	type IRestRouteResponseAuthOptions,
 	ResponseHelper,
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
@@ -93,36 +92,19 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
-			const cookiesHeader = request.headers?.cookie;
-			let token: string | undefined;
-
-			if (Is.notEmpty(cookiesHeader)) {
-				const cookies = Is.arrayValue(cookiesHeader) ? cookiesHeader : [cookiesHeader];
-				for (const cookie of cookies) {
-					if (Is.stringValue(cookie)) {
-						const accessTokenCookie = cookie
-							.split(";")
-							.map(c => c.trim())
-							.find(c => c.startsWith(this._cookieName));
-						if (Is.stringValue(accessTokenCookie)) {
-							token = accessTokenCookie.slice(this._cookieName.length + 1).trim();
-							break;
-						}
-					}
-				}
-			}
-
 			try {
+				const token = TokenHelper.extractTokenFromHeaders(request.headers, this._cookieName);
+
 				const headerAndPayload = await TokenHelper.verify(
 					this._systemIdentity,
 					this._systemPartitionId,
@@ -132,6 +114,7 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 				);
 
 				requestContext.userIdentity = headerAndPayload.payload?.sub;
+				processorState.authToken = token;
 			} catch (err) {
 				const error = BaseError.fromError(err);
 				ResponseHelper.buildError(response, error, HttpStatusCode.unauthorized);
@@ -145,28 +128,27 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	 * @param response The outgoing response.
 	 * @param route The route to process.
 	 * @param requestContext The context for the request.
-	 * @param state The state for the request.
+	 * @param processorState The state handed through the processors.
 	 */
 	public async post(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
 		requestContext: IServiceRequestContext,
-		state: { [id: string]: unknown }
+		processorState: { [id: string]: unknown }
 	): Promise<void> {
-		const responseAuthOptions = state?.auth as IRestRouteResponseAuthOptions | undefined;
+		const responseAuthOperation = processorState?.authOperation;
 
-		if (!Is.empty(route) && Is.object(responseAuthOptions)) {
+		if (!Is.empty(route) && Is.stringValue(responseAuthOperation)) {
 			if (
-				(responseAuthOptions.operation === "login" ||
-					responseAuthOptions.operation === "refresh") &&
+				(responseAuthOperation === "login" || responseAuthOperation === "refresh") &&
 				Is.stringValue(response.body?.token)
 			) {
 				response.headers ??= {};
 				response.headers["Set-Cookie"] =
 					`${this._cookieName}=${response.body.token}; Secure; HttpOnly; SameSite=None; Path=/`;
 				delete response.body.token;
-			} else if (responseAuthOptions.operation === "logout") {
+			} else if (responseAuthOperation === "logout") {
 				response.headers ??= {};
 				response.headers["Set-Cookie"] =
 					`${this._cookieName}=; Max-Age=0; Secure; HttpOnly; SameSite=None; Path=/`;

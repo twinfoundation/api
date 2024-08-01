@@ -11,4 +11,9 @@ export interface IHttpRequestContext extends IServiceRequestContext {
 	 * The raw HTTP request.
 	 */
 	serverRequest: IHttpServerRequest;
+
+	/**
+	 * The state handed through the processors.
+	 */
+	processorState: { [id: string]: unknown };
 }

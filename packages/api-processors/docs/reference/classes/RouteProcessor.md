@@ -46,7 +46,7 @@ Runtime name for the class.
 
 ### process()
 
-> **process**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> **process**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
 
 Process the REST request for the specified route.
 
@@ -68,9 +68,9 @@ The route to process.
 
 The context for the request.
 
-• **state**
+• **processorState**
 
-The state for the request.
+The state handed through the processors.
 
 #### Returns
 

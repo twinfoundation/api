@@ -102,7 +102,7 @@ Nothing.
 
 ### pre()?
 
-> `optional` **pre**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> `optional` **pre**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
 
 Pre process the REST request for the specified route.
 
@@ -124,9 +124,9 @@ The route being requested, if a matching one was found.
 
 The context for the request.
 
-• **state**
+• **processorState**
 
-The state for the request.
+The state handed through the processors.
 
 #### Returns
 
@@ -138,7 +138,7 @@ Promise that resolves when the request is processed.
 
 ### process()?
 
-> `optional` **process**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> `optional` **process**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
 
 Process the REST request for the specified route.
 
@@ -160,9 +160,9 @@ The route being requested, if a matching one was found.
 
 The context for the request.
 
-• **state**
+• **processorState**
 
-The state for the request.
+The state handed through the processors.
 
 #### Returns
 
@@ -174,7 +174,7 @@ Promise that resolves when the request is processed.
 
 ### post()?
 
-> `optional` **post**(`request`, `response`, `route`, `requestContext`, `state`): `Promise`\<`void`\>
+> `optional` **post**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
 
 Post process the REST request for the specified route.
 
@@ -196,9 +196,9 @@ The route being requested, if a matching one was found.
 
 The context for the request.
 
-• **state**
+• **processorState**
 
-The state for the request.
+The state handed through the processors.
 
 #### Returns
 

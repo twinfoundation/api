@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { Is, UnauthorizedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import type { IVaultConnector } from "@gtsc/vault-models";
 import {
 	type IHttpHeaders,
@@ -24,7 +23,6 @@ export class TokenHelper {
 
 	/**
 	 * Create a new token.
-	 * @param systemIdentity The system identity.
 	 * @param vaultConnector The vault connector.
 	 * @param signingKeyName The signing key name.
 	 * @param subject The subject for the token.
@@ -32,7 +30,6 @@ export class TokenHelper {
 	 * @returns The new token and its expiry date.
 	 */
 	public static async createToken(
-		systemIdentity: string | undefined,
 		vaultConnector: IVaultConnector,
 		signingKeyName: string,
 		subject: string,
@@ -45,19 +42,13 @@ export class TokenHelper {
 		const nowSeconds = Math.trunc(Date.now() / 1000);
 		const ttlSeconds = ttlMinutes * 60;
 
-		const systemRequestContext: IServiceRequestContext = {
-			systemIdentity,
-			userIdentity: systemIdentity
-		};
-
 		const jwt = await Jwt.encodeWithSigner(
 			{ alg: JwtAlgorithms.EdDSA },
 			{
 				sub: subject,
 				exp: nowSeconds + ttlSeconds
 			},
-			async (alg, key, payload) =>
-				vaultConnector.sign(signingKeyName, payload, systemRequestContext)
+			async (alg, key, payload) => vaultConnector.sign(signingKeyName, payload)
 		);
 
 		return {
@@ -68,7 +59,6 @@ export class TokenHelper {
 
 	/**
 	 * Verify the token.
-	 * @param systemIdentity The system identity.
 	 * @param vaultConnector The vault connector.
 	 * @param signingKeyName The signing key name.
 	 * @param token The token to verify.
@@ -76,7 +66,6 @@ export class TokenHelper {
 	 * @throws UnauthorizedError if the token is missing, invalid or expired.
 	 */
 	public static async verify(
-		systemIdentity: string | undefined,
 		vaultConnector: IVaultConnector,
 		signingKeyName: string,
 		token: string | undefined
@@ -88,13 +77,8 @@ export class TokenHelper {
 			throw new UnauthorizedError(this._CLASS_NAME, "missing");
 		}
 
-		const systemRequestContext: IServiceRequestContext = {
-			systemIdentity,
-			userIdentity: systemIdentity
-		};
-
 		const decoded = await Jwt.verifyWithVerifier(token, async (alg, key, payload, signature) =>
-			vaultConnector.verify(signingKeyName, payload, signature, systemRequestContext)
+			vaultConnector.verify(signingKeyName, payload, signature)
 		);
 
 		// If the signature validation failed or some of the header/payload data
@@ -128,12 +112,17 @@ export class TokenHelper {
 	public static extractTokenFromHeaders(
 		headers?: IHttpHeaders,
 		cookieName?: string
-	): string | undefined {
+	): {
+		token: string | undefined;
+		location: "authorization" | "cookie" | undefined;
+	} {
 		const cookiesHeader = headers?.cookie;
 		let token: string | undefined;
+		let location: "authorization" | "cookie" | undefined;
 
 		if (Is.string(headers?.authorization) && headers.authorization.startsWith("Bearer ")) {
 			token = headers.authorization.slice(7).trim();
+			location = "authorization";
 		} else if (Is.notEmpty(cookiesHeader) && Is.stringValue(cookieName)) {
 			const cookies = Is.arrayValue(cookiesHeader) ? cookiesHeader : [cookiesHeader];
 			for (const cookie of cookies) {
@@ -144,12 +133,16 @@ export class TokenHelper {
 						.find(c => c.startsWith(cookieName));
 					if (Is.stringValue(accessTokenCookie)) {
 						token = accessTokenCookie.slice(cookieName.length + 1).trim();
+						location = "cookie";
 						break;
 					}
 				}
 			}
 		}
 
-		return token;
+		return {
+			token,
+			location
+		};
 	}
 }

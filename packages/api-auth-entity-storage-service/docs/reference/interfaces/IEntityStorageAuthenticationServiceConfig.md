@@ -18,20 +18,6 @@ auth-signing
 
 ***
 
-### cookieName?
-
-> `optional` **cookieName**: `string`
-
-The name of the cookie to use for the token.
-
-#### Default
-
-```ts
-access_token
-```
-
-***
-
 ### defaultTtlMinutes?
 
 > `optional` **defaultTtlMinutes**: `number`

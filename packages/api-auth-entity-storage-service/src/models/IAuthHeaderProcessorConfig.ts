@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
- * Configuration for the authentication cookie post processor
+ * Configuration for the authentication header processor
  */
-export interface IAuthCookieProcessorConfig {
+export interface IAuthHeaderProcessorConfig {
 	/**
 	 * The name of the key to retrieve from the vault for signing JWT.
 	 * @default auth-signing

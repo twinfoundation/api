@@ -1,6 +1,6 @@
-# Interface: IAuthCookieProcessorConfig
+# Interface: IAuthHeaderProcessorConfig
 
-Configuration for the authentication cookie post processor
+Configuration for the authentication header processor
 
 ## Properties
 

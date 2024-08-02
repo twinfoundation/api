@@ -12,23 +12,23 @@ import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import { HttpStatusCode } from "@gtsc/web";
-import type { IAuthCookieProcessorConfig } from "../models/IAuthCookieProcessorConfig";
+import type { IAuthHeaderProcessorConfig } from "../models/IAuthHeaderProcessorConfig";
 import { TokenHelper } from "../utils/tokenHelper";
 
 /**
- * Handle a JWT token in the cookies and validate it to populate request context identity.
+ * Handle a JWT token in the authorization header or cookies and validate it to populate request context identity.
  */
-export class AuthCookieProcessor implements IHttpRestRouteProcessor {
+export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 	/**
-	 * The name for the access token as a cookie.
+	 * The default name for the access token as a cookie.
 	 * @internal
 	 */
-	public static readonly COOKIE_NAME: string = "access_token";
+	public static readonly DEFAULT_COOKIE_NAME: string = "access_token";
 
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<AuthCookieProcessor>();
+	public readonly CLASS_NAME: string = nameof<AuthHeaderProcessor>();
 
 	/**
 	 * The vault for the keys.
@@ -60,10 +60,10 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
 	 * @param options.config The configuration for the processor.
 	 */
-	constructor(options?: { vaultConnectorType?: string; config?: IAuthCookieProcessorConfig }) {
+	constructor(options?: { vaultConnectorType?: string; config?: IAuthHeaderProcessorConfig }) {
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
-		this._cookieName = options?.config?.cookieName ?? AuthCookieProcessor.COOKIE_NAME;
+		this._cookieName = options?.config?.cookieName ?? AuthHeaderProcessor.DEFAULT_COOKIE_NAME;
 	}
 
 	/**
@@ -94,17 +94,20 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
 			try {
-				const token = TokenHelper.extractTokenFromHeaders(request.headers, this._cookieName);
+				const tokenAndLocation = TokenHelper.extractTokenFromHeaders(
+					request.headers,
+					this._cookieName
+				);
 
 				const headerAndPayload = await TokenHelper.verify(
-					this._systemIdentity,
 					this._vaultConnector,
-					this._signingKeyName,
-					token
+					`${this._systemIdentity}/${this._signingKeyName}`,
+					tokenAndLocation.token
 				);
 
 				requestContext.userIdentity = headerAndPayload.payload?.sub;
-				processorState.authToken = token;
+				processorState.authToken = tokenAndLocation.token;
+				processorState.authTokenLocation = tokenAndLocation.location;
 			} catch (err) {
 				const error = BaseError.fromError(err);
 				ResponseHelper.buildError(response, error, HttpStatusCode.unauthorized);
@@ -129,7 +132,12 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	): Promise<void> {
 		const responseAuthOperation = processorState?.authOperation;
 
-		if (!Is.empty(route) && Is.stringValue(responseAuthOperation)) {
+		// We don't populate the cookie if the incoming request was from an authorization header.
+		if (
+			!Is.empty(route) &&
+			Is.stringValue(responseAuthOperation) &&
+			processorState.authTokenLocation !== "authorization"
+		) {
 			if (
 				(responseAuthOperation === "login" || responseAuthOperation === "refresh") &&
 				Is.stringValue(response.body?.token)

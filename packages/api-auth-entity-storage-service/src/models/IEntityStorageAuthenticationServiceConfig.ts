@@ -12,12 +12,6 @@ export interface IEntityStorageAuthenticationServiceConfig {
 	signingKeyName?: string;
 
 	/**
-	 * The name of the cookie to use for the token.
-	 * @default access_token
-	 */
-	cookieName?: string;
-
-	/**
 	 * The default time to live for the JWT.
 	 * @default 1440
 	 */

@@ -7,7 +7,6 @@ import {
 	type IEntityStorageConnector
 } from "@gtsc/entity-storage-models";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import type { AuthenticationUser } from "../entities/authenticationUser";
 import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
@@ -108,12 +107,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		Guards.stringValue(this.CLASS_NAME, nameof(password), password);
 
 		try {
-			const systemRequestContext: IServiceRequestContext = {
-				systemIdentity: this._systemIdentity,
-				userIdentity: this._systemIdentity
-			};
-
-			const user = await this._userEntityStorage.get(email, undefined, systemRequestContext);
+			const user = await this._userEntityStorage.get(email);
 			if (!user) {
 				throw new GeneralError(this.CLASS_NAME, "userNotFound");
 			}
@@ -128,9 +122,8 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 			}
 
 			const tokenAndExpiry = await TokenHelper.createToken(
-				this._systemIdentity,
 				this._vaultConnector,
-				this._signingKeyName,
+				`${this._systemIdentity}/${this._signingKeyName}`,
 				user.identity,
 				this._defaultTtlMinutes
 			);
@@ -161,16 +154,14 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	}> {
 		// If the verify fails on the current token then it will throw an exception.
 		const headerAndPayload = await TokenHelper.verify(
-			this._systemIdentity,
 			this._vaultConnector,
-			this._signingKeyName,
+			`${this._systemIdentity}/${this._signingKeyName}`,
 			token
 		);
 
 		const refreshTokenAndExpiry = await TokenHelper.createToken(
-			this._systemIdentity,
 			this._vaultConnector,
-			this._signingKeyName,
+			`${this._systemIdentity}/${this._signingKeyName}`,
 			headerAndPayload.payload.sub ?? "",
 			this._defaultTtlMinutes
 		);

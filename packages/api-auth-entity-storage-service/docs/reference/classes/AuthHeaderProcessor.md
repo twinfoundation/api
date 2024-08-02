@@ -1,6 +1,6 @@
-# Class: AuthCookieProcessor
+# Class: AuthHeaderProcessor
 
-Handle a JWT token in the cookies and validate it to populate request context identity.
+Handle a JWT token in the authorization header or cookies and validate it to populate request context identity.
 
 ## Implements
 
@@ -8,9 +8,9 @@ Handle a JWT token in the cookies and validate it to populate request context id
 
 ## Constructors
 
-### new AuthCookieProcessor()
+### new AuthHeaderProcessor()
 
-> **new AuthCookieProcessor**(`options`?): [`AuthCookieProcessor`](AuthCookieProcessor.md)
+> **new AuthHeaderProcessor**(`options`?): [`AuthHeaderProcessor`](AuthHeaderProcessor.md)
 
 Create a new instance of AuthCookiePreProcessor.
 
@@ -24,13 +24,13 @@ Options for the processor.
 
 The vault for the private keys, defaults to "vault".
 
-• **options.config?**: [`IAuthCookieProcessorConfig`](../interfaces/IAuthCookieProcessorConfig.md)
+• **options.config?**: [`IAuthHeaderProcessorConfig`](../interfaces/IAuthHeaderProcessorConfig.md)
 
 The configuration for the processor.
 
 #### Returns
 
-[`AuthCookieProcessor`](AuthCookieProcessor.md)
+[`AuthHeaderProcessor`](AuthHeaderProcessor.md)
 
 ## Properties
 

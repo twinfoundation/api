@@ -16,15 +16,11 @@ Helper class for token operations.
 
 ### createToken()
 
-> `static` **createToken**(`systemIdentity`, `vaultConnector`, `signingKeyName`, `subject`, `ttlMinutes`): `Promise`\<`object`\>
+> `static` **createToken**(`vaultConnector`, `signingKeyName`, `subject`, `ttlMinutes`): `Promise`\<`object`\>
 
 Create a new token.
 
 #### Parameters
-
-• **systemIdentity**: `undefined` \| `string`
-
-The system identity.
 
 • **vaultConnector**: `IVaultConnector`
 
@@ -60,15 +56,11 @@ The new token and its expiry date.
 
 ### verify()
 
-> `static` **verify**(`systemIdentity`, `vaultConnector`, `signingKeyName`, `token`): `Promise`\<`object`\>
+> `static` **verify**(`vaultConnector`, `signingKeyName`, `token`): `Promise`\<`object`\>
 
 Verify the token.
 
 #### Parameters
-
-• **systemIdentity**: `undefined` \| `string`
-
-The system identity.
 
 • **vaultConnector**: `IVaultConnector`
 
@@ -104,7 +96,7 @@ UnauthorizedError if the token is missing, invalid or expired.
 
 ### extractTokenFromHeaders()
 
-> `static` **extractTokenFromHeaders**(`headers`?, `cookieName`?): `undefined` \| `string`
+> `static` **extractTokenFromHeaders**(`headers`?, `cookieName`?): `object`
 
 Extract the auth token from the headers, either from the authorization header or the cookie header.
 
@@ -120,6 +112,14 @@ The name of the cookie to extract the token from.
 
 #### Returns
 
-`undefined` \| `string`
+`object`
 
 The token if found.
+
+##### token
+
+> **token**: `undefined` \| `string`
+
+##### location
+
+> **location**: `undefined` \| `"authorization"` \| `"cookie"`

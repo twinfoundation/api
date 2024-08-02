@@ -1,12 +1,12 @@
 # Function: serverInfo()
 
-> **serverInfo**(`requestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerInfoResponse`\>
+> **serverInfo**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerInfoResponse`\>
 
 Get the information for the server.
 
 ## Parameters
 
-• **requestContext**: `IHttpRequestContext`
+• **httpRequestContext**: `IHttpRequestContext`
 
 The request context for the API.
 

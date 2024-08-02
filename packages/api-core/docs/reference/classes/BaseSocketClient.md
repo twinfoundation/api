@@ -84,15 +84,9 @@ The data to send with the message.
 
 ### socketConnect()
 
-> `protected` **socketConnect**(`requestContext`): `boolean`
+> `protected` **socketConnect**(): `boolean`
 
 Connect the socket if its not already connected.
-
-#### Parameters
-
-• **requestContext**: `IServiceRequestContext`
-
-The context for the request.
 
 #### Returns
 
@@ -142,15 +136,11 @@ Handle the socket connection.
 
 ### handleError()
 
-> `protected` `abstract` **handleError**(`requestContext`, `err`): `Promise`\<`void`\>
+> `protected` `abstract` **handleError**(`err`): `Promise`\<`void`\>
 
 Handle an error.
 
 #### Parameters
-
-• **requestContext**: `IServiceRequestContext`
-
-The context for the request.
 
 • **err**: `IError`
 

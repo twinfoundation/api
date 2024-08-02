@@ -69,16 +69,13 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 		const now = process.hrtime.bigint();
 		processorState.requestStart = now;
 
-		await this._loggingConnector.log(
-			{
-				level: "info",
-				source: this.CLASS_NAME,
-				ts: Date.now(),
-				message: `===> ${request.method} ${request.url ? new URL(request.url).pathname : ""}`,
-				data: this._includeBody ? request?.body : undefined
-			},
-			requestContext
-		);
+		await this._loggingConnector.log({
+			level: "info",
+			source: this.CLASS_NAME,
+			ts: Date.now(),
+			message: `===> ${request.method} ${request.url ? new URL(request.url).pathname : ""}`,
+			data: this._includeBody ? request?.body : undefined
+		});
 	}
 
 	/**
@@ -124,18 +121,15 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 		const start = Coerce.bigint(processorState.requestStart) ?? now;
 		const elapsed = now - start;
 		const elapsedMicroSeconds = Math.floor(Number(elapsed) / 1000);
-		await this._loggingConnector.log(
-			{
-				level:
-					Is.number(response.statusCode) && response.statusCode >= HttpStatusCode.badRequest
-						? "error"
-						: "info",
-				source: this.CLASS_NAME,
-				ts: Date.now(),
-				message: `<=== ${response.statusCode ?? ""} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
-				data
-			},
-			requestContext
-		);
+		await this._loggingConnector.log({
+			level:
+				Is.number(response.statusCode) && response.statusCode >= HttpStatusCode.badRequest
+					? "error"
+					: "info",
+			source: this.CLASS_NAME,
+			ts: Date.now(),
+			message: `<=== ${response.statusCode ?? ""} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
+			data
+		});
 	}
 }

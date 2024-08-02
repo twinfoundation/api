@@ -46,15 +46,15 @@ Nothing.
 
 ### start()?
 
-> `optional` **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+> `optional` **start**(`systemIdentity`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemRequestContext**: `IServiceRequestContext`
+• **systemIdentity**: `string`
 
-The system request context.
+The identity of the system.
 
 • **systemLoggingConnectorType?**: `string`
 
@@ -74,15 +74,15 @@ Nothing.
 
 ### stop()?
 
-> `optional` **stop**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+> `optional` **stop**(`systemIdentity`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be stopped when the application is closed.
 
 #### Parameters
 
-• **systemRequestContext**: `IServiceRequestContext`
+• **systemIdentity**: `string`
 
-The system request context.
+The identity of the system.
 
 • **systemLoggingConnectorType?**: `string`
 
@@ -102,7 +102,7 @@ Nothing.
 
 ### login()
 
-> **login**(`email`, `password`, `requestContext`?): `Promise`\<`object`\>
+> **login**(`email`, `password`): `Promise`\<`object`\>
 
 Perform a login for the user.
 
@@ -115,10 +115,6 @@ The email address for the user.
 • **password**: `string`
 
 The password for the user.
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context for the request.
 
 #### Returns
 
@@ -138,7 +134,7 @@ The authentication token for the user, if it uses a mechanism with public access
 
 ### logout()
 
-> **logout**(`token`?, `requestContext`?): `Promise`\<`void`\>
+> **logout**(`token`?): `Promise`\<`void`\>
 
 Logout the current user.
 
@@ -147,10 +143,6 @@ Logout the current user.
 • **token?**: `string`
 
 The token to logout, if it uses a mechanism with public access.
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context for the request.
 
 #### Returns
 
@@ -162,7 +154,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?, `requestContext`?): `Promise`\<`object`\>
+> **refresh**(`token`?): `Promise`\<`object`\>
 
 Refresh the token.
 
@@ -171,10 +163,6 @@ Refresh the token.
 • **token?**: `string`
 
 The token to refresh, if it uses a mechanism with public access.
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context for the request.
 
 #### Returns
 

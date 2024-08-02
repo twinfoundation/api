@@ -76,15 +76,15 @@ The http method.
 
 ### handler()
 
-> **handler**: (`requestContext`, `request`) => `Promise`\<`U`\>
+> **handler**: (`httpRequestContext`, `request`) => `Promise`\<`U`\>
 
 The handler module.
 
 #### Parameters
 
-• **requestContext**: [`IHttpRequestContext`](IHttpRequestContext.md)
+• **httpRequestContext**: [`IHttpRequestContext`](IHttpRequestContext.md)
 
-The request context.
+The http request context.
 
 • **request**: `T`
 

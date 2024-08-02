@@ -52,8 +52,8 @@ export function generateRestRoutesAuthentication(
 		tag: tagsAuthentication[0].name,
 		method: "POST",
 		path: `${baseRouteName}/login`,
-		handler: async (requestContext, request) =>
-			authenticationLogin(requestContext, factoryServiceName, request),
+		handler: async (httpRequestContext, request) =>
+			authenticationLogin(httpRequestContext, factoryServiceName, request),
 		requestType: {
 			type: nameof<ILoginRequest>(),
 			examples: [
@@ -98,8 +98,8 @@ export function generateRestRoutesAuthentication(
 		tag: tagsAuthentication[0].name,
 		method: "GET",
 		path: `${baseRouteName}/logout`,
-		handler: async (requestContext, request) =>
-			authenticationLogout(requestContext, factoryServiceName, request),
+		handler: async (httpRequestContext, request) =>
+			authenticationLogout(httpRequestContext, factoryServiceName, request),
 		requestType: {
 			type: nameof<ILogoutRequest>(),
 			examples: [
@@ -128,8 +128,8 @@ export function generateRestRoutesAuthentication(
 		tag: tagsAuthentication[0].name,
 		method: "GET",
 		path: `${baseRouteName}/refresh`,
-		handler: async (requestContext, request) =>
-			authenticationRefreshToken(requestContext, factoryServiceName, request),
+		handler: async (httpRequestContext, request) =>
+			authenticationRefreshToken(httpRequestContext, factoryServiceName, request),
 		requestType: {
 			type: nameof<IRefreshTokenRequest>(),
 			examples: [
@@ -171,13 +171,13 @@ export function generateRestRoutesAuthentication(
 
 /**
  * Login to the server.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param factoryServiceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function authenticationLogin(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: ILoginRequest
 ): Promise<ILoginResponse & IRestRouteResponseOptions> {
@@ -185,11 +185,11 @@ export async function authenticationLogin(
 	Guards.object<ILoginRequest["body"]>(ROUTES_SOURCE, nameof(request.body), request.body);
 
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
-	const result = await service.login(request.body.email, request.body.password, requestContext);
+	const result = await service.login(request.body.email, request.body.password);
 
 	// Need to give a hint to any auth processors about the operation
 	// in case they need to manipulate the response
-	requestContext.processorState.authOperation = "login";
+	httpRequestContext.processorState.authOperation = "login";
 
 	return {
 		body: result
@@ -198,24 +198,24 @@ export async function authenticationLogin(
 
 /**
  * Logout from the server.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param factoryServiceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function authenticationLogout(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: ILogoutRequest
 ): Promise<INoContentResponse & IRestRouteResponseOptions> {
 	Guards.object<ILogoutRequest>(ROUTES_SOURCE, nameof(request), request);
 
 	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
-	await service.logout(request.query?.token, requestContext);
+	await service.logout(request.query?.token);
 
 	// Need to give a hint to any auth processors about the operation
 	// in case they need to manipulate the response
-	requestContext.processorState.authOperation = "logout";
+	httpRequestContext.processorState.authOperation = "logout";
 
 	return {
 		statusCode: HttpStatusCode.noContent
@@ -224,13 +224,13 @@ export async function authenticationLogout(
 
 /**
  * Refresh the login token.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param factoryServiceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function authenticationRefreshToken(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: IRefreshTokenRequest
 ): Promise<IRefreshTokenResponse & IRestRouteResponseOptions> {
@@ -240,12 +240,12 @@ export async function authenticationRefreshToken(
 
 	// If the token is not in the query, then maybe an auth processor has extracted it
 	// and stored it in the processor state
-	const token = request.query?.token ?? (requestContext.processorState.authToken as string);
-	const result = await service.refresh(token, requestContext);
+	const token = request.query?.token ?? (httpRequestContext.processorState.authToken as string);
+	const result = await service.refresh(token);
 
 	// Need to give a hint to any auth processors about the operation
 	// in case they need to manipulate the response
-	requestContext.processorState.authOperation = "refresh";
+	httpRequestContext.processorState.authOperation = "refresh";
 
 	return {
 		body: result

@@ -42,8 +42,8 @@ describe("IRestRoute", () => {
 			tag: "Tag",
 			method: "POST",
 			path: "/",
-			handler: async (requestContext, request) =>
-				testRequestResponse(requestContext, "serviceName", request),
+			handler: async (httpRequestContext, request) =>
+				testRequestResponse(httpRequestContext, "serviceName", request),
 			requestType: {
 				type: nameof<ITestRequest>(),
 				examples: [
@@ -84,13 +84,13 @@ describe("IRestRoute", () => {
 
 /**
  * Test request response method.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param serviceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function testRequestResponse(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	serviceName: string,
 	request: ITestRequest
 ): Promise<ITestResponse> {

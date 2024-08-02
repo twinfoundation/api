@@ -82,28 +82,24 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 
 	/**
 	 * The service needs to be started when the application is initialized.
-	 * @param systemRequestContext The system request context.
+	 * @param systemIdentity The identity of the system.
 	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async start(
-		systemRequestContext: IServiceRequestContext,
-		systemLoggingConnectorType?: string
-	): Promise<void> {
-		this._systemIdentity = systemRequestContext.systemIdentity;
+	public async start(systemIdentity: string, systemLoggingConnectorType?: string): Promise<void> {
+		Guards.string(this.CLASS_NAME, nameof(systemIdentity), systemIdentity);
+		this._systemIdentity = systemIdentity;
 	}
 
 	/**
 	 * Perform a login for the user.
 	 * @param email The email address for the user.
 	 * @param password The password for the user.
-	 * @param requestContext The context for the request.
 	 * @returns The authentication token for the user, if it uses a mechanism with public access.
 	 */
 	public async login(
 		email: string,
-		password: string,
-		requestContext?: IServiceRequestContext
+		password: string
 	): Promise<{
 		token?: string;
 		expiry: number;
@@ -148,23 +144,18 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	/**
 	 * Logout the current user.
 	 * @param token The token to logout, if it uses a mechanism with public access.
-	 * @param requestContext The context for the request.
 	 * @returns Nothing.
 	 */
-	public async logout(token?: string, requestContext?: IServiceRequestContext): Promise<void> {
+	public async logout(token?: string): Promise<void> {
 		// Nothing to do here.
 	}
 
 	/**
 	 * Refresh the token.
 	 * @param token The token to refresh, if it uses a mechanism with public access.
-	 * @param requestContext The context for the request.
 	 * @returns The refreshed token, if it uses a mechanism with public access.
 	 */
-	public async refresh(
-		token?: string,
-		requestContext?: IServiceRequestContext
-	): Promise<{
+	public async refresh(token?: string): Promise<{
 		token: string;
 		expiry: number;
 	}> {

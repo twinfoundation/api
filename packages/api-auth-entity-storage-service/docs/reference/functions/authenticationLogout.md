@@ -1,12 +1,12 @@
 # Function: authenticationLogout()
 
-> **authenticationLogout**(`requestContext`, `factoryServiceName`, `request`): `Promise`\<`INoContentResponse` & `IRestRouteResponseOptions`\>
+> **authenticationLogout**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`INoContentResponse` & `IRestRouteResponseOptions`\>
 
 Logout from the server.
 
 ## Parameters
 
-• **requestContext**: `IHttpRequestContext`
+• **httpRequestContext**: `IHttpRequestContext`
 
 The request context for the API.
 

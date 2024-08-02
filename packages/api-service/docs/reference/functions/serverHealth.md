@@ -1,12 +1,12 @@
 # Function: serverHealth()
 
-> **serverHealth**(`requestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerHealthResponse`\>
+> **serverHealth**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerHealthResponse`\>
 
 Get the health for the server.
 
 ## Parameters
 
-• **requestContext**: `IHttpRequestContext`
+• **httpRequestContext**: `IHttpRequestContext`
 
 The request context for the API.
 

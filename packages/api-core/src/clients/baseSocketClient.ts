@@ -3,7 +3,6 @@
 import type { IBaseSocketClientConfig } from "@gtsc/api-models";
 import { BaseError, Guards, Is, StringHelper, type IError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import lookup, { type Socket } from "socket.io-client";
 
 /**
@@ -75,10 +74,9 @@ export abstract class BaseSocketClient {
 
 	/**
 	 * Connect the socket if its not already connected.
-	 * @param requestContext The context for the request.
 	 * @returns True if the socket is already connected.
 	 */
-	protected socketConnect(requestContext: IServiceRequestContext): boolean {
+	protected socketConnect(): boolean {
 		if (!this._socket.connected) {
 			this._socket.connect();
 
@@ -88,7 +86,7 @@ export abstract class BaseSocketClient {
 			});
 
 			this._socket.on("connect_error", async err => {
-				await this.handleError(requestContext, BaseError.fromError(err));
+				await this.handleError(BaseError.fromError(err));
 			});
 
 			this._socket.on("connect", async () => {
@@ -123,11 +121,7 @@ export abstract class BaseSocketClient {
 
 	/**
 	 * Handle an error.
-	 * @param requestContext The context for the request.
 	 * @param err The error to handle.
 	 */
-	protected abstract handleError(
-		requestContext: IServiceRequestContext,
-		err: IError
-	): Promise<void>;
+	protected abstract handleError(err: IError): Promise<void>;
 }

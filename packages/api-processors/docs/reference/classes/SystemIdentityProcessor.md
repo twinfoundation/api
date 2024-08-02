@@ -32,15 +32,15 @@ Runtime name for the class.
 
 ### start()
 
-> **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+> **start**(`systemIdentity`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemRequestContext**: `IServiceRequestContext`
+• **systemIdentity**: `string`
 
-The system request context.
+The identity of the system.
 
 • **systemLoggingConnectorType?**: `string`
 

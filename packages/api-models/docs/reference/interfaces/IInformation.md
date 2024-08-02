@@ -46,15 +46,15 @@ Nothing.
 
 ### start()?
 
-> `optional` **start**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+> `optional` **start**(`systemIdentity`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemRequestContext**: `IServiceRequestContext`
+• **systemIdentity**: `string`
 
-The system request context.
+The identity of the system.
 
 • **systemLoggingConnectorType?**: `string`
 
@@ -74,15 +74,15 @@ Nothing.
 
 ### stop()?
 
-> `optional` **stop**(`systemRequestContext`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+> `optional` **stop**(`systemIdentity`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be stopped when the application is closed.
 
 #### Parameters
 
-• **systemRequestContext**: `IServiceRequestContext`
+• **systemIdentity**: `string`
 
-The system request context.
+The identity of the system.
 
 • **systemLoggingConnectorType?**: `string`
 
@@ -102,15 +102,9 @@ Nothing.
 
 ### info()
 
-> **info**(`requestContext`?): `Promise`\<[`IServerInfo`](IServerInfo.md)\>
+> **info**(): `Promise`\<[`IServerInfo`](IServerInfo.md)\>
 
 Get the server information.
-
-#### Parameters
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context of the service request.
 
 #### Returns
 
@@ -122,15 +116,9 @@ The service information.
 
 ### spec()
 
-> **spec**(`requestContext`?): `Promise`\<`unknown`\>
+> **spec**(): `Promise`\<`unknown`\>
 
 Get the OpenAPI spec.
-
-#### Parameters
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context of the service request.
 
 #### Returns
 
@@ -142,15 +130,9 @@ The OpenAPI spec.
 
 ### health()
 
-> **health**(`requestContext`?): `Promise`\<[`IHealthInfo`](IHealthInfo.md)\>
+> **health**(): `Promise`\<[`IHealthInfo`](IHealthInfo.md)\>
 
 Get the server health.
-
-#### Parameters
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context of the service request.
 
 #### Returns
 
@@ -162,7 +144,7 @@ The service health.
 
 ### setComponentHealth()
 
-> **setComponentHealth**(`name`, `status`, `details`?, `requestContext`?): `Promise`\<`void`\>
+> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
 
 Set the status of a component.
 
@@ -180,10 +162,6 @@ The status of the component.
 
 The details for the status.
 
-• **requestContext?**: `IServiceRequestContext`
-
-The context of the service request.
-
 #### Returns
 
 `Promise`\<`void`\>
@@ -194,7 +172,7 @@ Nothing.
 
 ### removeComponentHealth()
 
-> **removeComponentHealth**(`name`, `requestContext`?): `Promise`\<`void`\>
+> **removeComponentHealth**(`name`): `Promise`\<`void`\>
 
 Remove the status of a component.
 
@@ -203,10 +181,6 @@ Remove the status of a component.
 • **name**: `string`
 
 The component name.
-
-• **requestContext?**: `IServiceRequestContext`
-
-The context of the service request.
 
 #### Returns
 

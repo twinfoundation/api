@@ -4,7 +4,6 @@ import { readFile } from "node:fs/promises";
 import type { HealthStatus, IHealthInfo, IInformation, IServerInfo } from "@gtsc/api-models";
 import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 
 /**
  * The information service for the server.
@@ -67,28 +66,25 @@ export class InformationService implements IInformation {
 
 	/**
 	 * Get the server information.
-	 * @param requestContext The context of the service request.
 	 * @returns The service information.
 	 */
-	public async info(requestContext?: IServiceRequestContext): Promise<IServerInfo> {
+	public async info(): Promise<IServerInfo> {
 		return this._serverInfo;
 	}
 
 	/**
 	 * Get the OpenAPI spec.
-	 * @param requestContext The context of the service request.
 	 * @returns The OpenAPI spec.
 	 */
-	public async spec(requestContext?: IServiceRequestContext): Promise<unknown> {
+	public async spec(): Promise<unknown> {
 		return this._openApiSpec;
 	}
 
 	/**
 	 * Get the server health.
-	 * @param requestContext The context of the service request.
 	 * @returns The service health.
 	 */
-	public async health(requestContext?: IServiceRequestContext): Promise<IHealthInfo> {
+	public async health(): Promise<IHealthInfo> {
 		let errorCount = 0;
 		let warningCount = 0;
 
@@ -113,14 +109,12 @@ export class InformationService implements IInformation {
 	 * @param name The component name.
 	 * @param status The status of the component.
 	 * @param details The details for the status.
-	 * @param requestContext The context of the service request.
 	 * @returns Nothing.
 	 */
 	public async setComponentHealth(
 		name: string,
 		status: HealthStatus,
-		details?: string,
-		requestContext?: IServiceRequestContext
+		details?: string
 	): Promise<void> {
 		const component = this._healthInfo.components?.find(c => c.name === name);
 
@@ -140,13 +134,9 @@ export class InformationService implements IInformation {
 	/**
 	 * Remove the status of a component.
 	 * @param name The component name.
-	 * @param requestContext The context of the service request.
 	 * @returns Nothing.
 	 */
-	public async removeComponentHealth(
-		name: string,
-		requestContext?: IServiceRequestContext
-	): Promise<void> {
+	public async removeComponentHealth(name: string): Promise<void> {
 		if (Is.arrayValue(this._healthInfo.components)) {
 			const componentIndex = this._healthInfo.components.findIndex(c => c.name === name);
 			if (componentIndex >= 0) {

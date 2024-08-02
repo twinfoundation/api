@@ -1,12 +1,12 @@
 # Function: serverSpec()
 
-> **serverSpec**(`requestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerSpecResponse`\>
+> **serverSpec**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerSpecResponse`\>
 
 Get the spec for the server.
 
 ## Parameters
 
-• **requestContext**: `IHttpRequestContext`
+• **httpRequestContext**: `IHttpRequestContext`
 
 The request context for the API.
 

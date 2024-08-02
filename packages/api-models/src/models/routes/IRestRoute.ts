@@ -36,9 +36,9 @@ export interface IRestRoute<
 	 */
 	handler: (
 		/**
-		 * The request context.
+		 * The http request context.
 		 */
-		requestContext: IHttpRequestContext,
+		httpRequestContext: IHttpRequestContext,
 
 		/**
 		 * The request object, combined query param, path params and body.

@@ -7,7 +7,7 @@ import {
 	type IHttpServerRequest,
 	type IRestRoute
 } from "@gtsc/api-models";
-import { BaseError, Is } from "@gtsc/core";
+import { BaseError, Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
@@ -68,15 +68,13 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 
 	/**
 	 * The service needs to be started when the application is initialized.
-	 * @param systemRequestContext The system request context.
+	 * @param systemIdentity The identity of the system.
 	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
 	 * @returns Nothing.
 	 */
-	public async start(
-		systemRequestContext: IServiceRequestContext,
-		systemLoggingConnectorType?: string
-	): Promise<void> {
-		this._systemIdentity = systemRequestContext.systemIdentity;
+	public async start(systemIdentity: string, systemLoggingConnectorType?: string): Promise<void> {
+		Guards.string(this.CLASS_NAME, nameof(systemIdentity), systemIdentity);
+		this._systemIdentity = systemIdentity;
 	}
 
 	/**

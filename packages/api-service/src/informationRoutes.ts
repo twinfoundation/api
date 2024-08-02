@@ -58,8 +58,8 @@ export function generateRestRoutesInformation(
 		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/info`,
-		handler: async (requestContext, request) =>
-			serverInfo(requestContext, factoryServiceName, request),
+		handler: async (httpRequestContext, request) =>
+			serverInfo(httpRequestContext, factoryServiceName, request),
 		responseType: [
 			{
 				type: nameof<IServerInfoResponse>(),
@@ -86,8 +86,8 @@ export function generateRestRoutesInformation(
 		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/health`,
-		handler: async (requestContext, request) =>
-			serverHealth(requestContext, factoryServiceName, request),
+		handler: async (httpRequestContext, request) =>
+			serverHealth(httpRequestContext, factoryServiceName, request),
 		responseType: [
 			{
 				type: nameof<IServerHealthResponse>(),
@@ -163,8 +163,8 @@ export function generateRestRoutesInformation(
 		tag: tagsInformation[0].name,
 		method: "GET",
 		path: `${baseRouteName}/spec`,
-		handler: async (requestContext, request) =>
-			serverSpec(requestContext, factoryServiceName, request),
+		handler: async (httpRequestContext, request) =>
+			serverSpec(httpRequestContext, factoryServiceName, request),
 		responseType: [
 			{
 				type: nameof<IServerSpecResponse>(),
@@ -191,31 +191,31 @@ export function generateRestRoutesInformation(
 
 /**
  * Get the information for the server.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param factoryServiceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function serverInfo(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: INoContentRequest
 ): Promise<IServerInfoResponse> {
 	const service = ServiceFactory.get<IInformation>(factoryServiceName);
 	return {
-		body: await service.info(requestContext)
+		body: await service.info()
 	};
 }
 
 /**
  * Get the health for the server.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param factoryServiceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function serverHealth(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: INoContentRequest
 ): Promise<IServerHealthResponse> {
@@ -227,13 +227,13 @@ export async function serverHealth(
 
 /**
  * Get the spec for the server.
- * @param requestContext The request context for the API.
+ * @param httpRequestContext The request context for the API.
  * @param factoryServiceName The name of the service to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function serverSpec(
-	requestContext: IHttpRequestContext,
+	httpRequestContext: IHttpRequestContext,
 	factoryServiceName: string,
 	request: INoContentRequest
 ): Promise<IServerSpecResponse> {

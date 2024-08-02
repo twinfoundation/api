@@ -16,7 +16,7 @@ Helper class for token operations.
 
 ### createToken()
 
-> `static` **createToken**(`systemIdentity`, `systemPartitionId`, `vaultConnector`, `signingKeyName`, `subject`, `ttlMinutes`): `Promise`\<`object`\>
+> `static` **createToken**(`systemIdentity`, `vaultConnector`, `signingKeyName`, `subject`, `ttlMinutes`): `Promise`\<`object`\>
 
 Create a new token.
 
@@ -25,10 +25,6 @@ Create a new token.
 • **systemIdentity**: `undefined` \| `string`
 
 The system identity.
-
-• **systemPartitionId**: `undefined` \| `string`
-
-The system partition id.
 
 • **vaultConnector**: `IVaultConnector`
 
@@ -64,7 +60,7 @@ The new token and its expiry date.
 
 ### verify()
 
-> `static` **verify**(`systemIdentity`, `systemPartitionId`, `vaultConnector`, `signingKeyName`, `token`): `Promise`\<`object`\>
+> `static` **verify**(`systemIdentity`, `vaultConnector`, `signingKeyName`, `token`): `Promise`\<`object`\>
 
 Verify the token.
 
@@ -73,10 +69,6 @@ Verify the token.
 • **systemIdentity**: `undefined` \| `string`
 
 The system identity.
-
-• **systemPartitionId**: `undefined` \| `string`
-
-The system partition id.
 
 • **vaultConnector**: `IVaultConnector`
 

@@ -55,12 +55,6 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 	private _systemIdentity?: string;
 
 	/**
-	 * The system partition id to use for the vault.
-	 * @internal
-	 */
-	private _systemPartitionId?: string;
-
-	/**
 	 * Create a new instance of AuthCookiePreProcessor.
 	 * @param options Options for the processor.
 	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
@@ -82,7 +76,6 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 		systemRequestContext: IServiceRequestContext,
 		systemLoggingConnectorType?: string
 	): Promise<void> {
-		this._systemPartitionId = systemRequestContext.partitionId;
 		this._systemIdentity = systemRequestContext.systemIdentity;
 	}
 
@@ -107,7 +100,6 @@ export class AuthCookieProcessor implements IHttpRestRouteProcessor {
 
 				const headerAndPayload = await TokenHelper.verify(
 					this._systemIdentity,
-					this._systemPartitionId,
 					this._vaultConnector,
 					this._signingKeyName,
 					token

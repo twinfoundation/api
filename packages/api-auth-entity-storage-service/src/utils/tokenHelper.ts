@@ -25,7 +25,6 @@ export class TokenHelper {
 	/**
 	 * Create a new token.
 	 * @param systemIdentity The system identity.
-	 * @param systemPartitionId The system partition id.
 	 * @param vaultConnector The vault connector.
 	 * @param signingKeyName The signing key name.
 	 * @param subject The subject for the token.
@@ -34,7 +33,6 @@ export class TokenHelper {
 	 */
 	public static async createToken(
 		systemIdentity: string | undefined,
-		systemPartitionId: string | undefined,
 		vaultConnector: IVaultConnector,
 		signingKeyName: string,
 		subject: string,
@@ -49,8 +47,7 @@ export class TokenHelper {
 
 		const systemRequestContext: IServiceRequestContext = {
 			systemIdentity,
-			userIdentity: systemIdentity,
-			partitionId: systemPartitionId
+			userIdentity: systemIdentity
 		};
 
 		const jwt = await Jwt.encodeWithSigner(
@@ -72,7 +69,6 @@ export class TokenHelper {
 	/**
 	 * Verify the token.
 	 * @param systemIdentity The system identity.
-	 * @param systemPartitionId The system partition id.
 	 * @param vaultConnector The vault connector.
 	 * @param signingKeyName The signing key name.
 	 * @param token The token to verify.
@@ -81,7 +77,6 @@ export class TokenHelper {
 	 */
 	public static async verify(
 		systemIdentity: string | undefined,
-		systemPartitionId: string | undefined,
 		vaultConnector: IVaultConnector,
 		signingKeyName: string,
 		token: string | undefined
@@ -95,8 +90,7 @@ export class TokenHelper {
 
 		const systemRequestContext: IServiceRequestContext = {
 			systemIdentity,
-			userIdentity: systemIdentity,
-			partitionId: systemPartitionId
+			userIdentity: systemIdentity
 		};
 
 		const decoded = await Jwt.verifyWithVerifier(token, async (alg, key, payload, signature) =>

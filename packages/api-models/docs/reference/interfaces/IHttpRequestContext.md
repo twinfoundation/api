@@ -8,18 +8,6 @@ Context data from the HTTP request.
 
 ## Properties
 
-### partitionId?
-
-> `optional` **partitionId**: `string`
-
-The id for partitioning data, usually correlated from the api key making the request.
-
-#### Inherited from
-
-`IServiceRequestContext.partitionId`
-
-***
-
 ### systemIdentity?
 
 > `optional` **systemIdentity**: `string`

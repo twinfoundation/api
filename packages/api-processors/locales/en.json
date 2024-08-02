@@ -3,20 +3,10 @@
 		"routeProcessor": {
 			"routeNotFound": "The web server could not find the route \"{notFoundId}\""
 		},
-		"apiKeyPartitionProcessor": {
-			"apiKeyMissing": "Expecting x-api-key in request headers or as query parameter",
-			"apiKeyNotFound": "The x-api-key provided is not valid"
-		},
 		"jwtIdentityProcessor": {
 			"jwtMissing": "The JSON Web token could not be found in the authorization header or a cookie",
 			"jwtSignatureInvalid": "The JSON Web token signature could not be validated",
 			"jwtExpired": "The JSON Web token has expired"
-		}
-	},
-	"info": {
-		"apiKeyPartitionProcessor": {
-			"apiKeyFound": "The System API Key was found, it is \"{apiKey}\"",
-			"apiKeyCreated": "The System API Key was created, it is \"{apiKey}\""
 		}
 	}
 }

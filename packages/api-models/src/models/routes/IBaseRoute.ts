@@ -19,9 +19,4 @@ export interface IBaseRoute {
 	 * Skips the authentication for this route.
 	 */
 	skipAuth?: boolean;
-
-	/**
-	 * Skips the partition id check for this route.
-	 */
-	skipPartition?: boolean;
 }

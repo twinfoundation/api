@@ -30,11 +30,3 @@ The path to use for routing.
 > `optional` **skipAuth**: `boolean`
 
 Skips the authentication for this route.
-
-***
-
-### skipPartition?
-
-> `optional` **skipPartition**: `boolean`
-
-Skips the partition id check for this route.

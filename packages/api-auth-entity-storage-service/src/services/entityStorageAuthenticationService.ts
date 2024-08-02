@@ -59,12 +59,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 	private _systemIdentity?: string;
 
 	/**
-	 * The system partition id to use for the vault.
-	 * @internal
-	 */
-	private _systemPartitionId?: string;
-
-	/**
 	 * Create a new instance of EntityStorageAuthentication.
 	 * @param options The dependencies for the identity connector.
 	 * @param options.userEntityStorageType The entity storage for the users, defaults to "authentication-user".
@@ -96,7 +90,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		systemRequestContext: IServiceRequestContext,
 		systemLoggingConnectorType?: string
 	): Promise<void> {
-		this._systemPartitionId = systemRequestContext.partitionId;
 		this._systemIdentity = systemRequestContext.systemIdentity;
 	}
 
@@ -121,8 +114,7 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		try {
 			const systemRequestContext: IServiceRequestContext = {
 				systemIdentity: this._systemIdentity,
-				userIdentity: this._systemIdentity,
-				partitionId: this._systemPartitionId
+				userIdentity: this._systemIdentity
 			};
 
 			const user = await this._userEntityStorage.get(email, undefined, systemRequestContext);
@@ -141,7 +133,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 
 			const tokenAndExpiry = await TokenHelper.createToken(
 				this._systemIdentity,
-				this._systemPartitionId,
 				this._vaultConnector,
 				this._signingKeyName,
 				user.identity,
@@ -180,7 +171,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 		// If the verify fails on the current token then it will throw an exception.
 		const headerAndPayload = await TokenHelper.verify(
 			this._systemIdentity,
-			this._systemPartitionId,
 			this._vaultConnector,
 			this._signingKeyName,
 			token
@@ -188,7 +178,6 @@ export class EntityStorageAuthenticationService implements IAuthentication {
 
 		const refreshTokenAndExpiry = await TokenHelper.createToken(
 			this._systemIdentity,
-			this._systemPartitionId,
 			this._vaultConnector,
 			this._signingKeyName,
 			headerAndPayload.payload.sub ?? "",

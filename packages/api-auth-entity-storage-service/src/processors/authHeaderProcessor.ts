@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	ResponseHelper,
+	type IHttpRequestIdentity,
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
 	type IHttpServerRequest,
@@ -9,7 +10,6 @@ import {
 } from "@gtsc/api-models";
 import { BaseError, Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
 import { HttpStatusCode } from "@gtsc/web";
 import type { IAuthHeaderProcessorConfig } from "../models/IAuthHeaderProcessorConfig";
@@ -82,14 +82,14 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
@@ -105,7 +105,7 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 					tokenAndLocation.token
 				);
 
-				requestContext.userIdentity = headerAndPayload.payload?.sub;
+				requestIdentity.userIdentity = headerAndPayload.payload?.sub;
 				processorState.authToken = tokenAndLocation.token;
 				processorState.authTokenLocation = tokenAndLocation.location;
 			} catch (err) {
@@ -120,14 +120,14 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async post(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		const responseAuthOperation = processorState?.authOperation;

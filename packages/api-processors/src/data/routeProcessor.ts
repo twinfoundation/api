@@ -7,7 +7,8 @@ import {
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
 	type IHttpServerRequest,
-	type IRestRoute
+	type IRestRoute,
+	type IHttpRequestIdentity
 } from "@gtsc/api-models";
 import {
 	AlreadyExistsError,
@@ -21,7 +22,6 @@ import {
 	type IError
 } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
 import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
 
@@ -55,14 +55,14 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async process(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		// Don't handle the route if another processor has already set the response
@@ -90,7 +90,7 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 
 					const restRouteResponse: IHttpResponse & IRestRouteResponseOptions = await route.handler(
 						{
-							...requestContext,
+							...requestIdentity,
 							serverRequest: request,
 							processorState
 						},

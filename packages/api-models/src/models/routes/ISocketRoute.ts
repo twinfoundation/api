@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IServiceRequestContext } from "@gtsc/services";
 import type { IBaseRoute } from "./IBaseRoute";
+import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
 
 /**
  * Interface which defines a socket route.
@@ -14,7 +14,7 @@ export interface ISocketRoute extends IBaseRoute {
 		/**
 		 * The request context.
 		 */
-		requestContext: IServiceRequestContext,
+		httpRequestContext: IHttpRequestContext,
 
 		/**
 		 * The id of the socket the request is arriving on.

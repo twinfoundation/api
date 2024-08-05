@@ -3,6 +3,7 @@
 import FastifyCompress from "@fastify/compress";
 import FastifyCors from "@fastify/cors";
 import type {
+	IHttpRequestIdentity,
 	IHttpRequestPathParams,
 	IHttpRequestQuery,
 	IHttpResponse,
@@ -15,7 +16,6 @@ import type {
 import { BaseError, type IError, Is, StringHelper } from "@gtsc/core";
 import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import { type HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
 import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from "fastify";
 
@@ -266,7 +266,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			headers: request.headers as IHttpHeaders
 		};
 		const httpResponse: IHttpResponse = {};
-		const requestContext: IServiceRequestContext = {};
+		const httpRequestIdentity: IHttpRequestIdentity = {};
 		const processorState = {};
 
 		for (const restRouteProcessor of restRouteProcessors) {
@@ -275,7 +275,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 					httpServerRequest,
 					httpResponse,
 					restRoute,
-					requestContext,
+					httpRequestIdentity,
 					processorState
 				);
 			}
@@ -287,7 +287,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 					httpServerRequest,
 					httpResponse,
 					restRoute,
-					requestContext,
+					httpRequestIdentity,
 					processorState
 				);
 			}
@@ -299,7 +299,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 					httpServerRequest,
 					httpResponse,
 					restRoute,
-					requestContext,
+					httpRequestIdentity,
 					processorState
 				);
 			}

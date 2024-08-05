@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
+	IHttpRequestIdentity,
 	IHttpResponse,
 	IHttpRestRouteProcessor,
 	IHttpServerRequest,
@@ -8,7 +9,6 @@ import type {
 } from "@gtsc/api-models";
 import { Guards, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import type { IStaticUserIdentityProcessorConfig } from "../models/IStaticUserIdentityProcessorConfig";
 
 /**
@@ -48,18 +48,18 @@ export class StaticUserIdentityProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		if (!Is.empty(route) && !(route.skipAuth ?? false)) {
-			requestContext.userIdentity = this._userIdentity;
+			requestIdentity.userIdentity = this._userIdentity;
 		}
 	}
 }

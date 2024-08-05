@@ -46,13 +46,13 @@ Skips the authentication for this route.
 
 ### handler()
 
-> **handler**: (`requestContext`, `socketId`, `request`, `emitter`) => `Promise`\<`void`\>
+> **handler**: (`httpRequestContext`, `socketId`, `request`, `emitter`) => `Promise`\<`void`\>
 
 The handler module.
 
 #### Parameters
 
-• **requestContext**: `IServiceRequestContext`
+• **httpRequestContext**: [`IHttpRequestContext`](IHttpRequestContext.md)
 
 The request context.
 

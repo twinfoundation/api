@@ -13,6 +13,7 @@
 - [IBaseSocketClientConfig](interfaces/IBaseSocketClientConfig.md)
 - [IHttpRequest](interfaces/IHttpRequest.md)
 - [IHttpRequestContext](interfaces/IHttpRequestContext.md)
+- [IHttpRequestIdentity](interfaces/IHttpRequestIdentity.md)
 - [IHttpRequestPathParams](interfaces/IHttpRequestPathParams.md)
 - [IHttpRequestQuery](interfaces/IHttpRequestQuery.md)
 - [IHttpResponse](interfaces/IHttpResponse.md)

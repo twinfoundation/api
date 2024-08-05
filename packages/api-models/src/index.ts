@@ -7,6 +7,7 @@ export * from "./models/api/IServerSpecResponse";
 export * from "./models/config/IBaseRestClientConfig";
 export * from "./models/config/IBaseSocketClientConfig";
 export * from "./models/protocol/IHttpRequest";
+export * from "./models/protocol/IHttpRequestIdentity";
 export * from "./models/protocol/IHttpRequestContext";
 export * from "./models/protocol/IHttpRequestPathParams";
 export * from "./models/protocol/IHttpRequestQuery";

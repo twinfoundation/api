@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
+	IHttpRequestIdentity,
 	IHttpResponse,
 	IHttpRestRouteProcessor,
 	IHttpServerRequest,
@@ -9,7 +10,6 @@ import type {
 import { Coerce, Is } from "@gtsc/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
 import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingProcessorConfig";
 
@@ -56,14 +56,14 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		const now = process.hrtime.bigint();
@@ -83,14 +83,14 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async post(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
 		let data: { [id: string]: unknown } | undefined;

@@ -46,7 +46,7 @@ Runtime name for the class.
 
 ### pre()
 
-> **pre**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
+> **pre**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
 
 Pre process the REST request for the specified route.
 
@@ -64,9 +64,9 @@ The outgoing response.
 
 The route to process.
 
-• **requestContext**: `IServiceRequestContext`
+• **requestIdentity**: `IHttpRequestIdentity`
 
-The context for the request.
+The identity context for the request.
 
 • **processorState**
 

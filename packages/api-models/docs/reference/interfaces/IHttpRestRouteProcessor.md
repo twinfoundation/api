@@ -102,7 +102,7 @@ Nothing.
 
 ### pre()?
 
-> `optional` **pre**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
+> `optional` **pre**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
 
 Pre process the REST request for the specified route.
 
@@ -120,9 +120,9 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-• **requestContext**: `IServiceRequestContext`
+• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
-The context for the request.
+The identity context for the request.
 
 • **processorState**
 
@@ -138,7 +138,7 @@ Promise that resolves when the request is processed.
 
 ### process()?
 
-> `optional` **process**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
+> `optional` **process**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
 
 Process the REST request for the specified route.
 
@@ -156,9 +156,9 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-• **requestContext**: `IServiceRequestContext`
+• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
-The context for the request.
+The identity context for the request.
 
 • **processorState**
 
@@ -174,7 +174,7 @@ Promise that resolves when the request is processed.
 
 ### post()?
 
-> `optional` **post**(`request`, `response`, `route`, `requestContext`, `processorState`): `Promise`\<`void`\>
+> `optional` **post**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
 
 Post process the REST request for the specified route.
 
@@ -192,9 +192,9 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-• **requestContext**: `IServiceRequestContext`
+• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
-The context for the request.
+The identity context for the request.
 
 • **processorState**
 

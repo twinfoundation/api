@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
+	IHttpRequestIdentity,
 	IHttpResponse,
 	IHttpRestRouteProcessor,
 	IHttpServerRequest,
@@ -8,7 +9,6 @@ import type {
 } from "@gtsc/api-models";
 import { Guards } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import type { IServiceRequestContext } from "@gtsc/services";
 
 /**
  * Adds a system identity to the request context.
@@ -41,16 +41,16 @@ export class SystemIdentityProcessor implements IHttpRestRouteProcessor {
 	 * @param request The incoming request.
 	 * @param response The outgoing response.
 	 * @param route The route to process.
-	 * @param requestContext The context for the request.
+	 * @param requestIdentity The identity context for the request.
 	 * @param processorState The state handed through the processors.
 	 */
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
 		route: IRestRoute | undefined,
-		requestContext: IServiceRequestContext,
+		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
-		requestContext.systemIdentity = this._systemIdentity;
+		requestIdentity.systemIdentity = this._systemIdentity;
 	}
 }

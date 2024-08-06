@@ -2,7 +2,7 @@
 
 ## Classes
 
-- [ResponseHelper](classes/ResponseHelper.md)
+- [HttpErrorHelper](classes/HttpErrorHelper.md)
 
 ## Interfaces
 

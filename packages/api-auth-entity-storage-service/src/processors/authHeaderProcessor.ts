@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
-	ResponseHelper,
+	HttpErrorHelper,
 	type IHttpRequestIdentity,
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
@@ -110,7 +110,7 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 				processorState.authTokenLocation = tokenAndLocation.location;
 			} catch (err) {
 				const error = BaseError.fromError(err);
-				ResponseHelper.buildError(response, error, HttpStatusCode.unauthorized);
+				HttpErrorHelper.buildResponse(response, error, HttpStatusCode.unauthorized);
 			}
 		}
 	}

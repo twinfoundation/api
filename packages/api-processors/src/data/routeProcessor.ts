@@ -1,26 +1,16 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
-	type IRestRouteResponseOptions,
-	ResponseHelper,
+	HttpErrorHelper,
 	type IHttpRequest,
+	type IHttpRequestIdentity,
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
 	type IHttpServerRequest,
 	type IRestRoute,
-	type IHttpRequestIdentity
+	type IRestRouteResponseOptions
 } from "@gtsc/api-models";
-import {
-	AlreadyExistsError,
-	BaseError,
-	ConflictError,
-	GuardError,
-	Is,
-	NotFoundError,
-	NotImplementedError,
-	UnauthorizedError,
-	type IError
-} from "@gtsc/core";
+import { Is, NotFoundError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 import { HttpStatusCode } from "@gtsc/web";
 import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
@@ -69,7 +59,7 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 		// status code e.g. from an auth processor
 		if (Is.empty(response.statusCode)) {
 			if (Is.empty(route)) {
-				ResponseHelper.buildError(
+				HttpErrorHelper.buildResponse(
 					response,
 					{
 						name: NotFoundError.CLASS_NAME,
@@ -138,52 +128,11 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					response.statusCode = statusCode;
 					response.body = restRouteResponse?.body;
 				} catch (err) {
-					const { error, httpStatusCode } = this.processError(err);
+					const { error, httpStatusCode } = HttpErrorHelper.processError(err);
 
-					ResponseHelper.buildError(response, error, httpStatusCode);
+					HttpErrorHelper.buildResponse(response, error, httpStatusCode);
 				}
 			}
 		}
-	}
-
-	/**
-	 * Process the errors from the routes.
-	 * @param err The error to process.
-	 * @returns The status code and additional error data.
-	 */
-	private processError(err: unknown): {
-		error: IError;
-		httpStatusCode: HttpStatusCode;
-	} {
-		const error: BaseError = BaseError.fromError(err);
-
-		// If the error or any of its sub errors are of the specific
-		// types then set the http response code accordingly
-		const flattened = BaseError.flatten(error);
-
-		let httpStatusCode: HttpStatusCode = HttpStatusCode.internalServerError;
-		if (flattened.some(e => BaseError.isErrorName(e, GuardError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.badRequest;
-		} else if (flattened.some(e => BaseError.isErrorName(e, ConflictError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.conflict;
-		} else if (flattened.some(e => BaseError.isErrorName(e, NotFoundError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.notFound;
-		} else if (flattened.some(e => BaseError.isErrorName(e, AlreadyExistsError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.conflict;
-		} else if (flattened.some(e => BaseError.isErrorName(e, UnauthorizedError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.unauthorized;
-		} else if (flattened.some(e => BaseError.isErrorName(e, NotImplementedError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.forbidden;
-		}
-
-		const returnError = error.toJsonObject();
-		if (!this._includeErrorStack) {
-			delete returnError.stack;
-		}
-
-		return {
-			error: returnError,
-			httpStatusCode
-		};
 	}
 }

@@ -79,31 +79,3 @@ The state handed through the processors.
 #### Implementation of
 
 `IHttpRestRouteProcessor.process`
-
-***
-
-### processError()
-
-> `private` **processError**(`err`): `object`
-
-Process the errors from the routes.
-
-#### Parameters
-
-• **err**: `unknown`
-
-The error to process.
-
-#### Returns
-
-`object`
-
-The status code and additional error data.
-
-##### error
-
-> **error**: `IError`
-
-##### httpStatusCode
-
-> **httpStatusCode**: `HttpStatusCode`

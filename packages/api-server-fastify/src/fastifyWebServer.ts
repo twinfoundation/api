@@ -2,16 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0.
 import FastifyCompress from "@fastify/compress";
 import FastifyCors from "@fastify/cors";
-import type {
-	IHttpRequestIdentity,
-	IHttpRequestPathParams,
-	IHttpRequestQuery,
-	IHttpResponse,
-	IHttpRestRouteProcessor,
-	IHttpServerRequest,
-	IRestRoute,
-	IWebServer,
-	IWebServerOptions
+import {
+	HttpErrorHelper,
+	type IHttpRequestIdentity,
+	type IHttpRequestPathParams,
+	type IHttpRequestQuery,
+	type IHttpResponse,
+	type IHttpRestRouteProcessor,
+	type IHttpServerRequest,
+	type IRestRoute,
+	type IWebServer,
+	type IWebServerOptions
 } from "@gtsc/api-models";
 import { BaseError, type IError, Is, StringHelper } from "@gtsc/core";
 import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
@@ -122,24 +123,32 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		);
 
 		this._fastify.setErrorHandler(async (error, request, reply) => {
-			const err: IError = {
-				source: this.CLASS_NAME,
-				name: error.name,
-				message: `${error.code}: ${error.message}`
-			};
-			const statusCode = error.statusCode ?? HttpStatusCode.badRequest;
+			// If code property is set this is a fastify error
+			// otherwise it's from our framework
+			let httpStatusCode: HttpStatusCode;
+			let err: IError;
+			if (Is.number(error.code)) {
+				err = {
+					source: this.CLASS_NAME,
+					name: error.name,
+					message: `${error.code}: ${error.message}`
+				};
+				httpStatusCode = (error.statusCode as HttpStatusCode) ?? HttpStatusCode.badRequest;
+			} else {
+				const errorAndCode = HttpErrorHelper.processError(error);
+				err = errorAndCode.error;
+				httpStatusCode = errorAndCode.httpStatusCode;
+			}
 
 			await this._loggingConnector?.log({
 				level: "error",
 				ts: Date.now(),
 				source: this.CLASS_NAME,
 				message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.badRequest`,
-				data: {
-					error: err.message
-				}
+				error: err
 			});
 
-			return reply.status(statusCode).send({
+			return reply.status(httpStatusCode).send({
 				error: err
 			});
 		});

@@ -49,10 +49,10 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 	private readonly _cookieName: string;
 
 	/**
-	 * The system identity.
+	 * The node identity.
 	 * @internal
 	 */
-	private _systemIdentity?: string;
+	private _nodeIdentity?: string;
 
 	/**
 	 * Create a new instance of AuthCookiePreProcessor.
@@ -68,13 +68,13 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 
 	/**
 	 * The service needs to be started when the application is initialized.
-	 * @param systemIdentity The identity of the system.
-	 * @param systemLoggingConnectorType The system logging connector type, defaults to "system-logging".
+	 * @param nodeIdentity The identity of the node.
+	 * @param nodeLoggingConnectorType The node logging connector type, defaults to "node-logging".
 	 * @returns Nothing.
 	 */
-	public async start(systemIdentity: string, systemLoggingConnectorType?: string): Promise<void> {
-		Guards.string(this.CLASS_NAME, nameof(systemIdentity), systemIdentity);
-		this._systemIdentity = systemIdentity;
+	public async start(nodeIdentity: string, nodeLoggingConnectorType?: string): Promise<void> {
+		Guards.string(this.CLASS_NAME, nameof(nodeIdentity), nodeIdentity);
+		this._nodeIdentity = nodeIdentity;
 	}
 
 	/**
@@ -101,7 +101,7 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 
 				const headerAndPayload = await TokenHelper.verify(
 					this._vaultConnector,
-					`${this._systemIdentity}/${this._signingKeyName}`,
+					`${this._nodeIdentity}/${this._signingKeyName}`,
 					tokenAndLocation.token
 				);
 

@@ -6,9 +6,9 @@
  */
 export interface IHttpRequestIdentity {
 	/**
-	 * The identity of the system the request is being performed on.
+	 * The identity of the node the request is being performed on.
 	 */
-	systemIdentity?: string;
+	nodeIdentity?: string;
 
 	/**
 	 * The identity of the requestor if there is an authenticated user.

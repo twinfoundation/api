@@ -48,19 +48,19 @@ Runtime name for the class.
 
 ### start()
 
-> **start**(`systemIdentity`, `systemLoggingConnectorType`?): `Promise`\<`void`\>
+> **start**(`nodeIdentity`, `nodeLoggingConnectorType`?): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **systemIdentity**: `string`
+• **nodeIdentity**: `string`
 
-The identity of the system.
+The identity of the node.
 
-• **systemLoggingConnectorType?**: `string`
+• **nodeLoggingConnectorType?**: `string`
 
-The system logging connector type, defaults to "system-logging".
+The node logging connector type, defaults to "node-logging".
 
 #### Returns
 

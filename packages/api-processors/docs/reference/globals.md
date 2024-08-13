@@ -3,8 +3,8 @@
 ## Classes
 
 - [RouteProcessor](classes/RouteProcessor.md)
+- [NodeIdentityProcessor](classes/NodeIdentityProcessor.md)
 - [StaticUserIdentityProcessor](classes/StaticUserIdentityProcessor.md)
-- [SystemIdentityProcessor](classes/SystemIdentityProcessor.md)
 - [LoggingProcessor](classes/LoggingProcessor.md)
 
 ## Interfaces

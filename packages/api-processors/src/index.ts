@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 export * from "./data/routeProcessor";
 export * from "./identity/staticUserIdentityProcessor";
-export * from "./identity/systemIdentityProcessor";
+export * from "./identity/nodeIdentityProcessor";
 export * from "./logging/loggingProcessor";
 export * from "./models/IRequestLoggingProcessorConfig";
 export * from "./models/IResponseLoggingProcessorConfig";

@@ -8,11 +8,11 @@ Context data from the HTTP request identity.
 
 ## Properties
 
-### systemIdentity?
+### nodeIdentity?
 
-> `optional` **systemIdentity**: `string`
+> `optional` **nodeIdentity**: `string`
 
-The identity of the system the request is being performed on.
+The identity of the node the request is being performed on.
 
 ***
 

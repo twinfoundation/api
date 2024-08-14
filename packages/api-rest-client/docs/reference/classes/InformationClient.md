@@ -8,7 +8,7 @@ The client to connect to the information service.
 
 ## Implements
 
-- `IInformation`
+- `IInformationService`
 
 ## Constructors
 
@@ -42,7 +42,7 @@ Runtime name for the class.
 
 #### Implementation of
 
-`IInformation.CLASS_NAME`
+`IInformationService.CLASS_NAME`
 
 ## Methods
 
@@ -116,7 +116,7 @@ The service information.
 
 #### Implementation of
 
-`IInformation.info`
+`IInformationService.info`
 
 ***
 
@@ -134,7 +134,7 @@ The OpenAPI spec.
 
 #### Implementation of
 
-`IInformation.spec`
+`IInformationService.spec`
 
 ***
 
@@ -152,7 +152,7 @@ The service health.
 
 #### Implementation of
 
-`IInformation.health`
+`IInformationService.health`
 
 ***
 
@@ -184,7 +184,7 @@ Nothing.
 
 #### Implementation of
 
-`IInformation.setComponentHealth`
+`IInformationService.setComponentHealth`
 
 ***
 
@@ -208,4 +208,4 @@ Nothing.
 
 #### Implementation of
 
-`IInformation.removeComponentHealth`
+`IInformationService.removeComponentHealth`

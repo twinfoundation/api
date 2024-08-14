@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IService } from "@gtsc/services";
+import type { IComponent } from "@gtsc/core";
 import type { HealthStatus } from "./healthStatus";
 import type { IHealthInfo } from "./IHealthInfo";
 import type { IServerInfo } from "./IServerInfo";
@@ -8,7 +8,7 @@ import type { IServerInfo } from "./IServerInfo";
 /**
  * The information service for the server.
  */
-export interface IInformation extends IService {
+export interface IInformationService extends IComponent {
 	/**
 	 * Get the server information.
 	 * @returns The service information.

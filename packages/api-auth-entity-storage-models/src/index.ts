@@ -5,4 +5,4 @@ export * from "./models/api/ILoginResponse";
 export * from "./models/api/ILogoutRequest";
 export * from "./models/api/IRefreshTokenRequest";
 export * from "./models/api/IRefreshTokenResponse";
-export * from "./models/IAuthentication";
+export * from "./models/IAuthenticationService";

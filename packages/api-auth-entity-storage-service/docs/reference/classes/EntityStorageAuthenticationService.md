@@ -4,7 +4,7 @@ Implementation of the authentication service using entity storage.
 
 ## Implements
 
-- `IAuthentication`
+- `IAuthenticationService`
 
 ## Constructors
 
@@ -54,7 +54,7 @@ Runtime name for the class.
 
 #### Implementation of
 
-`IAuthentication.CLASS_NAME`
+`IAuthenticationService.CLASS_NAME`
 
 ## Methods
 
@@ -82,7 +82,7 @@ Nothing.
 
 #### Implementation of
 
-`IAuthentication.start`
+`IAuthenticationService.start`
 
 ***
 
@@ -118,7 +118,7 @@ The authentication token for the user, if it uses a mechanism with public access
 
 #### Implementation of
 
-`IAuthentication.login`
+`IAuthenticationService.login`
 
 ***
 
@@ -142,7 +142,7 @@ Nothing.
 
 #### Implementation of
 
-`IAuthentication.logout`
+`IAuthenticationService.logout`
 
 ***
 
@@ -174,4 +174,4 @@ The refreshed token, if it uses a mechanism with public access.
 
 #### Implementation of
 
-`IAuthentication.refresh`
+`IAuthenticationService.refresh`

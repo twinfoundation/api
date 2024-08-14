@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAuthentication } from "@gtsc/api-auth-entity-storage-models";
+import type { IAuthenticationService } from "@gtsc/api-auth-entity-storage-models";
 import { Converter, GeneralError, Guards, UnauthorizedError } from "@gtsc/core";
 import {
 	EntityStorageConnectorFactory,
@@ -16,7 +16,7 @@ import { TokenHelper } from "../utils/tokenHelper";
 /**
  * Implementation of the authentication service using entity storage.
  */
-export class EntityStorageAuthenticationService implements IAuthentication {
+export class EntityStorageAuthenticationService implements IAuthenticationService {
 	/**
 	 * Default TTL in minutes.
 	 */

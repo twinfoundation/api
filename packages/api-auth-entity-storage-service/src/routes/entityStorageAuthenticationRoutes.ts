@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
-	IAuthentication,
+	IAuthenticationService,
 	ILoginRequest,
 	ILoginResponse,
 	ILogoutRequest,
@@ -184,7 +184,7 @@ export async function authenticationLogin(
 	Guards.object<ILoginRequest>(ROUTES_SOURCE, nameof(request), request);
 	Guards.object<ILoginRequest["body"]>(ROUTES_SOURCE, nameof(request.body), request.body);
 
-	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
+	const service = ServiceFactory.get<IAuthenticationService>(factoryServiceName);
 	const result = await service.login(request.body.email, request.body.password);
 
 	// Need to give a hint to any auth processors about the operation
@@ -210,7 +210,7 @@ export async function authenticationLogout(
 ): Promise<INoContentResponse & IRestRouteResponseOptions> {
 	Guards.object<ILogoutRequest>(ROUTES_SOURCE, nameof(request), request);
 
-	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
+	const service = ServiceFactory.get<IAuthenticationService>(factoryServiceName);
 	await service.logout(request.query?.token);
 
 	// Need to give a hint to any auth processors about the operation
@@ -236,7 +236,7 @@ export async function authenticationRefreshToken(
 ): Promise<IRefreshTokenResponse & IRestRouteResponseOptions> {
 	Guards.object<IRefreshTokenRequest>(ROUTES_SOURCE, nameof(request), request);
 
-	const service = ServiceFactory.get<IAuthentication>(factoryServiceName);
+	const service = ServiceFactory.get<IAuthenticationService>(factoryServiceName);
 
 	// If the token is not in the query, then maybe an auth processor has extracted it
 	// and stored it in the processor state

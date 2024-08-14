@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type {
 	IHttpRequestContext,
-	IInformation,
+	IInformationService,
 	INoContentRequest,
 	INoContentResponse,
 	IRestRoute,
@@ -201,7 +201,7 @@ export async function serverInfo(
 	factoryServiceName: string,
 	request: INoContentRequest
 ): Promise<IServerInfoResponse> {
-	const service = ServiceFactory.get<IInformation>(factoryServiceName);
+	const service = ServiceFactory.get<IInformationService>(factoryServiceName);
 	return {
 		body: await service.info()
 	};
@@ -219,7 +219,7 @@ export async function serverHealth(
 	factoryServiceName: string,
 	request: INoContentRequest
 ): Promise<IServerHealthResponse> {
-	const service = ServiceFactory.get<IInformation>(factoryServiceName);
+	const service = ServiceFactory.get<IInformationService>(factoryServiceName);
 	return {
 		body: await service.health()
 	};
@@ -237,7 +237,7 @@ export async function serverSpec(
 	factoryServiceName: string,
 	request: INoContentRequest
 ): Promise<IServerSpecResponse> {
-	const service = ServiceFactory.get<IInformation>(factoryServiceName);
+	const service = ServiceFactory.get<IInformationService>(factoryServiceName);
 	const spec = await service.spec();
 
 	if (Is.objectValue(spec)) {

@@ -1,14 +1,14 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { readFile } from "node:fs/promises";
-import type { HealthStatus, IHealthInfo, IInformation, IServerInfo } from "@gtsc/api-models";
+import type { HealthStatus, IHealthInfo, IInformationService, IServerInfo } from "@gtsc/api-models";
 import { Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 
 /**
  * The information service for the server.
  */
-export class InformationService implements IInformation {
+export class InformationService implements IInformationService {
 	/**
 	 * Runtime name for the class.
 	 */

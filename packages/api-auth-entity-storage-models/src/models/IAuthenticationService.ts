@@ -1,11 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IService } from "@gtsc/services";
+import type { IComponent } from "@gtsc/core";
 
 /**
  * Contract definition for authentication service.
  */
-export interface IAuthentication extends IService {
+export interface IAuthenticationService extends IComponent {
 	/**
 	 * Perform a login for the user.
 	 * @param email The email address for the user.

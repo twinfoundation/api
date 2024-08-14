@@ -12,7 +12,7 @@ import type {
 	IServerInfoResponse,
 	IServerSpecResponse
 } from "@gtsc/api-models";
-import { NotSupportedError, StringHelper } from "@gtsc/core";
+import { NotSupportedError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 
 /**
@@ -29,11 +29,7 @@ export class InformationClient extends BaseRestClient implements IInformationCom
 	 * @param config The configuration for the client.
 	 */
 	constructor(config: IBaseRestClientConfig) {
-		super(
-			nameof<InformationClient>(),
-			config,
-			StringHelper.kebabCase(nameof<IInformationComponent>())
-		);
+		super(nameof<InformationClient>(), config, "");
 	}
 
 	/**

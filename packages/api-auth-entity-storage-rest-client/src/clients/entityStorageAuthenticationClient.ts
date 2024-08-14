@@ -10,7 +10,7 @@ import type {
 } from "@gtsc/api-auth-entity-storage-models";
 import { BaseRestClient } from "@gtsc/api-core";
 import type { IBaseRestClientConfig, INoContentResponse } from "@gtsc/api-models";
-import { Guards, StringHelper } from "@gtsc/core";
+import { Guards } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
 
 /**
@@ -30,11 +30,7 @@ export class EntityStorageAuthenticationClient
 	 * @param config The configuration for the client.
 	 */
 	constructor(config: IBaseRestClientConfig) {
-		super(
-			nameof<EntityStorageAuthenticationClient>(),
-			config,
-			StringHelper.kebabCase(nameof<IAuthenticationComponent>())
-		);
+		super(nameof<EntityStorageAuthenticationClient>(), config, "authentication");
 	}
 
 	/**

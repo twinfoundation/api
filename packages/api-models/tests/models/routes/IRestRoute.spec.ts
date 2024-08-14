@@ -85,13 +85,13 @@ describe("IRestRoute", () => {
 /**
  * Test request response method.
  * @param httpRequestContext The request context for the API.
- * @param serviceName The name of the service to use in the routes.
+ * @param componentName The name of the component to use in the routes stored in the ComponentFactory.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function testRequestResponse(
 	httpRequestContext: IHttpRequestContext,
-	serviceName: string,
+	componentName: string,
 	request: ITestRequest
 ): Promise<ITestResponse> {
 	return {

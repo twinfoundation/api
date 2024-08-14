@@ -1,6 +1,6 @@
 # Function: authenticationRefreshToken()
 
-> **authenticationRefreshToken**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`IRefreshTokenResponse` & `IRestRouteResponseOptions`\>
+> **authenticationRefreshToken**(`httpRequestContext`, `componentName`, `request`): `Promise`\<`IRefreshTokenResponse` & `IRestRouteResponseOptions`\>
 
 Refresh the login token.
 
@@ -10,9 +10,9 @@ Refresh the login token.
 
 The request context for the API.
 
-• **factoryServiceName**: `string`
+• **componentName**: `string`
 
-The name of the service to use in the routes.
+The name of the component to use in the routes.
 
 • **request**: `IRefreshTokenRequest`
 

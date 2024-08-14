@@ -5,7 +5,7 @@ import type {
 	HealthStatus,
 	IBaseRestClientConfig,
 	IHealthInfo,
-	IInformationService,
+	IInformationComponent,
 	INoContentRequest,
 	IServerHealthResponse,
 	IServerInfo,
@@ -18,7 +18,7 @@ import { nameof } from "@gtsc/nameof";
 /**
  * The client to connect to the information service.
  */
-export class InformationClient extends BaseRestClient implements IInformationService {
+export class InformationClient extends BaseRestClient implements IInformationComponent {
 	/**
 	 * Runtime name for the class.
 	 */
@@ -32,7 +32,7 @@ export class InformationClient extends BaseRestClient implements IInformationSer
 		super(
 			nameof<InformationClient>(),
 			config,
-			StringHelper.kebabCase(nameof<IInformationService>())
+			StringHelper.kebabCase(nameof<IInformationComponent>())
 		);
 	}
 

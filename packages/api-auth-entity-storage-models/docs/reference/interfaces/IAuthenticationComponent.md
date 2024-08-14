@@ -1,6 +1,6 @@
-# Interface: IInformationService
+# Interface: IAuthenticationComponent
 
-The information service for the server.
+Contract definition for authentication component.
 
 ## Extends
 
@@ -100,67 +100,49 @@ Nothing.
 
 ***
 
-### info()
+### login()
 
-> **info**(): `Promise`\<[`IServerInfo`](IServerInfo.md)\>
+> **login**(`email`, `password`): `Promise`\<`object`\>
 
-Get the server information.
-
-#### Returns
-
-`Promise`\<[`IServerInfo`](IServerInfo.md)\>
-
-The service information.
-
-***
-
-### spec()
-
-> **spec**(): `Promise`\<`unknown`\>
-
-Get the OpenAPI spec.
-
-#### Returns
-
-`Promise`\<`unknown`\>
-
-The OpenAPI spec.
-
-***
-
-### health()
-
-> **health**(): `Promise`\<[`IHealthInfo`](IHealthInfo.md)\>
-
-Get the server health.
-
-#### Returns
-
-`Promise`\<[`IHealthInfo`](IHealthInfo.md)\>
-
-The service health.
-
-***
-
-### setComponentHealth()
-
-> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
-
-Set the status of a component.
+Perform a login for the user.
 
 #### Parameters
 
-• **name**: `string`
+• **email**: `string`
 
-The component name.
+The email address for the user.
 
-• **status**: [`HealthStatus`](../type-aliases/HealthStatus.md)
+• **password**: `string`
 
-The status of the component.
+The password for the user.
 
-• **details?**: `string`
+#### Returns
 
-The details for the status.
+`Promise`\<`object`\>
+
+The authentication token for the user, if it uses a mechanism with public access.
+
+##### token?
+
+> `optional` **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`
+
+***
+
+### logout()
+
+> **logout**(`token`?): `Promise`\<`void`\>
+
+Logout the current user.
+
+#### Parameters
+
+• **token?**: `string`
+
+The token to logout, if it uses a mechanism with public access.
 
 #### Returns
 
@@ -170,20 +152,28 @@ Nothing.
 
 ***
 
-### removeComponentHealth()
+### refresh()
 
-> **removeComponentHealth**(`name`): `Promise`\<`void`\>
+> **refresh**(`token`?): `Promise`\<`object`\>
 
-Remove the status of a component.
+Refresh the token.
 
 #### Parameters
 
-• **name**: `string`
+• **token?**: `string`
 
-The component name.
+The token to refresh, if it uses a mechanism with public access.
 
 #### Returns
 
-`Promise`\<`void`\>
+`Promise`\<`object`\>
 
-Nothing.
+The refreshed token, if it uses a mechanism with public access.
+
+##### token?
+
+> `optional` **token**: `string`
+
+##### expiry
+
+> **expiry**: `number`

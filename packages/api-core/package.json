@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-core",
-	"version": "0.0.5-next.8",
+	"version": "0.0.5-next.7",
 	"description": "Core classes for use with APIs",
 	"repository": {
 		"type": "git",
@@ -28,10 +28,9 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-models": "0.0.5-next.8",
+		"@gtsc/api-models": "0.0.5-next.7",
 		"@gtsc/core": "next",
 		"@gtsc/nameof": "next",
-		"@gtsc/services": "next",
 		"@gtsc/web": "next",
 		"socket.io-client": "4.7.5"
 	},

@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-models",
-	"version": "0.0.5-next.8",
+	"version": "0.0.5-next.7",
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",
@@ -30,7 +30,6 @@
 	"dependencies": {
 		"@gtsc/core": "next",
 		"@gtsc/nameof": "next",
-		"@gtsc/services": "next",
 		"@gtsc/web": "next"
 	},
 	"devDependencies": {

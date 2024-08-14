@@ -2,7 +2,7 @@
 
 ## Interfaces
 
-- [IAuthenticationService](interfaces/IAuthenticationService.md)
+- [IAuthenticationComponent](interfaces/IAuthenticationComponent.md)
 - [ILoginRequest](interfaces/ILoginRequest.md)
 - [ILoginResponse](interfaces/ILoginResponse.md)
 - [ILogoutRequest](interfaces/ILogoutRequest.md)

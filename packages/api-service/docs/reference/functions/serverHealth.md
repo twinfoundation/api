@@ -1,6 +1,6 @@
 # Function: serverHealth()
 
-> **serverHealth**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerHealthResponse`\>
+> **serverHealth**(`httpRequestContext`, `componentName`, `request`): `Promise`\<`IServerHealthResponse`\>
 
 Get the health for the server.
 
@@ -10,9 +10,9 @@ Get the health for the server.
 
 The request context for the API.
 
-• **factoryServiceName**: `string`
+• **componentName**: `string`
 
-The name of the service to use in the routes.
+The name of the component to use in the routes.
 
 • **request**: `INoContentRequest`
 

@@ -3,9 +3,9 @@
 import type { IComponent } from "@gtsc/core";
 
 /**
- * Contract definition for authentication service.
+ * Contract definition for authentication component.
  */
-export interface IAuthenticationService extends IComponent {
+export interface IAuthenticationComponent extends IComponent {
 	/**
 	 * Perform a login for the user.
 	 * @param email The email address for the user.

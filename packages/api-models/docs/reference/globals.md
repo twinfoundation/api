@@ -40,7 +40,7 @@
 - [IWebServer](interfaces/IWebServer.md)
 - [IWebServerOptions](interfaces/IWebServerOptions.md)
 - [IHealthInfo](interfaces/IHealthInfo.md)
-- [IInformationService](interfaces/IInformationService.md)
+- [IInformationComponent](interfaces/IInformationComponent.md)
 - [IServerInfo](interfaces/IServerInfo.md)
 
 ## Type Aliases

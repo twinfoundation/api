@@ -30,7 +30,7 @@ The tags for the REST routes.
 
 ### generateRoutes()
 
-> **generateRoutes**: (`baseRouteName`, `factoryServiceName`) => [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
+> **generateRoutes**: (`baseRouteName`, `componentName`) => [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
 
 The method to generate the REST routes.
 
@@ -38,7 +38,7 @@ The method to generate the REST routes.
 
 • **baseRouteName**: `string`
 
-• **factoryServiceName**: `string`
+• **componentName**: `string`
 
 #### Returns
 

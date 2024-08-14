@@ -25,5 +25,5 @@ export interface IRestRouteEntryPoint {
 	/**
 	 * The method to generate the REST routes.
 	 */
-	generateRoutes: (baseRouteName: string, factoryServiceName: string) => IRestRoute[];
+	generateRoutes: (baseRouteName: string, componentName: string) => IRestRoute[];
 }

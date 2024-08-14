@@ -6,9 +6,9 @@ import type { IHealthInfo } from "./IHealthInfo";
 import type { IServerInfo } from "./IServerInfo";
 
 /**
- * The information service for the server.
+ * The information component for the server.
  */
-export interface IInformationService extends IComponent {
+export interface IInformationComponent extends IComponent {
 	/**
 	 * Get the server information.
 	 * @returns The service information.

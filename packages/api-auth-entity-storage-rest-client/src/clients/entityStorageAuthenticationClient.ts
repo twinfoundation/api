@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
-	IAuthenticationService,
+	IAuthenticationComponent,
 	ILoginRequest,
 	ILoginResponse,
 	ILogoutRequest,
@@ -18,7 +18,7 @@ import { nameof } from "@gtsc/nameof";
  */
 export class EntityStorageAuthenticationClient
 	extends BaseRestClient
-	implements IAuthenticationService
+	implements IAuthenticationComponent
 {
 	/**
 	 * Runtime name for the class.
@@ -33,7 +33,7 @@ export class EntityStorageAuthenticationClient
 		super(
 			nameof<EntityStorageAuthenticationClient>(),
 			config,
-			StringHelper.kebabCase(nameof<IAuthenticationService>())
+			StringHelper.kebabCase(nameof<IAuthenticationComponent>())
 		);
 	}
 

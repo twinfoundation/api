@@ -1,6 +1,6 @@
 # Function: serverInfo()
 
-> **serverInfo**(`httpRequestContext`, `factoryServiceName`, `request`): `Promise`\<`IServerInfoResponse`\>
+> **serverInfo**(`httpRequestContext`, `componentName`, `request`): `Promise`\<`IServerInfoResponse`\>
 
 Get the information for the server.
 
@@ -10,9 +10,9 @@ Get the information for the server.
 
 The request context for the API.
 
-• **factoryServiceName**: `string`
+• **componentName**: `string`
 
-The name of the service to use in the routes.
+The name of the component to use in the routes.
 
 • **request**: `INoContentRequest`
 

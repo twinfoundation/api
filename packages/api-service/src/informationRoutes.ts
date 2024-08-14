@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type {
 	IHttpRequestContext,
-	IInformationService,
+	IInformationComponent,
 	INoContentRequest,
 	INoContentResponse,
 	IRestRoute,
@@ -11,9 +11,8 @@ import type {
 	IServerSpecResponse,
 	ITag
 } from "@gtsc/api-models";
-import { Is } from "@gtsc/core";
+import { ComponentFactory, Is } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import { ServiceFactory } from "@gtsc/services";
 import { HttpStatusCode } from "@gtsc/web";
 
 /**
@@ -29,12 +28,12 @@ export const tagsInformation: ITag[] = [
 /**
  * The REST routes for server information.
  * @param baseRouteName Prefix to prepend to the paths.
- * @param factoryServiceName The name of the service to use in the routes store in the ServiceFactory.
+ * @param componentName The name of the component to use in the routes stored in the ComponentFactory.
  * @returns The generated routes.
  */
 export function generateRestRoutesInformation(
 	baseRouteName: string,
-	factoryServiceName: string
+	componentName: string
 ): IRestRoute[] {
 	const rootRoute: IRestRoute = {
 		operationId: "serverRoot",
@@ -59,7 +58,7 @@ export function generateRestRoutesInformation(
 		method: "GET",
 		path: `${baseRouteName}/info`,
 		handler: async (httpRequestContext, request) =>
-			serverInfo(httpRequestContext, factoryServiceName, request),
+			serverInfo(httpRequestContext, componentName, request),
 		responseType: [
 			{
 				type: nameof<IServerInfoResponse>(),
@@ -87,7 +86,7 @@ export function generateRestRoutesInformation(
 		method: "GET",
 		path: `${baseRouteName}/health`,
 		handler: async (httpRequestContext, request) =>
-			serverHealth(httpRequestContext, factoryServiceName, request),
+			serverHealth(httpRequestContext, componentName, request),
 		responseType: [
 			{
 				type: nameof<IServerHealthResponse>(),
@@ -164,7 +163,7 @@ export function generateRestRoutesInformation(
 		method: "GET",
 		path: `${baseRouteName}/spec`,
 		handler: async (httpRequestContext, request) =>
-			serverSpec(httpRequestContext, factoryServiceName, request),
+			serverSpec(httpRequestContext, componentName, request),
 		responseType: [
 			{
 				type: nameof<IServerSpecResponse>(),
@@ -192,53 +191,53 @@ export function generateRestRoutesInformation(
 /**
  * Get the information for the server.
  * @param httpRequestContext The request context for the API.
- * @param factoryServiceName The name of the service to use in the routes.
+ * @param componentName The name of the component to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function serverInfo(
 	httpRequestContext: IHttpRequestContext,
-	factoryServiceName: string,
+	componentName: string,
 	request: INoContentRequest
 ): Promise<IServerInfoResponse> {
-	const service = ServiceFactory.get<IInformationService>(factoryServiceName);
+	const component = ComponentFactory.get<IInformationComponent>(componentName);
 	return {
-		body: await service.info()
+		body: await component.info()
 	};
 }
 
 /**
  * Get the health for the server.
  * @param httpRequestContext The request context for the API.
- * @param factoryServiceName The name of the service to use in the routes.
+ * @param componentName The name of the component to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function serverHealth(
 	httpRequestContext: IHttpRequestContext,
-	factoryServiceName: string,
+	componentName: string,
 	request: INoContentRequest
 ): Promise<IServerHealthResponse> {
-	const service = ServiceFactory.get<IInformationService>(factoryServiceName);
+	const component = ComponentFactory.get<IInformationComponent>(componentName);
 	return {
-		body: await service.health()
+		body: await component.health()
 	};
 }
 
 /**
  * Get the spec for the server.
  * @param httpRequestContext The request context for the API.
- * @param factoryServiceName The name of the service to use in the routes.
+ * @param componentName The name of the component to use in the routes.
  * @param request The request.
  * @returns The response object with additional http response properties.
  */
 export async function serverSpec(
 	httpRequestContext: IHttpRequestContext,
-	factoryServiceName: string,
+	componentName: string,
 	request: INoContentRequest
 ): Promise<IServerSpecResponse> {
-	const service = ServiceFactory.get<IInformationService>(factoryServiceName);
-	const spec = await service.spec();
+	const component = ComponentFactory.get<IInformationComponent>(componentName);
+	const spec = await component.spec();
 
 	if (Is.objectValue(spec)) {
 		return {

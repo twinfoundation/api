@@ -171,16 +171,18 @@ export abstract class BaseRestClient {
 			try {
 				const httpResponse: IHttpResponse = {};
 
-				const contentLength = Coerce.number(response.headers.get("content-length")) ?? 0;
 				const contentType = response.headers.get("content-type") ?? "";
 
-				if (response.status !== HttpStatusCode.noContent && contentLength > 0) {
+				if (response.status !== HttpStatusCode.noContent) {
 					if (/text\/plain/.test(contentType)) {
 						httpResponse.body = await response.text();
 					} else if (/application\/.*json/.test(contentType)) {
 						httpResponse.body = await response.json();
 					} else {
 						httpResponse.body = new Uint8Array(await response.arrayBuffer());
+						if (httpResponse.body.length === 0) {
+							delete httpResponse.body;
+						}
 					}
 				}
 

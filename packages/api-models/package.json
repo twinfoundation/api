@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-models",
-	"version": "0.0.5-next.11",
+	"version": "0.0.5-next.12",
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",

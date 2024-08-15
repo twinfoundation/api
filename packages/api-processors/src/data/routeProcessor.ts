@@ -90,43 +90,51 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					let statusCode: HttpStatusCode =
 						restRouteResponse.statusCode ?? response.statusCode ?? HttpStatusCode.ok;
 
-					if (Is.empty(restRouteResponse?.body) && statusCode === HttpStatusCode.ok) {
-						// If there is no custom status code and the body is empty
-						// use the no content response
-						statusCode = HttpStatusCode.noContent;
-					}
-
 					const headers = restRouteResponse?.headers ?? {};
 
-					// If there are custom response types for the route then use them
-					// instead of the default application/json
-					headers["Content-Type"] =
-						restRouteResponse?.attachment?.mimeType ??
-						response.headers?.["Content-Type"] ??
-						"application/json; charset=utf-8";
-
-					// If there are filename or inline options set then add the content disposition
-					if (
-						Is.stringValue(restRouteResponse?.attachment?.filename) ||
-						Is.boolean(restRouteResponse?.attachment?.inline)
-					) {
-						let filename = "";
-						if (Is.stringValue(restRouteResponse?.attachment?.filename)) {
-							filename = `; filename="${restRouteResponse?.attachment?.filename}"`;
+					if (Is.empty(restRouteResponse?.body)) {
+						// If there is no custom status code and the body is empty
+						// use the no content response and set the length to 0
+						headers["Content-Length"] = "0";
+						// Only change to no content if the status code is ok
+						// This could be something like a created status code
+						// which is successful but has no content
+						if (statusCode === HttpStatusCode.ok) {
+							statusCode = HttpStatusCode.noContent;
 						}
-						headers["Content-Disposition"] =
-							`${restRouteResponse?.attachment?.inline ? "inline" : "attachment"}${filename}`;
-					}
+					} else {
+						// Only set the content type if there is a body
+						// If there are custom response types for the route then use them
+						// instead of the default application/json
+						headers["Content-Type"] =
+							restRouteResponse?.attachment?.mimeType ??
+							response.headers?.["Content-Type"] ??
+							"application/json; charset=utf-8";
 
-					// If this is a binary response then set the content length
-					if (Is.uint8Array(restRouteResponse?.body)) {
-						const contentLength = restRouteResponse.body.length;
-						headers["Content-Length"] = contentLength.toString();
+						// If there are filename or inline options set then add the content disposition
+						if (
+							Is.stringValue(restRouteResponse?.attachment?.filename) ||
+							Is.boolean(restRouteResponse?.attachment?.inline)
+						) {
+							let filename = "";
+							if (Is.stringValue(restRouteResponse?.attachment?.filename)) {
+								filename = `; filename="${restRouteResponse?.attachment?.filename}"`;
+							}
+							headers["Content-Disposition"] =
+								`${restRouteResponse?.attachment?.inline ? "inline" : "attachment"}${filename}`;
+						}
+
+						// If this is a binary response then set the content length
+						if (Is.uint8Array(restRouteResponse?.body)) {
+							const contentLength = restRouteResponse.body.length;
+							headers["Content-Length"] = contentLength.toString();
+						}
+
+						response.body = restRouteResponse?.body;
 					}
 
 					response.headers = headers;
 					response.statusCode = statusCode;
-					response.body = restRouteResponse?.body;
 				} catch (err) {
 					const { error, httpStatusCode } = HttpErrorHelper.processError(err);
 

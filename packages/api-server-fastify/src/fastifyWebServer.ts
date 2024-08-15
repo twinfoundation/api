@@ -14,7 +14,7 @@ import {
 	type IWebServer,
 	type IWebServerOptions
 } from "@gtsc/api-models";
-import { BaseError, type IError, Is, StringHelper } from "@gtsc/core";
+import { BaseError, GeneralError, type IError, Is, StringHelper } from "@gtsc/core";
 import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import { type HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
@@ -105,6 +105,9 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		restRoutes: IRestRoute[],
 		options?: IWebServerOptions
 	): Promise<void> {
+		if (!Is.arrayValue(restRouteProcessors)) {
+			throw new GeneralError(this.CLASS_NAME, "noProcessors");
+		}
 		await this._loggingConnector?.log({
 			level: "info",
 			ts: Date.now(),
@@ -349,7 +352,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			"Accept",
 			"Accept-Encoding"
 		];
-		const exposedHeaders = ["Content-Disposition"];
+		const exposedHeaders = ["Content-Disposition", "Location"];
 
 		if (Is.arrayValue(options?.allowedHeaders)) {
 			allowedHeaders.push(...options.allowedHeaders);

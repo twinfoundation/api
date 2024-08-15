@@ -13,7 +13,8 @@ export abstract class BaseRestClient {
 	 * Runtime name for the class.
 	 * @internal
 	 */
-	private static readonly _CLASS_NAME: string = nameof<BaseRestClient>();
+	private static readonly _CLASS_NAME_CAMEL_CASE: string =
+		StringHelper.camelCase(nameof<BaseRestClient>());
 
 	/**
 	 * The name of the class implementation REST calls.
@@ -103,7 +104,7 @@ export abstract class BaseRestClient {
 				} else {
 					throw new FetchError(
 						this._implementationName,
-						`${BaseRestClient._CLASS_NAME}.missingRouteProp`,
+						`${BaseRestClient._CLASS_NAME_CAMEL_CASE}.missingRouteProp`,
 						HttpStatusCode.badRequest,
 						{ route, routeProp }
 					);
@@ -170,12 +171,21 @@ export abstract class BaseRestClient {
 			try {
 				const httpResponse: IHttpResponse = {};
 
-				if (response.status !== HttpStatusCode.noContent) {
-					httpResponse.body = await response.json();
+				const contentLength = Coerce.number(response.headers.get("content-length")) ?? 0;
+				const contentType = response.headers.get("content-type") ?? "";
+
+				if (response.status !== HttpStatusCode.noContent && contentLength > 0) {
+					if (/text\/plain/.test(contentType)) {
+						httpResponse.body = await response.text();
+					} else if (/application\/.*json/.test(contentType)) {
+						httpResponse.body = await response.json();
+					} else {
+						httpResponse.body = new Uint8Array(await response.arrayBuffer());
+					}
 				}
 
 				const responseHeaders: IHttpHeaders = {};
-				for (const header of response.headers) {
+				for (const header of response.headers.entries()) {
 					responseHeaders[header[0]] = header[1];
 				}
 
@@ -191,7 +201,7 @@ export abstract class BaseRestClient {
 			} catch (err) {
 				throw new FetchError(
 					this._implementationName,
-					`${BaseRestClient._CLASS_NAME}.decodingFailed`,
+					`${BaseRestClient._CLASS_NAME_CAMEL_CASE}.decodingFailed`,
 					response.status as HttpStatusCode,
 					{
 						route
@@ -214,7 +224,7 @@ export abstract class BaseRestClient {
 		if (!err) {
 			err = new FetchError(
 				this._implementationName,
-				`${BaseRestClient._CLASS_NAME}.failureStatusText`,
+				`${BaseRestClient._CLASS_NAME_CAMEL_CASE}.failureStatusText`,
 				response.status as HttpStatusCode,
 				{
 					statusText: response.statusText ?? response.status,

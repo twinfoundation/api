@@ -6,6 +6,7 @@
 		"started": "The Web Server started on {addresses}",
 		"stopped": "The Web Server was stopped",
 		"badRequest": "The web server could not handle the request",
-		"restRouteAdded": "Added REST route \"{route}\" \"{method}\""
+		"restRouteAdded": "Added REST route \"{route}\" \"{method}\"",
+		"noProcessors": "You must configure at least one processor"
 	}
 }

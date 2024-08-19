@@ -24,6 +24,10 @@ The options for the server.
 
 The type of the logging connector to use, if undefined, no logging will happen.
 
+• **options.config?**: `FastifyServerOptions`
+
+Additional options for the Fastify server.
+
 #### Returns
 
 [`FastifyWebServer`](FastifyWebServer.md)

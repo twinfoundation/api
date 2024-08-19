@@ -108,6 +108,12 @@ The type of the request object.
 
 The object type for the request.
 
+#### mimeType?
+
+> `optional` **mimeType**: `string`
+
+The mime type of the request, defaults to "application/json" if there is a body.
+
 #### examples?
 
 > `optional` **examples**: `object`[]
@@ -121,22 +127,6 @@ Example objects for the request.
 > `optional` **responseType**: `object`[]
 
 The type of the response object.
-
-***
-
-### requestContentType?
-
-> `optional` **requestContentType**: `object`[]
-
-The request can have alternative content mime types.
-
-***
-
-### responseContentType?
-
-> `optional` **responseContentType**: `object`[]
-
-The response can have alternative content mime types.
 
 ***
 

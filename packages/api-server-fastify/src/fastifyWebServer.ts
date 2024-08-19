@@ -18,7 +18,12 @@ import { BaseError, GeneralError, type IError, Is, StringHelper } from "@gtsc/co
 import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
 import { type HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
-import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from "fastify";
+import Fastify, {
+	type FastifyServerOptions,
+	type FastifyInstance,
+	type FastifyReply,
+	type FastifyRequest
+} from "fastify";
 
 /**
  * Implementation of the web server using Fastify.
@@ -76,12 +81,13 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	 * Create a new instance of FastifyWebServer.
 	 * @param options The options for the server.
 	 * @param options.loggingConnectorType The type of the logging connector to use, if undefined, no logging will happen.
+	 * @param options.config Additional options for the Fastify server.
 	 */
-	constructor(options?: { loggingConnectorType?: string }) {
+	constructor(options?: { loggingConnectorType?: string; config?: FastifyServerOptions }) {
 		this._loggingConnector = Is.stringValue(options?.loggingConnectorType)
 			? LoggingConnectorFactory.get(options.loggingConnectorType)
 			: undefined;
-		this._fastify = Fastify({ maxParamLength: 2000 });
+		this._fastify = Fastify({ maxParamLength: 2000, ...options?.config });
 		this._started = false;
 	}
 

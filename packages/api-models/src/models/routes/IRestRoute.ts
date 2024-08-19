@@ -56,6 +56,11 @@ export interface IRestRoute<
 		type: string;
 
 		/**
+		 * The mime type of the request, defaults to "application/json" if there is a body.
+		 */
+		mimeType?: string;
+
+		/**
 		 * Example objects for the request.
 		 */
 		examples?: { id: string; description?: string; request: T }[];
@@ -69,26 +74,16 @@ export interface IRestRoute<
 		 * The object type of the response.
 		 */
 		type: string;
+
+		/**
+		 * The mime type of the response, defaults to "application/json" if there is a body.
+		 */
+		mimeType?: string;
+
 		/**
 		 * Example objects of the response.
 		 */
 		examples?: { id: string; description?: string; response: U }[];
-	}[];
-
-	/**
-	 * The request can have alternative content mime types.
-	 */
-	requestContentType?: {
-		mimeType: string;
-		description: string;
-	}[];
-
-	/**
-	 * The response can have alternative content mime types.
-	 */
-	responseContentType?: {
-		mimeType: string;
-		description: string;
 	}[];
 
 	/**

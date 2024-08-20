@@ -4,7 +4,7 @@
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gtscio/api.git",
+		"url": "git+https://github.com/gtscio/api.git",
 		"directory": "packages/api-models"
 	},
 	"author": "martyn.janes@iota.org",

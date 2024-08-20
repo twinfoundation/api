@@ -4,7 +4,7 @@
 	"description": "Use Fastify as the core web server for APIs",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gtscio/api.git",
+		"url": "git+https://github.com/gtscio/api.git",
 		"directory": "packages/api-server-fastify"
 	},
 	"author": "martyn.janes@iota.org",

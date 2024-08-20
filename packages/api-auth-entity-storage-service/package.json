@@ -4,7 +4,7 @@
 	"description": "Auth Entity Storage contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gtscio/api.git",
+		"url": "git+https://github.com/gtscio/api.git",
 		"directory": "packages/api-auth-entity-storage-service"
 	},
 	"author": "martyn.janes@iota.org",

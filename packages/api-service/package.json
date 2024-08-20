@@ -4,7 +4,7 @@
 	"description": "Information contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gtscio/api.git",
+		"url": "git+https://github.com/gtscio/api.git",
 		"directory": "packages/api-service"
 	},
 	"author": "martyn.janes@iota.org",

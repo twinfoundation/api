@@ -19,6 +19,7 @@ import { TokenHelper } from "../utils/tokenHelper";
 export class EntityStorageAuthenticationService implements IAuthenticationComponent {
 	/**
 	 * Default TTL in minutes.
+	 * @internal
 	 */
 	private static readonly _DEFAULT_TTL_MINUTES: number = 60;
 

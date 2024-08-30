@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-processors",
-	"version": "0.0.5-next.13",
+	"version": "0.0.5-next.14",
 	"description": "Route processors for use with API servers",
 	"repository": {
 		"type": "git",
@@ -28,7 +28,7 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-models": "0.0.5-next.13",
+		"@gtsc/api-models": "0.0.5-next.14",
 		"@gtsc/core": "next",
 		"@gtsc/entity": "next",
 		"@gtsc/entity-storage-models": "next",

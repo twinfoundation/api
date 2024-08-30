@@ -136,7 +136,10 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					response.headers = headers;
 					response.statusCode = statusCode;
 				} catch (err) {
-					const { error, httpStatusCode } = HttpErrorHelper.processError(err);
+					const { error, httpStatusCode } = HttpErrorHelper.processError(
+						err,
+						this._includeErrorStack
+					);
 
 					HttpErrorHelper.buildResponse(response, error, httpStatusCode);
 				}

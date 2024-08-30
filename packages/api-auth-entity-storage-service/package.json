@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-auth-entity-storage-service",
-	"version": "0.0.5-next.13",
+	"version": "0.0.5-next.14",
 	"description": "Auth Entity Storage contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
@@ -28,9 +28,9 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-auth-entity-storage-models": "0.0.5-next.13",
-		"@gtsc/api-core": "0.0.5-next.13",
-		"@gtsc/api-models": "0.0.5-next.13",
+		"@gtsc/api-auth-entity-storage-models": "0.0.5-next.14",
+		"@gtsc/api-core": "0.0.5-next.14",
+		"@gtsc/api-models": "0.0.5-next.14",
 		"@gtsc/core": "next",
 		"@gtsc/crypto": "next",
 		"@gtsc/entity": "next",

@@ -28,14 +28,6 @@ The default prefix to use if none in configuration.
 
 [`BaseRestClient`](BaseRestClient.md)
 
-## Properties
-
-### \_includeCredentials
-
-> `private` `readonly` **\_includeCredentials**: `boolean`
-
-Include credentials in the request, defaults to true.
-
 ## Methods
 
 ### getEndpointWithPrefix()

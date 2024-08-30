@@ -38,14 +38,6 @@ The configuration for the authentication.
 
 ## Properties
 
-### \_DEFAULT\_TTL\_MINUTES
-
-> `static` `private` `readonly` **\_DEFAULT\_TTL\_MINUTES**: `number` = `60`
-
-Default TTL in minutes.
-
-***
-
 ### CLASS\_NAME
 
 > `readonly` **CLASS\_NAME**: `string`

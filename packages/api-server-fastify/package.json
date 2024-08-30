@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-server-fastify",
-	"version": "0.0.5-next.13",
+	"version": "0.0.5-next.14",
 	"description": "Use Fastify as the core web server for APIs",
 	"repository": {
 		"type": "git",
@@ -30,8 +30,8 @@
 	"dependencies": {
 		"@fastify/compress": "7.0.3",
 		"@fastify/cors": "9.0.1",
-		"@gtsc/api-models": "0.0.5-next.13",
-		"@gtsc/api-core": "0.0.5-next.13",
+		"@gtsc/api-models": "0.0.5-next.14",
+		"@gtsc/api-core": "0.0.5-next.14",
 		"@gtsc/core": "next",
 		"@gtsc/logging-models": "next",
 		"@gtsc/nameof": "next",

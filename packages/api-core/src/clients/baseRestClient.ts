@@ -42,6 +42,7 @@ export abstract class BaseRestClient {
 
 	/**
 	 * Include credentials in the request, defaults to true.
+	 * @internal
 	 */
 	private readonly _includeCredentials: boolean;
 

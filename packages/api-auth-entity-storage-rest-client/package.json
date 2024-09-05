@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-auth-entity-storage-rest-client",
-	"version": "0.0.5-next.14",
+	"version": "0.0.5-next.15",
 	"description": "Perform REST authentication using entity storage.",
 	"repository": {
 		"type": "git",
@@ -28,9 +28,9 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-auth-entity-storage-models": "0.0.5-next.14",
-		"@gtsc/api-core": "0.0.5-next.14",
-		"@gtsc/api-models": "0.0.5-next.14",
+		"@gtsc/api-auth-entity-storage-models": "0.0.5-next.15",
+		"@gtsc/api-core": "0.0.5-next.15",
+		"@gtsc/api-models": "0.0.5-next.15",
 		"@gtsc/core": "next",
 		"@gtsc/nameof": "next",
 		"@gtsc/web": "next"

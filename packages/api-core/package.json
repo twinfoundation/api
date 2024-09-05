@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-core",
-	"version": "0.0.5-next.14",
+	"version": "0.0.5-next.15",
 	"description": "Core classes for use with APIs",
 	"repository": {
 		"type": "git",
@@ -28,7 +28,7 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-models": "0.0.5-next.14",
+		"@gtsc/api-models": "0.0.5-next.15",
 		"@gtsc/core": "next",
 		"@gtsc/nameof": "next",
 		"@gtsc/web": "next",

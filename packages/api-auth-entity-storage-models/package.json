@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-auth-entity-storage-models",
-	"version": "0.0.5-next.14",
+	"version": "0.0.5-next.15",
 	"description": "Models which define the structure of the Auth Entity Storage contracts.",
 	"repository": {
 		"type": "git",

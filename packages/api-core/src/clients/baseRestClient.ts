@@ -157,8 +157,7 @@ export abstract class BaseRestClient {
 
 		const response = await FetchHelper.fetch(
 			this._implementationName,
-			this._endpointWithPrefix,
-			finalRoute,
+			`${this._endpointWithPrefix}${finalRoute}`,
 			method,
 			body,
 			{

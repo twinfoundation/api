@@ -1,6 +1,6 @@
 {
 	"name": "@gtsc/api-rest-client",
-	"version": "0.0.5-next.14",
+	"version": "0.0.5-next.15",
 	"description": "Information contract implementation which can connect to REST endpoints",
 	"repository": {
 		"type": "git",
@@ -28,8 +28,8 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@gtsc/api-core": "0.0.5-next.14",
-		"@gtsc/api-models": "0.0.5-next.14",
+		"@gtsc/api-core": "0.0.5-next.15",
+		"@gtsc/api-models": "0.0.5-next.15",
 		"@gtsc/core": "next",
 		"@gtsc/nameof": "next",
 		"@gtsc/web": "next"

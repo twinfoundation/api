@@ -10,7 +10,7 @@ import type {
 import { Coerce, Is } from "@gtsc/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
-import { HttpStatusCode } from "@gtsc/web";
+import { HeaderTypes, HttpStatusCode, MimeTypes } from "@gtsc/web";
 import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingProcessorConfig";
 
 /**
@@ -95,9 +95,9 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	): Promise<void> {
 		let data: { [id: string]: unknown } | undefined;
 		if (this._includeBody) {
-			const contentType = response.headers?.["Content-Type"];
-			const isJson = contentType?.includes("application/json; charset=utf-8");
-			const contentLength = response.headers?.["Content-Length"];
+			const contentType = response.headers?.[HeaderTypes.ContentType];
+			const isJson = contentType?.includes(`${MimeTypes.Json}; charset=utf-8`);
+			const contentLength = response.headers?.[HeaderTypes.ContentLength];
 			if (isJson) {
 				data = {
 					body: response.body

@@ -17,7 +17,7 @@ import {
 import { BaseError, GeneralError, type IError, Is, StringHelper } from "@gtsc/core";
 import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
 import { nameof } from "@gtsc/nameof";
-import { type HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
+import { HeaderTypes, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
 import Fastify, {
 	type FastifyServerOptions,
 	type FastifyInstance,
@@ -349,16 +349,22 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 
 		const hasWildcardOrigin = origins.includes("*");
 
-		const methods = options?.methods ?? ["GET", "PUT", "POST", "DELETE", "OPTIONS"];
+		const methods = options?.methods ?? [
+			HttpMethod.GET,
+			HttpMethod.PUT,
+			HttpMethod.POST,
+			HttpMethod.DELETE,
+			HttpMethod.OPTIONS
+		];
 		const allowedHeaders = [
 			"Access-Control-Allow-Origin",
-			"Content-Type",
 			"Content-Encoding",
-			"Authorization",
-			"Accept",
-			"Accept-Encoding"
+			"Accept-Encoding",
+			HeaderTypes.ContentType,
+			HeaderTypes.Authorization,
+			HeaderTypes.Accept
 		];
-		const exposedHeaders = ["Content-Disposition", "Location"];
+		const exposedHeaders: string[] = [HeaderTypes.ContentDisposition, HeaderTypes.Location];
 
 		if (Is.arrayValue(options?.allowedHeaders)) {
 			allowedHeaders.push(...options.allowedHeaders);

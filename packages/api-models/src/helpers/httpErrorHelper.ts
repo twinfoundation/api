@@ -8,9 +8,10 @@ import {
 	type IError,
 	NotFoundError,
 	NotImplementedError,
-	UnauthorizedError
+	UnauthorizedError,
+	UnprocessableError
 } from "@gtsc/core";
-import { HttpStatusCode } from "@gtsc/web";
+import { HttpStatusCode, HeaderTypes, MimeTypes } from "@gtsc/web";
 import type { IHttpResponse } from "../models/protocol/IHttpResponse";
 
 /**
@@ -49,6 +50,8 @@ export class HttpErrorHelper {
 			httpStatusCode = HttpStatusCode.unauthorized;
 		} else if (flattened.some(e => BaseError.isErrorName(e, NotImplementedError.CLASS_NAME))) {
 			httpStatusCode = HttpStatusCode.forbidden;
+		} else if (flattened.some(e => BaseError.isErrorName(e, UnprocessableError.CLASS_NAME))) {
+			httpStatusCode = HttpStatusCode.unprocessableEntity;
 		}
 
 		const returnError = error.toJsonObject();
@@ -74,7 +77,7 @@ export class HttpErrorHelper {
 		statusCode: HttpStatusCode
 	): void {
 		response.headers ??= {};
-		response.headers["Content-Type"] = "application/json; charset=utf-8";
+		response.headers[HeaderTypes.ContentType] = `${MimeTypes.Json}; charset=utf-8`;
 		response.body = error;
 		response.statusCode = statusCode;
 	}

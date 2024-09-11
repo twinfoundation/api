@@ -3,7 +3,15 @@
 import type { IBaseRestClientConfig, IHttpRequest, IHttpResponse } from "@gtsc/api-models";
 import { BaseError, Coerce, Guards, Is, StringHelper, type IKeyValue } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import { FetchError, FetchHelper, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
+import {
+	FetchError,
+	FetchHelper,
+	HeaderTypes,
+	HttpMethod,
+	HttpStatusCode,
+	MimeTypes,
+	type IHttpHeaders
+} from "@gtsc/web";
 
 /**
  * Abstract client class for common REST processing.
@@ -148,7 +156,7 @@ export abstract class BaseRestClient {
 		let requestHeaders: IHttpHeaders = {};
 
 		if (body) {
-			requestHeaders["Content-Type"] = "application/json";
+			requestHeaders[HeaderTypes.ContentType] = MimeTypes.Json;
 		}
 
 		if (Is.object(this._headers)) {
@@ -171,7 +179,10 @@ export abstract class BaseRestClient {
 			try {
 				const httpResponse: IHttpResponse = {};
 
-				const contentType = response.headers.get("content-type") ?? "";
+				const contentType =
+					response.headers.get(HeaderTypes.ContentType) ??
+					response.headers.get(HeaderTypes.ContentType.toLowerCase()) ??
+					"";
 
 				if (response.status !== HttpStatusCode.noContent) {
 					if (/text\/plain/.test(contentType)) {

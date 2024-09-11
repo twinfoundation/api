@@ -12,7 +12,7 @@ import {
 } from "@gtsc/api-models";
 import { Is, NotFoundError } from "@gtsc/core";
 import { nameof } from "@gtsc/nameof";
-import { HttpStatusCode } from "@gtsc/web";
+import { HeaderTypes, HttpStatusCode, MimeTypes } from "@gtsc/web";
 import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
 
 /**
@@ -95,7 +95,7 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 					if (Is.empty(restRouteResponse?.body)) {
 						// If there is no custom status code and the body is empty
 						// use the no content response and set the length to 0
-						headers["Content-Length"] = "0";
+						headers[HeaderTypes.ContentLength] = "0";
 						// Only change to no content if the status code is ok
 						// This could be something like a created status code
 						// which is successful but has no content
@@ -106,10 +106,10 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 						// Only set the content type if there is a body
 						// If there are custom response types for the route then use them
 						// instead of the default application/json
-						headers["Content-Type"] =
+						headers[HeaderTypes.ContentType] =
 							restRouteResponse?.attachment?.mimeType ??
-							response.headers?.["Content-Type"] ??
-							"application/json; charset=utf-8";
+							response.headers?.[HeaderTypes.ContentType] ??
+							`${MimeTypes.Json}; charset=utf-8`;
 
 						// If there are filename or inline options set then add the content disposition
 						if (
@@ -120,14 +120,14 @@ export class RouteProcessor implements IHttpRestRouteProcessor {
 							if (Is.stringValue(restRouteResponse?.attachment?.filename)) {
 								filename = `; filename="${restRouteResponse?.attachment?.filename}"`;
 							}
-							headers["Content-Disposition"] =
+							headers[HeaderTypes.ContentDisposition] =
 								`${restRouteResponse?.attachment?.inline ? "inline" : "attachment"}${filename}`;
 						}
 
 						// If this is a binary response then set the content length
 						if (Is.uint8Array(restRouteResponse?.body)) {
 							const contentLength = restRouteResponse.body.length;
-							headers["Content-Length"] = contentLength.toString();
+							headers[HeaderTypes.ContentLength] = contentLength.toString();
 						}
 
 						response.body = restRouteResponse?.body;

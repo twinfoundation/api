@@ -10,4 +10,3 @@ export * from "./schema";
 export * from "./services/entityStorageAuthenticationService";
 export * from "./utils/passwordHelper";
 export * from "./utils/tokenHelper";
-

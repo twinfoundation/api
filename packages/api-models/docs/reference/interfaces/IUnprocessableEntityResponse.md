@@ -1,4 +1,4 @@
-# Interface: IBadRequestResponse
+# Interface: IUnprocessableEntityResponse
 
 The server cannot process the request, see the content for more details.
 
@@ -6,7 +6,7 @@ The server cannot process the request, see the content for more details.
 
 ### statusCode
 
-> **statusCode**: `400`
+> **statusCode**: `422`
 
 Response status code.
 

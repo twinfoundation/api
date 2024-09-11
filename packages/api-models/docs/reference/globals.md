@@ -25,6 +25,7 @@
 - [IInternalServerErrorResponse](interfaces/IInternalServerErrorResponse.md)
 - [INotFoundResponse](interfaces/INotFoundResponse.md)
 - [IUnauthorizedResponse](interfaces/IUnauthorizedResponse.md)
+- [IUnprocessableEntityResponse](interfaces/IUnprocessableEntityResponse.md)
 - [IAcceptedResponse](interfaces/IAcceptedResponse.md)
 - [ICreatedResponse](interfaces/ICreatedResponse.md)
 - [INoContentResponse](interfaces/INoContentResponse.md)

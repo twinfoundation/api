@@ -4,21 +4,16 @@ import type { IError } from "@gtsc/core";
 import type { HttpStatusCode } from "@gtsc/web";
 
 /**
- * The request resulted in a conflicting operation, see the content for more details.
+ * The server cannot process the request, see the content for more details.
  */
-export interface IConflictResponse {
+export interface IUnprocessableEntityResponse {
 	/**
 	 * Response status code.
 	 */
-	statusCode: typeof HttpStatusCode.conflict;
+	statusCode: typeof HttpStatusCode.unprocessableEntity;
 
 	/**
 	 * The body which contains the error.
 	 */
-	body: IError & {
-		/**
-		 * The conflicting items.
-		 */
-		conflicts: string[];
-	};
+	body: IError;
 }

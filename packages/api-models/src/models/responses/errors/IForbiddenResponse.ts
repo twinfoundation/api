@@ -4,7 +4,7 @@ import type { IError } from "@gtsc/core";
 import type { HttpStatusCode } from "@gtsc/web";
 
 /**
- * The operation that you tried to perform is not possible, see the error field for more details.
+ * The operation that you tried to perform is not possible, see the content for more details.
  */
 export interface IForbiddenResponse {
 	/**

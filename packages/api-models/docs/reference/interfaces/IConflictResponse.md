@@ -1,6 +1,6 @@
 # Interface: IConflictResponse
 
-The request resulted in a conflicting operation, see the error field for more details.
+The request resulted in a conflicting operation, see the content for more details.
 
 ## Properties
 

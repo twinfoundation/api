@@ -4,7 +4,7 @@ import type { IError } from "@gtsc/core";
 import type { HttpStatusCode } from "@gtsc/web";
 
 /**
- * The resource you tried to access does not exist, see the error field for more details.
+ * The resource you tried to access does not exist, see the content for more details.
  */
 export interface INotFoundResponse {
 	/**

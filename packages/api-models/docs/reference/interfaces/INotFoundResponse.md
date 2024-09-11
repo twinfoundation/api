@@ -1,6 +1,6 @@
 # Interface: INotFoundResponse
 
-The resource you tried to access does not exist, see the error field for more details.
+The resource you tried to access does not exist, see the content for more details.
 
 ## Properties
 

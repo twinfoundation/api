@@ -1,6 +1,6 @@
 # Interface: IForbiddenResponse
 
-The operation that you tried to perform is not possible, see the error field for more details.
+The operation that you tried to perform is not possible, see the content for more details.
 
 ## Properties
 

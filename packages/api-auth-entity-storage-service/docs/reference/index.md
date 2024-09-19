@@ -1,4 +1,4 @@
-# @gtsc/api-auth-entity-storage-service
+# @twin.org/api-auth-entity-storage-service
 
 ## Classes
 

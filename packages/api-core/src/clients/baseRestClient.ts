@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseRestClientConfig, IHttpRequest, IHttpResponse } from "@gtsc/api-models";
-import { BaseError, Coerce, Guards, Is, StringHelper, type IKeyValue } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
+import type { IBaseRestClientConfig, IHttpRequest, IHttpResponse } from "@twin.org/api-models";
+import { BaseError, Coerce, Guards, Is, StringHelper, type IKeyValue } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
 import {
 	FetchError,
 	FetchHelper,
@@ -11,7 +11,7 @@ import {
 	HttpStatusCode,
 	MimeTypes,
 	type IHttpHeaders
-} from "@gtsc/web";
+} from "@twin.org/web";
 
 /**
  * Abstract client class for common REST processing.

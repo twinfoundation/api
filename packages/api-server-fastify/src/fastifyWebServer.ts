@@ -13,11 +13,11 @@ import {
 	type IRestRoute,
 	type IWebServer,
 	type IWebServerOptions
-} from "@gtsc/api-models";
-import { BaseError, GeneralError, type IError, Is, StringHelper } from "@gtsc/core";
-import { type ILoggingConnector, LoggingConnectorFactory } from "@gtsc/logging-models";
-import { nameof } from "@gtsc/nameof";
-import { HeaderTypes, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@gtsc/web";
+} from "@twin.org/api-models";
+import { BaseError, GeneralError, type IError, Is, StringHelper } from "@twin.org/core";
+import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
+import { nameof } from "@twin.org/nameof";
+import { HeaderTypes, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@twin.org/web";
 import Fastify, {
 	type FastifyServerOptions,
 	type FastifyInstance,

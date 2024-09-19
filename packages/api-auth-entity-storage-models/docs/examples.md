@@ -1,1 +1,1 @@
-# @gtsc/api-auth-entity-storage-models - Examples
+# @twin.org/api-auth-entity-storage-models - Examples

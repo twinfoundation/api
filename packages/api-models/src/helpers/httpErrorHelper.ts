@@ -10,8 +10,8 @@ import {
 	NotImplementedError,
 	UnauthorizedError,
 	UnprocessableError
-} from "@gtsc/core";
-import { HttpStatusCode, HeaderTypes, MimeTypes } from "@gtsc/web";
+} from "@twin.org/core";
+import { HttpStatusCode, HeaderTypes, MimeTypes } from "@twin.org/web";
 import type { IHttpResponse } from "../models/protocol/IHttpResponse";
 
 /**

@@ -1,4 +1,4 @@
-# Type alias: HealthStatus
+# Type Alias: HealthStatus
 
 > **HealthStatus**: *typeof* [`HealthStatus`](../variables/HealthStatus.md)\[keyof *typeof* [`HealthStatus`](../variables/HealthStatus.md)\]
 

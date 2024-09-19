@@ -6,11 +6,11 @@ import type {
 	IHttpRestRouteProcessor,
 	IHttpServerRequest,
 	IRestRoute
-} from "@gtsc/api-models";
-import { Coerce, Is } from "@gtsc/core";
-import { LoggingConnectorFactory, type ILoggingConnector } from "@gtsc/logging-models";
-import { nameof } from "@gtsc/nameof";
-import { HeaderTypes, HttpStatusCode, MimeTypes } from "@gtsc/web";
+} from "@twin.org/api-models";
+import { Coerce, Is } from "@twin.org/core";
+import { LoggingConnectorFactory, type ILoggingConnector } from "@twin.org/logging-models";
+import { nameof } from "@twin.org/nameof";
+import { HeaderTypes, HttpStatusCode, MimeTypes } from "@twin.org/web";
 import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingProcessorConfig";
 
 /**

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { entity, property } from "@gtsc/entity";
+import { entity, property } from "@twin.org/entity";
 
 /**
  * Class defining the storage for user login credentials.

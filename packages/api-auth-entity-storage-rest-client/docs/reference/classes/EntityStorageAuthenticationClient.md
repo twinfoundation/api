@@ -162,7 +162,7 @@ The endpoint with namespace prefix attached.
 
 Perform a request in json format.
 
-#### Type parameters
+#### Type Parameters
 
 • **T** *extends* `IHttpRequest`\<`any`\>
 

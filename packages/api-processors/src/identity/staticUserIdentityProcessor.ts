@@ -6,9 +6,9 @@ import type {
 	IHttpRestRouteProcessor,
 	IHttpServerRequest,
 	IRestRoute
-} from "@gtsc/api-models";
-import { Guards, Is } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
+} from "@twin.org/api-models";
+import { Guards, Is } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
 import type { IStaticUserIdentityProcessorConfig } from "../models/IStaticUserIdentityProcessorConfig";
 
 /**

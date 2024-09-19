@@ -7,7 +7,7 @@ import type {
 	ILogoutRequest,
 	IRefreshTokenRequest,
 	IRefreshTokenResponse
-} from "@gtsc/api-auth-entity-storage-models";
+} from "@twin.org/api-auth-entity-storage-models";
 import type {
 	IHttpRequestContext,
 	INoContentResponse,
@@ -15,10 +15,10 @@ import type {
 	IRestRouteResponseOptions,
 	ITag,
 	IUnauthorizedResponse
-} from "@gtsc/api-models";
-import { ComponentFactory, Guards } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
-import { HttpStatusCode } from "@gtsc/web";
+} from "@twin.org/api-models";
+import { ComponentFactory, Guards } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
+import { HttpStatusCode } from "@twin.org/web";
 
 /**
  * The source used when communicating about these routes.

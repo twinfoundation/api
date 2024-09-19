@@ -7,11 +7,11 @@ import {
 	type IHttpRestRouteProcessor,
 	type IHttpServerRequest,
 	type IRestRoute
-} from "@gtsc/api-models";
-import { BaseError, Guards, Is } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
-import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
-import { HttpStatusCode } from "@gtsc/web";
+} from "@twin.org/api-models";
+import { BaseError, Guards, Is } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
+import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
+import { HttpStatusCode } from "@twin.org/web";
 import type { IAuthHeaderProcessorConfig } from "../models/IAuthHeaderProcessorConfig";
 import { TokenHelper } from "../utils/tokenHelper";
 

@@ -1,4 +1,4 @@
-# @gtsc/api-auth-entity-storage-models
+# @twin.org/api-auth-entity-storage-models
 
 ## Interfaces
 

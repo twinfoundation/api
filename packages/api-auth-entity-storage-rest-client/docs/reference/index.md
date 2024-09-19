@@ -1,4 +1,4 @@
-# @gtsc/api-auth-entity-storage-rest-client
+# @twin.org/api-auth-entity-storage-rest-client
 
 ## Classes
 

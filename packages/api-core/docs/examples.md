@@ -1,1 +1,1 @@
-# @gtsc/api-core - Examples
+# @twin.org/api-core - Examples

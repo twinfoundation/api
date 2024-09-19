@@ -7,7 +7,7 @@ Model for the standard parameters for an http request.
 - [`IHttpServerRequest`](IHttpServerRequest.md)
 - [`INoContentRequest`](INoContentRequest.md)
 
-## Type parameters
+## Type Parameters
 
 • **T** = `any`
 

@@ -1,5 +1,5 @@
-# @gtsc/api-auth-entity-storage-service - Changelog
+# @twin.org/api-auth-entity-storage-service - Changelog
 
-## v0.0.3
+## v0.0.1-next.2
 
 - Initial Release

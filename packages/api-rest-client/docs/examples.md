@@ -1,1 +1,1 @@
-# @gtsc/api-rest-client - Examples
+# @twin.org/api-rest-client - Examples

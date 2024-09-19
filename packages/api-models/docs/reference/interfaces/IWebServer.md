@@ -2,7 +2,7 @@
 
 Interface describing a web server.
 
-## Type parameters
+## Type Parameters
 
 • **T**
 

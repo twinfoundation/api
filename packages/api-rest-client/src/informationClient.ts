@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { BaseRestClient } from "@gtsc/api-core";
+import { BaseRestClient } from "@twin.org/api-core";
 import type {
 	HealthStatus,
 	IBaseRestClientConfig,
@@ -11,9 +11,9 @@ import type {
 	IServerInfo,
 	IServerInfoResponse,
 	IServerSpecResponse
-} from "@gtsc/api-models";
-import { NotSupportedError } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
+} from "@twin.org/api-models";
+import { NotSupportedError } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
 
 /**
  * The client to connect to the information service.

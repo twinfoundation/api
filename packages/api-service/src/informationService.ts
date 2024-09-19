@@ -6,9 +6,9 @@ import type {
 	IHealthInfo,
 	IInformationComponent,
 	IServerInfo
-} from "@gtsc/api-models";
-import { Is } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
+} from "@twin.org/api-models";
+import { Is } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
 
 /**
  * The information service for the server.

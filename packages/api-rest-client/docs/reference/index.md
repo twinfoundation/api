@@ -1,4 +1,4 @@
-# @gtsc/api-rest-client
+# @twin.org/api-rest-client
 
 ## Classes
 

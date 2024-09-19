@@ -7,11 +7,11 @@ import type {
 	ILogoutRequest,
 	IRefreshTokenRequest,
 	IRefreshTokenResponse
-} from "@gtsc/api-auth-entity-storage-models";
-import { BaseRestClient } from "@gtsc/api-core";
-import type { IBaseRestClientConfig, INoContentResponse } from "@gtsc/api-models";
-import { Guards } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
+} from "@twin.org/api-auth-entity-storage-models";
+import { BaseRestClient } from "@twin.org/api-core";
+import type { IBaseRestClientConfig, INoContentResponse } from "@twin.org/api-models";
+import { Guards } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
 
 /**
  * The client to connect to the authentication service.

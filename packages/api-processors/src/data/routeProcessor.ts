@@ -9,10 +9,10 @@ import {
 	type IHttpServerRequest,
 	type IRestRoute,
 	type IRestRouteResponseOptions
-} from "@gtsc/api-models";
-import { Is, NotFoundError } from "@gtsc/core";
-import { nameof } from "@gtsc/nameof";
-import { HeaderTypes, HttpStatusCode, MimeTypes } from "@gtsc/web";
+} from "@twin.org/api-models";
+import { Is, NotFoundError } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
+import { HeaderTypes, HttpStatusCode, MimeTypes } from "@twin.org/web";
 import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
 
 /**

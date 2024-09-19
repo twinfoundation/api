@@ -1,13 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAuthenticationComponent } from "@gtsc/api-auth-entity-storage-models";
-import { Converter, GeneralError, Guards, UnauthorizedError } from "@gtsc/core";
+import type { IAuthenticationComponent } from "@twin.org/api-auth-entity-storage-models";
+import { Converter, GeneralError, Guards, UnauthorizedError } from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
-} from "@gtsc/entity-storage-models";
-import { nameof } from "@gtsc/nameof";
-import { VaultConnectorFactory, type IVaultConnector } from "@gtsc/vault-models";
+} from "@twin.org/entity-storage-models";
+import { nameof } from "@twin.org/nameof";
+import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
 import type { AuthenticationUser } from "../entities/authenticationUser";
 import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
 import { PasswordHelper } from "../utils/passwordHelper";

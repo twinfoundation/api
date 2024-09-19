@@ -6,7 +6,7 @@ Interface which defines a REST route.
 
 - [`IBaseRoute`](IBaseRoute.md)
 
-## Type parameters
+## Type Parameters
 
 • **T** *extends* [`IHttpRequest`](IHttpRequest.md) = `any`
 

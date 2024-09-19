@@ -1,1 +1,1 @@
-# @gtsc/api-auth-entity-storage-rest-client - Examples
+# @twin.org/api-auth-entity-storage-rest-client - Examples

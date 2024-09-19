@@ -1,5 +1,5 @@
-# @gtsc/api-server-fastify - Changelog
+# @twin.org/api-server-fastify - Changelog
 
-## v0.0.3
+## v0.0.1-next.2
 
 - Initial Release

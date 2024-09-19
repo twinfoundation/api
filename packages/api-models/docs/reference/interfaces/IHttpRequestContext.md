@@ -22,7 +22,7 @@ The raw HTTP request.
 
 The state handed through the processors.
 
-#### Index signature
+#### Index Signature
 
  \[`id`: `string`\]: `unknown`
 

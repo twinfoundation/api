@@ -1,4 +1,4 @@
-# @gtsc/api-core
+# @twin.org/api-core
 
 ## Classes
 

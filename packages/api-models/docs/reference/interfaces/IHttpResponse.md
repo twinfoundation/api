@@ -2,7 +2,7 @@
 
 Model for the standard parameters for an http response.
 
-## Type parameters
+## Type Parameters
 
 • **T** = `any`
 

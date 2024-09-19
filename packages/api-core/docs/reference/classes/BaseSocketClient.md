@@ -36,7 +36,7 @@ The default prefix to use if none in configuration.
 
 Setup a handler for a message from the socket.
 
-#### Type parameters
+#### Type Parameters
 
 • **T**
 
@@ -62,7 +62,7 @@ The method to call when the message arrives.
 
 Send a message on the socket.
 
-#### Type parameters
+#### Type Parameters
 
 • **T**
 
@@ -124,7 +124,7 @@ True if the socket is connected.
 
 ### handleConnected()
 
-> `protected` `abstract` **handleConnected**(): `Promise`\<`void`\>
+> `abstract` `protected` **handleConnected**(): `Promise`\<`void`\>
 
 Handle the socket connection.
 
@@ -136,7 +136,7 @@ Handle the socket connection.
 
 ### handleError()
 
-> `protected` `abstract` **handleError**(`err`): `Promise`\<`void`\>
+> `abstract` `protected` **handleError**(`err`): `Promise`\<`void`\>
 
 Handle an error.
 

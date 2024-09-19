@@ -6,7 +6,7 @@ Model for the standard parameters for an http request.
 
 - [`IHttpRequest`](IHttpRequest.md)\<`T`\>
 
-## Type parameters
+## Type Parameters
 
 • **T** = `any`
 

@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-core",
-	"version": "0.0.1-next.3",
+	"version": "0.0.1-next.4",
 	"description": "Core classes for use with APIs",
 	"repository": {
 		"type": "git",
@@ -27,7 +27,7 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@twin.org/api-models": "0.0.1-next.3",
+		"@twin.org/api-models": "0.0.1-next.4",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next",

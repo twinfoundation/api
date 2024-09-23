@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-models",
-	"version": "0.0.1-next.3",
+	"version": "0.0.1-next.4",
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",
@@ -28,6 +28,7 @@
 	},
 	"dependencies": {
 		"@twin.org/core": "next",
+		"@twin.org/entity": "next",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next"
 	},

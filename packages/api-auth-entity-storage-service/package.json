@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-auth-entity-storage-service",
-	"version": "0.0.1-next.3",
+	"version": "0.0.1-next.4",
 	"description": "Auth Entity Storage contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
@@ -27,9 +27,9 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@twin.org/api-auth-entity-storage-models": "0.0.1-next.3",
-		"@twin.org/api-core": "0.0.1-next.3",
-		"@twin.org/api-models": "0.0.1-next.3",
+		"@twin.org/api-auth-entity-storage-models": "0.0.1-next.4",
+		"@twin.org/api-core": "0.0.1-next.4",
+		"@twin.org/api-models": "0.0.1-next.4",
 		"@twin.org/core": "next",
 		"@twin.org/crypto": "next",
 		"@twin.org/entity": "next",

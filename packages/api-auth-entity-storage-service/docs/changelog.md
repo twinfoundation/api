@@ -1,5 +1,5 @@
 # @twin.org/api-auth-entity-storage-service - Changelog
 
-## v0.0.1-next.3
+## v0.0.1-next.4
 
 - Initial Release

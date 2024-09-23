@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-rest-client",
-	"version": "0.0.1-next.3",
+	"version": "0.0.1-next.4",
 	"description": "Information contract implementation which can connect to REST endpoints",
 	"repository": {
 		"type": "git",
@@ -27,8 +27,8 @@
 		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@twin.org/api-core": "0.0.1-next.3",
-		"@twin.org/api-models": "0.0.1-next.3",
+		"@twin.org/api-core": "0.0.1-next.4",
+		"@twin.org/api-models": "0.0.1-next.4",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next"

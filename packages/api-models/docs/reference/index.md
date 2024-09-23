@@ -3,6 +3,7 @@
 ## Classes
 
 - [HttpErrorHelper](classes/HttpErrorHelper.md)
+- [HttpParameterHelper](classes/HttpParameterHelper.md)
 
 ## Interfaces
 

@@ -18,8 +18,8 @@ Response status code.
 
 Additional response headers.
 
-#### Location
+#### location
 
-> **Location**: `string`
+> **location**: `string`
 
 The location where the resource was created.

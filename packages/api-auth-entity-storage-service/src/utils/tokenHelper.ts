@@ -113,10 +113,12 @@ export class TokenHelper {
 	public static extractTokenFromHeaders(
 		headers?: IHttpHeaders,
 		cookieName?: string
-	): {
-		token: string | undefined;
-		location: "authorization" | "cookie" | undefined;
-	} {
+	):
+		| {
+				token: string;
+				location: "authorization" | "cookie";
+		  }
+		| undefined {
 		const authHeader = headers?.[HeaderTypes.Authorization];
 		const cookiesHeader = headers?.[HeaderTypes.Cookie];
 
@@ -142,10 +144,5 @@ export class TokenHelper {
 				}
 			}
 		}
-
-		return {
-			token: undefined,
-			location: undefined
-		};
 	}
 }

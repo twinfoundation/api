@@ -96,7 +96,7 @@ UnauthorizedError if the token is missing, invalid or expired.
 
 ### extractTokenFromHeaders()
 
-> `static` **extractTokenFromHeaders**(`headers`?, `cookieName`?): `object`
+> `static` **extractTokenFromHeaders**(`headers`?, `cookieName`?): `undefined` \| `object`
 
 Extract the auth token from the headers, either from the authorization header or the cookie header.
 
@@ -112,14 +112,6 @@ The name of the cookie to extract the token from.
 
 #### Returns
 
-`object`
+`undefined` \| `object`
 
 The token if found.
-
-##### token
-
-> **token**: `undefined` \| `string`
-
-##### location
-
-> **location**: `undefined` \| `"authorization"` \| `"cookie"`

@@ -102,12 +102,12 @@ export class AuthHeaderProcessor implements IHttpRestRouteProcessor {
 				const headerAndPayload = await TokenHelper.verify(
 					this._vaultConnector,
 					`${this._nodeIdentity}/${this._signingKeyName}`,
-					tokenAndLocation.token
+					tokenAndLocation?.token
 				);
 
 				requestIdentity.userIdentity = headerAndPayload.payload?.sub;
-				processorState.authToken = tokenAndLocation.token;
-				processorState.authTokenLocation = tokenAndLocation.location;
+				processorState.authToken = tokenAndLocation?.token;
+				processorState.authTokenLocation = tokenAndLocation?.location;
 			} catch (err) {
 				const error = BaseError.fromError(err);
 				HttpErrorHelper.buildResponse(response, error, HttpStatusCode.unauthorized);

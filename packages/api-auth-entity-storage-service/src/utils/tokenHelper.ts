@@ -4,6 +4,7 @@ import { Is, UnauthorizedError } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import type { IVaultConnector } from "@twin.org/vault-models";
 import {
+	HeaderTypes,
 	type IHttpHeaders,
 	type IJwtHeader,
 	type IJwtPayload,
@@ -116,13 +117,14 @@ export class TokenHelper {
 		token: string | undefined;
 		location: "authorization" | "cookie" | undefined;
 	} {
-		const cookiesHeader = headers?.cookie;
-		let token: string | undefined;
-		let location: "authorization" | "cookie" | undefined;
+		const authHeader = headers?.[HeaderTypes.Authorization];
+		const cookiesHeader = headers?.[HeaderTypes.Cookie];
 
-		if (Is.string(headers?.authorization) && headers.authorization.startsWith("Bearer ")) {
-			token = headers.authorization.slice(7).trim();
-			location = "authorization";
+		if (Is.string(authHeader) && authHeader.startsWith("Bearer ")) {
+			return {
+				token: authHeader.slice(7).trim(),
+				location: "authorization"
+			};
 		} else if (Is.notEmpty(cookiesHeader) && Is.stringValue(cookieName)) {
 			const cookies = Is.arrayValue(cookiesHeader) ? cookiesHeader : [cookiesHeader];
 			for (const cookie of cookies) {
@@ -132,17 +134,18 @@ export class TokenHelper {
 						.map(c => c.trim())
 						.find(c => c.startsWith(cookieName));
 					if (Is.stringValue(accessTokenCookie)) {
-						token = accessTokenCookie.slice(cookieName.length + 1).trim();
-						location = "cookie";
-						break;
+						return {
+							token: accessTokenCookie.slice(cookieName.length + 1).trim(),
+							location: "cookie"
+						};
 					}
 				}
 			}
 		}
 
 		return {
-			token,
-			location
+			token: undefined,
+			location: undefined
 		};
 	}
 }

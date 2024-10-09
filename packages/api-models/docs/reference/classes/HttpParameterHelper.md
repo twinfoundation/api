@@ -62,51 +62,11 @@ The combined.
 
 ***
 
-### conditionsFromString()
+### objectFromString()
 
-> `static` **conditionsFromString**(`conditions`?): `undefined` \| `IComparator`[]
+> `static` **objectFromString**\<`T`\>(`value`?): `undefined` \| `T`
 
-Convert the conditions string to a list of comparators.
-
-#### Parameters
-
-• **conditions?**: `string`
-
-The conditions query string.
-
-#### Returns
-
-`undefined` \| `IComparator`[]
-
-The list of comparators.
-
-***
-
-### conditionsToString()
-
-> `static` **conditionsToString**(`conditions`?): `undefined` \| `string`
-
-Convert the conditions to a string parameter.
-
-#### Parameters
-
-• **conditions?**: `IComparator`[]
-
-The conditions to convert.
-
-#### Returns
-
-`undefined` \| `string`
-
-The string version of the comparators.
-
-***
-
-### sortPropertiesFromString()
-
-> `static` **sortPropertiesFromString**\<`T`\>(`sortProperties`?): `undefined` \| `object`[]
-
-Convert the sort string to a list of sort properties.
+Convert object string to object.
 
 #### Type Parameters
 
@@ -114,23 +74,23 @@ Convert the sort string to a list of sort properties.
 
 #### Parameters
 
-• **sortProperties?**: `string`
+• **value?**: `string`
 
-The sort properties query string.
+The value query string.
 
 #### Returns
 
-`undefined` \| `object`[]
+`undefined` \| `T`
 
-The list of sort properties.
+The object.
 
 ***
 
-### sortPropertiesToString()
+### objectToString()
 
-> `static` **sortPropertiesToString**\<`T`\>(`sortProperties`?): `undefined` \| `string`
+> `static` **objectToString**\<`T`\>(`value`?): `undefined` \| `string`
 
-Convert the sort properties to a string parameter.
+Convert object to query string.
 
 #### Type Parameters
 
@@ -138,12 +98,12 @@ Convert the sort properties to a string parameter.
 
 #### Parameters
 
-• **sortProperties?**: `object`[]
+• **value?**: `T`
 
-The sort properties to convert.
+The value to convert to a string.
 
 #### Returns
 
 `undefined` \| `string`
 
-The string version of the sort properties.
+The converted object.

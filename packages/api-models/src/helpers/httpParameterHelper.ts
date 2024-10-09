@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Is } from "@twin.org/core";
-import type { ComparisonOperator, IComparator, SortDirection } from "@twin.org/entity";
+import { Coerce, Is } from "@twin.org/core";
 
 /**
  * Class to help with handling http parameters.
@@ -26,94 +25,20 @@ export class HttpParameterHelper {
 	}
 
 	/**
-	 * Convert the conditions string to a list of comparators.
-	 * @param conditions The conditions query string.
-	 * @returns The list of comparators.
+	 * Convert object string to object.
+	 * @param value The value query string.
+	 * @returns The object.
 	 */
-	public static conditionsFromString(conditions?: string): IComparator[] | undefined {
-		const conditionParts = conditions?.split(",") ?? [];
-		const conditionsList: IComparator[] = [];
-
-		for (const conditionPart of conditionParts) {
-			const parts = conditionPart.split("|");
-			if (parts.length === 3) {
-				conditionsList.push({
-					property: parts[0],
-					comparison: parts[1] as ComparisonOperator,
-					value: parts[2]
-				});
-			}
-		}
-
-		return conditionsList.length === 0 ? undefined : conditionsList;
+	public static objectFromString<T = unknown>(value?: string): T | undefined {
+		return Coerce.object<T>(value);
 	}
 
 	/**
-	 * Convert the conditions to a string parameter.
-	 * @param conditions The conditions to convert.
-	 * @returns The string version of the comparators.
+	 * Convert object to query string.
+	 * @param value The value to convert to a string.
+	 * @returns The converted object.
 	 */
-	public static conditionsToString(conditions?: IComparator[]): string | undefined {
-		if (Is.arrayValue(conditions)) {
-			const conditionsList: string[] = [];
-			for (const conditionPart of conditions) {
-				conditionsList.push(
-					`${conditionPart.property}|${conditionPart.comparison}|${conditionPart.value}`
-				);
-			}
-			return conditionsList.join(",");
-		}
-	}
-
-	/**
-	 * Convert the sort string to a list of sort properties.
-	 * @param sortProperties The sort properties query string.
-	 * @returns The list of sort properties.
-	 */
-	public static sortPropertiesFromString<T = unknown>(
-		sortProperties?: string
-	):
-		| {
-				property: keyof T;
-				sortDirection: SortDirection;
-		  }[]
-		| undefined {
-		const sortParts = sortProperties?.split(",") ?? [];
-		const sortPropertyList: {
-			property: keyof T;
-			sortDirection: SortDirection;
-		}[] = [];
-
-		for (const conditionPart of sortParts) {
-			const parts = conditionPart.split("|");
-			if (parts.length === 2) {
-				sortPropertyList.push({
-					property: parts[0] as keyof T,
-					sortDirection: parts[1] as SortDirection
-				});
-			}
-		}
-
-		return sortPropertyList.length === 0 ? undefined : sortPropertyList;
-	}
-
-	/**
-	 * Convert the sort properties to a string parameter.
-	 * @param sortProperties The sort properties to convert.
-	 * @returns The string version of the sort properties.
-	 */
-	public static sortPropertiesToString<T = unknown>(
-		sortProperties?: {
-			property: keyof T;
-			sortDirection: SortDirection;
-		}[]
-	): string | undefined {
-		if (Is.arrayValue(sortProperties)) {
-			const sortPropertyList: string[] = [];
-			for (const conditionPart of sortProperties) {
-				sortPropertyList.push(`${conditionPart.property as string}|${conditionPart.sortDirection}`);
-			}
-			return sortPropertyList.join(",");
-		}
+	public static objectToString<T = unknown>(value?: T): string | undefined {
+		return Is.object(value) ? JSON.stringify(value) : undefined;
 	}
 }

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { HttpMethod } from "@twin.org/web";
 import type { IBaseRoute } from "./IBaseRoute";
+import type { IRestRouteRequestExample } from "./IRestRouteRequestExample";
+import type { IRestRouteResponseExample } from "./IRestRouteResponseExample";
 import type { IRestRouteResponseOptions } from "./IRestRouteResponseOptions";
 import type { IHttpRequest } from "../protocol/IHttpRequest";
 import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
@@ -63,7 +65,7 @@ export interface IRestRoute<
 		/**
 		 * Example objects for the request.
 		 */
-		examples?: { id: string; description?: string; request: T }[];
+		examples?: IRestRouteRequestExample<T>[];
 	};
 
 	/**
@@ -83,7 +85,7 @@ export interface IRestRoute<
 		/**
 		 * Example objects of the response.
 		 */
-		examples?: { id: string; description?: string; response: U }[];
+		examples?: IRestRouteResponseExample<U>[];
 	}[];
 
 	/**

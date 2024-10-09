@@ -116,7 +116,7 @@ The mime type of the request, defaults to "application/json" if there is a body.
 
 #### examples?
 
-> `optional` **examples**: `object`[]
+> `optional` **examples**: [`IRestRouteRequestExample`](IRestRouteRequestExample.md)\<`T`\>[]
 
 Example objects for the request.
 

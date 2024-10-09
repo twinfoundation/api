@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { Is } from "@twin.org/core";
-import type { ComparisonOperator, IComparator } from "@twin.org/entity";
+import type { ComparisonOperator, IComparator, SortDirection } from "@twin.org/entity";
 
 /**
  * Class to help with handling http parameters.
@@ -62,6 +62,58 @@ export class HttpParameterHelper {
 				);
 			}
 			return conditionsList.join(",");
+		}
+	}
+
+	/**
+	 * Convert the sort string to a list of sort properties.
+	 * @param sortProperties The sort properties query string.
+	 * @returns The list of sort properties.
+	 */
+	public static sortPropertiesFromString<T = unknown>(
+		sortProperties?: string
+	):
+		| {
+				property: keyof T;
+				sortDirection: SortDirection;
+		  }[]
+		| undefined {
+		const sortParts = sortProperties?.split(",") ?? [];
+		const sortPropertyList: {
+			property: keyof T;
+			sortDirection: SortDirection;
+		}[] = [];
+
+		for (const conditionPart of sortParts) {
+			const parts = conditionPart.split("|");
+			if (parts.length === 2) {
+				sortPropertyList.push({
+					property: parts[0] as keyof T,
+					sortDirection: parts[1] as SortDirection
+				});
+			}
+		}
+
+		return sortPropertyList.length === 0 ? undefined : sortPropertyList;
+	}
+
+	/**
+	 * Convert the sort properties to a string parameter.
+	 * @param sortProperties The sort properties to convert.
+	 * @returns The string version of the sort properties.
+	 */
+	public static sortPropertiesToString<T = unknown>(
+		sortProperties?: {
+			property: keyof T;
+			sortDirection: SortDirection;
+		}[]
+	): string | undefined {
+		if (Is.arrayValue(sortProperties)) {
+			const sortPropertyList: string[] = [];
+			for (const conditionPart of sortProperties) {
+				sortPropertyList.push(`${conditionPart.property as string}|${conditionPart.sortDirection}`);
+			}
+			return sortPropertyList.join(",");
 		}
 	}
 }

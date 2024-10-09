@@ -99,3 +99,51 @@ The conditions to convert.
 `undefined` \| `string`
 
 The string version of the comparators.
+
+***
+
+### sortPropertiesFromString()
+
+> `static` **sortPropertiesFromString**\<`T`\>(`sortProperties`?): `undefined` \| `object`[]
+
+Convert the sort string to a list of sort properties.
+
+#### Type Parameters
+
+• **T** = `unknown`
+
+#### Parameters
+
+• **sortProperties?**: `string`
+
+The sort properties query string.
+
+#### Returns
+
+`undefined` \| `object`[]
+
+The list of sort properties.
+
+***
+
+### sortPropertiesToString()
+
+> `static` **sortPropertiesToString**\<`T`\>(`sortProperties`?): `undefined` \| `string`
+
+Convert the sort properties to a string parameter.
+
+#### Type Parameters
+
+• **T** = `unknown`
+
+#### Parameters
+
+• **sortProperties?**: `object`[]
+
+The sort properties to convert.
+
+#### Returns
+
+`undefined` \| `string`
+
+The string version of the sort properties.

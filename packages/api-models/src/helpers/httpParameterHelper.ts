@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Coerce, Is } from "@twin.org/core";
+import { Is } from "@twin.org/core";
 
 /**
  * Class to help with handling http parameters.
@@ -30,7 +30,7 @@ export class HttpParameterHelper {
 	 * @returns The object.
 	 */
 	public static objectFromString<T = unknown>(value?: string): T | undefined {
-		return Coerce.object<T>(value);
+		return Is.json(value) ? (JSON.parse(value) as T) : undefined;
 	}
 
 	/**
@@ -39,6 +39,6 @@ export class HttpParameterHelper {
 	 * @returns The converted object.
 	 */
 	public static objectToString<T = unknown>(value?: T): string | undefined {
-		return Is.object(value) ? JSON.stringify(value) : undefined;
+		return Is.empty(value) ? undefined : JSON.stringify(value);
 	}
 }

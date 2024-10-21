@@ -185,9 +185,12 @@ export abstract class BaseRestClient {
 					"";
 
 				if (response.status !== HttpStatusCode.noContent) {
-					if (/text\/plain/.test(contentType)) {
+					if (contentType.includes(MimeTypes.PlainText)) {
 						httpResponse.body = await response.text();
-					} else if (/application\/.*json/.test(contentType)) {
+					} else if (
+						contentType.includes(MimeTypes.Json) ||
+						contentType.includes(MimeTypes.JsonLd)
+					) {
 						httpResponse.body = await response.json();
 					} else {
 						httpResponse.body = new Uint8Array(await response.arrayBuffer());

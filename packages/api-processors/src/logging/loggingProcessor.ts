@@ -7,7 +7,7 @@ import type {
 	IHttpServerRequest,
 	IRestRoute
 } from "@twin.org/api-models";
-import { Coerce, Is } from "@twin.org/core";
+import { Coerce, Is, ObjectHelper } from "@twin.org/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
 import { HeaderTypes, HttpStatusCode, MimeTypes } from "@twin.org/web";
@@ -35,6 +35,18 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	private readonly _includeBody: boolean;
 
 	/**
+	 * Show the full base64 content for data, default to abbreviate.
+	 * @internal
+	 */
+	private readonly _fullBase64: boolean;
+
+	/**
+	 * List of property names to obfuscate, defaults to "password".
+	 * @internal
+	 */
+	private readonly _obfuscateProperties: string[];
+
+	/**
 	 * Create a new instance of RequestLoggingProcessor.
 	 * @param options Options for the processor.
 	 * @param options.loggingConnectorType The type for the logging connector, defaults to "logging".
@@ -49,6 +61,8 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 			options?.loggingConnectorType ?? "logging"
 		);
 		this._includeBody = options?.config?.includeBody ?? false;
+		this._fullBase64 = options?.config?.fullBase64 ?? false;
+		this._obfuscateProperties = options?.config?.obfuscateProperties ?? ["password"];
 	}
 
 	/**
@@ -69,12 +83,22 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 		const now = process.hrtime.bigint();
 		processorState.requestStart = now;
 
+		const contentType = request.headers?.[HeaderTypes.ContentType];
+		const isJson = Is.stringValue(contentType)
+			? contentType.includes(MimeTypes.Json) || contentType.includes(MimeTypes.JsonLd)
+			: false;
+
 		await this._loggingConnector.log({
 			level: "info",
 			source: this.CLASS_NAME,
 			ts: Date.now(),
 			message: `===> ${request.method} ${request.url ? new URL(request.url).pathname : ""}`,
-			data: this._includeBody ? request?.body : undefined
+			data:
+				this._includeBody && isJson
+					? (this.processJson("body", ObjectHelper.clone(request?.body)) as {
+							[key: string]: unknown;
+						})
+					: undefined
 		});
 	}
 
@@ -96,11 +120,13 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 		let data: { [id: string]: unknown } | undefined;
 		if (this._includeBody) {
 			const contentType = response.headers?.[HeaderTypes.ContentType];
-			const isJson = contentType?.includes(`${MimeTypes.Json}; charset=utf-8`);
+			const isJson = Is.stringValue(contentType)
+				? contentType.includes(MimeTypes.Json) || contentType.includes(MimeTypes.JsonLd)
+				: false;
 			const contentLength = response.headers?.[HeaderTypes.ContentLength];
 			if (isJson) {
 				data = {
-					body: response.body
+					body: this.processJson("body", ObjectHelper.clone(response.body))
 				};
 			} else {
 				const dataParts: { [id: string]: string } = {};
@@ -131,5 +157,32 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 			message: `<=== ${response.statusCode ?? ""} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
 			data
 		});
+	}
+
+	/**
+	 * Process the JSON.
+	 * @param propValue The property to process.
+	 * @returns The processed property.
+	 * @internal
+	 */
+	private processJson(propName: string, propValue: unknown): unknown {
+		if (Is.array(propValue)) {
+			for (let i = 0; i < propValue.length; i++) {
+				propValue[i] = this.processJson(`${i}`, propValue[i]);
+			}
+		} else if (Is.object(propValue)) {
+			for (const key of Object.keys(propValue)) {
+				propValue[key] = this.processJson(key, propValue[key]);
+			}
+		} else if (Is.stringBase64(propValue) && !this._fullBase64) {
+			propValue = "<base64>";
+		} else if (
+			Is.string(propValue) &&
+			this._obfuscateProperties.some(op => new RegExp(op).test(propName))
+		) {
+			propValue = "**************";
+		}
+
+		return propValue;
 	}
 }

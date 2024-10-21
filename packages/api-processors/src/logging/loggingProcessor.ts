@@ -174,7 +174,7 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 			for (const key of Object.keys(propValue)) {
 				propValue[key] = this.processJson(key, propValue[key]);
 			}
-		} else if (Is.stringBase64(propValue) && !this._fullBase64) {
+		} else if (!this._fullBase64 && Is.stringBase64(propValue) && propValue.length > 256) {
 			propValue = "<base64>";
 		} else if (
 			Is.string(propValue) &&

@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-service",
-	"version": "0.0.1-next.11",
+	"version": "0.0.1-next.12",
 	"description": "Information contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
@@ -29,7 +29,7 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/api-models": "0.0.1-next.11",
+		"@twin.org/api-models": "0.0.1-next.12",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next"

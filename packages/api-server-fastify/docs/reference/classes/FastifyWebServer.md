@@ -28,6 +28,10 @@ The type of the logging connector to use, if undefined, no logging will happen.
 
 Additional options for the Fastify server.
 
+• **options.mimeTypeProcessors?**: `IMimeTypeProcessor`[]
+
+Additional MIME type processors.
+
 #### Returns
 
 [`FastifyWebServer`](FastifyWebServer.md)

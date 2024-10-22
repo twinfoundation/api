@@ -42,6 +42,7 @@
 - [ISocketRoute](interfaces/ISocketRoute.md)
 - [ITag](interfaces/ITag.md)
 - [IHttpRestRouteProcessor](interfaces/IHttpRestRouteProcessor.md)
+- [IMimeTypeProcessor](interfaces/IMimeTypeProcessor.md)
 - [IWebServer](interfaces/IWebServer.md)
 - [IWebServerOptions](interfaces/IWebServerOptions.md)
 - [IHealthInfo](interfaces/IHealthInfo.md)

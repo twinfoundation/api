@@ -37,6 +37,7 @@ export * from "./models/routes/IRestRouteResponseOptions";
 export * from "./models/routes/ISocketRoute";
 export * from "./models/routes/ITag";
 export * from "./models/server/IHttpRestRouteProcessor";
+export * from "./models/server/IMimeTypeProcessor";
 export * from "./models/server/IWebServer";
 export * from "./models/server/IWebServerOptions";
 export * from "./models/services/healthStatus";

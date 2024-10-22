@@ -10,6 +10,7 @@ import {
 	type IHttpResponse,
 	type IHttpRestRouteProcessor,
 	type IHttpServerRequest,
+	type IMimeTypeProcessor,
 	type IRestRoute,
 	type IWebServer,
 	type IWebServerOptions
@@ -19,10 +20,10 @@ import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/loggi
 import { nameof } from "@twin.org/nameof";
 import { HeaderTypes, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@twin.org/web";
 import Fastify, {
-	type FastifyServerOptions,
 	type FastifyInstance,
 	type FastifyReply,
-	type FastifyRequest
+	type FastifyRequest,
+	type FastifyServerOptions
 } from "fastify";
 
 /**
@@ -78,17 +79,30 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	private _started: boolean;
 
 	/**
+	 * The mime type processors.
+	 * @internal
+	 */
+	private readonly _mimeTypeProcessors: IMimeTypeProcessor[];
+
+	/**
 	 * Create a new instance of FastifyWebServer.
 	 * @param options The options for the server.
 	 * @param options.loggingConnectorType The type of the logging connector to use, if undefined, no logging will happen.
 	 * @param options.config Additional options for the Fastify server.
+	 * @param options.mimeTypeProcessors Additional MIME type processors.
 	 */
-	constructor(options?: { loggingConnectorType?: string; config?: FastifyServerOptions }) {
+	constructor(options?: {
+		loggingConnectorType?: string;
+		config?: FastifyServerOptions;
+		mimeTypeProcessors?: IMimeTypeProcessor[];
+	}) {
 		this._loggingConnector = Is.stringValue(options?.loggingConnectorType)
 			? LoggingConnectorFactory.get(options.loggingConnectorType)
 			: undefined;
 		this._fastify = Fastify({ maxParamLength: 2000, ...options?.config });
 		this._started = false;
+
+		this._mimeTypeProcessors = options?.mimeTypeProcessors ?? [];
 	}
 
 	/**
@@ -124,6 +138,23 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		this._options = options;
 
 		await this._fastify.register(FastifyCompress);
+
+		if (Is.arrayValue(this._mimeTypeProcessors)) {
+			for (const contentTypeHandler of this._mimeTypeProcessors) {
+				this._fastify.addContentTypeParser(
+					contentTypeHandler.getTypes(),
+					{ parseAs: "buffer" },
+					async (request, body, done) => {
+						try {
+							const processed = await contentTypeHandler.handle(body as Buffer);
+							done(null, processed);
+						} catch (err) {
+							done(BaseError.fromError(err));
+						}
+					}
+				);
+			}
+		}
 
 		await this.initCors(options);
 

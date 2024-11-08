@@ -4,12 +4,12 @@ import type { IComponent } from "@twin.org/core";
 import type { IHttpRequestIdentity } from "../protocol/IHttpRequestIdentity";
 import type { IHttpResponse } from "../protocol/IHttpResponse";
 import type { IHttpServerRequest } from "../protocol/IHttpServerRequest";
-import type { IRestRoute } from "../routes/IRestRoute";
+import type { IBaseRoute } from "../routes/IBaseRoute";
 
 /**
- * The definition for a processor for handling REST routes.
+ * The definition for a base processor for handling REST routes.
  */
-export interface IHttpRestRouteProcessor extends IComponent {
+export interface IBaseRouteProcessor<T = IBaseRoute> extends IComponent {
 	/**
 	 * Pre process the REST request for the specified route.
 	 * @param request The request to handle.
@@ -22,24 +22,7 @@ export interface IHttpRestRouteProcessor extends IComponent {
 	pre?(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
-		route: IRestRoute | undefined,
-		requestIdentity: IHttpRequestIdentity,
-		processorState: { [id: string]: unknown }
-	): Promise<void>;
-
-	/**
-	 * Process the REST request for the specified route.
-	 * @param request The request to handle.
-	 * @param response The response data to send if any.
-	 * @param route The route being requested, if a matching one was found.
-	 * @param requestIdentity The identity context for the request.
-	 * @param processorState The state handed through the processors.
-	 * @returns Promise that resolves when the request is processed.
-	 */
-	process?(
-		request: IHttpServerRequest,
-		response: IHttpResponse,
-		route: IRestRoute | undefined,
+		route: T | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void>;
@@ -56,7 +39,7 @@ export interface IHttpRestRouteProcessor extends IComponent {
 	post?(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
-		route: IRestRoute | undefined,
+		route: T | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void>;

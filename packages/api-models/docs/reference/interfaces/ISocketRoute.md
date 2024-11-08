@@ -1,10 +1,16 @@
-# Interface: ISocketRoute
+# Interface: ISocketRoute\<T, U\>
 
 Interface which defines a socket route.
 
 ## Extends
 
 - [`IBaseRoute`](IBaseRoute.md)
+
+## Type Parameters
+
+• **T** *extends* [`IHttpRequest`](IHttpRequest.md) = `any`
+
+• **U** *extends* [`IHttpResponse`](IHttpResponse.md) = `any`
 
 ## Properties
 
@@ -46,7 +52,7 @@ Skips the authentication for this route.
 
 ### handler()
 
-> **handler**: (`httpRequestContext`, `socketId`, `request`, `emitter`) => `Promise`\<`void`\>
+> **handler**: (`httpRequestContext`, `request`, `emit`) => `void`
 
 The handler module.
 
@@ -56,18 +62,14 @@ The handler module.
 
 The request context.
 
-• **socketId**: `string`
-
-The id of the socket the request is arriving on.
-
-• **request**: `unknown`
+• **request**: `T`
 
 The request object.
 
-• **emitter**
+• **emit**
 
-Method to emit data on the socket.
+The function to emit a message.
 
 #### Returns
 
-`Promise`\<`void`\>
+`void`

@@ -24,19 +24,27 @@ The web server instance.
 
 ### build()
 
-> **build**(`restRouteProcessors`, `restRoutes`, `options`?): `Promise`\<`void`\>
+> **build**(`restRouteProcessors`?, `restRoutes`?, `socketRouteProcessors`?, `socketRoutes`?, `options`?): `Promise`\<`void`\>
 
 Build the server.
 
 #### Parameters
 
-• **restRouteProcessors**: [`IHttpRestRouteProcessor`](IHttpRestRouteProcessor.md)[]
+• **restRouteProcessors?**: [`IRestRouteProcessor`](IRestRouteProcessor.md)[]
 
-The hooks to process the incoming requests.
+The processors for incoming requests over REST.
 
-• **restRoutes**: [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
+• **restRoutes?**: [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
 
 The REST routes.
+
+• **socketRouteProcessors?**: [`ISocketRouteProcessor`](ISocketRouteProcessor.md)[]
+
+The processors for incoming requests over Sockets.
+
+• **socketRoutes?**: [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>[]
+
+The socket routes.
 
 • **options?**: [`IWebServerOptions`](IWebServerOptions.md)
 

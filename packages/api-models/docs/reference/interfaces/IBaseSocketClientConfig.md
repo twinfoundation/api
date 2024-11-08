@@ -4,6 +4,14 @@ Definition for the configuration of a socket service.
 
 ## Properties
 
+### basePath?
+
+> `optional` **basePath**: `string`
+
+Base path for the socket service, defaults to /socket.
+
+***
+
 ### endpoint
 
 > **endpoint**: `string`

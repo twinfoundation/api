@@ -24,9 +24,9 @@ The options for the server.
 
 The type of the logging connector to use, if undefined, no logging will happen.
 
-• **options.config?**: `FastifyServerOptions`
+• **options.config?**: [`IFastifyWebServerConfig`](../interfaces/IFastifyWebServerConfig.md)
 
-Additional options for the Fastify server.
+Additional configuration for the server.
 
 • **options.mimeTypeProcessors?**: `IMimeTypeProcessor`[]
 
@@ -66,19 +66,27 @@ The web server instance.
 
 ### build()
 
-> **build**(`restRouteProcessors`, `restRoutes`, `options`?): `Promise`\<`void`\>
+> **build**(`restRouteProcessors`?, `restRoutes`?, `socketRouteProcessors`?, `socketRoutes`?, `options`?): `Promise`\<`void`\>
 
 Build the server.
 
 #### Parameters
 
-• **restRouteProcessors**: `IHttpRestRouteProcessor`[]
+• **restRouteProcessors?**: `IRestRouteProcessor`[]
 
-The hooks to process the incoming requests.
+The processors for incoming requests over REST.
 
-• **restRoutes**: `IRestRoute`\<`any`, `any`\>[]
+• **restRoutes?**: `IRestRoute`\<`any`, `any`\>[]
 
 The REST routes.
+
+• **socketRouteProcessors?**: `ISocketRouteProcessor`[]
+
+The processors for incoming requests over Sockets.
+
+• **socketRoutes?**: `ISocketRoute`\<`any`, `any`\>[]
+
+The socket routes.
 
 • **options?**: `IWebServerOptions`
 

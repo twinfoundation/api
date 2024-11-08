@@ -1,10 +1,10 @@
-# Interface: IHttpRestRouteProcessor
+# Interface: IRestRouteProcessor
 
 The definition for a processor for handling REST routes.
 
 ## Extends
 
-- `IComponent`
+- [`IBaseRouteProcessor`](IBaseRouteProcessor.md)\<[`IRestRoute`](IRestRoute.md)\>
 
 ## Methods
 
@@ -42,13 +42,17 @@ The state handed through the processors.
 
 Promise that resolves when the request is processed.
 
+#### Inherited from
+
+[`IBaseRouteProcessor`](IBaseRouteProcessor.md).[`pre`](IBaseRouteProcessor.md#pre)
+
 ***
 
-### process()?
+### post()?
 
-> `optional` **process**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
+> `optional` **post**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
 
-Process the REST request for the specified route.
+Post process the REST request for the specified route.
 
 #### Parameters
 
@@ -78,13 +82,17 @@ The state handed through the processors.
 
 Promise that resolves when the request is processed.
 
+#### Inherited from
+
+[`IBaseRouteProcessor`](IBaseRouteProcessor.md).[`post`](IBaseRouteProcessor.md#post)
+
 ***
 
-### post()?
+### process()?
 
-> `optional` **post**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
+> `optional` **process**(`request`, `response`, `route`, `requestIdentity`, `processorState`): `Promise`\<`void`\>
 
-Post process the REST request for the specified route.
+Process the REST request for the specified route.
 
 #### Parameters
 

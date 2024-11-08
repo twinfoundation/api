@@ -7,6 +7,8 @@
 		"stopped": "The Web Server was stopped",
 		"badRequest": "The web server could not handle the request",
 		"restRouteAdded": "Added REST route \"{route}\" \"{method}\"",
-		"noProcessors": "You must configure at least one processor"
+		"socketRouteAdded": "Added socket route \"{route}\"",
+		"noRestProcessors": "You must configure at least one REST processor",
+		"noSocketProcessors": "You must configure at least one socket processor"
 	}
 }

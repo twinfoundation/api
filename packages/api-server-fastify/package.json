@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-server-fastify",
-	"version": "0.0.1-next.12",
+	"version": "0.0.1-next.13",
 	"description": "Use Fastify as the core web server for APIs",
 	"repository": {
 		"type": "git",
@@ -31,28 +31,30 @@
 	"dependencies": {
 		"@fastify/compress": "8.0.1",
 		"@fastify/cors": "10.0.1",
-		"@twin.org/api-models": "0.0.1-next.12",
-		"@twin.org/api-core": "0.0.1-next.12",
+		"@twin.org/api-models": "0.0.1-next.13",
+		"@twin.org/api-core": "0.0.1-next.13",
 		"@twin.org/core": "next",
 		"@twin.org/logging-models": "next",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next",
-		"fastify": "5.0.0"
+		"fastify": "5.1.0",
+		"socket.io": "4.8.1"
 	},
 	"devDependencies": {
 		"@twin.org/nameof-transformer": "next",
-		"@vitest/coverage-v8": "2.1.1",
-		"@types/node": "22.6.1",
+		"@vitest/coverage-v8": "2.1.4",
+		"@types/node": "22.9.0",
 		"copyfiles": "2.4.1",
 		"rimraf": "6.0.1",
-		"rollup": "4.22.4",
+		"rollup": "4.24.4",
 		"rollup-plugin-typescript2": "0.36.0",
+		"socket.io-client": "4.8.1",
 		"ts-patch": "3.2.1",
 		"tsc-watch": "6.2.0",
-		"typedoc": "0.26.7",
-		"typedoc-plugin-markdown": "4.2.8",
-		"typescript": "5.6.2",
-		"vitest": "2.1.1"
+		"typedoc": "0.26.11",
+		"typedoc-plugin-markdown": "4.2.10",
+		"typescript": "5.6.3",
+		"vitest": "2.1.4"
 	},
 	"main": "./dist/cjs/index.cjs",
 	"module": "./dist/esm/index.mjs",

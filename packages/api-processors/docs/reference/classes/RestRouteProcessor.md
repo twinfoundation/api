@@ -1,16 +1,16 @@
-# Class: RouteProcessor
+# Class: RestRouteProcessor
 
 Process the REST request and hands it on to the route handler.
 
 ## Implements
 
-- `IHttpRestRouteProcessor`
+- `IRestRouteProcessor`
 
 ## Constructors
 
-### new RouteProcessor()
+### new RestRouteProcessor()
 
-> **new RouteProcessor**(`options`?): [`RouteProcessor`](RouteProcessor.md)
+> **new RestRouteProcessor**(`options`?): [`RestRouteProcessor`](RestRouteProcessor.md)
 
 Create a new instance of RouteProcessor.
 
@@ -26,7 +26,7 @@ The configuration for the processor.
 
 #### Returns
 
-[`RouteProcessor`](RouteProcessor.md)
+[`RestRouteProcessor`](RestRouteProcessor.md)
 
 Promise that resolves when the processor is initialized.
 
@@ -40,7 +40,7 @@ Runtime name for the class.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.CLASS_NAME`
+`IRestRouteProcessor.CLASS_NAME`
 
 ## Methods
 
@@ -78,4 +78,4 @@ The state handed through the processors.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.process`
+`IRestRouteProcessor.process`

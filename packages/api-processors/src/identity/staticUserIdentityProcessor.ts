@@ -1,11 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
+	IBaseRoute,
+	IBaseRouteProcessor,
 	IHttpRequestIdentity,
 	IHttpResponse,
-	IHttpRestRouteProcessor,
-	IHttpServerRequest,
-	IRestRoute
+	IHttpServerRequest
 } from "@twin.org/api-models";
 import { Guards, Is } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
@@ -14,7 +14,7 @@ import type { IStaticUserIdentityProcessorConfig } from "../models/IStaticUserId
 /**
  * Adds a static user identity to the request context.
  */
-export class StaticUserIdentityProcessor implements IHttpRestRouteProcessor {
+export class StaticUserIdentityProcessor implements IBaseRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
@@ -54,7 +54,7 @@ export class StaticUserIdentityProcessor implements IHttpRestRouteProcessor {
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
-		route: IRestRoute | undefined,
+		route: IBaseRoute | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {

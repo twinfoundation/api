@@ -7,6 +7,11 @@ import type { IHttpHeaders } from "@twin.org/web";
  */
 export interface IBaseSocketClientConfig {
 	/**
+	 * Base path for the socket service, defaults to /socket.
+	 */
+	basePath?: string;
+
+	/**
 	 * The endpoint where the api is hosted.
 	 */
 	endpoint: string;

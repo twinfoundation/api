@@ -1,11 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type {
+	IBaseRoute,
+	IBaseRouteProcessor,
 	IHttpRequestIdentity,
 	IHttpResponse,
-	IHttpRestRouteProcessor,
-	IHttpServerRequest,
-	IRestRoute
+	IHttpServerRequest
 } from "@twin.org/api-models";
 import { Coerce, Is, ObjectHelper } from "@twin.org/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@twin.org/logging-models";
@@ -16,7 +16,7 @@ import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingPr
 /**
  * Process the REST request and log its information.
  */
-export class LoggingProcessor implements IHttpRestRouteProcessor {
+export class LoggingProcessor implements IBaseRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
@@ -76,7 +76,7 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	public async pre(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
-		route: IRestRoute | undefined,
+		route: IBaseRoute | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {
@@ -113,7 +113,7 @@ export class LoggingProcessor implements IHttpRestRouteProcessor {
 	public async post(
 		request: IHttpServerRequest,
 		response: IHttpResponse,
-		route: IRestRoute | undefined,
+		route: IBaseRoute | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown }
 	): Promise<void> {

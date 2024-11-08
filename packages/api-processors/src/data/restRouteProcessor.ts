@@ -5,7 +5,7 @@ import {
 	type IHttpRequest,
 	type IHttpRequestIdentity,
 	type IHttpResponse,
-	type IHttpRestRouteProcessor,
+	type IRestRouteProcessor,
 	type IHttpServerRequest,
 	type IRestRoute,
 	type IRestRouteResponseOptions
@@ -18,11 +18,11 @@ import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
 /**
  * Process the REST request and hands it on to the route handler.
  */
-export class RouteProcessor implements IHttpRestRouteProcessor {
+export class RestRouteProcessor implements IRestRouteProcessor {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<RouteProcessor>();
+	public readonly CLASS_NAME: string = nameof<RestRouteProcessor>();
 
 	/**
 	 * Include the stack with errors.

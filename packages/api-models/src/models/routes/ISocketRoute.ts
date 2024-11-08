@@ -1,12 +1,19 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRoute } from "./IBaseRoute";
+import type { IHttpRequest } from "../protocol/IHttpRequest";
 import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
+import type { IHttpResponse } from "../protocol/IHttpResponse";
 
 /**
  * Interface which defines a socket route.
  */
-export interface ISocketRoute extends IBaseRoute {
+export interface ISocketRoute<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	T extends IHttpRequest = any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	U extends IHttpResponse = any
+> extends IBaseRoute {
 	/**
 	 * The handler module.
 	 */
@@ -17,18 +24,13 @@ export interface ISocketRoute extends IBaseRoute {
 		httpRequestContext: IHttpRequestContext,
 
 		/**
-		 * The id of the socket the request is arriving on.
-		 */
-		socketId: string,
-
-		/**
 		 * The request object.
 		 */
-		request: unknown,
+		request: T,
 
 		/**
-		 * Method to emit data on the socket.
+		 * The function to emit a message.
 		 */
-		emitter: (topic: string, response?: unknown) => Promise<void>
-	) => Promise<void>;
+		emit: (response: U) => Promise<void>
+	) => void;
 }

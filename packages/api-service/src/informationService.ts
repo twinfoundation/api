@@ -144,7 +144,7 @@ export class InformationService implements IInformationComponent {
 	public async removeComponentHealth(name: string): Promise<void> {
 		if (Is.arrayValue(this._healthInfo.components)) {
 			const componentIndex = this._healthInfo.components.findIndex(c => c.name === name);
-			if (componentIndex >= 0) {
+			if (componentIndex !== -1) {
 				this._healthInfo.components.splice(componentIndex, 1);
 			}
 		}

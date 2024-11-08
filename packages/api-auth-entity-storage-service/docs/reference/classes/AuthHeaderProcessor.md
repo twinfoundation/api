@@ -4,7 +4,7 @@ Handle a JWT token in the authorization header or cookies and validate it to pop
 
 ## Implements
 
-- `IHttpRestRouteProcessor`
+- `IBaseRouteProcessor`
 
 ## Constructors
 
@@ -42,7 +42,7 @@ Runtime name for the class.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.CLASS_NAME`
+`IBaseRouteProcessor.CLASS_NAME`
 
 ## Methods
 
@@ -70,7 +70,7 @@ Nothing.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.start`
+`IBaseRouteProcessor.start`
 
 ***
 
@@ -90,7 +90,7 @@ The incoming request.
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+• **route**: `undefined` \| `IBaseRoute`
 
 The route to process.
 
@@ -108,7 +108,7 @@ The state handed through the processors.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.pre`
+`IBaseRouteProcessor.pre`
 
 ***
 
@@ -128,7 +128,7 @@ The incoming request.
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+• **route**: `undefined` \| `IBaseRoute`
 
 The route to process.
 
@@ -146,4 +146,4 @@ The state handed through the processors.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.post`
+`IBaseRouteProcessor.post`

@@ -2,7 +2,8 @@
 
 ## Classes
 
-- [RouteProcessor](classes/RouteProcessor.md)
+- [RestRouteProcessor](classes/RestRouteProcessor.md)
+- [SocketRouteProcessor](classes/SocketRouteProcessor.md)
 - [NodeIdentityProcessor](classes/NodeIdentityProcessor.md)
 - [StaticUserIdentityProcessor](classes/StaticUserIdentityProcessor.md)
 - [LoggingProcessor](classes/LoggingProcessor.md)

@@ -4,7 +4,7 @@ Process the REST request and log its information.
 
 ## Implements
 
-- `IHttpRestRouteProcessor`
+- `IBaseRouteProcessor`
 
 ## Constructors
 
@@ -44,7 +44,7 @@ Runtime name for the class.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.CLASS_NAME`
+`IBaseRouteProcessor.CLASS_NAME`
 
 ## Methods
 
@@ -64,7 +64,7 @@ The incoming request.
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+• **route**: `undefined` \| `IBaseRoute`
 
 The route to process.
 
@@ -82,7 +82,7 @@ The state handed through the processors.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.pre`
+`IBaseRouteProcessor.pre`
 
 ***
 
@@ -102,7 +102,7 @@ The incoming request.
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+• **route**: `undefined` \| `IBaseRoute`
 
 The route to process.
 
@@ -120,4 +120,4 @@ The state handed through the processors.
 
 #### Implementation of
 
-`IHttpRestRouteProcessor.post`
+`IBaseRouteProcessor.post`

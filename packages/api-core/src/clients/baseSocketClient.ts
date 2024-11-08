@@ -47,6 +47,7 @@ export abstract class BaseSocketClient {
 		}
 
 		this._socket = lookup(this._endpointWithPrefix, {
+			path: config.basePath ?? "/socket",
 			upgrade: true,
 			transports: ["websocket"],
 			autoConnect: false,

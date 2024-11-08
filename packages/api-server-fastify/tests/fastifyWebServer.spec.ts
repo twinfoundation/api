@@ -234,11 +234,11 @@ describe("api-server-fastify", () => {
 								query: request.query,
 								body: request.body
 							},
-							async socketRouteResponse => {
+							async (topic, socketRouteResponse) => {
 								response.headers = socketRouteResponse.headers;
 								response.body = socketRouteResponse.body;
 								response.statusCode = socketRouteResponse.statusCode ?? HttpStatusCode.ok;
-								await responseEmitter(response);
+								await responseEmitter(topic, response);
 							}
 						);
 					},
@@ -254,7 +254,7 @@ describe("api-server-fastify", () => {
 					operationId: "test",
 					path: "/test-namespace/ping",
 					handler: async (httpRequestContext, request, responseEmitter) => {
-						await responseEmitter({
+						await responseEmitter("ping", {
 							body: { data: "bar" }
 						});
 					}
@@ -356,7 +356,7 @@ describe("api-server-fastify", () => {
 					operationId: "test",
 					path: "/test-namespace/ping",
 					handler: async (httpRequestContext, request, responseEmitter) => {
-						await responseEmitter({
+						await responseEmitter("ping", {
 							body: { data: "bar" }
 						});
 					}
@@ -391,6 +391,87 @@ describe("api-server-fastify", () => {
 
 		expect(pingResult?.statusCode).toEqual(HttpStatusCode.unauthorized);
 		expect(pingResult?.body).toEqual({ message: "AuthError", name: "Error" });
+
+		await server.stop();
+	});
+
+	test("Can response on a socket with a different topic", async () => {
+		const server = new FastifyWebServer();
+
+		await server.build(
+			undefined,
+			undefined,
+			[
+				{
+					CLASS_NAME: "RouteProcessor",
+					process: async (
+						request,
+						response,
+						route,
+						requestIdentity,
+						processorState,
+						responseEmitter
+					) => {
+						await route?.handler(
+							{
+								...requestIdentity,
+								serverRequest: request,
+								processorState
+							},
+							{
+								pathParams: request.pathParams,
+								query: request.query,
+								body: request.body
+							},
+							async (topic, socketRouteResponse) => {
+								response.headers = socketRouteResponse.headers;
+								response.body = socketRouteResponse.body;
+								response.statusCode = socketRouteResponse.statusCode ?? HttpStatusCode.ok;
+								await responseEmitter(topic, response);
+							}
+						);
+					}
+				}
+			],
+			[
+				{
+					operationId: "test",
+					path: "/test-namespace/ping",
+					handler: async (httpRequestContext, request, responseEmitter) => {
+						await responseEmitter("pong", {
+							body: { data: "bar" }
+						});
+					}
+				}
+			]
+		);
+
+		await server.start();
+
+		const socket = io("http://localhost:3000/test-namespace", {
+			transports: ["websocket"],
+			path: "/socket"
+		});
+
+		socket.on("connect", () => {});
+
+		let pongResult: IHttpResponse | undefined;
+		socket.on("pong", payload => {
+			pongResult = payload;
+		});
+
+		socket.emit("ping", { data: 123 });
+
+		for (let i = 0; i < 20; i++) {
+			if (pongResult) {
+				break;
+			}
+			await new Promise(resolve => setTimeout(resolve, 100));
+		}
+
+		socket.close();
+
+		expect(pongResult).toBeTruthy();
 
 		await server.stop();
 	});

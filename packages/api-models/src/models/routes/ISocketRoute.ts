@@ -31,6 +31,6 @@ export interface ISocketRoute<
 		/**
 		 * The function to emit a message.
 		 */
-		emit: (response: U) => Promise<void>
+		emit: (topic: string, response: U) => Promise<void>
 	) => void;
 }

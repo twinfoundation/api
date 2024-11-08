@@ -54,7 +54,7 @@ export class SocketRouteProcessor implements ISocketRouteProcessor {
 		route: ISocketRoute | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown },
-		responseEmitter: (response: IHttpResponse) => Promise<void>
+		responseEmitter: (topic: string, response: IHttpResponse) => Promise<void>
 	): Promise<void> {
 		// Don't handle the route if another processor has already set the response
 		// status code e.g. from an auth processor
@@ -86,12 +86,12 @@ export class SocketRouteProcessor implements ISocketRouteProcessor {
 							processorState
 						},
 						req,
-						async restRouteResponse => {
+						async (topic, restRouteResponse) => {
 							response.headers = restRouteResponse?.headers;
 							response.body = restRouteResponse?.body;
 							response.statusCode =
 								restRouteResponse.statusCode ?? response.statusCode ?? HttpStatusCode.ok;
-							await responseEmitter(response);
+							await responseEmitter(topic, response);
 						}
 					);
 				} catch (err) {

@@ -583,8 +583,9 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			httpResponse,
 			httpRequestIdentity,
 			processorState,
-			async () => {
-				await socket.emit(emitTopic, httpResponse);
+			emitTopic,
+			async (topic, response) => {
+				await socket.emit(topic, response);
 			}
 		);
 	}
@@ -596,6 +597,8 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	 * @param httpServerRequest The incoming request.
 	 * @param httpResponse The outgoing response.
 	 * @param httpRequestIdentity The identity context for the request.
+	 * @param processorState The state handed through the processors.
+	 * @param requestTopic The topic of the request.
 	 * @internal
 	 */
 	private async runProcessorsSocket(
@@ -607,16 +610,18 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		processorState: {
 			[id: string]: unknown;
 		},
-		responseEmitter: (response: IHttpResponse) => Promise<void>
+		requestTopic: string,
+		responseEmitter: (topic: string, response: IHttpResponse) => Promise<void>
 	): Promise<void> {
 		// Custom emit method which will also call the post processors
 		const postProcessEmit = async (
+			topic: string,
 			response: IHttpResponse,
 			responseProcessorState: {
 				[id: string]: unknown;
 			}
 		): Promise<void> => {
-			await responseEmitter(response);
+			await responseEmitter(topic, response);
 
 			// The post processors are called after the response has been emitted
 			for (const postSocketRouteProcessor of socketRouteProcessors) {
@@ -649,7 +654,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 			// But if a pre processor sets a status code, we will emit the response manually, as the pre
 			// and post processors do not receive the emit method, they just populate the response object.
 			if (!Is.empty(httpResponse.statusCode)) {
-				await postProcessEmit(httpResponse, processorState);
+				await postProcessEmit(requestTopic, httpResponse, processorState);
 			}
 
 			for (const socketRouteProcessor of socketRouteProcessors) {
@@ -660,8 +665,8 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 						socketRoute,
 						httpRequestIdentity,
 						processorState,
-						async (processResponse: IHttpResponse) => {
-							await postProcessEmit(processResponse, processorState);
+						async (topic: string, processResponse: IHttpResponse) => {
+							await postProcessEmit(topic, processResponse, processorState);
 						}
 					);
 				}
@@ -672,13 +677,13 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 				Is.integer(httpResponse.statusCode) &&
 				httpResponse.statusCode >= HttpStatusCode.badRequest
 			) {
-				await postProcessEmit(httpResponse, processorState);
+				await postProcessEmit(requestTopic, httpResponse, processorState);
 			}
 		} catch (err) {
 			// Emit any unhandled errors manually
 			const { error, httpStatusCode } = HttpErrorHelper.processError(err, this._includeErrorStack);
 			HttpErrorHelper.buildResponse(httpResponse, error, httpStatusCode);
-			await postProcessEmit(httpResponse, processorState);
+			await postProcessEmit(requestTopic, httpResponse, processorState);
 		}
 	}
 

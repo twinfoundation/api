@@ -52,6 +52,6 @@ export interface ISocketRouteProcessor extends IBaseRouteProcessor<ISocketRoute>
 		route: ISocketRoute | undefined,
 		requestIdentity: IHttpRequestIdentity,
 		processorState: { [id: string]: unknown },
-		responseEmitter: (response: IHttpResponse) => Promise<void>
+		responseEmitter: (topic: string, response: IHttpResponse) => Promise<void>
 	): Promise<void>;
 }

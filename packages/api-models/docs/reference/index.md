@@ -32,8 +32,8 @@
 - [INoContentResponse](interfaces/INoContentResponse.md)
 - [IOkResponse](interfaces/IOkResponse.md)
 - [IBaseRoute](interfaces/IBaseRoute.md)
+- [IBaseRouteEntryPoint](interfaces/IBaseRouteEntryPoint.md)
 - [IRestRoute](interfaces/IRestRoute.md)
-- [IRestRouteEntryPoint](interfaces/IRestRouteEntryPoint.md)
 - [IRestRouteExample](interfaces/IRestRouteExample.md)
 - [IRestRouteRequestExample](interfaces/IRestRouteRequestExample.md)
 - [IRestRouteResponseAttachmentOptions](interfaces/IRestRouteResponseAttachmentOptions.md)
@@ -53,6 +53,8 @@
 
 ## Type Aliases
 
+- [IRestRouteEntryPoint](type-aliases/IRestRouteEntryPoint.md)
+- [ISocketRouteEntryPoint](type-aliases/ISocketRouteEntryPoint.md)
 - [HealthStatus](type-aliases/HealthStatus.md)
 
 ## Variables

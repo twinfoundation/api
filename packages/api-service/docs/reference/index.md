@@ -4,6 +4,10 @@
 
 - [InformationService](classes/InformationService.md)
 
+## Interfaces
+
+- [IInformationServiceConfig](interfaces/IInformationServiceConfig.md)
+
 ## Variables
 
 - [tagsInformation](variables/tagsInformation.md)

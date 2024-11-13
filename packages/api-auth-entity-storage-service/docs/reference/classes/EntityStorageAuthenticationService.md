@@ -38,6 +38,14 @@ The configuration for the authentication.
 
 ## Properties
 
+### NAMESPACE
+
+> `readonly` `static` **NAMESPACE**: `string` = `"authentication-entity-storage"`
+
+The namespace supported by the authentication service.
+
+***
+
 ### CLASS\_NAME
 
 > `readonly` **CLASS\_NAME**: `string`

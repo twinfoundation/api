@@ -7,13 +7,19 @@ import type {
 	IInformationComponent,
 	IServerInfo
 } from "@twin.org/api-models";
-import { Is } from "@twin.org/core";
+import { Guards, Is } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
+import type { IInformationServiceConfig } from "./models/IInformationServiceConfig";
 
 /**
  * The information service for the server.
  */
 export class InformationService implements IInformationComponent {
+	/**
+	 * The namespace supported by the information service.
+	 */
+	public static readonly NAMESPACE: string = "information";
+
 	/**
 	 * Runtime name for the class.
 	 */
@@ -45,15 +51,19 @@ export class InformationService implements IInformationComponent {
 
 	/**
 	 * Create a new instance of InformationService.
-	 * @param serverInfo The server information.
-	 * @param openApiSpecPath The path to the spec file.
+	 * @param options The options to create the service.
+	 * @param options.config The configuration for the service.
 	 */
-	constructor(serverInfo: IServerInfo, openApiSpecPath?: string) {
-		this._serverInfo = serverInfo;
+	constructor(options: { config: IInformationServiceConfig }) {
+		Guards.object(this.CLASS_NAME, nameof(options), options);
+		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
+		Guards.object(this.CLASS_NAME, nameof(options.config.serverInfo), options.config.serverInfo);
+
+		this._serverInfo = options.config.serverInfo;
 		this._healthInfo = {
 			status: "ok"
 		};
-		this._openApiSpecPath = openApiSpecPath;
+		this._openApiSpecPath = options.config.openApiSpecPath;
 	}
 
 	/**

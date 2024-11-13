@@ -18,6 +18,11 @@ import { TokenHelper } from "../utils/tokenHelper";
  */
 export class EntityStorageAuthenticationService implements IAuthenticationComponent {
 	/**
+	 * The namespace supported by the authentication service.
+	 */
+	public static readonly NAMESPACE: string = "authentication-entity-storage";
+
+	/**
 	 * Default TTL in minutes.
 	 * @internal
 	 */

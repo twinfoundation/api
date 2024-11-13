@@ -10,25 +10,33 @@ The information service for the server.
 
 ### new InformationService()
 
-> **new InformationService**(`serverInfo`, `openApiSpecPath`?): [`InformationService`](InformationService.md)
+> **new InformationService**(`options`): [`InformationService`](InformationService.md)
 
 Create a new instance of InformationService.
 
 #### Parameters
 
-• **serverInfo**: `IServerInfo`
+• **options**
 
-The server information.
+The options to create the service.
 
-• **openApiSpecPath?**: `string`
+• **options.config**: [`IInformationServiceConfig`](../interfaces/IInformationServiceConfig.md)
 
-The path to the spec file.
+The configuration for the service.
 
 #### Returns
 
 [`InformationService`](InformationService.md)
 
 ## Properties
+
+### NAMESPACE
+
+> `readonly` `static` **NAMESPACE**: `string` = `"information"`
+
+The namespace supported by the information service.
+
+***
 
 ### CLASS\_NAME
 

@@ -16,6 +16,14 @@ Process the REST request and log its information.
 
 [`JwtMimeTypeProcessor`](JwtMimeTypeProcessor.md)
 
+## Properties
+
+### NAMESPACE
+
+> `readonly` `static` **NAMESPACE**: `string` = `"jwt"`
+
+The namespace supported by the processor.
+
 ## Methods
 
 ### getTypes()

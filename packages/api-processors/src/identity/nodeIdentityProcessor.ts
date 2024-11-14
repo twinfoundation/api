@@ -15,6 +15,11 @@ import { nameof } from "@twin.org/nameof";
  */
 export class NodeIdentityProcessor implements IBaseRouteProcessor {
 	/**
+	 * The namespace supported by the processor.
+	 */
+	public static readonly NAMESPACE: string = "node-identity";
+
+	/**
 	 * Runtime name for the class.
 	 */
 	public readonly CLASS_NAME: string = nameof<NodeIdentityProcessor>();

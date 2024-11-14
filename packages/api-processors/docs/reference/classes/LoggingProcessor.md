@@ -36,6 +36,14 @@ Promise that resolves when the processor is initialized.
 
 ## Properties
 
+### NAMESPACE
+
+> `readonly` `static` **NAMESPACE**: `string` = `"logging"`
+
+The namespace supported by the processor.
+
+***
+
 ### CLASS\_NAME
 
 > `readonly` **CLASS\_NAME**: `string`

@@ -59,4 +59,6 @@
 
 ## Variables
 
+- [MimeTypeProcessorFactory](variables/MimeTypeProcessorFactory.md)
+- [RouteProcessorFactory](variables/RouteProcessorFactory.md)
 - [HealthStatus](variables/HealthStatus.md)

@@ -16,6 +16,11 @@ import type { IStaticUserIdentityProcessorConfig } from "../models/IStaticUserId
  */
 export class StaticUserIdentityProcessor implements IBaseRouteProcessor {
 	/**
+	 * The namespace supported by the processor.
+	 */
+	public static readonly NAMESPACE: string = "static-user-identity";
+
+	/**
 	 * Runtime name for the class.
 	 */
 	public readonly CLASS_NAME: string = nameof<StaticUserIdentityProcessor>();

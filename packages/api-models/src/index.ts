@@ -1,5 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+export * from "./factories/mimeTypeProcessorFactory";
+export * from "./factories/routeProcessorFactory";
 export * from "./helpers/httpErrorHelper";
 export * from "./helpers/httpParameterHelper";
 export * from "./models/api/IServerHealthResponse";

@@ -18,6 +18,11 @@ import type { ILoggingProcessorConfig } from "../models/ILoggingProcessorConfig"
  */
 export class LoggingProcessor implements IBaseRouteProcessor {
 	/**
+	 * The namespace supported by the processor.
+	 */
+	public static readonly NAMESPACE: string = "logging";
+
+	/**
 	 * Runtime name for the class.
 	 */
 	public readonly CLASS_NAME: string = nameof<LoggingProcessor>();

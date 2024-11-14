@@ -32,6 +32,14 @@ Promise that resolves when the processor is initialized.
 
 ## Properties
 
+### NAMESPACE
+
+> `readonly` `static` **NAMESPACE**: `string` = `"rest-route"`
+
+The namespace supported by the processor.
+
+***
+
 ### CLASS\_NAME
 
 > `readonly` **CLASS\_NAME**: `string`

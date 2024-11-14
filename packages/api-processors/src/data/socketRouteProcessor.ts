@@ -19,6 +19,11 @@ import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
  */
 export class SocketRouteProcessor implements ISocketRouteProcessor {
 	/**
+	 * The namespace supported by the processor.
+	 */
+	public static readonly NAMESPACE: string = "socket-route";
+
+	/**
 	 * Runtime name for the class.
 	 */
 	public readonly CLASS_NAME: string = nameof<SocketRouteProcessor>();

@@ -1,4 +1,4 @@
-# Interface: IRequestLoggingProcessorConfig
+# Interface: ILoggingProcessorConfig
 
 Configuration for the request logging processor.
 

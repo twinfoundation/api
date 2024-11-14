@@ -6,7 +6,6 @@ export * from "./identity/nodeIdentityProcessor";
 export * from "./identity/staticUserIdentityProcessor";
 export * from "./logging/loggingProcessor";
 export * from "./mimeType/jwtMimeTypeProcessor";
-export * from "./models/IRequestLoggingProcessorConfig";
-export * from "./models/IResponseLoggingProcessorConfig";
+export * from "./models/ILoggingProcessorConfig";
 export * from "./models/IRouteProcessorConfig";
 export * from "./models/IStaticUserIdentityProcessorConfig";

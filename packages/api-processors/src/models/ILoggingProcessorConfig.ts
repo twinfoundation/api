@@ -4,7 +4,7 @@
 /**
  * Configuration for the request logging processor.
  */
-export interface IRequestLoggingProcessorConfig {
+export interface ILoggingProcessorConfig {
 	/**
 	 * Include the body objects when logging the information.
 	 */

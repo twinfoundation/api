@@ -24,7 +24,7 @@ Options for the processor.
 
 The type for the logging connector, defaults to "logging".
 
-• **options.config?**: [`IRequestLoggingProcessorConfig`](../interfaces/IRequestLoggingProcessorConfig.md)
+• **options.config?**: [`ILoggingProcessorConfig`](../interfaces/ILoggingProcessorConfig.md)
 
 The configuration for the processor.
 

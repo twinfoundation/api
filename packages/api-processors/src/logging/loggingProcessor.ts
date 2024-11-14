@@ -11,7 +11,7 @@ import { Coerce, Is, ObjectHelper } from "@twin.org/core";
 import { LoggingConnectorFactory, type ILoggingConnector } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
 import { HeaderTypes, HttpStatusCode, MimeTypes } from "@twin.org/web";
-import type { IRequestLoggingProcessorConfig } from "../models/IRequestLoggingProcessorConfig";
+import type { ILoggingProcessorConfig } from "../models/ILoggingProcessorConfig";
 
 /**
  * Process the REST request and log its information.
@@ -53,10 +53,7 @@ export class LoggingProcessor implements IBaseRouteProcessor {
 	 * @param options.config The configuration for the processor.
 	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: {
-		loggingConnectorType?: string;
-		config?: IRequestLoggingProcessorConfig;
-	}) {
+	constructor(options?: { loggingConnectorType?: string; config?: ILoggingProcessorConfig }) {
 		this._loggingConnector = LoggingConnectorFactory.get(
 			options?.loggingConnectorType ?? "logging"
 		);

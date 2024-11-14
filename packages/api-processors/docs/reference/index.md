@@ -11,7 +11,6 @@
 
 ## Interfaces
 
-- [IRequestLoggingProcessorConfig](interfaces/IRequestLoggingProcessorConfig.md)
-- [IResponseLoggingProcessorConfig](interfaces/IResponseLoggingProcessorConfig.md)
+- [ILoggingProcessorConfig](interfaces/ILoggingProcessorConfig.md)
 - [IRouteProcessorConfig](interfaces/IRouteProcessorConfig.md)
 - [IStaticUserIdentityProcessorConfig](interfaces/IStaticUserIdentityProcessorConfig.md)

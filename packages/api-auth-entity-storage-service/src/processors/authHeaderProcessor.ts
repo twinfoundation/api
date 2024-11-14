@@ -20,6 +20,11 @@ import { TokenHelper } from "../utils/tokenHelper";
  */
 export class AuthHeaderProcessor implements IBaseRouteProcessor {
 	/**
+	 * The namespace supported by the processor.
+	 */
+	public static readonly NAMESPACE: string = "auth-header";
+
+	/**
 	 * The default name for the access token as a cookie.
 	 * @internal
 	 */

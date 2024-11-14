@@ -1,5 +1,5 @@
 # @twin.org/api-auth-entity-storage-rest-client - Changelog
 
-## v0.0.1-next.18
+## v0.0.1-next.19
 
 - Initial Release

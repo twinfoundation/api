@@ -60,5 +60,6 @@
 ## Variables
 
 - [MimeTypeProcessorFactory](variables/MimeTypeProcessorFactory.md)
-- [RouteProcessorFactory](variables/RouteProcessorFactory.md)
+- [RestRouteProcessorFactory](variables/RestRouteProcessorFactory.md)
+- [SocketRouteProcessorFactory](variables/SocketRouteProcessorFactory.md)
 - [HealthStatus](variables/HealthStatus.md)

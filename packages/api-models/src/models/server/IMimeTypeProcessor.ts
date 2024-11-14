@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IComponent } from "@twin.org/core";
 
 /**
  * The definition for a handler for a specific MIME type.
  */
-export interface IMimeTypeProcessor {
+export interface IMimeTypeProcessor extends IComponent {
 	/**
 	 * Get the MIME types that this handler can handle.
 	 * @returns The MIME types that this handler can handle.

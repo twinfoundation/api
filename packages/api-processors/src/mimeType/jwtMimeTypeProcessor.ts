@@ -2,16 +2,22 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IMimeTypeProcessor } from "@twin.org/api-models";
 import { Converter } from "@twin.org/core";
+import { nameof } from "@twin.org/nameof";
 import { MimeTypes } from "@twin.org/web";
 
 /**
- * Process the REST request and log its information.
+ * Process the JWT mime type.
  */
 export class JwtMimeTypeProcessor implements IMimeTypeProcessor {
 	/**
 	 * The namespace supported by the processor.
 	 */
 	public static readonly NAMESPACE: string = "jwt";
+
+	/**
+	 * Runtime name for the class.
+	 */
+	public readonly CLASS_NAME: string = nameof<JwtMimeTypeProcessor>();
 
 	/**
 	 * Get the MIME types that this handler can handle.

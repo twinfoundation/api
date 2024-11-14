@@ -1,6 +1,6 @@
 # Class: JwtMimeTypeProcessor
 
-Process the REST request and log its information.
+Process the JWT mime type.
 
 ## Implements
 
@@ -23,6 +23,18 @@ Process the REST request and log its information.
 > `readonly` `static` **NAMESPACE**: `string` = `"jwt"`
 
 The namespace supported by the processor.
+
+***
+
+### CLASS\_NAME
+
+> `readonly` **CLASS\_NAME**: `string`
+
+Runtime name for the class.
+
+#### Implementation of
+
+`IMimeTypeProcessor.CLASS_NAME`
 
 ## Methods
 

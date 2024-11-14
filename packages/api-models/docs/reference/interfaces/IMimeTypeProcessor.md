@@ -2,6 +2,10 @@
 
 The definition for a handler for a specific MIME type.
 
+## Extends
+
+- `IComponent`
+
 ## Methods
 
 ### getTypes()

@@ -1,5 +1,5 @@
 # @twin.org/api-core - Changelog
 
-## v0.0.1-next.19
+## v0.0.1-next.20
 
 - Initial Release

@@ -56,21 +56,29 @@ export abstract class BaseSocketClient {
 	}
 
 	/**
-	 * Setup a handler for a message from the socket.
-	 * @param message The message to look for.
-	 * @param callback The method to call when the message arrives.
+	 * Setup a handler for an event from the socket.
+	 * @param event The event to look for.
+	 * @param callback The method to call when the event arrives.
 	 */
-	protected onMessage<T>(message: string, callback: (data: T) => Promise<void>): void {
-		this._socket.on(message, callback);
+	protected onEvent<T>(event: string, callback: (data: T) => Promise<void>): void {
+		this._socket.on(event, callback);
 	}
 
 	/**
-	 * Send a message on the socket.
-	 * @param message The message to send.
-	 * @param data The data to send with the message.
+	 * Remove a handler for a event from the socket.
+	 * @param event The event to look for.
 	 */
-	protected sendMessage<T>(message: string, data: T): void {
-		this._socket.emit(message, data);
+	protected offEvent(event: string): void {
+		this._socket.off(event);
+	}
+
+	/**
+	 * Send a event on the socket.
+	 * @param event The event to send.
+	 * @param data The data to send with the event.
+	 */
+	protected sendEvent<T>(event: string, data: T): void {
+		this._socket.emit(event, data);
 	}
 
 	/**

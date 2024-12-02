@@ -30,11 +30,11 @@ The default prefix to use if none in configuration.
 
 ## Methods
 
-### onMessage()
+### onEvent()
 
-> `protected` **onMessage**\<`T`\>(`message`, `callback`): `void`
+> `protected` **onEvent**\<`T`\>(`event`, `callback`): `void`
 
-Setup a handler for a message from the socket.
+Setup a handler for an event from the socket.
 
 #### Type Parameters
 
@@ -42,13 +42,13 @@ Setup a handler for a message from the socket.
 
 #### Parameters
 
-• **message**: `string`
+• **event**: `string`
 
-The message to look for.
+The event to look for.
 
 • **callback**
 
-The method to call when the message arrives.
+The method to call when the event arrives.
 
 #### Returns
 
@@ -56,11 +56,29 @@ The method to call when the message arrives.
 
 ***
 
-### sendMessage()
+### offEvent()
 
-> `protected` **sendMessage**\<`T`\>(`message`, `data`): `void`
+> `protected` **offEvent**(`event`): `void`
 
-Send a message on the socket.
+Remove a handler for a event from the socket.
+
+#### Parameters
+
+• **event**: `string`
+
+The event to look for.
+
+#### Returns
+
+`void`
+
+***
+
+### sendEvent()
+
+> `protected` **sendEvent**\<`T`\>(`event`, `data`): `void`
+
+Send a event on the socket.
 
 #### Type Parameters
 
@@ -68,13 +86,13 @@ Send a message on the socket.
 
 #### Parameters
 
-• **message**: `string`
+• **event**: `string`
 
-The message to send.
+The event to send.
 
 • **data**: `T`
 
-The data to send with the message.
+The data to send with the event.
 
 #### Returns
 

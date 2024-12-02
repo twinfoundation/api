@@ -68,7 +68,7 @@ The request object.
 
 • **emit**
 
-The function to emit a message.
+The function to emit an event.
 
 #### Returns
 

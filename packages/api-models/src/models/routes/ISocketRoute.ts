@@ -29,8 +29,8 @@ export interface ISocketRoute<
 		request: T,
 
 		/**
-		 * The function to emit a message.
+		 * The function to emit an event.
 		 */
-		emit: (topic: string, response: U) => Promise<void>
+		emit: (event: string, response: U) => Promise<void>
 	) => void;
 }

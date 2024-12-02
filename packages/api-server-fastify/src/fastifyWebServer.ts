@@ -4,6 +4,7 @@ import FastifyCompress from "@fastify/compress";
 import FastifyCors from "@fastify/cors";
 import {
 	HttpErrorHelper,
+	type IHttpRequest,
 	type IHttpRequestIdentity,
 	type IHttpRequestPathParams,
 	type IHttpRequestQuery,
@@ -558,13 +559,14 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		socket: Socket,
 		fullPath: string,
 		emitTopic: string,
-		data: unknown
+		request: IHttpRequest
 	): Promise<void> {
 		const httpServerRequest: IHttpServerRequest = {
 			method: HttpMethod.GET,
 			url: fullPath,
 			query: socket.handshake.query as IHttpRequestQuery,
-			headers: socket.handshake.headers as IHttpHeaders
+			headers: socket.handshake.headers as IHttpHeaders,
+			body: request.body
 		};
 		const httpResponse: IHttpResponse = {};
 		const httpRequestIdentity: IHttpRequestIdentity = {};
@@ -574,7 +576,6 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 
 		delete httpServerRequest.query?.EIO;
 		delete httpServerRequest.query?.transport;
-		httpServerRequest.body = data;
 
 		await this.runProcessorsSocket(
 			socketRouteProcessors,

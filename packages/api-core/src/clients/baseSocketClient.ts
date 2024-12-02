@@ -1,8 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseSocketClientConfig } from "@twin.org/api-models";
+import type { IBaseSocketClientConfig, IHttpRequest, IHttpResponse } from "@twin.org/api-models";
 import { BaseError, Guards, Is, StringHelper, type IError } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
+import { HttpStatusCode } from "@twin.org/web";
 import lookup, { type Socket } from "socket.io-client";
 
 /**
@@ -60,8 +61,17 @@ export abstract class BaseSocketClient {
 	 * @param event The event to look for.
 	 * @param callback The method to call when the event arrives.
 	 */
-	protected onEvent<T>(event: string, callback: (data: T) => Promise<void>): void {
-		this._socket.on(event, callback);
+	protected onEvent<T extends IHttpResponse>(
+		event: string,
+		callback: (response: T) => Promise<void>
+	): void {
+		this._socket.on(event, async (response: T) => {
+			if ((response.statusCode ?? HttpStatusCode.ok) >= HttpStatusCode.badRequest) {
+				await this.handleError(BaseError.fromError(response.body));
+			} else {
+				await callback(response);
+			}
+		});
 	}
 
 	/**
@@ -77,7 +87,7 @@ export abstract class BaseSocketClient {
 	 * @param event The event to send.
 	 * @param data The data to send with the event.
 	 */
-	protected sendEvent<T>(event: string, data: T): void {
+	protected sendEvent<T extends IHttpRequest>(event: string, data: T): void {
 		this._socket.emit(event, data);
 	}
 

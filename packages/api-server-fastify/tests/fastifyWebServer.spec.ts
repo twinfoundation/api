@@ -290,7 +290,7 @@ describe("api-server-fastify", () => {
 			pingResult = payload.body.data;
 		});
 
-		socket.emit("ping", { data: 123 });
+		socket.emit("ping", { body: { data: 123 } });
 
 		for (let i = 0; i < 20; i++) {
 			if (preSocketId.length > 0) {

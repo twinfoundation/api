@@ -363,7 +363,7 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 					ts: Date.now(),
 					source: this.CLASS_NAME,
 					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.socketRouteAdded`,
-					data: { route: path }
+					data: { route: `/${path}` }
 				});
 
 				const socketNamespace = io.of(`/${pathParts[0]}`);

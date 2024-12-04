@@ -624,17 +624,30 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		): Promise<void> => {
 			await responseEmitter(topic, response);
 
-			// The post processors are called after the response has been emitted
-			for (const postSocketRouteProcessor of socketRouteProcessors) {
-				if (Is.function(postSocketRouteProcessor.post)) {
-					await postSocketRouteProcessor.post(
-						httpServerRequest,
-						response,
-						socketRoute,
-						httpRequestIdentity,
-						responseProcessorState
-					);
+			try {
+				// The post processors are called after the response has been emitted
+				for (const postSocketRouteProcessor of socketRouteProcessors) {
+					if (Is.function(postSocketRouteProcessor.post)) {
+						await postSocketRouteProcessor.post(
+							httpServerRequest,
+							response,
+							socketRoute,
+							httpRequestIdentity,
+							responseProcessorState
+						);
+					}
 				}
+			} catch (err) {
+				this._loggingConnector?.log({
+					level: "error",
+					ts: Date.now(),
+					source: this.CLASS_NAME,
+					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.postProcessorError`,
+					error: BaseError.fromError(err),
+					data: {
+						route: socketRoute.path
+					}
+				});
 			}
 		};
 

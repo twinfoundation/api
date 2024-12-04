@@ -90,11 +90,21 @@ export class LoggingProcessor implements IBaseRouteProcessor {
 			? contentType.includes(MimeTypes.Json) || contentType.includes(MimeTypes.JsonLd)
 			: false;
 
+		let requestUrl = "";
+		if (Is.stringValue(request.url)) {
+			// Socket paths do not have a prefix so just use the whole url.
+			if (request.url.startsWith("http")) {
+				requestUrl = new URL(request.url).pathname;
+			} else {
+				requestUrl = request.url;
+			}
+		}
+
 		await this._loggingConnector.log({
 			level: "info",
 			source: this.CLASS_NAME,
 			ts: Date.now(),
-			message: `===> ${request.method} ${request.url ? new URL(request.url).pathname : ""}`,
+			message: `===> ${request.method} ${requestUrl}`,
 			data:
 				this._includeBody && isJson
 					? (this.processJson("body", ObjectHelper.clone(request?.body)) as {
@@ -149,6 +159,17 @@ export class LoggingProcessor implements IBaseRouteProcessor {
 		const start = Coerce.bigint(processorState.requestStart) ?? now;
 		const elapsed = now - start;
 		const elapsedMicroSeconds = Math.floor(Number(elapsed) / 1000);
+
+		let requestUrl = "";
+		if (Is.stringValue(request.url)) {
+			// Socket paths do not have a prefix so just use the whole url.
+			if (request.url.startsWith("http")) {
+				requestUrl = new URL(request.url).pathname;
+			} else {
+				requestUrl = request.url;
+			}
+		}
+
 		await this._loggingConnector.log({
 			level:
 				Is.number(response.statusCode) && response.statusCode >= HttpStatusCode.badRequest
@@ -156,7 +177,7 @@ export class LoggingProcessor implements IBaseRouteProcessor {
 					: "info",
 			source: this.CLASS_NAME,
 			ts: Date.now(),
-			message: `<=== ${response.statusCode ?? ""} ${request.method} ${request.url ? new URL(request.url).pathname : ""} duration: ${elapsedMicroSeconds}µs`,
+			message: `<=== ${response.statusCode ?? ""} ${request.method} ${requestUrl} duration: ${elapsedMicroSeconds}µs`,
 			data
 		});
 	}

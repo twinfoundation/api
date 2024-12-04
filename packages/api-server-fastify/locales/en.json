@@ -9,6 +9,7 @@
 		"restRouteAdded": "Added REST route \"{route}\" \"{method}\"",
 		"socketRouteAdded": "Added socket route \"{route}\"",
 		"noRestProcessors": "You must configure at least one REST processor",
-		"noSocketProcessors": "You must configure at least one socket processor"
+		"noSocketProcessors": "You must configure at least one socket processor",
+		"postProcessorError": "There was a failure after in a post processor for route \"{route}\""
 	}
 }

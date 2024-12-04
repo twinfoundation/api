@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-auth-entity-storage-rest-client",
-	"version": "0.0.1-next.24",
+	"version": "0.0.1-next.25",
 	"description": "Perform REST authentication using entity storage.",
 	"repository": {
 		"type": "git",
@@ -29,9 +29,9 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/api-auth-entity-storage-models": "0.0.1-next.24",
-		"@twin.org/api-core": "0.0.1-next.24",
-		"@twin.org/api-models": "0.0.1-next.24",
+		"@twin.org/api-auth-entity-storage-models": "0.0.1-next.25",
+		"@twin.org/api-core": "0.0.1-next.25",
+		"@twin.org/api-models": "0.0.1-next.25",
 		"@twin.org/core": "next",
 		"@twin.org/nameof": "next",
 		"@twin.org/web": "next"

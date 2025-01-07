@@ -16,23 +16,31 @@ Pre process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **response**: [`IHttpResponse`](IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](IHttpResponse.md)
 
 The response data to send if any.
 
-• **route**: `undefined` \| [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)
+
+##### requestIdentity
+
+[`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 
@@ -56,23 +64,31 @@ Post process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **response**: [`IHttpResponse`](IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](IHttpResponse.md)
 
 The response data to send if any.
 
-• **route**: `undefined` \| [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)
+
+##### requestIdentity
+
+[`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 
@@ -96,15 +112,19 @@ Process the connected event.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **route**: `undefined` \| [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **processorState**
+`undefined` | [`ISocketRoute`](ISocketRoute.md)
+
+##### processorState
 
 The state handed through the processors.
 
@@ -124,15 +144,19 @@ Process the disconnected event.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **route**: `undefined` \| [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **processorState**
+`undefined` | [`ISocketRoute`](ISocketRoute.md)
+
+##### processorState
 
 The state handed through the processors.
 
@@ -152,27 +176,37 @@ Process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **response**: [`IHttpResponse`](IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](IHttpResponse.md)
 
 The response data to send if any.
 
-• **route**: `undefined` \| [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)
+
+##### requestIdentity
+
+[`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 
-• **responseEmitter**
+##### responseEmitter
+
+(`topic`, `response`) => `Promise`\<`void`\>
 
 The function to emit a response.
 

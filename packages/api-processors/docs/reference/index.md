@@ -12,5 +12,9 @@
 ## Interfaces
 
 - [ILoggingProcessorConfig](interfaces/ILoggingProcessorConfig.md)
+- [ILoggingProcessorConstructorOptions](interfaces/ILoggingProcessorConstructorOptions.md)
+- [IRestRouteProcessorConstructorOptions](interfaces/IRestRouteProcessorConstructorOptions.md)
 - [IRouteProcessorConfig](interfaces/IRouteProcessorConfig.md)
+- [ISocketRouteProcessorConstructorOptions](interfaces/ISocketRouteProcessorConstructorOptions.md)
 - [IStaticUserIdentityProcessorConfig](interfaces/IStaticUserIdentityProcessorConfig.md)
+- [IStaticUserIdentityProcessorConstructorOptions](interfaces/IStaticUserIdentityProcessorConstructorOptions.md)

@@ -16,21 +16,11 @@ Create a new instance of FastifyWebServer.
 
 #### Parameters
 
-• **options?**
+##### options?
+
+[`IFastifyWebServerConstructorOptions`](../interfaces/IFastifyWebServerConstructorOptions.md)
 
 The options for the server.
-
-• **options.loggingConnectorType?**: `string`
-
-The type of the logging connector to use, if undefined, no logging will happen.
-
-• **options.config?**: [`IFastifyWebServerConfig`](../interfaces/IFastifyWebServerConfig.md)
-
-Additional configuration for the server.
-
-• **options.mimeTypeProcessors?**: `IMimeTypeProcessor`[]
-
-Additional MIME type processors.
 
 #### Returns
 
@@ -48,13 +38,13 @@ Runtime name for the class.
 
 ### getInstance()
 
-> **getInstance**(): `FastifyInstance`\<`RawServerDefault`, `IncomingMessage`, `ServerResponse`\<`IncomingMessage`\>, `FastifyBaseLogger`, `FastifyTypeProviderDefault`\>
+> **getInstance**(): `FastifyInstance`\<`IncomingMessage`, `ServerResponse`\>
 
 Get the web server instance.
 
 #### Returns
 
-`FastifyInstance`\<`RawServerDefault`, `IncomingMessage`, `ServerResponse`\<`IncomingMessage`\>, `FastifyBaseLogger`, `FastifyTypeProviderDefault`\>
+`FastifyInstance`\<`IncomingMessage`, `ServerResponse`\>
 
 The web server instance.
 
@@ -72,23 +62,33 @@ Build the server.
 
 #### Parameters
 
-• **restRouteProcessors?**: `IRestRouteProcessor`[]
+##### restRouteProcessors?
+
+`IRestRouteProcessor`[]
 
 The processors for incoming requests over REST.
 
-• **restRoutes?**: `IRestRoute`\<`any`, `any`\>[]
+##### restRoutes?
+
+`IRestRoute`[]
 
 The REST routes.
 
-• **socketRouteProcessors?**: `ISocketRouteProcessor`[]
+##### socketRouteProcessors?
+
+`ISocketRouteProcessor`[]
 
 The processors for incoming requests over Sockets.
 
-• **socketRoutes?**: `ISocketRoute`\<`any`, `any`\>[]
+##### socketRoutes?
+
+`ISocketRoute`[]
 
 The socket routes.
 
-• **options?**: `IWebServerOptions`
+##### options?
+
+`IWebServerOptions`
 
 Options for building the server.
 

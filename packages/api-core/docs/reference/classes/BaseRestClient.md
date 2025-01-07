@@ -12,15 +12,21 @@ Create a new instance of BaseRestClient.
 
 #### Parameters
 
-• **implementationName**: `string`
+##### implementationName
+
+`string`
 
 The name of the class implementation REST calls.
 
-• **config**: `IBaseRestClientConfig`
+##### config
+
+`IBaseRestClientConfig`
 
 The configuration for the client.
 
-• **pathPrefix**: `string`
+##### pathPrefix
+
+`string`
 
 The default prefix to use if none in configuration.
 
@@ -52,21 +58,27 @@ Perform a request in json format.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+• **T** *extends* `IHttpRequest`
 
-• **U** *extends* `IHttpResponse`\<`any`\>
+• **U** *extends* `IHttpResponse`
 
 #### Parameters
 
-• **route**: `string`
+##### route
+
+`string`
 
 The route of the request.
 
-• **method**: `HttpMethod`
+##### method
+
+`HttpMethod`
 
 The http method.
 
-• **request?**: `T`
+##### request?
+
+`T`
 
 Request to send to the endpoint.
 

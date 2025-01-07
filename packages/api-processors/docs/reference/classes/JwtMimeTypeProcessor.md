@@ -64,7 +64,9 @@ Handle content.
 
 #### Parameters
 
-• **body**: `Uint8Array`
+##### body
+
+`Uint8Array`
 
 The body to process.
 

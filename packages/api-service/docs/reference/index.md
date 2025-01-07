@@ -7,6 +7,7 @@
 ## Interfaces
 
 - [IInformationServiceConfig](interfaces/IInformationServiceConfig.md)
+- [IInformationServiceConstructorOptions](interfaces/IInformationServiceConstructorOptions.md)
 
 ## Variables
 

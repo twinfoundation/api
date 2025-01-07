@@ -40,9 +40,13 @@ The method to generate the routes.
 
 #### Parameters
 
-• **baseRouteName**: `string`
+##### baseRouteName
 
-• **componentName**: `string`
+`string`
+
+##### componentName
+
+`string`
 
 #### Returns
 

@@ -20,7 +20,9 @@ Create a new instance of EntityStorageAuthenticationClient.
 
 #### Parameters
 
-• **config**: `IBaseRestClientConfig`
+##### config
+
+`IBaseRestClientConfig`
 
 The configuration for the client.
 
@@ -48,33 +50,29 @@ Runtime name for the class.
 
 ### login()
 
-> **login**(`email`, `password`): `Promise`\<`object`\>
+> **login**(`email`, `password`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Perform a login for the user.
 
 #### Parameters
 
-• **email**: `string`
+##### email
+
+`string`
 
 The email address for the user.
 
-• **password**: `string`
+##### password
+
+`string`
 
 The password for the user.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 The authentication token for the user, if it uses a mechanism with public access.
-
-##### token?
-
-> `optional` **token**: `string`
-
-##### expiry
-
-> **expiry**: `number`
 
 #### Implementation of
 
@@ -90,7 +88,9 @@ Logout the current user.
 
 #### Parameters
 
-• **token?**: `string`
+##### token?
+
+`string`
 
 The token to logout, if it uses a mechanism with public access.
 
@@ -108,29 +108,23 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<`object`\>
+> **refresh**(`token`?): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 
 #### Parameters
 
-• **token?**: `string`
+##### token?
+
+`string`
 
 The token to refresh, if it uses a mechanism with public access.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 The refreshed token, if it uses a mechanism with public access.
-
-##### token?
-
-> `optional` **token**: `string`
-
-##### expiry
-
-> **expiry**: `number`
 
 #### Implementation of
 
@@ -164,21 +158,27 @@ Perform a request in json format.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+• **T** *extends* `IHttpRequest`
 
-• **U** *extends* `IHttpResponse`\<`any`\>
+• **U** *extends* `IHttpResponse`
 
 #### Parameters
 
-• **route**: `string`
+##### route
+
+`string`
 
 The route of the request.
 
-• **method**: `HttpMethod`
+##### method
+
+`HttpMethod`
 
 The http method.
 
-• **request?**: `T`
+##### request?
+
+`T`
 
 Request to send to the endpoint.
 

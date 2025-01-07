@@ -7,3 +7,4 @@
 ## Interfaces
 
 - [IFastifyWebServerConfig](interfaces/IFastifyWebServerConfig.md)
+- [IFastifyWebServerConstructorOptions](interfaces/IFastifyWebServerConstructorOptions.md)

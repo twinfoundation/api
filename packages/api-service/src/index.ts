@@ -3,4 +3,5 @@
 export * from "./informationRoutes";
 export * from "./informationService";
 export * from "./models/IInformationServiceConfig";
+export * from "./models/IInformationServiceConstructorOptions";
 export * from "./restEntryPoints";

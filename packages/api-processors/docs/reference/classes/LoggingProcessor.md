@@ -12,27 +12,19 @@ Process the REST request and log its information.
 
 > **new LoggingProcessor**(`options`?): [`LoggingProcessor`](LoggingProcessor.md)
 
-Create a new instance of RequestLoggingProcessor.
+Create a new instance of LoggingProcessor.
 
 #### Parameters
 
-• **options?**
+##### options?
+
+[`ILoggingProcessorConstructorOptions`](../interfaces/ILoggingProcessorConstructorOptions.md)
 
 Options for the processor.
-
-• **options.loggingConnectorType?**: `string`
-
-The type for the logging connector, defaults to "logging".
-
-• **options.config?**: [`ILoggingProcessorConfig`](../interfaces/ILoggingProcessorConfig.md)
-
-The configuration for the processor.
 
 #### Returns
 
 [`LoggingProcessor`](LoggingProcessor.md)
-
-Promise that resolves when the processor is initialized.
 
 ## Properties
 
@@ -64,23 +56,31 @@ Pre process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: `IHttpServerRequest`\<`any`\>
+##### request
+
+`IHttpServerRequest`
 
 The incoming request.
 
-• **response**: `IHttpResponse`\<`any`\>
+##### response
+
+`IHttpResponse`
 
 The outgoing response.
 
-• **route**: `undefined` \| `IBaseRoute`
+##### route
 
 The route to process.
 
-• **requestIdentity**: `IHttpRequestIdentity`
+`undefined` | `IBaseRoute`
+
+##### requestIdentity
+
+`IHttpRequestIdentity`
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 
@@ -102,23 +102,31 @@ Post process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: `IHttpServerRequest`\<`any`\>
+##### request
+
+`IHttpServerRequest`
 
 The incoming request.
 
-• **response**: `IHttpResponse`\<`any`\>
+##### response
+
+`IHttpResponse`
 
 The outgoing response.
 
-• **route**: `undefined` \| `IBaseRoute`
+##### route
 
 The route to process.
 
-• **requestIdentity**: `IHttpRequestIdentity`
+`undefined` | `IBaseRoute`
+
+##### requestIdentity
+
+`IHttpRequestIdentity`
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 

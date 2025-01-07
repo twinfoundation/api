@@ -16,23 +16,31 @@ Pre process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **response**: [`IHttpResponse`](IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](IHttpResponse.md)
 
 The response data to send if any.
 
-• **route**: `undefined` \| [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
+`undefined` | [`IRestRoute`](IRestRoute.md)
+
+##### requestIdentity
+
+[`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 
@@ -56,23 +64,31 @@ Post process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **response**: [`IHttpResponse`](IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](IHttpResponse.md)
 
 The response data to send if any.
 
-• **route**: `undefined` \| [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
+`undefined` | [`IRestRoute`](IRestRoute.md)
+
+##### requestIdentity
+
+[`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 
@@ -96,23 +112,31 @@ Process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+##### request
+
+[`IHttpServerRequest`](IHttpServerRequest.md)
 
 The request to handle.
 
-• **response**: [`IHttpResponse`](IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](IHttpResponse.md)
 
 The response data to send if any.
 
-• **route**: `undefined` \| [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>
+##### route
 
 The route being requested, if a matching one was found.
 
-• **requestIdentity**: [`IHttpRequestIdentity`](IHttpRequestIdentity.md)
+`undefined` | [`IRestRoute`](IRestRoute.md)
+
+##### requestIdentity
+
+[`IHttpRequestIdentity`](IHttpRequestIdentity.md)
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 

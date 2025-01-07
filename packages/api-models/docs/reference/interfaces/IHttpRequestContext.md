@@ -10,7 +10,7 @@ Context data from the HTTP request.
 
 ### serverRequest
 
-> **serverRequest**: [`IHttpServerRequest`](IHttpServerRequest.md)\<`any`\>
+> **serverRequest**: [`IHttpServerRequest`](IHttpServerRequest.md)
 
 The raw HTTP request.
 
@@ -24,7 +24,7 @@ The state handed through the processors.
 
 #### Index Signature
 
- \[`id`: `string`\]: `unknown`
+\[`id`: `string`\]: `unknown`
 
 ***
 

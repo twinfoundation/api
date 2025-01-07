@@ -12,7 +12,7 @@ import {
 import { Is, NotFoundError } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import { HttpStatusCode } from "@twin.org/web";
-import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
+import type { ISocketRouteProcessorConstructorOptions } from "../models/ISocketRouteProcessorConstructorOptions";
 
 /**
  * Process the socket request and hands it on to the route handler.
@@ -37,10 +37,8 @@ export class SocketRouteProcessor implements ISocketRouteProcessor {
 	/**
 	 * Create a new instance of SocketRouteProcessor.
 	 * @param options Options for the processor.
-	 * @param options.config The configuration for the processor.
-	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: { config?: IRouteProcessorConfig }) {
+	constructor(options?: ISocketRouteProcessorConstructorOptions) {
 		this._includeErrorStack = options?.config?.includeErrorStack ?? false;
 	}
 

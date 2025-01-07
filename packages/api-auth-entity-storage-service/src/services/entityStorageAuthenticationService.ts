@@ -9,7 +9,7 @@ import {
 import { nameof } from "@twin.org/nameof";
 import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
 import type { AuthenticationUser } from "../entities/authenticationUser";
-import type { IEntityStorageAuthenticationServiceConfig } from "../models/IEntityStorageAuthenticationServiceConfig";
+import type { IEntityStorageAuthenticationServiceConstructorOptions } from "../models/IEntityStorageAuthenticationServiceConstructorOptions";
 import { PasswordHelper } from "../utils/passwordHelper";
 import { TokenHelper } from "../utils/tokenHelper";
 
@@ -66,15 +66,8 @@ export class EntityStorageAuthenticationService implements IAuthenticationCompon
 	/**
 	 * Create a new instance of EntityStorageAuthentication.
 	 * @param options The dependencies for the identity connector.
-	 * @param options.userEntityStorageType The entity storage for the users, defaults to "authentication-user".
-	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
-	 * @param options.config The configuration for the authentication.
 	 */
-	constructor(options?: {
-		userEntityStorageType?: string;
-		vaultConnectorType?: string;
-		config?: IEntityStorageAuthenticationServiceConfig;
-	}) {
+	constructor(options?: IEntityStorageAuthenticationServiceConstructorOptions) {
 		this._userEntityStorage = EntityStorageConnectorFactory.get(
 			options?.userEntityStorageType ?? "authentication-user"
 		);

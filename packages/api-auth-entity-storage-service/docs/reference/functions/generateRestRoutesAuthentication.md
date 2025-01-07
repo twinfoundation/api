@@ -6,11 +6,15 @@ The REST routes for authentication.
 
 ## Parameters
 
-• **baseRouteName**: `string`
+### baseRouteName
+
+`string`
 
 Prefix to prepend to the paths.
 
-• **componentName**: `string`
+### componentName
+
+`string`
 
 The name of the component to use in the routes stored in the ComponentFactory.
 

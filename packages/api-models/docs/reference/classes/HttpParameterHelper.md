@@ -26,7 +26,9 @@ Convert list query to array.
 
 #### Parameters
 
-• **values?**: `string`
+##### values?
+
+`string`
 
 The values query string.
 
@@ -50,7 +52,9 @@ Convert array of values to query string.
 
 #### Parameters
 
-• **values?**: `T`[]
+##### values?
+
+`T`[]
 
 The values to combine string.
 
@@ -74,7 +78,9 @@ Convert object string to object.
 
 #### Parameters
 
-• **value?**: `string`
+##### value?
+
+`string`
 
 The value query string.
 
@@ -98,7 +104,9 @@ Convert object to query string.
 
 #### Parameters
 
-• **value?**: `T`
+##### value?
+
+`T`
 
 The value to convert to a string.
 

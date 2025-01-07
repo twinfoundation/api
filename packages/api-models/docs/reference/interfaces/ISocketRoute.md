@@ -58,15 +58,21 @@ The handler module.
 
 #### Parameters
 
-• **httpRequestContext**: [`IHttpRequestContext`](IHttpRequestContext.md)
+##### httpRequestContext
+
+[`IHttpRequestContext`](IHttpRequestContext.md)
 
 The request context.
 
-• **request**: `T`
+##### request
+
+`T`
 
 The request object.
 
-• **emit**
+##### emit
+
+(`event`, `response`) => `Promise`\<`void`\>
 
 The function to emit an event.
 

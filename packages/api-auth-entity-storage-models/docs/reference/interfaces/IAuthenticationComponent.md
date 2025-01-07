@@ -10,33 +10,29 @@ Contract definition for authentication component.
 
 ### login()
 
-> **login**(`email`, `password`): `Promise`\<`object`\>
+> **login**(`email`, `password`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Perform a login for the user.
 
 #### Parameters
 
-• **email**: `string`
+##### email
+
+`string`
 
 The email address for the user.
 
-• **password**: `string`
+##### password
+
+`string`
 
 The password for the user.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 The authentication token for the user, if it uses a mechanism with public access.
-
-##### token?
-
-> `optional` **token**: `string`
-
-##### expiry
-
-> **expiry**: `number`
 
 ***
 
@@ -48,7 +44,9 @@ Logout the current user.
 
 #### Parameters
 
-• **token?**: `string`
+##### token?
+
+`string`
 
 The token to logout, if it uses a mechanism with public access.
 
@@ -62,26 +60,20 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<`object`\>
+> **refresh**(`token`?): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 
 #### Parameters
 
-• **token?**: `string`
+##### token?
+
+`string`
 
 The token to refresh, if it uses a mechanism with public access.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 The refreshed token, if it uses a mechanism with public access.
-
-##### token?
-
-> `optional` **token**: `string`
-
-##### expiry
-
-> **expiry**: `number`

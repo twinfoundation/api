@@ -20,7 +20,9 @@ Create a new instance of InformationClient.
 
 #### Parameters
 
-• **config**: `IBaseRestClientConfig`
+##### config
+
+`IBaseRestClientConfig`
 
 The configuration for the client.
 
@@ -72,21 +74,27 @@ Perform a request in json format.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+• **T** *extends* `IHttpRequest`
 
-• **U** *extends* `IHttpResponse`\<`any`\>
+• **U** *extends* `IHttpResponse`
 
 #### Parameters
 
-• **route**: `string`
+##### route
+
+`string`
 
 The route of the request.
 
-• **method**: `HttpMethod`
+##### method
+
+`HttpMethod`
 
 The http method.
 
-• **request?**: `T`
+##### request?
+
+`T`
 
 Request to send to the endpoint.
 
@@ -164,15 +172,21 @@ Set the status of a component.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 The component name.
 
-• **status**: `HealthStatus`
+##### status
+
+`HealthStatus`
 
 The status of the component.
 
-• **details?**: `string`
+##### details?
+
+`string`
 
 The details for the status.
 
@@ -196,7 +210,9 @@ Remove the status of a component.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 The component name.
 

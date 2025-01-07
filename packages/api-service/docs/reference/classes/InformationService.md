@@ -16,13 +16,11 @@ Create a new instance of InformationService.
 
 #### Parameters
 
-• **options**
+##### options
+
+[`IInformationServiceConstructorOptions`](../interfaces/IInformationServiceConstructorOptions.md)
 
 The options to create the service.
-
-• **options.config**: [`IInformationServiceConfig`](../interfaces/IInformationServiceConfig.md)
-
-The configuration for the service.
 
 #### Returns
 
@@ -130,15 +128,21 @@ Set the status of a component.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 The component name.
 
-• **status**: `HealthStatus`
+##### status
+
+`HealthStatus`
 
 The status of the component.
 
-• **details?**: `string`
+##### details?
+
+`string`
 
 The details for the status.
 
@@ -162,7 +166,9 @@ Remove the status of a component.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 The component name.
 

@@ -25,7 +25,7 @@ import { HeaderTypes, HttpMethod, HttpStatusCode, type IHttpHeaders } from "@twi
 import Fastify, { type FastifyInstance, type FastifyReply, type FastifyRequest } from "fastify";
 import type { Server, ServerOptions, Socket } from "socket.io";
 import FastifySocketIO from "./fastifySocketIo";
-import type { IFastifyWebServerConfig } from "./models/IFastifyWebServerConfig";
+import type { IFastifyWebServerConstructorOptions } from "./models/IFastifyWebServerConstructorOptions";
 
 /**
  * Implementation of the web server using Fastify.
@@ -100,15 +100,8 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 	/**
 	 * Create a new instance of FastifyWebServer.
 	 * @param options The options for the server.
-	 * @param options.loggingConnectorType The type of the logging connector to use, if undefined, no logging will happen.
-	 * @param options.mimeTypeProcessors Additional MIME type processors.
-	 * @param options.config Additional configuration for the server.
 	 */
-	constructor(options?: {
-		loggingConnectorType?: string;
-		config?: IFastifyWebServerConfig;
-		mimeTypeProcessors?: IMimeTypeProcessor[];
-	}) {
+	constructor(options?: IFastifyWebServerConstructorOptions) {
 		this._loggingConnector = Is.stringValue(options?.loggingConnectorType)
 			? LoggingConnectorFactory.get(options.loggingConnectorType)
 			: undefined;

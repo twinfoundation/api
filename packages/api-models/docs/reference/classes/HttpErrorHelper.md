@@ -22,11 +22,15 @@ Process the errors from the routes.
 
 #### Parameters
 
-• **err**: `unknown`
+##### err
+
+`unknown`
 
 The error to process.
 
-• **includeStack?**: `boolean`
+##### includeStack?
+
+`boolean`
 
 Should the stack be included in the error.
 
@@ -54,15 +58,21 @@ Build an error response.
 
 #### Parameters
 
-• **response**: [`IHttpResponse`](../interfaces/IHttpResponse.md)\<`any`\>
+##### response
+
+[`IHttpResponse`](../interfaces/IHttpResponse.md)
 
 The response to build the error into.
 
-• **error**: `IError`
+##### error
+
+`IError`
 
 The error to build the response for.
 
-• **statusCode**: `HttpStatusCode`
+##### statusCode
+
+`HttpStatusCode`
 
 The status code to use for the error.
 

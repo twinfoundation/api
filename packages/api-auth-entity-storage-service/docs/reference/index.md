@@ -11,7 +11,9 @@
 ## Interfaces
 
 - [IAuthHeaderProcessorConfig](interfaces/IAuthHeaderProcessorConfig.md)
+- [IAuthHeaderProcessorConstructorOptions](interfaces/IAuthHeaderProcessorConstructorOptions.md)
 - [IEntityStorageAuthenticationServiceConfig](interfaces/IEntityStorageAuthenticationServiceConfig.md)
+- [IEntityStorageAuthenticationServiceConstructorOptions](interfaces/IEntityStorageAuthenticationServiceConstructorOptions.md)
 
 ## Variables
 

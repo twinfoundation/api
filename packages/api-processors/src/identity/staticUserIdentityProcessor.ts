@@ -9,7 +9,7 @@ import type {
 } from "@twin.org/api-models";
 import { Guards, Is } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
-import type { IStaticUserIdentityProcessorConfig } from "../models/IStaticUserIdentityProcessorConfig";
+import type { IStaticUserIdentityProcessorConstructorOptions } from "../models/IStaticUserIdentityProcessorConstructorOptions";
 
 /**
  * Adds a static user identity to the request context.
@@ -34,10 +34,8 @@ export class StaticUserIdentityProcessor implements IBaseRouteProcessor {
 	/**
 	 * Create a new instance of StaticIdentityProcessor.
 	 * @param options Options for the processor.
-	 * @param options.config The configuration for the processor.
-	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options: { config: IStaticUserIdentityProcessorConfig }) {
+	constructor(options: IStaticUserIdentityProcessorConstructorOptions) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
 		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
 		Guards.stringValue(

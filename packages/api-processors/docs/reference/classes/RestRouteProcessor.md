@@ -16,19 +16,15 @@ Create a new instance of RouteProcessor.
 
 #### Parameters
 
-• **options?**
+##### options?
+
+[`IRestRouteProcessorConstructorOptions`](../interfaces/IRestRouteProcessorConstructorOptions.md)
 
 Options for the processor.
-
-• **options.config?**: [`IRouteProcessorConfig`](../interfaces/IRouteProcessorConfig.md)
-
-The configuration for the processor.
 
 #### Returns
 
 [`RestRouteProcessor`](RestRouteProcessor.md)
-
-Promise that resolves when the processor is initialized.
 
 ## Properties
 
@@ -60,23 +56,31 @@ Process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: `IHttpServerRequest`\<`any`\>
+##### request
+
+`IHttpServerRequest`
 
 The incoming request.
 
-• **response**: `IHttpResponse`\<`any`\>
+##### response
+
+`IHttpResponse`
 
 The outgoing response.
 
-• **route**: `undefined` \| `IRestRoute`\<`any`, `any`\>
+##### route
 
 The route to process.
 
-• **requestIdentity**: `IHttpRequestIdentity`
+`undefined` | `IRestRoute`
+
+##### requestIdentity
+
+`IHttpRequestIdentity`
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 

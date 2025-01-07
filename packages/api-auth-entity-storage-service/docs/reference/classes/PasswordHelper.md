@@ -22,11 +22,15 @@ Hash the password for the user.
 
 #### Parameters
 
-• **passwordBytes**: `Uint8Array`
+##### passwordBytes
+
+`Uint8Array`
 
 The password bytes.
 
-• **saltBytes**: `Uint8Array`
+##### saltBytes
+
+`Uint8Array`
 
 The salt bytes.
 

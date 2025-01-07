@@ -16,19 +16,15 @@ Create a new instance of StaticIdentityProcessor.
 
 #### Parameters
 
-• **options**
+##### options
+
+[`IStaticUserIdentityProcessorConstructorOptions`](../interfaces/IStaticUserIdentityProcessorConstructorOptions.md)
 
 Options for the processor.
-
-• **options.config**: [`IStaticUserIdentityProcessorConfig`](../interfaces/IStaticUserIdentityProcessorConfig.md)
-
-The configuration for the processor.
 
 #### Returns
 
 [`StaticUserIdentityProcessor`](StaticUserIdentityProcessor.md)
-
-Promise that resolves when the processor is initialized.
 
 ## Properties
 
@@ -60,23 +56,31 @@ Pre process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: `IHttpServerRequest`\<`any`\>
+##### request
+
+`IHttpServerRequest`
 
 The incoming request.
 
-• **response**: `IHttpResponse`\<`any`\>
+##### response
+
+`IHttpResponse`
 
 The outgoing response.
 
-• **route**: `undefined` \| `IBaseRoute`
+##### route
 
 The route to process.
 
-• **requestIdentity**: `IHttpRequestIdentity`
+`undefined` | `IBaseRoute`
+
+##### requestIdentity
+
+`IHttpRequestIdentity`
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 

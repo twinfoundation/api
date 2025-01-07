@@ -12,7 +12,7 @@ import { BaseError, Guards, Is } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
 import { HeaderTypes, HttpStatusCode } from "@twin.org/web";
-import type { IAuthHeaderProcessorConfig } from "../models/IAuthHeaderProcessorConfig";
+import type { IAuthHeaderProcessorConstructorOptions } from "../models/IAuthHeaderProcessorConstructorOptions";
 import { TokenHelper } from "../utils/tokenHelper";
 
 /**
@@ -62,10 +62,8 @@ export class AuthHeaderProcessor implements IBaseRouteProcessor {
 	/**
 	 * Create a new instance of AuthCookiePreProcessor.
 	 * @param options Options for the processor.
-	 * @param options.vaultConnectorType The vault for the private keys, defaults to "vault".
-	 * @param options.config The configuration for the processor.
 	 */
-	constructor(options?: { vaultConnectorType?: string; config?: IAuthHeaderProcessorConfig }) {
+	constructor(options?: IAuthHeaderProcessorConstructorOptions) {
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
 		this._cookieName = options?.config?.cookieName ?? AuthHeaderProcessor.DEFAULT_COOKIE_NAME;

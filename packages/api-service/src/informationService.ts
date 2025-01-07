@@ -9,7 +9,7 @@ import type {
 } from "@twin.org/api-models";
 import { Guards, Is } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
-import type { IInformationServiceConfig } from "./models/IInformationServiceConfig";
+import type { IInformationServiceConstructorOptions } from "./models/IInformationServiceConstructorOptions";
 
 /**
  * The information service for the server.
@@ -52,9 +52,8 @@ export class InformationService implements IInformationComponent {
 	/**
 	 * Create a new instance of InformationService.
 	 * @param options The options to create the service.
-	 * @param options.config The configuration for the service.
 	 */
-	constructor(options: { config: IInformationServiceConfig }) {
+	constructor(options: IInformationServiceConstructorOptions) {
 		Guards.object(this.CLASS_NAME, nameof(options), options);
 		Guards.object(this.CLASS_NAME, nameof(options.config), options.config);
 		Guards.object(this.CLASS_NAME, nameof(options.config.serverInfo), options.config.serverInfo);

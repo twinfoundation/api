@@ -82,11 +82,15 @@ The handler module.
 
 #### Parameters
 
-• **httpRequestContext**: [`IHttpRequestContext`](IHttpRequestContext.md)
+##### httpRequestContext
+
+[`IHttpRequestContext`](IHttpRequestContext.md)
 
 The http request context.
 
-• **request**: `T`
+##### request
+
+`T`
 
 The request object, combined query param, path params and body.
 
@@ -127,6 +131,24 @@ Example objects for the request.
 > `optional` **responseType**: `object`[]
 
 The type of the response object.
+
+#### type
+
+> **type**: `string`
+
+The object type of the response.
+
+#### mimeType?
+
+> `optional` **mimeType**: `string`
+
+The mime type of the response, defaults to "application/json" if there is a body.
+
+#### examples?
+
+> `optional` **examples**: [`IRestRouteResponseExample`](IRestRouteResponseExample.md)\<`U`\>[]
+
+Example objects of the response.
 
 ***
 

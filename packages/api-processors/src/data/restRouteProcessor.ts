@@ -13,7 +13,7 @@ import {
 import { Is, NotFoundError } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
 import { HeaderTypes, HttpStatusCode, MimeTypes } from "@twin.org/web";
-import type { IRouteProcessorConfig } from "../models/IRouteProcessorConfig";
+import type { IRestRouteProcessorConstructorOptions } from "../models/IRestRouteProcessorConstructorOptions";
 
 /**
  * Process the REST request and hands it on to the route handler.
@@ -38,10 +38,8 @@ export class RestRouteProcessor implements IRestRouteProcessor {
 	/**
 	 * Create a new instance of RouteProcessor.
 	 * @param options Options for the processor.
-	 * @param options.config The configuration for the processor.
-	 * @returns Promise that resolves when the processor is initialized.
 	 */
-	constructor(options?: { config?: IRouteProcessorConfig }) {
+	constructor(options?: IRestRouteProcessorConstructorOptions) {
 		this._includeErrorStack = options?.config?.includeErrorStack ?? false;
 	}
 

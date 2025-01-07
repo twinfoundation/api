@@ -58,15 +58,21 @@ Set the status of a component.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 The component name.
 
-• **status**: [`HealthStatus`](../type-aliases/HealthStatus.md)
+##### status
+
+[`HealthStatus`](../type-aliases/HealthStatus.md)
 
 The status of the component.
 
-• **details?**: `string`
+##### details?
+
+`string`
 
 The details for the status.
 
@@ -86,7 +92,9 @@ Remove the status of a component.
 
 #### Parameters
 
-• **name**: `string`
+##### name
+
+`string`
 
 The component name.
 

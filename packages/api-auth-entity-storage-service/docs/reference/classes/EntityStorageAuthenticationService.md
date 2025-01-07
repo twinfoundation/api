@@ -16,21 +16,11 @@ Create a new instance of EntityStorageAuthentication.
 
 #### Parameters
 
-• **options?**
+##### options?
+
+[`IEntityStorageAuthenticationServiceConstructorOptions`](../interfaces/IEntityStorageAuthenticationServiceConstructorOptions.md)
 
 The dependencies for the identity connector.
-
-• **options.userEntityStorageType?**: `string`
-
-The entity storage for the users, defaults to "authentication-user".
-
-• **options.vaultConnectorType?**: `string`
-
-The vault for the private keys, defaults to "vault".
-
-• **options.config?**: [`IEntityStorageAuthenticationServiceConfig`](../interfaces/IEntityStorageAuthenticationServiceConfig.md)
-
-The configuration for the authentication.
 
 #### Returns
 
@@ -66,11 +56,15 @@ The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **nodeIdentity**: `string`
+##### nodeIdentity
+
+`string`
 
 The identity of the node.
 
-• **nodeLoggingConnectorType?**: `string`
+##### nodeLoggingConnectorType?
+
+`string`
 
 The node logging connector type, defaults to "node-logging".
 
@@ -88,33 +82,29 @@ Nothing.
 
 ### login()
 
-> **login**(`email`, `password`): `Promise`\<`object`\>
+> **login**(`email`, `password`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Perform a login for the user.
 
 #### Parameters
 
-• **email**: `string`
+##### email
+
+`string`
 
 The email address for the user.
 
-• **password**: `string`
+##### password
+
+`string`
 
 The password for the user.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 The authentication token for the user, if it uses a mechanism with public access.
-
-##### token?
-
-> `optional` **token**: `string`
-
-##### expiry
-
-> **expiry**: `number`
 
 #### Implementation of
 
@@ -130,7 +120,9 @@ Logout the current user.
 
 #### Parameters
 
-• **token?**: `string`
+##### token?
+
+`string`
 
 The token to logout, if it uses a mechanism with public access.
 
@@ -148,29 +140,23 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<`object`\>
+> **refresh**(`token`?): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 
 #### Parameters
 
-• **token?**: `string`
+##### token?
+
+`string`
 
 The token to refresh, if it uses a mechanism with public access.
 
 #### Returns
 
-`Promise`\<`object`\>
+`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 The refreshed token, if it uses a mechanism with public access.
-
-##### token
-
-> **token**: `string`
-
-##### expiry
-
-> **expiry**: `number`
 
 #### Implementation of
 

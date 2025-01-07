@@ -46,11 +46,15 @@ The service needs to be started when the application is initialized.
 
 #### Parameters
 
-• **nodeIdentity**: `string`
+##### nodeIdentity
+
+`string`
 
 The identity of the node.
 
-• **nodeLoggingConnectorType?**: `string`
+##### nodeLoggingConnectorType?
+
+`string`
 
 The node logging connector type, defaults to "node-logging".
 
@@ -74,23 +78,31 @@ Pre process the REST request for the specified route.
 
 #### Parameters
 
-• **request**: `IHttpServerRequest`\<`any`\>
+##### request
+
+`IHttpServerRequest`
 
 The incoming request.
 
-• **response**: `IHttpResponse`\<`any`\>
+##### response
+
+`IHttpResponse`
 
 The outgoing response.
 
-• **route**: `undefined` \| `IBaseRoute`
+##### route
 
 The route to process.
 
-• **requestIdentity**: `IHttpRequestIdentity`
+`undefined` | `IBaseRoute`
+
+##### requestIdentity
+
+`IHttpRequestIdentity`
 
 The identity context for the request.
 
-• **processorState**
+##### processorState
 
 The state handed through the processors.
 

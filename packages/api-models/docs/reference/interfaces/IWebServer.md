@@ -30,23 +30,33 @@ Build the server.
 
 #### Parameters
 
-• **restRouteProcessors?**: [`IRestRouteProcessor`](IRestRouteProcessor.md)[]
+##### restRouteProcessors?
+
+[`IRestRouteProcessor`](IRestRouteProcessor.md)[]
 
 The processors for incoming requests over REST.
 
-• **restRoutes?**: [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
+##### restRoutes?
+
+[`IRestRoute`](IRestRoute.md)[]
 
 The REST routes.
 
-• **socketRouteProcessors?**: [`ISocketRouteProcessor`](ISocketRouteProcessor.md)[]
+##### socketRouteProcessors?
+
+[`ISocketRouteProcessor`](ISocketRouteProcessor.md)[]
 
 The processors for incoming requests over Sockets.
 
-• **socketRoutes?**: [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>[]
+##### socketRoutes?
+
+[`ISocketRoute`](ISocketRoute.md)[]
 
 The socket routes.
 
-• **options?**: [`IWebServerOptions`](IWebServerOptions.md)
+##### options?
+
+[`IWebServerOptions`](IWebServerOptions.md)
 
 Options for building the server.
 

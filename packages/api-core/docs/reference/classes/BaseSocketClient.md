@@ -12,15 +12,21 @@ Create a new instance of BaseSocketClient.
 
 #### Parameters
 
-• **implementationName**: `string`
+##### implementationName
+
+`string`
 
 The name of the class implementation socket calls.
 
-• **config**: `IBaseSocketClientConfig`
+##### config
+
+`IBaseSocketClientConfig`
 
 The configuration for the client.
 
-• **pathPrefix**: `string`
+##### pathPrefix
+
+`string`
 
 The default prefix to use if none in configuration.
 
@@ -38,15 +44,19 @@ Setup a handler for an event from the socket.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpResponse`\<`any`\>
+• **T** *extends* `IHttpResponse`
 
 #### Parameters
 
-• **event**: `string`
+##### event
+
+`string`
 
 The event to look for.
 
-• **callback**
+##### callback
+
+(`response`) => `Promise`\<`void`\>
 
 The method to call when the event arrives.
 
@@ -64,7 +74,9 @@ Remove a handler for a event from the socket.
 
 #### Parameters
 
-• **event**: `string`
+##### event
+
+`string`
 
 The event to look for.
 
@@ -82,15 +94,19 @@ Send a event on the socket.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+• **T** *extends* `IHttpRequest`
 
 #### Parameters
 
-• **event**: `string`
+##### event
+
+`string`
 
 The event to send.
 
-• **data**: `T`
+##### data
+
+`T`
 
 The data to send with the event.
 
@@ -160,7 +176,9 @@ Handle an error.
 
 #### Parameters
 
-• **err**: `IError`
+##### err
+
+`IError`
 
 The error to handle.
 

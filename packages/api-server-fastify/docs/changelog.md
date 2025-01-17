@@ -1,5 +1,5 @@
 # @twin.org/api-server-fastify - Changelog
 
-## v0.0.1-next.26
+## v0.0.1-next.27
 
 - Initial Release

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { Is, UnauthorizedError } from "@twin.org/core";
 import { nameof } from "@twin.org/nameof";
-import type { IVaultConnector } from "@twin.org/vault-models";
+import { type IVaultConnector, VaultConnectorHelper } from "@twin.org/vault-models";
 import {
 	HeaderTypes,
 	type IHttpHeaders,
@@ -47,11 +47,8 @@ export class TokenHelper {
 				sub: subject,
 				exp: nowSeconds + ttlSeconds
 			},
-			async (header, payload) => {
-				const signingBytes = Jwt.toSigningBytes(header, payload);
-				const signatureBytes = await vaultConnector.sign(signingKeyName, signingBytes);
-				return Jwt.tokenFromBytes(signingBytes, signatureBytes);
-			}
+			async (header, payload) =>
+				VaultConnectorHelper.jwtSigner(vaultConnector, signingKeyName, header, payload)
 		);
 
 		return {
@@ -80,19 +77,11 @@ export class TokenHelper {
 			throw new UnauthorizedError(this._CLASS_NAME, "missing");
 		}
 
-		const decoded = await Jwt.verifyWithVerifier(token, async t => {
-			const { signingBytes, signature } = Jwt.tokenToBytes(t);
+		const decoded = await Jwt.verifyWithVerifier(token, async t =>
+			VaultConnectorHelper.jwtVerifier(vaultConnector, signingKeyName, t)
+		);
 
-			const verified = await vaultConnector.verify(signingKeyName, signingBytes, signature);
-			if (!verified) {
-				throw new UnauthorizedError(this._CLASS_NAME, "invalidSignature");
-			}
-
-			return Jwt.fromSigningBytes(signingBytes);
-		});
-
-		// If the signature validation failed or some of the header/payload data
-		// is not properly populated then it is unauthorized.
+		// If some of the header/payload data is not properly populated then it is unauthorized.
 		if (!Is.stringValue(decoded.payload.sub)) {
 			throw new UnauthorizedError(this._CLASS_NAME, "payloadMissingSubject");
 		} else if (

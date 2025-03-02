@@ -8,8 +8,7 @@ import {
 	type IHttpHeaders,
 	type IJwtHeader,
 	type IJwtPayload,
-	Jwt,
-	JwtAlgorithms
+	Jwt
 } from "@twin.org/web";
 
 /**
@@ -39,17 +38,20 @@ export class TokenHelper {
 		token: string;
 		expiry: number;
 	}> {
-		// Verify was a success so we can now generate a new token.
 		const nowSeconds = Math.trunc(Date.now() / 1000);
 		const ttlSeconds = ttlMinutes * 60;
 
 		const jwt = await Jwt.encodeWithSigner(
-			{ alg: JwtAlgorithms.EdDSA },
+			{ alg: "EdDSA" },
 			{
 				sub: subject,
 				exp: nowSeconds + ttlSeconds
 			},
-			async (alg, key, payload) => vaultConnector.sign(signingKeyName, payload)
+			async (header, payload) => {
+				const signingBytes = Jwt.toSigningBytes(header, payload);
+				const signatureBytes = await vaultConnector.sign(signingKeyName, signingBytes);
+				return Jwt.tokenFromBytes(signingBytes, signatureBytes);
+			}
 		);
 
 		return {
@@ -78,19 +80,21 @@ export class TokenHelper {
 			throw new UnauthorizedError(this._CLASS_NAME, "missing");
 		}
 
-		const decoded = await Jwt.verifyWithVerifier(token, async (alg, key, payload, signature) =>
-			vaultConnector.verify(signingKeyName, payload, signature)
-		);
+		const decoded = await Jwt.verifyWithVerifier(token, async t => {
+			const { signingBytes, signature } = Jwt.tokenToBytes(t);
+
+			const verified = await vaultConnector.verify(signingKeyName, signingBytes, signature);
+			if (!verified) {
+				throw new UnauthorizedError(this._CLASS_NAME, "invalidSignature");
+			}
+
+			return Jwt.fromSigningBytes(signingBytes);
+		});
 
 		// If the signature validation failed or some of the header/payload data
 		// is not properly populated then it is unauthorized.
-		if (
-			!decoded.verified ||
-			!Is.object(decoded.header) ||
-			!Is.object(decoded.payload) ||
-			!Is.stringValue(decoded.payload.sub)
-		) {
-			throw new UnauthorizedError(this._CLASS_NAME, "invalidToken");
+		if (!Is.stringValue(decoded.payload.sub)) {
+			throw new UnauthorizedError(this._CLASS_NAME, "payloadMissingSubject");
 		} else if (
 			!Is.empty(decoded.payload?.exp) &&
 			decoded.payload.exp < Math.trunc(Date.now() / 1000)

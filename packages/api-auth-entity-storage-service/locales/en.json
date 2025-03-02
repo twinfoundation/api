@@ -11,7 +11,8 @@
 		},
 		"tokenHelper": {
 			"missing": "The JSON Web token could not be found in the authorization header",
-			"invalid": "The JSON Web token signature could not be validated",
+			"invalidSignature": "The JSON Web token signature could not be validated",
+			"payloadMissingSubject": "The JSON Web token payload does not contain a subject",
 			"expired": "The JSON Web token has expired"
 		}
 	}

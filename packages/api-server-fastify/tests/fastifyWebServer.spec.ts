@@ -1,6 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { HttpErrorHelper, type IHttpResponse } from "@twin.org/api-models";
+import { JwtMimeTypeProcessor, LoggingProcessor } from "@twin.org/api-processors";
+import { NotImplementedError } from "@twin.org/core";
+import {
+	type ILoggingConnector,
+	type ILogEntry,
+	LoggingConnectorFactory
+} from "@twin.org/logging-models";
 import { HeaderTypes, HttpMethod, HttpStatusCode } from "@twin.org/web";
 import { io } from "socket.io-client";
 import { FastifyWebServer } from "../src/fastifyWebServer";
@@ -472,6 +479,66 @@ describe("api-server-fastify", () => {
 		socket.close();
 
 		expect(pongResult).toBeTruthy();
+
+		await server.stop();
+	});
+
+	test("Can add a custom content type processor", async () => {
+		const server = new FastifyWebServer({
+			mimeTypeProcessors: [new JwtMimeTypeProcessor()]
+		});
+
+		const logEntries: ILogEntry[] = [];
+		let body = "";
+
+		const logger: ILoggingConnector = {
+			CLASS_NAME: "logger",
+			log: async (logEntry: ILogEntry) => {
+				logEntries.push(logEntry);
+			},
+			query: async () => {
+				throw new NotImplementedError("Not implemented", "");
+			}
+		};
+
+		LoggingConnectorFactory.register("logging", () => logger);
+
+		await server.build(
+			[
+				{
+					CLASS_NAME: "RouteProcessor",
+					process: async (request, response, route, requestIdentity, processorState) => {
+						body = request.body;
+					}
+				},
+				new LoggingProcessor()
+			],
+			[
+				{
+					operationId: "test",
+					path: "/",
+					method: HttpMethod.POST,
+					tag: "test",
+					summary: "",
+					handler: async (httpRequestContext, request) => {}
+				}
+			]
+		);
+
+		await server.start();
+
+		await fetch("http://localhost:3000/", {
+			method: "POST",
+			headers: { "Content-Type": "application/jwt" },
+			body: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
+		});
+
+		expect(body).toEqual(
+			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
+		);
+		expect(logEntries.length).toEqual(2);
+		expect(logEntries[0].message.startsWith("===> POST /")).toEqual(true);
+		expect(logEntries[1].message.startsWith("<===  POST")).toEqual(true);
 
 		await server.stop();
 	});

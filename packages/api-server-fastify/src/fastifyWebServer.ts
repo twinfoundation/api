@@ -169,13 +169,15 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 				this._fastify.addContentTypeParser(
 					contentTypeHandler.getTypes(),
 					{ parseAs: "buffer" },
-					async (request, body, done) => {
-						try {
-							const processed = await contentTypeHandler.handle(body as Buffer);
-							done(null, processed);
-						} catch (err) {
-							done(BaseError.fromError(err));
-						}
+					(request, body, done) => {
+						// Fastify does not handle this method correctly if it is async
+						// so we have to use the callback method
+						contentTypeHandler
+							.handle(body as Buffer)
+							// eslint-disable-next-line promise/prefer-await-to-then, promise/no-callback-in-promise
+							.then(processed => done(null, processed))
+							// eslint-disable-next-line promise/prefer-await-to-then, promise/no-callback-in-promise
+							.catch(err => done(BaseError.fromError(err)));
 					}
 				);
 			}

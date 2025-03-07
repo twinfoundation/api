@@ -72,7 +72,7 @@ The outgoing response.
 
 The route to process.
 
-`undefined` | `IRestRoute`
+`undefined` | `IRestRoute`\<`any`, `any`\>
 
 ##### requestIdentity
 

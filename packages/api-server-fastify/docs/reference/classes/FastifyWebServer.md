@@ -38,13 +38,13 @@ Runtime name for the class.
 
 ### getInstance()
 
-> **getInstance**(): `FastifyInstance`\<`IncomingMessage`, `ServerResponse`\>
+> **getInstance**(): `FastifyInstance`
 
 Get the web server instance.
 
 #### Returns
 
-`FastifyInstance`\<`IncomingMessage`, `ServerResponse`\>
+`FastifyInstance`
 
 The web server instance.
 
@@ -70,7 +70,7 @@ The processors for incoming requests over REST.
 
 ##### restRoutes?
 
-`IRestRoute`[]
+`IRestRoute`\<`any`, `any`\>[]
 
 The REST routes.
 
@@ -82,7 +82,7 @@ The processors for incoming requests over Sockets.
 
 ##### socketRoutes?
 
-`ISocketRoute`[]
+`ISocketRoute`\<`any`, `any`\>[]
 
 The socket routes.
 

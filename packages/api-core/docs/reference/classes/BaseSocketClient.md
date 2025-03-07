@@ -44,7 +44,7 @@ Setup a handler for an event from the socket.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpResponse`
+• **T** *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
 
@@ -94,7 +94,7 @@ Send a event on the socket.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`
+• **T** *extends* `IHttpRequest`\<`any`\>
 
 #### Parameters
 

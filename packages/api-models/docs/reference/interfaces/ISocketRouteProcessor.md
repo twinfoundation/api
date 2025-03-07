@@ -32,7 +32,7 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`ISocketRoute`](ISocketRoute.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
 
 ##### requestIdentity
 
@@ -80,7 +80,7 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`ISocketRoute`](ISocketRoute.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
 
 ##### requestIdentity
 
@@ -122,7 +122,7 @@ The request to handle.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`ISocketRoute`](ISocketRoute.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
 
 ##### processorState
 
@@ -154,7 +154,7 @@ The request to handle.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`ISocketRoute`](ISocketRoute.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
 
 ##### processorState
 
@@ -192,7 +192,7 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`ISocketRoute`](ISocketRoute.md)
+`undefined` | [`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>
 
 ##### requestIdentity
 

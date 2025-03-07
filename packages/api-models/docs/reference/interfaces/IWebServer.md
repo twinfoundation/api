@@ -38,7 +38,7 @@ The processors for incoming requests over REST.
 
 ##### restRoutes?
 
-[`IRestRoute`](IRestRoute.md)[]
+[`IRestRoute`](IRestRoute.md)\<`any`, `any`\>[]
 
 The REST routes.
 
@@ -50,7 +50,7 @@ The processors for incoming requests over Sockets.
 
 ##### socketRoutes?
 
-[`ISocketRoute`](ISocketRoute.md)[]
+[`ISocketRoute`](ISocketRoute.md)\<`any`, `any`\>[]
 
 The socket routes.
 

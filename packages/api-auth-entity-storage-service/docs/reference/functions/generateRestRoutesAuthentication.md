@@ -1,6 +1,6 @@
 # Function: generateRestRoutesAuthentication()
 
-> **generateRestRoutesAuthentication**(`baseRouteName`, `componentName`): `IRestRoute`[]
+> **generateRestRoutesAuthentication**(`baseRouteName`, `componentName`): `IRestRoute`\<`any`, `any`\>[]
 
 The REST routes for authentication.
 
@@ -20,6 +20,6 @@ The name of the component to use in the routes stored in the ComponentFactory.
 
 ## Returns
 
-`IRestRoute`[]
+`IRestRoute`\<`any`, `any`\>[]
 
 The generated routes.

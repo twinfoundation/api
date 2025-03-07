@@ -72,7 +72,7 @@ The outgoing response.
 
 The route to process.
 
-`undefined` | `ISocketRoute`
+`undefined` | `ISocketRoute`\<`any`, `any`\>
 
 ##### requestIdentity
 

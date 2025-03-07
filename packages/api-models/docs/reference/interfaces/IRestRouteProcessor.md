@@ -32,7 +32,7 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`IRestRoute`](IRestRoute.md)
+`undefined` | [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>
 
 ##### requestIdentity
 
@@ -80,7 +80,7 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`IRestRoute`](IRestRoute.md)
+`undefined` | [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>
 
 ##### requestIdentity
 
@@ -128,7 +128,7 @@ The response data to send if any.
 
 The route being requested, if a matching one was found.
 
-`undefined` | [`IRestRoute`](IRestRoute.md)
+`undefined` | [`IRestRoute`](IRestRoute.md)\<`any`, `any`\>
 
 ##### requestIdentity
 

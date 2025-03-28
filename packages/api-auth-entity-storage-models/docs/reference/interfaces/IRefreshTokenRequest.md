@@ -1,6 +1,6 @@
 # Interface: IRefreshTokenRequest
 
-Perform a refresh on the auth token.
+Perform a refresh of the auth token.
 
 ## Properties
 

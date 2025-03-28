@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
- * Perform a refresh on the auth token.
+ * Perform a refresh of the auth token.
  */
 export interface IRefreshTokenRequest {
 	/**

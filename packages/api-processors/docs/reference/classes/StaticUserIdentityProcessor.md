@@ -8,9 +8,9 @@ Adds a static user identity to the request context.
 
 ## Constructors
 
-### new StaticUserIdentityProcessor()
+### Constructor
 
-> **new StaticUserIdentityProcessor**(`options`): [`StaticUserIdentityProcessor`](StaticUserIdentityProcessor.md)
+> **new StaticUserIdentityProcessor**(`options`): `StaticUserIdentityProcessor`
 
 Create a new instance of StaticIdentityProcessor.
 
@@ -24,7 +24,7 @@ Options for the processor.
 
 #### Returns
 
-[`StaticUserIdentityProcessor`](StaticUserIdentityProcessor.md)
+`StaticUserIdentityProcessor`
 
 ## Properties
 

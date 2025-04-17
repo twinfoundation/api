@@ -52,7 +52,7 @@ The service health.
 
 ### setComponentHealth()
 
-> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
+> **setComponentHealth**(`name`, `status`, `details?`): `Promise`\<`void`\>
 
 Set the status of a component.
 

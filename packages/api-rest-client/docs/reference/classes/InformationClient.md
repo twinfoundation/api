@@ -12,9 +12,9 @@ The client to connect to the information service.
 
 ## Constructors
 
-### new InformationClient()
+### Constructor
 
-> **new InformationClient**(`config`): [`InformationClient`](InformationClient.md)
+> **new InformationClient**(`config`): `InformationClient`
 
 Create a new instance of InformationClient.
 
@@ -28,7 +28,7 @@ The configuration for the client.
 
 #### Returns
 
-[`InformationClient`](InformationClient.md)
+`InformationClient`
 
 #### Overrides
 
@@ -68,15 +68,19 @@ The endpoint with namespace prefix attached.
 
 ### fetch()
 
-> **fetch**\<`T`, `U`\>(`route`, `method`, `request`?): `Promise`\<`U`\>
+> **fetch**\<`T`, `U`\>(`route`, `method`, `request?`): `Promise`\<`U`\>
 
 Perform a request in json format.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+##### T
 
-• **U** *extends* `IHttpResponse`\<`any`\>
+`T` *extends* `IHttpRequest`\<`any`\>
+
+##### U
+
+`U` *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
 
@@ -166,7 +170,7 @@ The service health.
 
 ### setComponentHealth()
 
-> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
+> **setComponentHealth**(`name`, `status`, `details?`): `Promise`\<`void`\>
 
 Set the status of a component.
 

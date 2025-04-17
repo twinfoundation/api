@@ -8,9 +8,9 @@ Implementation of the web server using Fastify.
 
 ## Constructors
 
-### new FastifyWebServer()
+### Constructor
 
-> **new FastifyWebServer**(`options`?): [`FastifyWebServer`](FastifyWebServer.md)
+> **new FastifyWebServer**(`options?`): `FastifyWebServer`
 
 Create a new instance of FastifyWebServer.
 
@@ -24,7 +24,7 @@ The options for the server.
 
 #### Returns
 
-[`FastifyWebServer`](FastifyWebServer.md)
+`FastifyWebServer`
 
 ## Properties
 
@@ -56,7 +56,7 @@ The web server instance.
 
 ### build()
 
-> **build**(`restRouteProcessors`?, `restRoutes`?, `socketRouteProcessors`?, `socketRoutes`?, `options`?): `Promise`\<`void`\>
+> **build**(`restRouteProcessors?`, `restRoutes?`, `socketRouteProcessors?`, `socketRoutes?`, `options?`): `Promise`\<`void`\>
 
 Build the server.
 

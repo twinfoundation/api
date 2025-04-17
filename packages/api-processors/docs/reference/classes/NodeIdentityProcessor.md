@@ -8,13 +8,13 @@ Adds a node identity to the request identity.
 
 ## Constructors
 
-### new NodeIdentityProcessor()
+### Constructor
 
-> **new NodeIdentityProcessor**(): [`NodeIdentityProcessor`](NodeIdentityProcessor.md)
+> **new NodeIdentityProcessor**(): `NodeIdentityProcessor`
 
 #### Returns
 
-[`NodeIdentityProcessor`](NodeIdentityProcessor.md)
+`NodeIdentityProcessor`
 
 ## Properties
 
@@ -40,7 +40,7 @@ Runtime name for the class.
 
 ### start()
 
-> **start**(`nodeIdentity`, `nodeLoggingConnectorType`?): `Promise`\<`void`\>
+> **start**(`nodeIdentity`, `nodeLoggingConnectorType?`): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 

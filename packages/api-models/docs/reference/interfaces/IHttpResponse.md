@@ -4,7 +4,9 @@ Model for the standard parameters for an http response.
 
 ## Type Parameters
 
-• **T** = `any`
+### T
+
+`T` = `any`
 
 ## Properties
 

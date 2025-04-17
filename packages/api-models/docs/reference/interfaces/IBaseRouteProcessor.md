@@ -13,7 +13,9 @@ The definition for a base processor for handling REST routes.
 
 ## Type Parameters
 
-• **T** = [`IBaseRoute`](IBaseRoute.md)
+### T
+
+`T` = [`IBaseRoute`](IBaseRoute.md)
 
 ## Methods
 

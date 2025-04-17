@@ -4,13 +4,13 @@ Class defining the storage for user login credentials.
 
 ## Constructors
 
-### new AuthenticationUser()
+### Constructor
 
-> **new AuthenticationUser**(): [`AuthenticationUser`](AuthenticationUser.md)
+> **new AuthenticationUser**(): `AuthenticationUser`
 
 #### Returns
 
-[`AuthenticationUser`](AuthenticationUser.md)
+`AuthenticationUser`
 
 ## Properties
 

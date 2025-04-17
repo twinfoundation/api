@@ -8,9 +8,9 @@ Handle a JWT token in the authorization header or cookies and validate it to pop
 
 ## Constructors
 
-### new AuthHeaderProcessor()
+### Constructor
 
-> **new AuthHeaderProcessor**(`options`?): [`AuthHeaderProcessor`](AuthHeaderProcessor.md)
+> **new AuthHeaderProcessor**(`options?`): `AuthHeaderProcessor`
 
 Create a new instance of AuthCookiePreProcessor.
 
@@ -24,7 +24,7 @@ Options for the processor.
 
 #### Returns
 
-[`AuthHeaderProcessor`](AuthHeaderProcessor.md)
+`AuthHeaderProcessor`
 
 ## Properties
 
@@ -50,7 +50,7 @@ Runtime name for the class.
 
 ### start()
 
-> **start**(`nodeIdentity`, `nodeLoggingConnectorType`?): `Promise`\<`void`\>
+> **start**(`nodeIdentity`, `nodeLoggingConnectorType?`): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 

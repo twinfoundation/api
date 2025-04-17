@@ -8,9 +8,9 @@ Process the REST request and hands it on to the route handler.
 
 ## Constructors
 
-### new RestRouteProcessor()
+### Constructor
 
-> **new RestRouteProcessor**(`options`?): [`RestRouteProcessor`](RestRouteProcessor.md)
+> **new RestRouteProcessor**(`options?`): `RestRouteProcessor`
 
 Create a new instance of RouteProcessor.
 
@@ -24,7 +24,7 @@ Options for the processor.
 
 #### Returns
 
-[`RestRouteProcessor`](RestRouteProcessor.md)
+`RestRouteProcessor`
 
 ## Properties
 

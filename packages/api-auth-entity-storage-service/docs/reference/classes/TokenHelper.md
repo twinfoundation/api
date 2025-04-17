@@ -4,13 +4,13 @@ Helper class for token operations.
 
 ## Constructors
 
-### new TokenHelper()
+### Constructor
 
-> **new TokenHelper**(): [`TokenHelper`](TokenHelper.md)
+> **new TokenHelper**(): `TokenHelper`
 
 #### Returns
 
-[`TokenHelper`](TokenHelper.md)
+`TokenHelper`
 
 ## Methods
 
@@ -94,7 +94,7 @@ UnauthorizedError if the token is missing, invalid or expired.
 
 ### extractTokenFromHeaders()
 
-> `static` **extractTokenFromHeaders**(`headers`?, `cookieName`?): `undefined` \| \{ `token`: `string`; `location`: `"authorization"` \| `"cookie"`; \}
+> `static` **extractTokenFromHeaders**(`headers?`, `cookieName?`): `undefined` \| \{ `token`: `string`; `location`: `"authorization"` \| `"cookie"`; \}
 
 Extract the auth token from the headers, either from the authorization header or the cookie header.
 

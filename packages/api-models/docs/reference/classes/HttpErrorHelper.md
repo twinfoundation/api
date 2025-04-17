@@ -4,19 +4,19 @@ Class to help with processing http errors.
 
 ## Constructors
 
-### new HttpErrorHelper()
+### Constructor
 
-> **new HttpErrorHelper**(): [`HttpErrorHelper`](HttpErrorHelper.md)
+> **new HttpErrorHelper**(): `HttpErrorHelper`
 
 #### Returns
 
-[`HttpErrorHelper`](HttpErrorHelper.md)
+`HttpErrorHelper`
 
 ## Methods
 
 ### processError()
 
-> `static` **processError**(`err`, `includeStack`?): `object`
+> `static` **processError**(`err`, `includeStack?`): `object`
 
 Process the errors from the routes.
 

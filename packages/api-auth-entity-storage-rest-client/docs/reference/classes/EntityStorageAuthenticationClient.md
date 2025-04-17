@@ -12,9 +12,9 @@ The client to connect to the authentication service.
 
 ## Constructors
 
-### new EntityStorageAuthenticationClient()
+### Constructor
 
-> **new EntityStorageAuthenticationClient**(`config`): [`EntityStorageAuthenticationClient`](EntityStorageAuthenticationClient.md)
+> **new EntityStorageAuthenticationClient**(`config`): `EntityStorageAuthenticationClient`
 
 Create a new instance of EntityStorageAuthenticationClient.
 
@@ -28,7 +28,7 @@ The configuration for the client.
 
 #### Returns
 
-[`EntityStorageAuthenticationClient`](EntityStorageAuthenticationClient.md)
+`EntityStorageAuthenticationClient`
 
 #### Overrides
 
@@ -82,7 +82,7 @@ The authentication token for the user, if it uses a mechanism with public access
 
 ### logout()
 
-> **logout**(`token`?): `Promise`\<`void`\>
+> **logout**(`token?`): `Promise`\<`void`\>
 
 Logout the current user.
 
@@ -108,7 +108,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+> **refresh**(`token?`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 
@@ -152,15 +152,19 @@ The endpoint with namespace prefix attached.
 
 ### fetch()
 
-> **fetch**\<`T`, `U`\>(`route`, `method`, `request`?): `Promise`\<`U`\>
+> **fetch**\<`T`, `U`\>(`route`, `method`, `request?`): `Promise`\<`U`\>
 
 Perform a request in json format.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+##### T
 
-• **U** *extends* `IHttpResponse`\<`any`\>
+`T` *extends* `IHttpRequest`\<`any`\>
+
+##### U
+
+`U` *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
 

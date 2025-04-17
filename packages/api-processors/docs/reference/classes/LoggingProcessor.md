@@ -8,9 +8,9 @@ Process the REST request and log its information.
 
 ## Constructors
 
-### new LoggingProcessor()
+### Constructor
 
-> **new LoggingProcessor**(`options`?): [`LoggingProcessor`](LoggingProcessor.md)
+> **new LoggingProcessor**(`options?`): `LoggingProcessor`
 
 Create a new instance of LoggingProcessor.
 
@@ -24,7 +24,7 @@ Options for the processor.
 
 #### Returns
 
-[`LoggingProcessor`](LoggingProcessor.md)
+`LoggingProcessor`
 
 ## Properties
 

@@ -8,9 +8,9 @@ Implementation of the authentication component using entity storage.
 
 ## Constructors
 
-### new EntityStorageAuthenticationService()
+### Constructor
 
-> **new EntityStorageAuthenticationService**(`options`?): [`EntityStorageAuthenticationService`](EntityStorageAuthenticationService.md)
+> **new EntityStorageAuthenticationService**(`options?`): `EntityStorageAuthenticationService`
 
 Create a new instance of EntityStorageAuthentication.
 
@@ -24,7 +24,7 @@ The dependencies for the identity connector.
 
 #### Returns
 
-[`EntityStorageAuthenticationService`](EntityStorageAuthenticationService.md)
+`EntityStorageAuthenticationService`
 
 ## Properties
 
@@ -50,7 +50,7 @@ Runtime name for the class.
 
 ### start()
 
-> **start**(`nodeIdentity`, `nodeLoggingConnectorType`?): `Promise`\<`void`\>
+> **start**(`nodeIdentity`, `nodeLoggingConnectorType?`): `Promise`\<`void`\>
 
 The service needs to be started when the application is initialized.
 
@@ -114,7 +114,7 @@ The authentication token for the user, if it uses a mechanism with public access
 
 ### logout()
 
-> **logout**(`token`?): `Promise`\<`void`\>
+> **logout**(`token?`): `Promise`\<`void`\>
 
 Logout the current user.
 
@@ -140,7 +140,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+> **refresh**(`token?`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 

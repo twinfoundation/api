@@ -8,9 +8,9 @@ Process the socket request and hands it on to the route handler.
 
 ## Constructors
 
-### new SocketRouteProcessor()
+### Constructor
 
-> **new SocketRouteProcessor**(`options`?): [`SocketRouteProcessor`](SocketRouteProcessor.md)
+> **new SocketRouteProcessor**(`options?`): `SocketRouteProcessor`
 
 Create a new instance of SocketRouteProcessor.
 
@@ -24,7 +24,7 @@ Options for the processor.
 
 #### Returns
 
-[`SocketRouteProcessor`](SocketRouteProcessor.md)
+`SocketRouteProcessor`
 
 ## Properties
 

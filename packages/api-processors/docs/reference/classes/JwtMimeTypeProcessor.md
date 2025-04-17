@@ -8,13 +8,13 @@ Process the JWT mime type.
 
 ## Constructors
 
-### new JwtMimeTypeProcessor()
+### Constructor
 
-> **new JwtMimeTypeProcessor**(): [`JwtMimeTypeProcessor`](JwtMimeTypeProcessor.md)
+> **new JwtMimeTypeProcessor**(): `JwtMimeTypeProcessor`
 
 #### Returns
 
-[`JwtMimeTypeProcessor`](JwtMimeTypeProcessor.md)
+`JwtMimeTypeProcessor`
 
 ## Properties
 

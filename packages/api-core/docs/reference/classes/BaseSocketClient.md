@@ -4,9 +4,9 @@ Event bus which publishes using web-sockets.
 
 ## Constructors
 
-### new BaseSocketClient()
+### Constructor
 
-> **new BaseSocketClient**(`implementationName`, `config`, `pathPrefix`): [`BaseSocketClient`](BaseSocketClient.md)
+> **new BaseSocketClient**(`implementationName`, `config`, `pathPrefix`): `BaseSocketClient`
 
 Create a new instance of BaseSocketClient.
 
@@ -32,7 +32,7 @@ The default prefix to use if none in configuration.
 
 #### Returns
 
-[`BaseSocketClient`](BaseSocketClient.md)
+`BaseSocketClient`
 
 ## Methods
 
@@ -44,7 +44,9 @@ Setup a handler for an event from the socket.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpResponse`\<`any`\>
+##### T
+
+`T` *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
 
@@ -94,7 +96,9 @@ Send a event on the socket.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+##### T
+
+`T` *extends* `IHttpRequest`\<`any`\>
 
 #### Parameters
 

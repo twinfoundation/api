@@ -4,7 +4,9 @@ Interface describing a web server.
 
 ## Type Parameters
 
-• **T**
+### T
+
+`T`
 
 ## Methods
 
@@ -24,7 +26,7 @@ The web server instance.
 
 ### build()
 
-> **build**(`restRouteProcessors`?, `restRoutes`?, `socketRouteProcessors`?, `socketRoutes`?, `options`?): `Promise`\<`void`\>
+> **build**(`restRouteProcessors?`, `restRoutes?`, `socketRouteProcessors?`, `socketRoutes?`, `options?`): `Promise`\<`void`\>
 
 Build the server.
 

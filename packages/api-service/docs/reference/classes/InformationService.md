@@ -8,9 +8,9 @@ The information service for the server.
 
 ## Constructors
 
-### new InformationService()
+### Constructor
 
-> **new InformationService**(`options`): [`InformationService`](InformationService.md)
+> **new InformationService**(`options`): `InformationService`
 
 Create a new instance of InformationService.
 
@@ -24,7 +24,7 @@ The options to create the service.
 
 #### Returns
 
-[`InformationService`](InformationService.md)
+`InformationService`
 
 ## Properties
 
@@ -122,7 +122,7 @@ The service health.
 
 ### setComponentHealth()
 
-> **setComponentHealth**(`name`, `status`, `details`?): `Promise`\<`void`\>
+> **setComponentHealth**(`name`, `status`, `details?`): `Promise`\<`void`\>
 
 Set the status of a component.
 

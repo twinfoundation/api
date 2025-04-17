@@ -9,7 +9,9 @@ Model for the standard parameters for an http request.
 
 ## Type Parameters
 
-• **T** = `any`
+### T
+
+`T` = `any`
 
 ## Properties
 

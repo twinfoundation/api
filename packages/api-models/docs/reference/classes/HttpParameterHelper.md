@@ -4,25 +4,27 @@ Class to help with handling http parameters.
 
 ## Constructors
 
-### new HttpParameterHelper()
+### Constructor
 
-> **new HttpParameterHelper**(): [`HttpParameterHelper`](HttpParameterHelper.md)
+> **new HttpParameterHelper**(): `HttpParameterHelper`
 
 #### Returns
 
-[`HttpParameterHelper`](HttpParameterHelper.md)
+`HttpParameterHelper`
 
 ## Methods
 
 ### arrayFromString()
 
-> `static` **arrayFromString**\<`T`\>(`values`?): `undefined` \| `T`[]
+> `static` **arrayFromString**\<`T`\>(`values?`): `undefined` \| `T`[]
 
 Convert list query to array.
 
 #### Type Parameters
 
-• **T** = `string`
+##### T
+
+`T` = `string`
 
 #### Parameters
 
@@ -42,13 +44,15 @@ The array of values.
 
 ### arrayToString()
 
-> `static` **arrayToString**\<`T`\>(`values`?): `undefined` \| `string`
+> `static` **arrayToString**\<`T`\>(`values?`): `undefined` \| `string`
 
 Convert array of values to query string.
 
 #### Type Parameters
 
-• **T** = `string`
+##### T
+
+`T` = `string`
 
 #### Parameters
 
@@ -68,13 +72,15 @@ The combined.
 
 ### objectFromString()
 
-> `static` **objectFromString**\<`T`\>(`value`?): `undefined` \| `T`
+> `static` **objectFromString**\<`T`\>(`value?`): `undefined` \| `T`
 
 Convert object string to object.
 
 #### Type Parameters
 
-• **T** = `unknown`
+##### T
+
+`T` = `unknown`
 
 #### Parameters
 
@@ -94,13 +100,15 @@ The object.
 
 ### objectToString()
 
-> `static` **objectToString**\<`T`\>(`value`?): `undefined` \| `string`
+> `static` **objectToString**\<`T`\>(`value?`): `undefined` \| `string`
 
 Convert object to query string.
 
 #### Type Parameters
 
-• **T** = `unknown`
+##### T
+
+`T` = `unknown`
 
 #### Parameters
 

@@ -4,13 +4,13 @@ Helper class for password operations.
 
 ## Constructors
 
-### new PasswordHelper()
+### Constructor
 
-> **new PasswordHelper**(): [`PasswordHelper`](PasswordHelper.md)
+> **new PasswordHelper**(): `PasswordHelper`
 
 #### Returns
 
-[`PasswordHelper`](PasswordHelper.md)
+`PasswordHelper`
 
 ## Methods
 

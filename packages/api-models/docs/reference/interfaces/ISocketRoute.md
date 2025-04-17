@@ -8,9 +8,13 @@ Interface which defines a socket route.
 
 ## Type Parameters
 
-• **T** *extends* [`IHttpRequest`](IHttpRequest.md) = `any`
+### T
 
-• **U** *extends* [`IHttpResponse`](IHttpResponse.md) = `any`
+`T` *extends* [`IHttpRequest`](IHttpRequest.md) = `any`
+
+### U
+
+`U` *extends* [`IHttpResponse`](IHttpResponse.md) = `any`
 
 ## Properties
 

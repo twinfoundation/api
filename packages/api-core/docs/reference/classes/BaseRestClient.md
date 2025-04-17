@@ -4,9 +4,9 @@ Abstract client class for common REST processing.
 
 ## Constructors
 
-### new BaseRestClient()
+### Constructor
 
-> **new BaseRestClient**(`implementationName`, `config`, `pathPrefix`): [`BaseRestClient`](BaseRestClient.md)
+> **new BaseRestClient**(`implementationName`, `config`, `pathPrefix`): `BaseRestClient`
 
 Create a new instance of BaseRestClient.
 
@@ -32,7 +32,7 @@ The default prefix to use if none in configuration.
 
 #### Returns
 
-[`BaseRestClient`](BaseRestClient.md)
+`BaseRestClient`
 
 ## Methods
 
@@ -52,15 +52,19 @@ The endpoint with namespace prefix attached.
 
 ### fetch()
 
-> **fetch**\<`T`, `U`\>(`route`, `method`, `request`?): `Promise`\<`U`\>
+> **fetch**\<`T`, `U`\>(`route`, `method`, `request?`): `Promise`\<`U`\>
 
 Perform a request in json format.
 
 #### Type Parameters
 
-• **T** *extends* `IHttpRequest`\<`any`\>
+##### T
 
-• **U** *extends* `IHttpResponse`\<`any`\>
+`T` *extends* `IHttpRequest`\<`any`\>
+
+##### U
+
+`U` *extends* `IHttpResponse`\<`any`\>
 
 #### Parameters
 

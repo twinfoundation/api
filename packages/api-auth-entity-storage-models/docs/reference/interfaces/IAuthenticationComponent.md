@@ -38,7 +38,7 @@ The authentication token for the user, if it uses a mechanism with public access
 
 ### logout()
 
-> **logout**(`token`?): `Promise`\<`void`\>
+> **logout**(`token?`): `Promise`\<`void`\>
 
 Logout the current user.
 
@@ -60,7 +60,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token`?): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+> **refresh**(`token?`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 

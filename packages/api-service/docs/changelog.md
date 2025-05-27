@@ -1,5 +1,19 @@
 # @twin.org/api-service - Changelog
 
+## [0.0.1-next.34](https://github.com/twinfoundation/api/compare/api-service-v0.0.1-next.33...api-service-v0.0.1-next.34) (2025-05-27)
+
+
+### Miscellaneous Chores
+
+* **api-service:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/api-models bumped from 0.0.1-next.33 to 0.0.1-next.34
+
 ## [0.0.1-next.33](https://github.com/twinfoundation/api/compare/api-service-v0.0.1-next.32...api-service-v0.0.1-next.33) (2025-04-17)
 
 

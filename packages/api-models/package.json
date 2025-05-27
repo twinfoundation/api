@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-models",
-	"version": "0.0.1-next.33",
+	"version": "0.0.1-next.34",
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",

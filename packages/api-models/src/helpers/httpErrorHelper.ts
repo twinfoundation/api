@@ -9,9 +9,10 @@ import {
 	NotFoundError,
 	NotImplementedError,
 	UnauthorizedError,
-	UnprocessableError
+	UnprocessableError,
+	ValidationError
 } from "@twin.org/core";
-import { HttpStatusCode, HeaderTypes, MimeTypes } from "@twin.org/web";
+import { HeaderTypes, HttpStatusCode, MimeTypes } from "@twin.org/web";
 import type { IHttpResponse } from "../models/protocol/IHttpResponse";
 
 /**
@@ -38,14 +39,18 @@ export class HttpErrorHelper {
 		const flattened = BaseError.flatten(error);
 
 		let httpStatusCode: HttpStatusCode = HttpStatusCode.internalServerError;
-		if (flattened.some(e => BaseError.isErrorName(e, GuardError.CLASS_NAME))) {
+		if (
+			flattened.some(e => BaseError.isErrorName(e, GuardError.CLASS_NAME)) ||
+			flattened.some(e => BaseError.isErrorName(e, ValidationError.CLASS_NAME))
+		) {
 			httpStatusCode = HttpStatusCode.badRequest;
-		} else if (flattened.some(e => BaseError.isErrorName(e, ConflictError.CLASS_NAME))) {
+		} else if (
+			flattened.some(e => BaseError.isErrorName(e, ConflictError.CLASS_NAME)) ||
+			flattened.some(e => BaseError.isErrorName(e, AlreadyExistsError.CLASS_NAME))
+		) {
 			httpStatusCode = HttpStatusCode.conflict;
 		} else if (flattened.some(e => BaseError.isErrorName(e, NotFoundError.CLASS_NAME))) {
 			httpStatusCode = HttpStatusCode.notFound;
-		} else if (flattened.some(e => BaseError.isErrorName(e, AlreadyExistsError.CLASS_NAME))) {
-			httpStatusCode = HttpStatusCode.conflict;
 		} else if (flattened.some(e => BaseError.isErrorName(e, UnauthorizedError.CLASS_NAME))) {
 			httpStatusCode = HttpStatusCode.unauthorized;
 		} else if (flattened.some(e => BaseError.isErrorName(e, NotImplementedError.CLASS_NAME))) {

@@ -1,5 +1,21 @@
 # @twin.org/api-auth-entity-storage-service - Changelog
 
+## [0.0.1-next.35](https://github.com/twinfoundation/api/compare/api-auth-entity-storage-service-v0.0.1-next.34...api-auth-entity-storage-service-v0.0.1-next.35) (2025-06-11)
+
+
+### Features
+
+* update dependencies ([1171dc4](https://github.com/twinfoundation/api/commit/1171dc416a9481737f6a640e3cf30145768f37e9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/api-auth-entity-storage-models bumped from 0.0.1-next.34 to 0.0.1-next.35
+    * @twin.org/api-core bumped from 0.0.1-next.34 to 0.0.1-next.35
+    * @twin.org/api-models bumped from 0.0.1-next.34 to 0.0.1-next.35
+
 ## [0.0.1-next.34](https://github.com/twinfoundation/api/compare/api-auth-entity-storage-service-v0.0.1-next.33...api-auth-entity-storage-service-v0.0.1-next.34) (2025-05-27)
 
 

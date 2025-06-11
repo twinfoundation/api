@@ -82,7 +82,7 @@ Nothing.
 
 ### login()
 
-> **login**(`email`, `password`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+> **login**(`email`, `password`): `Promise`\<\{ `token?`: `string`; `expiry`: `number`; \}\>
 
 Perform a login for the user.
 
@@ -102,7 +102,7 @@ The password for the user.
 
 #### Returns
 
-`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+`Promise`\<\{ `token?`: `string`; `expiry`: `number`; \}\>
 
 The authentication token for the user, if it uses a mechanism with public access.
 

@@ -10,7 +10,7 @@ Contract definition for authentication component.
 
 ### login()
 
-> **login**(`email`, `password`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+> **login**(`email`, `password`): `Promise`\<\{ `token?`: `string`; `expiry`: `number`; \}\>
 
 Perform a login for the user.
 
@@ -30,7 +30,7 @@ The password for the user.
 
 #### Returns
 
-`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+`Promise`\<\{ `token?`: `string`; `expiry`: `number`; \}\>
 
 The authentication token for the user, if it uses a mechanism with public access.
 
@@ -60,7 +60,7 @@ Nothing.
 
 ### refresh()
 
-> **refresh**(`token?`): `Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+> **refresh**(`token?`): `Promise`\<\{ `token?`: `string`; `expiry`: `number`; \}\>
 
 Refresh the token.
 
@@ -74,6 +74,6 @@ The token to refresh, if it uses a mechanism with public access.
 
 #### Returns
 
-`Promise`\<\{ `token`: `string`; `expiry`: `number`; \}\>
+`Promise`\<\{ `token?`: `string`; `expiry`: `number`; \}\>
 
 The refreshed token, if it uses a mechanism with public access.

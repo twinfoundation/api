@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-server-fastify",
-	"version": "0.0.1-next.35",
+	"version": "0.0.1-next.36",
 	"description": "Use Fastify as the core web server for APIs",
 	"repository": {
 		"type": "git",
@@ -32,8 +32,8 @@
 	"dependencies": {
 		"@fastify/compress": "8.0.3",
 		"@fastify/cors": "11.0.1",
-		"@twin.org/api-models": "0.0.1-next.35",
-		"@twin.org/api-core": "0.0.1-next.35",
+		"@twin.org/api-models": "0.0.1-next.36",
+		"@twin.org/api-core": "0.0.1-next.36",
 		"@twin.org/core": "next",
 		"@twin.org/logging-models": "next",
 		"@twin.org/nameof": "next",
@@ -42,7 +42,7 @@
 		"socket.io": "4.8.1"
 	},
 	"devDependencies": {
-		"@twin.org/api-processors": "0.0.1-next.35",
+		"@twin.org/api-processors": "0.0.1-next.36",
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
 		"@vitest/coverage-v8": "3.2.3",

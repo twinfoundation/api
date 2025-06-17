@@ -59,10 +59,7 @@ export class HttpErrorHelper {
 			httpStatusCode = HttpStatusCode.unprocessableEntity;
 		}
 
-		const returnError = error.toJsonObject();
-		if (!includeStack) {
-			delete returnError.stack;
-		}
+		const returnError = error.toJsonObject(includeStack);
 
 		return {
 			error: returnError,

@@ -1,13 +1,23 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IRequestContext } from "@gtsc/services";
-import type { HttpMethods } from "@gtsc/web";
+import type { HttpMethod } from "@twin.org/web";
 import type { IBaseRoute } from "./IBaseRoute";
+import type { IRestRouteRequestExample } from "./IRestRouteRequestExample";
+import type { IRestRouteResponseExample } from "./IRestRouteResponseExample";
+import type { IRestRouteResponseOptions } from "./IRestRouteResponseOptions";
+import type { IHttpRequest } from "../protocol/IHttpRequest";
+import type { IHttpRequestContext } from "../protocol/IHttpRequestContext";
+import type { IHttpResponse } from "../protocol/IHttpResponse";
 
 /**
  * Interface which defines a REST route.
  */
-export interface IRestRoute extends IBaseRoute {
+export interface IRestRoute<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	T extends IHttpRequest = any,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	U extends IHttpResponse & IRestRouteResponseOptions = any
+> extends IBaseRoute {
 	/**
 	 * Summary of what task the operation performs.
 	 */
@@ -21,58 +31,65 @@ export interface IRestRoute extends IBaseRoute {
 	/**
 	 * The http method.
 	 */
-	method: HttpMethods;
+	method: HttpMethod;
 
 	/**
 	 * The handler module.
 	 */
 	handler: (
 		/**
-		 * The request context.
+		 * The http request context.
 		 */
-		requestContext: IRequestContext,
+		httpRequestContext: IHttpRequestContext,
 
 		/**
 		 * The request object, combined query param, path params and body.
 		 */
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		request: any,
-
-		/**
-		 * Body as standalone if it's a data request.
-		 */
-		body?: unknown
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	) => Promise<any>;
+		request: T
+	) => Promise<U>;
 
 	/**
 	 * The type of the request object.
 	 */
-	requestType?: string;
+	requestType?: {
+		/**
+		 * The object type for the request.
+		 */
+		type: string;
+
+		/**
+		 * The mime type of the request, defaults to "application/json" if there is a body.
+		 */
+		mimeType?: string;
+
+		/**
+		 * Example objects for the request.
+		 */
+		examples?: IRestRouteRequestExample<T>[];
+	};
 
 	/**
 	 * The type of the response object.
 	 */
-	responseType?:
-		| string
-		| {
-				statusCode: number;
-				type: string;
-		  }[];
+	responseType?: {
+		/**
+		 * The object type of the response.
+		 */
+		type: string;
 
-	/**
-	 * The request can have alternative content mime types.
-	 */
-	requestContentType?: {
-		mimeType: string;
-		description: string;
+		/**
+		 * The mime type of the response, defaults to "application/json" if there is a body.
+		 */
+		mimeType?: string;
+
+		/**
+		 * Example objects of the response.
+		 */
+		examples?: IRestRouteResponseExample<U>[];
 	}[];
 
 	/**
-	 * The response can have alternative content mime types.
+	 * Exclude the route from being included in the spec file.
 	 */
-	responseContentType?: {
-		mimeType: string;
-		description: string;
-	}[];
+	excludeFromSpec?: boolean;
 }

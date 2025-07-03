@@ -6,16 +6,23 @@
 		"**/coverage/**",
 		"**/dist/**",
 		"**/docs/reference/**",
+		"**/docs/open-api/**",
 		"**/tests/**",
 		"*.yaml",
 		"package.json",
 		"rollup.config.mjs",
-		"vitest.config.ts",
+		"vitest.config.*",
 		"tsconfig.json",
 		"typedoc.json",
 		".eslintrc.cjs",
-		"**/wordlists/**"
+		"**/wordlists/**",
+		"changelog.md"
 	],
-	"words": ["GTSC", "nameof", "Stiftung"],
-	"ignoreRegExpList": ["/from\\s+(['\"]).*\\1/", "/eslint-disable.*/"]
+	"words": ["abbrev", "autorelease", "Fastify", "nameof", "openapi", "requestor", "Stiftung"],
+	"ignoreRegExpList": [
+		"/from\\s+(['\"]).*\\1/",
+		"/eslint-disable.*/",
+		"/^```shell[\\s\\S]*?```$/gm",
+		"/^```json[\\s\\S]*?```$/gm"
+	]
 }

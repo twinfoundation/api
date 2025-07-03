@@ -1,0 +1,18 @@
+{
+	"error": {
+		"entityStorageAuthenticationService": {
+			"loginFailed": "Login failed",
+			"refreshFailed": "Refresh failed",
+			"userNotFound": "The user with the specified e-mail could not be found",
+			"passwordMismatch": "The password does not match the user's password"
+		},
+		"entityStorageAuthenticationProcessor": {
+			"initializeFailed": "The JSON Web token authentication processor could not be initialized"
+		},
+		"tokenHelper": {
+			"missing": "The JSON Web token could not be found in the authorization header",
+			"payloadMissingSubject": "The JSON Web token payload does not contain a subject",
+			"expired": "The JSON Web token has expired"
+		}
+	}
+}

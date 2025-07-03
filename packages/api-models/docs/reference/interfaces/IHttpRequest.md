@@ -1,33 +1,46 @@
-# Interface: IHttpRequest
+# Interface: IHttpRequest\<T\>
 
-Model used when a REST route wants to return custom response.
+Model for the standard parameters for an http request.
 
-## Indexable
+## Extended by
 
-▪ [id: `string`]: `unknown`
+- [`IHttpServerRequest`](IHttpServerRequest.md)
+- [`INoContentRequest`](INoContentRequest.md)
 
-The path parameters.
+## Type Parameters
+
+### T
+
+`T` = `any`
 
 ## Properties
 
-### data
+### headers?
 
-• `Optional` **data**: `unknown`
+> `optional` **headers**: `IHttpHeaders`
 
-Data to return as the main payload.
+Incoming Http Headers.
 
-___
+***
 
-### query
+### pathParams?
 
-• `Optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
+> `optional` **pathParams**: [`IHttpRequestPathParams`](IHttpRequestPathParams.md)
 
-Request headers.
+The path parameters.
 
-___
+***
 
-### rawUrl
+### query?
 
-• **rawUrl**: `URL`
+> `optional` **query**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
 
-The raw url.
+The query parameters.
+
+***
+
+### body?
+
+> `optional` **body**: `T`
+
+Data to return send as the body.

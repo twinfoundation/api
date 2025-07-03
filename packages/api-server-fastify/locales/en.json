@@ -1,0 +1,15 @@
+{
+	"fastifyWebServer": {
+		"building": "Building Web Server",
+		"starting": "Starting Web Server at address \"{host}\" on port \"{port}\"",
+		"startFailed": "The Web Server failed to start",
+		"started": "The Web Server started on {addresses}",
+		"stopped": "The Web Server was stopped",
+		"badRequest": "The web server could not handle the request",
+		"restRouteAdded": "Added REST route \"{route}\" \"{method}\"",
+		"socketRouteAdded": "Added socket route \"{route}\"",
+		"noRestProcessors": "You must configure at least one REST processor",
+		"noSocketProcessors": "You must configure at least one socket processor",
+		"postProcessorError": "There was a failure after in a post processor for route \"{route}\""
+	}
+}

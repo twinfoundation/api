@@ -1,0 +1,5 @@
+// Copyright 2024 IOTA Stiftung.
+// SPDX-License-Identifier: Apache-2.0.
+export * from "./fastifyWebServer";
+export * from "./models/IFastifyWebServerConfig";
+export * from "./models/IFastifyWebServerConstructorOptions";

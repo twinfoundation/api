@@ -1,39 +1,33 @@
-# Interface: IHttpResponse
+# Interface: IHttpResponse\<T\>
 
-Model used when a REST route wants to return custom response.
+Model for the standard parameters for an http response.
+
+## Type Parameters
+
+### T
+
+`T` = `any`
 
 ## Properties
 
-### data
+### statusCode?
 
-• `Optional` **data**: `unknown`
+> `optional` **statusCode**: `HttpStatusCode`
+
+Response status code.
+
+***
+
+### headers?
+
+> `optional` **headers**: `IHttpHeaders`
+
+Response headers.
+
+***
+
+### body?
+
+> `optional` **body**: `T`
 
 Data to return as the main payload.
-
-___
-
-### headers
-
-• `Optional` **headers**: [`IHttpRequestQuery`](IHttpRequestQuery.md)
-
-Additional response headers.
-
-___
-
-### options
-
-• `Optional` **options**: `Object`
-
-Additional options.
-
-#### Index signature
-
-▪ [id: `string`]: `string` \| `number` \| `boolean`
-
-___
-
-### statusCode
-
-• `Optional` **statusCode**: `HttpStatusCodes`
-
-Alternative response status code.

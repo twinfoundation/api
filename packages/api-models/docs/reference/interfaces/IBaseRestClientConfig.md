@@ -6,30 +6,38 @@ Definition for the configuration of a rest client.
 
 ### endpoint
 
-• **endpoint**: `string`
+> **endpoint**: `string`
 
 The endpoint where the api is hosted.
 
-___
+***
 
-### headers
+### pathPrefix?
 
-• `Optional` **headers**: `IHttpRequestHeaders`
-
-The headers to include in requests.
-
-___
-
-### pathPrefix
-
-• `Optional` **pathPrefix**: `string`
+> `optional` **pathPrefix**: `string`
 
 The prefix to the routes.
 
-___
+***
 
-### timeout
+### headers?
 
-• `Optional` **timeout**: `number`
+> `optional` **headers**: `IHttpHeaders`
+
+The headers to include in requests.
+
+***
+
+### timeout?
+
+> `optional` **timeout**: `number`
 
 Timeout for requests in ms.
+
+***
+
+### includeCredentials?
+
+> `optional` **includeCredentials**: `boolean`
+
+Include credentials in the request, defaults to true.

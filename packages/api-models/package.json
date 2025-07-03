@@ -1,10 +1,10 @@
 {
-	"name": "@gtsc/api-models",
-	"version": "0.0.3-next.1",
+	"name": "@twin.org/api-models",
+	"version": "0.0.0",
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/gtscio/api.git",
+		"url": "git+https://github.com/twinfoundation/api.git",
 		"directory": "packages/api-models"
 	},
 	"author": "martyn.janes@iota.org",
@@ -15,47 +15,48 @@
 	},
 	"scripts": {
 		"clean": "rimraf dist coverage",
-		"build": "tspc",
-		"test": "vitest --run --config ./vitest.config.ts",
-		"coverage": "vitest --run --coverage --config ./vitest.config.ts",
+		"build": "tsc",
+		"dev": "nodemon --watch src --ext ts --exec \"npm run build && npm run bundle:esm\"",
+		"test": "vitest --run --config ./vitest.config.ts --no-cache",
+		"coverage": "vitest --run --coverage --config ./vitest.config.ts --no-cache",
 		"bundle:esm": "rollup --config rollup.config.mjs --environment MODULE:esm",
 		"bundle:cjs": "rollup --config rollup.config.mjs --environment MODULE:cjs",
 		"bundle": "npm run bundle:esm && npm run bundle:cjs",
 		"docs:clean": "rimraf docs/reference",
 		"docs:generate": "typedoc",
-		"docs:finalise": "rimraf docs/reference/README.md",
-		"docs": "npm run docs:clean && npm run docs:generate && npm run docs:finalise",
-		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs"
+		"docs": "npm run docs:clean && npm run docs:generate",
+		"dist": "npm run clean && npm run build && npm run test && npm run bundle && npm run docs",
+		"dist:no-test": "npm run clean && npm run build && npm run bundle && npm run docs",
+		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@gtsc/core": "next",
-		"@gtsc/nameof": "^0.0.4",
-		"@gtsc/services": "next",
-		"@gtsc/web": "next",
-		"socket.io-client": "^4.7.5"
+		"@twin.org/core": "^0.0.1",
+		"@twin.org/nameof": "^0.0.1",
+		"@twin.org/web": "^0.0.1"
 	},
 	"devDependencies": {
-		"@gtsc/nameof-transformer": "^0.0.4",
-		"@vitest/coverage-v8": "^1.5.0",
-		"@types/node": "^20.12.7",
-		"copyfiles": "^2.4.1",
-		"rimraf": "^5.0.5",
-		"rollup": "^4.16.3",
-		"rollup-plugin-typescript2": "^0.36.0",
-		"ts-patch": "^3.1.2",
-		"typedoc": "^0.25.13",
-		"typedoc-plugin-markdown": "^3.17.1",
-		"typescript": "^5.4.5",
-		"vitest": "^1.5.0"
+		"@twin.org/nameof-transformer": "^0.0.1",
+		"@twin.org/nameof-vitest-plugin": "^0.0.1",
+		"@vitest/coverage-v8": "3.2.3",
+		"@types/node": "24.0.0",
+		"copyfiles": "2.4.1",
+		"nodemon": "3.1.10",
+		"rimraf": "6.0.1",
+		"rollup": "4.43.0",
+		"ts-patch": "3.3.0",
+		"typedoc": "0.28.5",
+		"typedoc-plugin-markdown": "4.6.4",
+		"typescript": "5.8.3",
+		"vitest": "3.2.3"
 	},
 	"main": "./dist/cjs/index.cjs",
 	"module": "./dist/esm/index.mjs",
 	"types": "./dist/types/index.d.ts",
 	"exports": {
 		".": {
+			"types": "./dist/types/index.d.ts",
 			"require": "./dist/cjs/index.cjs",
-			"import": "./dist/esm/index.mjs",
-			"types": "./dist/types/index.d.ts"
+			"import": "./dist/esm/index.mjs"
 		}
 	},
 	"files": [

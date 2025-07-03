@@ -1,29 +1,24 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { HttpStatusCodes } from "@gtsc/web";
-import type { IHttpRequestQuery } from "./IHttpRequestQuery";
+import type { HttpStatusCode, IHttpHeaders } from "@twin.org/web";
 
 /**
- * Model used when a REST route wants to return custom response.
+ * Model for the standard parameters for an http response.
  */
-export interface IHttpResponse {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface IHttpResponse<T = any> {
 	/**
-	 * Alternative response status code.
+	 * Response status code.
 	 */
-	statusCode?: HttpStatusCodes;
+	statusCode?: HttpStatusCode;
 
 	/**
-	 * Additional response headers.
+	 * Response headers.
 	 */
-	headers?: IHttpRequestQuery;
-
-	/**
-	 * Additional options.
-	 */
-	options?: { [id: string]: string | number | boolean };
+	headers?: IHttpHeaders;
 
 	/**
 	 * Data to return as the main payload.
 	 */
-	data?: unknown;
+	body?: T;
 }

@@ -2,42 +2,31 @@
 
 Interface which defines a route.
 
-## Hierarchy
+## Extended by
 
-- **`IBaseRoute`**
-
-  ↳ [`IRestRoute`](IRestRoute.md)
-
-  ↳ [`ISocketRoute`](ISocketRoute.md)
+- [`IRestRoute`](IRestRoute.md)
+- [`ISocketRoute`](ISocketRoute.md)
 
 ## Properties
 
 ### operationId
 
-• **operationId**: `string`
+> **operationId**: `string`
 
 The id of the operation.
 
-___
+***
 
 ### path
 
-• **path**: `string`
+> **path**: `string`
 
 The path to use for routing.
 
-___
+***
 
-### skipSubjectAuth
+### skipAuth?
 
-• `Optional` **skipSubjectAuth**: `boolean`
+> `optional` **skipAuth**: `boolean`
 
-Skips the subject authentication for this route.
-
-___
-
-### skipTenantAuth
-
-• `Optional` **skipTenantAuth**: `boolean`
-
-Skips the tenant authentication for this route.
+Skips the authentication for this route.

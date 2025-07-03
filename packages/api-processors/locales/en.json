@@ -1,0 +1,15 @@
+{
+	"error": {
+		"restRouteProcessor": {
+			"routeNotFound": "The web server could not find the REST route \"{notFoundId}\""
+		},
+		"socketRouteProcessor": {
+			"routeNotFound": "The web server could not find the socket route \"{notFoundId}\""
+		},
+		"jwtIdentityProcessor": {
+			"jwtMissing": "The JSON Web token could not be found in the authorization header or a cookie",
+			"jwtSignatureInvalid": "The JSON Web token signature could not be validated",
+			"jwtExpired": "The JSON Web token has expired"
+		}
+	}
+}

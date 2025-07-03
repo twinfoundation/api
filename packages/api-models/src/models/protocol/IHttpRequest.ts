@@ -1,28 +1,31 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IHttpHeaders } from "@twin.org/web";
+import type { IHttpRequestPathParams } from "./IHttpRequestPathParams";
 import type { IHttpRequestQuery } from "./IHttpRequestQuery";
 
 /**
- * Model used when a REST route wants to return custom response.
+ * Model for the standard parameters for an http request.
  */
-export interface IHttpRequest {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface IHttpRequest<T = any> {
+	/**
+	 * Incoming Http Headers.
+	 */
+	headers?: IHttpHeaders;
+
 	/**
 	 * The path parameters.
 	 */
-	[id: string]: unknown;
+	pathParams?: IHttpRequestPathParams;
 
 	/**
-	 * The raw url.
-	 */
-	rawUrl: URL;
-
-	/**
-	 * Request headers.
+	 * The query parameters.
 	 */
 	query?: IHttpRequestQuery;
 
 	/**
-	 * Data to return as the main payload.
+	 * Data to return send as the body.
 	 */
-	data?: unknown;
+	body?: T;
 }

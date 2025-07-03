@@ -1,11 +1,11 @@
-# GTSC / API
+# TWIN API Models
 
-Contains models and classes for use with APIs.
+Contains models for use with APIs.
 
 ## Installation
 
 ```shell
-npm install @gtsc/api-models
+npm install @twin.org/api-models
 ```
 
 ## Examples
@@ -14,7 +14,7 @@ Usage of the APIs is shown in the examples [docs/examples.md](docs/examples.md)
 
 ## Reference
 
-Detailed reference documentation for the API can be found in [docs/reference/modules.md](docs/reference/modules.md)
+Detailed reference documentation for the API can be found in [docs/reference/index.md](docs/reference/index.md)
 
 ## Changelog
 

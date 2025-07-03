@@ -1,5 +1,12 @@
 # @twin.org/api-auth-entity-storage-models - Changelog
 
+## 0.0.1 (2025-07-03)
+
+
+### Features
+
+* release to production ([70ee2d5](https://github.com/twinfoundation/api/commit/70ee2d56a1dc9537d7c9c154d4cb78a235678a3a))
+
 ## [0.0.1-next.36](https://github.com/twinfoundation/api/compare/api-auth-entity-storage-models-v0.0.1-next.35...api-auth-entity-storage-models-v0.0.1-next.36) (2025-06-17)
 
 

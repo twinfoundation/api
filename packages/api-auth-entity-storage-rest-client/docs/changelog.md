@@ -1,5 +1,21 @@
 # @twin.org/api-auth-entity-storage-rest-client - Changelog
 
+## 0.0.1 (2025-07-03)
+
+
+### Features
+
+* release to production ([70ee2d5](https://github.com/twinfoundation/api/commit/70ee2d56a1dc9537d7c9c154d4cb78a235678a3a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/api-auth-entity-storage-models bumped from ^0.0.0 to ^0.0.1
+    * @twin.org/api-core bumped from ^0.0.0 to ^0.0.1
+    * @twin.org/api-models bumped from ^0.0.0 to ^0.0.1
+
 ## [0.0.1-next.36](https://github.com/twinfoundation/api/compare/api-auth-entity-storage-rest-client-v0.0.1-next.35...api-auth-entity-storage-rest-client-v0.0.1-next.36) (2025-06-17)
 
 

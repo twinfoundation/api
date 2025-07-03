@@ -13,47 +13,65 @@
 		"packages/api-models": {
 			"package-name": "api-models",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-core": {
 			"package-name": "api-core",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-processors": {
 			"package-name": "api-processors",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-server-fastify": {
 			"package-name": "api-server-fastify",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-service": {
 			"package-name": "api-service",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-rest-client": {
 			"package-name": "api-rest-client",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-auth-entity-storage-models": {
 			"package-name": "api-auth-entity-storage-models",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-auth-entity-storage-service": {
 			"package-name": "api-auth-entity-storage-service",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		},
 		"packages/api-auth-entity-storage-rest-client": {
 			"package-name": "api-auth-entity-storage-rest-client",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts"]
+			"extra-files": [
+				"src/index.ts"
+			]
 		}
 	},
 	"plugins": [

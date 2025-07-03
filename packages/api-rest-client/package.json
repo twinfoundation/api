@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-rest-client",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Information contract implementation which can connect to REST endpoints",
 	"repository": {
 		"type": "git",
@@ -30,8 +30,8 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/api-core": "^0.0.0",
-		"@twin.org/api-models": "^0.0.0",
+		"@twin.org/api-core": "^0.0.1",
+		"@twin.org/api-models": "^0.0.1",
 		"@twin.org/core": "^0.0.1",
 		"@twin.org/nameof": "^0.0.1",
 		"@twin.org/web": "^0.0.1"

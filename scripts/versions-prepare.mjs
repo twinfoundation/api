@@ -161,19 +161,22 @@ async function processPackage(
 		isProduction,
 		prodVersion,
 		workspacePackageJson.dependencies,
-		versionCache
+		versionCache,
+		false
 	);
 	await processDependencies(
 		isProduction,
 		prodVersion,
 		workspacePackageJson.devDependencies,
-		versionCache
+		versionCache,
+		false
 	);
 	await processDependencies(
 		isProduction,
 		prodVersion,
 		workspacePackageJson.peerDependencies,
-		versionCache
+		versionCache,
+		true
 	);
 
 	return workspacePackageJson;
@@ -185,38 +188,63 @@ async function processPackage(
  * @param prodVersion The production version to use when processing the dependencies.
  * @param dependencies The dependencies to process.
  * @param versionCache A cache for package versions to avoid redundant lookups.
+ * @param isPeerDependency Whether the dependencies are peer dependencies.
  */
-async function processDependencies(isProduction, prodVersion, dependencies, versionCache) {
+async function processDependencies(
+	isProduction,
+	prodVersion,
+	dependencies,
+	versionCache,
+	isPeerDependency
+) {
 	if (!dependencies) {
 		return;
 	}
-	for (const [name, version] of Object.entries(dependencies)) {
+	for (const packageKey of Object.keys(dependencies)) {
 		// Only process @twin.org packages (internal dependencies)
-		if (name.startsWith('@twin.org')) {
-			if (isProduction) {
+		if (packageKey.startsWith('@twin.org')) {
+			if (isPeerDependency) {
+				// If it's a peer dependency, we just match the major version
+				// This allows the package to work with any compatible version
+				await getPackageVersion(packageKey, 'latest', versionCache);
+				const latest = versionCache[packageKey];
+				const latestMajor = `${latest.split('.')[0]}.x`;
+				dependencies[packageKey] = `${latestMajor}`;
+			} else if (isProduction) {
 				// PRODUCTION MODE: Convert "next" references to actual published versions
 				// If the dependency is set to "next", we need to resolve it to the actual version
-				if (version === 'next' && !versionCache[name]) {
-					process.stdout.write(`\tResolving Version for: ${name}\n`);
-					versionCache[name] = await execAsync(`npm view "${name}" version`);
-					process.stdout.write(`\tVersion: ${versionCache[name]}\n`);
-				}
 				// Set the dependency to a caret range of the resolved or production version
 				// This allows compatible updates (e.g., ^1.2.3 allows 1.2.4 but not 1.3.0)
-
-				dependencies[name] = `^${versionCache[name] ?? prodVersion}`;
-			} else {
+				await getPackageVersion(packageKey, 'latest', versionCache);
+				dependencies[packageKey] = `^${versionCache[packageKey] ?? prodVersion}`;
+			} else if (!isProduction) {
 				// NEXT MODE: Convert fixed versions back to "next" references
 				// For development, use either the cached version which will be a local package
 				// or "next" to get latest prerelease
-				dependencies[name] = versionCache[name] ?? 'next';
+				await getPackageVersion(packageKey, 'next', versionCache);
+				dependencies[packageKey] = versionCache[packageKey] ?? 'next';
 			}
 		}
 	}
 }
 
+/**
+ * Get the version of a package from npm.
+ * @param name The name of the package to get the version for.
+ * @param tag The tag to use when fetching the version (e.g., "next").
+ * @param versionCache A cache for package versions to avoid redundant lookups.
+ */
+async function getPackageVersion(name, tag, versionCache) {
+	if (!versionCache[name]) {
+		process.stdout.write(`\tResolving Version for: ${name}@${tag}\n`);
+		const version = await execAsync(`npm view "${name}@${tag}" version`);
+		versionCache[name] = version;
+		process.stdout.write(`\t\tVersion: ${versionCache[name]}\n`);
+	}
+}
+
 run().catch(err => {
-	process.stderr.write(`${err}\n`);
+	process.stderr.write(`${err.message}\n${err.stack}`);
 	// eslint-disable-next-line unicorn/no-process-exit
 	process.exit(1);
 });

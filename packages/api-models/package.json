@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-models",
-	"version": "0.0.1",
+	"version": "0.0.2-next.0",
 	"description": "Contains models and classes for use with APIs",
 	"repository": {
 		"type": "git",
@@ -30,13 +30,13 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/core": "^0.0.1",
-		"@twin.org/nameof": "^0.0.1",
-		"@twin.org/web": "^0.0.1"
+		"@twin.org/core": "next",
+		"@twin.org/nameof": "next",
+		"@twin.org/web": "next"
 	},
 	"devDependencies": {
-		"@twin.org/nameof-transformer": "^0.0.1",
-		"@twin.org/nameof-vitest-plugin": "^0.0.1",
+		"@twin.org/nameof-transformer": "next",
+		"@twin.org/nameof-vitest-plugin": "next",
 		"@vitest/coverage-v8": "3.2.3",
 		"@types/node": "24.0.0",
 		"copyfiles": "2.4.1",

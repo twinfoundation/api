@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-auth-entity-storage-service",
-	"version": "0.0.2-next.0",
+	"version": "0.0.2-next.1",
 	"description": "Auth Entity Storage contract implementation and REST endpoint definitions",
 	"repository": {
 		"type": "git",
@@ -30,9 +30,9 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/api-auth-entity-storage-models": "0.0.2-next.0",
-		"@twin.org/api-core": "0.0.2-next.0",
-		"@twin.org/api-models": "0.0.2-next.0",
+		"@twin.org/api-auth-entity-storage-models": "0.0.2-next.1",
+		"@twin.org/api-core": "0.0.2-next.1",
+		"@twin.org/api-models": "0.0.2-next.1",
 		"@twin.org/core": "next",
 		"@twin.org/crypto": "next",
 		"@twin.org/entity": "next",

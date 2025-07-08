@@ -32,6 +32,20 @@ vault
 
 ***
 
+### authenticationAdminServiceType?
+
+> `optional` **authenticationAdminServiceType**: `string`
+
+The admin service.
+
+#### Default
+
+```ts
+authentication-admin
+```
+
+***
+
 ### config?
 
 > `optional` **config**: [`IEntityStorageAuthenticationServiceConfig`](IEntityStorageAuthenticationServiceConfig.md)

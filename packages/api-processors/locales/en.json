@@ -10,6 +10,9 @@
 			"jwtMissing": "The JSON Web token could not be found in the authorization header or a cookie",
 			"jwtSignatureInvalid": "The JSON Web token signature could not be validated",
 			"jwtExpired": "The JSON Web token has expired"
+		},
+		"jsonLdMimeTypeProcessor": {
+			"invalidJsonLd": "The JSON-LD content is invalid or missing '@context'."
 		}
 	}
 }

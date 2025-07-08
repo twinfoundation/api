@@ -36,4 +36,13 @@ export interface IAuthenticationComponent extends IComponent {
 		token?: string;
 		expiry: number;
 	}>;
+
+	/**
+	 * Update the user's password.
+	 * @param email The email address of the user to update.
+	 * @param currentPassword The current password for the user.
+	 * @param newPassword The new password for the user.
+	 * @returns Nothing.
+	 */
+	updatePassword(email: string, currentPassword: string, newPassword: string): Promise<void>;
 }

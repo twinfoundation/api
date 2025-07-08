@@ -19,6 +19,12 @@ export interface IEntityStorageAuthenticationServiceConstructorOptions {
 	vaultConnectorType?: string;
 
 	/**
+	 * The admin service.
+	 * @default authentication-admin
+	 */
+	authenticationAdminServiceType?: string;
+
+	/**
 	 * The configuration for the authentication.
 	 */
 	config?: IEntityStorageAuthenticationServiceConfig;

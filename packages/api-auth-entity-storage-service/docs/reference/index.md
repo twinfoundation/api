@@ -4,6 +4,7 @@
 
 - [AuthenticationUser](classes/AuthenticationUser.md)
 - [AuthHeaderProcessor](classes/AuthHeaderProcessor.md)
+- [EntityStorageAuthenticationAdminService](classes/EntityStorageAuthenticationAdminService.md)
 - [EntityStorageAuthenticationService](classes/EntityStorageAuthenticationService.md)
 - [PasswordHelper](classes/PasswordHelper.md)
 - [TokenHelper](classes/TokenHelper.md)
@@ -12,6 +13,8 @@
 
 - [IAuthHeaderProcessorConfig](interfaces/IAuthHeaderProcessorConfig.md)
 - [IAuthHeaderProcessorConstructorOptions](interfaces/IAuthHeaderProcessorConstructorOptions.md)
+- [IEntityStorageAuthenticationAdminServiceConfig](interfaces/IEntityStorageAuthenticationAdminServiceConfig.md)
+- [IEntityStorageAuthenticationAdminServiceConstructorOptions](interfaces/IEntityStorageAuthenticationAdminServiceConstructorOptions.md)
 - [IEntityStorageAuthenticationServiceConfig](interfaces/IEntityStorageAuthenticationServiceConfig.md)
 - [IEntityStorageAuthenticationServiceConstructorOptions](interfaces/IEntityStorageAuthenticationServiceConstructorOptions.md)
 
@@ -26,4 +29,5 @@
 - [authenticationLogin](functions/authenticationLogin.md)
 - [authenticationLogout](functions/authenticationLogout.md)
 - [authenticationRefreshToken](functions/authenticationRefreshToken.md)
+- [authenticationUpdatePassword](functions/authenticationUpdatePassword.md)
 - [initSchema](functions/initSchema.md)

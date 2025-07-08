@@ -1,7 +1,16 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAuthenticationComponent } from "@twin.org/api-auth-entity-storage-models";
-import { Converter, GeneralError, Guards, UnauthorizedError } from "@twin.org/core";
+import type {
+	IAuthenticationAdminComponent,
+	IAuthenticationComponent
+} from "@twin.org/api-auth-entity-storage-models";
+import {
+	ComponentFactory,
+	Converter,
+	GeneralError,
+	Guards,
+	UnauthorizedError
+} from "@twin.org/core";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
@@ -32,6 +41,12 @@ export class EntityStorageAuthenticationService implements IAuthenticationCompon
 	 * Runtime name for the class.
 	 */
 	public readonly CLASS_NAME: string = nameof<EntityStorageAuthenticationService>();
+
+	/**
+	 * The user admin service.
+	 * @internal
+	 */
+	private readonly _authenticationAdminService: IAuthenticationAdminComponent;
 
 	/**
 	 * The entity storage for users.
@@ -73,6 +88,11 @@ export class EntityStorageAuthenticationService implements IAuthenticationCompon
 		);
 
 		this._vaultConnector = VaultConnectorFactory.get(options?.vaultConnectorType ?? "vault");
+
+		this._authenticationAdminService = ComponentFactory.get<IAuthenticationAdminComponent>(
+			options?.authenticationAdminServiceType ?? "authentication-admin"
+		);
+
 		this._signingKeyName = options?.config?.signingKeyName ?? "auth-signing";
 		this._defaultTtlMinutes =
 			options?.config?.defaultTtlMinutes ?? EntityStorageAuthenticationService._DEFAULT_TTL_MINUTES;
@@ -166,5 +186,20 @@ export class EntityStorageAuthenticationService implements IAuthenticationCompon
 		);
 
 		return refreshTokenAndExpiry;
+	}
+
+	/**
+	 * Update the user's password.
+	 * @param email The email address of the user to update.
+	 * @param currentPassword The current password for the user.
+	 * @param newPassword The new password for the user.
+	 * @returns Nothing.
+	 */
+	public async updatePassword(
+		email: string,
+		currentPassword: string,
+		newPassword: string
+	): Promise<void> {
+		return this._authenticationAdminService.updatePassword(email, newPassword, currentPassword);
 	}
 }

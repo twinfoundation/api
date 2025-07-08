@@ -161,3 +161,41 @@ The refreshed token, if it uses a mechanism with public access.
 #### Implementation of
 
 `IAuthenticationComponent.refresh`
+
+***
+
+### updatePassword()
+
+> **updatePassword**(`email`, `currentPassword`, `newPassword`): `Promise`\<`void`\>
+
+Update the user's password.
+
+#### Parameters
+
+##### email
+
+`string`
+
+The email address of the user to update.
+
+##### currentPassword
+
+`string`
+
+The current password for the user.
+
+##### newPassword
+
+`string`
+
+The new password for the user.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+#### Implementation of
+
+`IAuthenticationComponent.updatePassword`

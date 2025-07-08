@@ -5,6 +5,7 @@ export * from "./data/socketRouteProcessor";
 export * from "./identity/nodeIdentityProcessor";
 export * from "./identity/staticUserIdentityProcessor";
 export * from "./logging/loggingProcessor";
+export * from "./mimeType/jsonLdMimeTypeProcessor";
 export * from "./mimeType/jwtMimeTypeProcessor";
 export * from "./models/ILoggingProcessorConfig";
 export * from "./models/ILoggingProcessorConstructorOptions";

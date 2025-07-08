@@ -6,7 +6,8 @@ import type {
 	ILoginResponse,
 	ILogoutRequest,
 	IRefreshTokenRequest,
-	IRefreshTokenResponse
+	IRefreshTokenResponse,
+	IUpdatePasswordRequest
 } from "@twin.org/api-auth-entity-storage-models";
 import type {
 	IHttpRequestContext,
@@ -165,7 +166,43 @@ export function generateRestRoutesAuthentication(
 		]
 	};
 
-	return [loginRoute, logoutRoute, refreshTokenRoute];
+	const updatePasswordRoute: IRestRoute<IUpdatePasswordRequest, INoContentResponse> = {
+		operationId: "authenticationUpdatePassword",
+		summary: "Update the user's password",
+		tag: tagsAuthentication[0].name,
+		method: "PUT",
+		path: `${baseRouteName}/:email/password`,
+		handler: async (httpRequestContext, request) =>
+			authenticationUpdatePassword(httpRequestContext, componentName, request),
+		requestType: {
+			type: nameof<IUpdatePasswordRequest>(),
+			examples: [
+				{
+					id: "updatePasswordRequestExample",
+					description: "The request to update the user's password.",
+					request: {
+						pathParams: {
+							email: "john:example.com"
+						},
+						body: {
+							currentPassword: "MyNewPassword123!",
+							newPassword: "MyNewPassword123!"
+						}
+					}
+				}
+			]
+		},
+		responseType: [
+			{
+				type: nameof<INoContentResponse>()
+			},
+			{
+				type: nameof<IUnauthorizedResponse>()
+			}
+		]
+	};
+
+	return [loginRoute, logoutRoute, refreshTokenRoute, updatePasswordRoute];
 }
 
 /**
@@ -248,5 +285,38 @@ export async function authenticationRefreshToken(
 
 	return {
 		body: result
+	};
+}
+
+/**
+ * Update the user's password.
+ * @param httpRequestContext The request context for the API.
+ * @param componentName The name of the component to use in the routes.
+ * @param request The request.
+ * @returns The response object with additional http response properties.
+ */
+export async function authenticationUpdatePassword(
+	httpRequestContext: IHttpRequestContext,
+	componentName: string,
+	request: IUpdatePasswordRequest
+): Promise<INoContentResponse> {
+	Guards.object<IUpdatePasswordRequest>(ROUTES_SOURCE, nameof(request), request);
+	Guards.object<IUpdatePasswordRequest["pathParams"]>(
+		ROUTES_SOURCE,
+		nameof(request.pathParams),
+		request.pathParams
+	);
+	Guards.object<IUpdatePasswordRequest["body"]>(ROUTES_SOURCE, nameof(request.body), request.body);
+
+	const component = ComponentFactory.get<IAuthenticationComponent>(componentName);
+
+	await component.updatePassword(
+		request.pathParams.email,
+		request.body.currentPassword,
+		request.body.newPassword
+	);
+
+	return {
+		statusCode: HttpStatusCode.noContent
 	};
 }

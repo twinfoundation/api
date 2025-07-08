@@ -7,6 +7,7 @@
 - [NodeIdentityProcessor](classes/NodeIdentityProcessor.md)
 - [StaticUserIdentityProcessor](classes/StaticUserIdentityProcessor.md)
 - [LoggingProcessor](classes/LoggingProcessor.md)
+- [JsonLdMimeTypeProcessor](classes/JsonLdMimeTypeProcessor.md)
 - [JwtMimeTypeProcessor](classes/JwtMimeTypeProcessor.md)
 
 ## Interfaces

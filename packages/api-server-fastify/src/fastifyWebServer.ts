@@ -18,6 +18,7 @@ import {
 	type IWebServer,
 	type IWebServerOptions
 } from "@twin.org/api-models";
+import { JsonLdMimeTypeProcessor } from "@twin.org/api-processors";
 import { BaseError, GeneralError, type IError, Is, StringHelper } from "@twin.org/core";
 import { type ILoggingConnector, LoggingConnectorFactory } from "@twin.org/logging-models";
 import { nameof } from "@twin.org/nameof";
@@ -116,6 +117,14 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 		this._started = false;
 
 		this._mimeTypeProcessors = options?.mimeTypeProcessors ?? [];
+
+		const hasJsonLd = this._mimeTypeProcessors.find(
+			processor => processor.CLASS_NAME === "json-ld"
+		);
+		if (!hasJsonLd) {
+			this._mimeTypeProcessors.push(new JsonLdMimeTypeProcessor());
+		}
+
 		this._includeErrorStack = options?.config?.includeErrorStack ?? false;
 	}
 

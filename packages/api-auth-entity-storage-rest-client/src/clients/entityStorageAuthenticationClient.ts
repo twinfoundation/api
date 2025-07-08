@@ -6,7 +6,8 @@ import type {
 	ILoginResponse,
 	ILogoutRequest,
 	IRefreshTokenRequest,
-	IRefreshTokenResponse
+	IRefreshTokenResponse,
+	IUpdatePasswordRequest
 } from "@twin.org/api-auth-entity-storage-models";
 import { BaseRestClient } from "@twin.org/api-core";
 import type { IBaseRestClientConfig, INoContentResponse } from "@twin.org/api-models";
@@ -92,5 +93,32 @@ export class EntityStorageAuthenticationClient
 		);
 
 		return response.body;
+	}
+
+	/**
+	 * Update the user's password.
+	 * @param email The email address of the user to update.
+	 * @param currentPassword The current password for the user.
+	 * @param newPassword The new password for the user.
+	 * @returns Nothing.
+	 */
+	public async updatePassword(
+		email: string,
+		currentPassword: string,
+		newPassword: string
+	): Promise<void> {
+		Guards.stringValue(this.CLASS_NAME, nameof(email), email);
+		Guards.stringValue(this.CLASS_NAME, nameof(currentPassword), currentPassword);
+		Guards.stringValue(this.CLASS_NAME, nameof(newPassword), newPassword);
+
+		await this.fetch<IUpdatePasswordRequest, INoContentResponse>("/:email/password", "PUT", {
+			pathParams: {
+				email
+			},
+			body: {
+				currentPassword,
+				newPassword
+			}
+		});
 	}
 }

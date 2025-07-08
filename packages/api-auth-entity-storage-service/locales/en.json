@@ -6,6 +6,15 @@
 			"userNotFound": "The user with the specified e-mail could not be found",
 			"passwordMismatch": "The password does not match the user's password"
 		},
+		"entityStorageAuthenticationAdminService": {
+			"userExists": "The user with the specified e-mail already exists",
+			"createFailed": "Creating the user failed",
+			"removeFailed": "Removing the user failed",
+			"updatePasswordFailed": "Updating the user's password failed",
+			"passwordTooShort": "The password is too short, it must be at least {minLength} characters long",
+			"userNotFound": "The user with the specified e-mail could not be found \"{notFoundId}\"",
+			"currentPasswordMismatch": "The current password is incorrect"
+		},
 		"entityStorageAuthenticationProcessor": {
 			"initializeFailed": "The JSON Web token authentication processor could not be initialized"
 		},

@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/api-processors",
-	"version": "0.0.2-next.0",
+	"version": "0.0.2-next.1",
 	"description": "Route processors for use with API servers",
 	"repository": {
 		"type": "git",
@@ -30,7 +30,7 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/api-models": "0.0.2-next.0",
+		"@twin.org/api-models": "0.0.2-next.1",
 		"@twin.org/core": "next",
 		"@twin.org/logging-models": "next",
 		"@twin.org/nameof": "next",

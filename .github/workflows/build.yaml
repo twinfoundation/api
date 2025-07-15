@@ -3,6 +3,11 @@ name: Build
 on:
   workflow_dispatch:
   pull_request:
+    branches:
+      - next
+  push:
+    branches:
+      - next
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -34,8 +39,8 @@ jobs:
         run: npm ci
 
       # Setup any services required for tests here
-
-      # End setup for tests
+      - name: Setup Test Environment
+        uses: ./.github/workflows/setup-test-env
 
       # Run Lint and Dist
       - name: Run Lint and Dist

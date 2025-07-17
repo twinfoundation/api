@@ -362,16 +362,23 @@ export class FastifyWebServer implements IWebServer<FastifyInstance> {
 					StringHelper.trimTrailingSlashes(socketRoute.path)
 				);
 				const pathParts = path.split("/");
+
+				const namespace = `/${pathParts[0]}`;
+				const topic = pathParts.slice(1).join("/");
+
 				await this._loggingConnector?.log({
 					level: "info",
 					ts: Date.now(),
 					source: this.CLASS_NAME,
 					message: `${FastifyWebServer._CLASS_NAME_CAMEL_CASE}.socketRouteAdded`,
-					data: { route: `/${path}` }
+					data: {
+						handshakePath: this._socketConfig.path,
+						namespace,
+						eventName: topic
+					}
 				});
 
-				const socketNamespace = io.of(`/${pathParts[0]}`);
-				const topic = pathParts.slice(1).join("/");
+				const socketNamespace = io.of(namespace);
 
 				socketNamespace.on("connection", async socket => {
 					const httpServerRequest: IHttpServerRequest = {

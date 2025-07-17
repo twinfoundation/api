@@ -7,7 +7,7 @@
 		"stopped": "The Web Server was stopped",
 		"badRequest": "The web server could not handle the request",
 		"restRouteAdded": "Added REST route \"{route}\" \"{method}\"",
-		"socketRouteAdded": "Added socket route \"{route}\"",
+		"socketRouteAdded": "Added socket route: handshake path \"{handshakePath}\", namespace \"{namespace}\", event name \"{eventName}\"",
 		"noRestProcessors": "You must configure at least one REST processor",
 		"noSocketProcessors": "You must configure at least one socket processor",
 		"postProcessorError": "There was a failure after in a post processor for route \"{route}\""

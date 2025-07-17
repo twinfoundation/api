@@ -1,5 +1,12 @@
 # @twin.org/api-auth-entity-storage-models - Changelog
 
+## [0.0.2-next.2](https://github.com/twinfoundation/api/compare/api-auth-entity-storage-models-v0.0.2-next.1...api-auth-entity-storage-models-v0.0.2-next.2) (2025-07-17)
+
+
+### Features
+
+* improve socket route logging ([b8d9519](https://github.com/twinfoundation/api/commit/b8d95199f838ac6ba9f45c30ef7c4e613201ff53))
+
 ## [0.0.2-next.1](https://github.com/twinfoundation/api/compare/api-auth-entity-storage-models-v0.0.2-next.0...api-auth-entity-storage-models-v0.0.2-next.1) (2025-07-08)
 
 

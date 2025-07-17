@@ -1,5 +1,21 @@
 # @twin.org/api-server-fastify - Changelog
 
+## [0.0.2-next.2](https://github.com/twinfoundation/api/compare/api-server-fastify-v0.0.2-next.1...api-server-fastify-v0.0.2-next.2) (2025-07-17)
+
+
+### Features
+
+* improve socket route logging ([b8d9519](https://github.com/twinfoundation/api/commit/b8d95199f838ac6ba9f45c30ef7c4e613201ff53))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/api-core bumped from 0.0.2-next.1 to 0.0.2-next.2
+    * @twin.org/api-models bumped from 0.0.2-next.1 to 0.0.2-next.2
+    * @twin.org/api-processors bumped from 0.0.2-next.1 to 0.0.2-next.2
+
 ## [0.0.2-next.1](https://github.com/twinfoundation/api/compare/api-server-fastify-v0.0.2-next.0...api-server-fastify-v0.0.2-next.1) (2025-07-08)
 
 
